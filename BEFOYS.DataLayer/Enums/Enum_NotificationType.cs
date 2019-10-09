@@ -8,8 +8,8 @@ namespace BEFOYS.DataLayer.Enums
     {
         error,
         warning,
-        duplicate,
         success,
+        duplicate,
         notfound
     }
 }
