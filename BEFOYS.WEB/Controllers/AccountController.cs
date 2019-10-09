@@ -1,4 +1,5 @@
-﻿using BEFOYS.DataLayer.ServiceContext;
+﻿using BEFOYS.DataLayer.Entity;
+using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,8 @@ namespace BEFOYS.WEB.Controllers
             _config = config;
             _context = context;
         }
+
+
         [HttpPost]
         public IActionResult Login([FromBody]ViewLogin model)
         {
@@ -31,19 +34,29 @@ namespace BEFOYS.WEB.Controllers
             var user = _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.UserName);
             if (user != null)
             {
-                var tokenString = GenerateJSONWebToken(model.UserName, user.Login_GUID);
+                var tokenString = GenerateJSONWebToken(user);
                 response = Ok(new { token = tokenString });
             }
             return response;
         }
-        private string GenerateJSONWebToken(string username,Guid uniq)
+
+        /// <summary>
+        /// generate token
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="uniq"></param>
+        /// <returns></returns>
+        private string GenerateJSONWebToken(Tbl_Login model)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[] {
-        new Claim(JwtRegisteredClaimNames.Sub, username),
-        new Claim(JwtRegisteredClaimNames.Email, username),
-        new Claim(JwtRegisteredClaimNames.Jti, uniq.ToString())
+        new Claim(ClaimTypes.Name, model.Login_Mobile),
+        new Claim(ClaimTypes.Sid,model.Login_ID.ToString()),
+        new Claim(JwtRegisteredClaimNames.Sub, model.Login_ID.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, model.Login_Email),
+        new Claim(JwtRegisteredClaimNames.Jti, model.Login_GUID.ToString()),
+        new Claim(ClaimTypes.Role,"Supplier")
     };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],

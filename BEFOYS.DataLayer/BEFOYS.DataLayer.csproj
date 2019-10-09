@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="UnitOfWork\" />
+    <Folder Include="ViewModels\Register\Hoghoghi\" />
   </ItemGroup>
 
   <ItemGroup>

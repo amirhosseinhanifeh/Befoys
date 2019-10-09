@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +17,9 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\Supplier\Data\" />
+    <Folder Include="Areas\Supplier\Models\" />
+    <Folder Include="Areas\Supplier\Views\" />
     <Folder Include="Areas\Web\Controllers\" />
     <Folder Include="Areas\Web\Data\" />
     <Folder Include="Areas\Web\Models\" />
@@ -24,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BEFOYS.Common\BEFOYS.Common.csproj" />
     <ProjectReference Include="..\BEFOYS.DataLayer\BEFOYS.DataLayer.csproj" />
   </ItemGroup>
 
