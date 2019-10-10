@@ -44,7 +44,8 @@ namespace BEFOYS.WEB
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000/")
+                    builder.WithOrigins("http://sarfeland.ir")
+                    .WithOrigins("http://localhost:3000/")
                     .AllowAnyMethod()
                     .AllowAnyOrigin()
                     .AllowAnyHeader()
@@ -52,11 +53,25 @@ namespace BEFOYS.WEB
                 });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerGen((options) =>
+            {
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "Befoys Api",
+                    Version = "v1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Befoys Api");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
