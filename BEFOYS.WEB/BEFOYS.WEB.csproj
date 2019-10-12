@@ -30,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BEFOYS.Common\BEFOYS.Common.csproj" />
     <ProjectReference Include="..\BEFOYS.DataLayer\BEFOYS.DataLayer.csproj" />
+    <ProjectReference Include="..\BEFOYS.Service\BEFOYS.Service.csproj" />
   </ItemGroup>
 
 </Project>

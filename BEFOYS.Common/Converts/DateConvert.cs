@@ -1,7 +1,7 @@
 ﻿using Persia;
 using System;
 
-namespace BEFOYS.Common.Convert
+namespace BEFOYS.Common.Converts
 {
     public static class DateConvert
     {

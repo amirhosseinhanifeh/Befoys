@@ -10,6 +10,7 @@ namespace BEFOYS.DataLayer.ServiceContext
     {
         public ServiceContext(DbContextOptions<ServiceContext> options) : base(options)
         {
+         
         }
         public virtual DbSet<Tbl_Login> Tbl_Login { get; set; }
 

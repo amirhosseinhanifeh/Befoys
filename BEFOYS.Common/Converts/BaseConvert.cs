@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BEFOYS.Common.Convert
+namespace BEFOYS.Common.Converts
 {
     public static class BaseConvert
     {

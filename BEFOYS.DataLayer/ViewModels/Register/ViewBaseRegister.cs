@@ -16,6 +16,7 @@ namespace BEFOYS.DataLayer.ViewModels.Register
         public string Mobile { get; set; }
         [Required]
         public string Email { get; set; }
+        [Required]
         public string Password { get; set; }
         [Compare("Password",ErrorMessage ="رمز عبور و تکرار رمز عبور مطابقت ندارد")]
         public string ConfirmPassword { get; set; }
