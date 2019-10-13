@@ -1,6 +1,6 @@
 ﻿using BEFOYS.Common.Converts;
 using BEFOYS.Common.Messages;
-using BEFOYS.DataLayer.Entity;
+using BEFOYS.DataLayer.Entity.Account;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Register;
@@ -12,16 +12,13 @@ namespace BEFOYS.WEB.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegisterController : ControllerBase, IDisposable
+    public class RegisterController : ControllerBase
     {
         private ServiceContext _context;
         public RegisterController(ServiceContext context)
         {
             _context = context;
         }
-
-
-
         [HttpPost]
         public IActionResult Post([FromBody]ViewBaseRegister model)
         {
@@ -50,10 +47,6 @@ namespace BEFOYS.WEB.Controllers
                 return Ok(new BaseViewModel<Tbl_Login> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error });
             }
 
-        }
-        public void Dispose()
-        {
-            _context.Dispose();
         }
     }
 }

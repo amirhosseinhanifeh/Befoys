@@ -1,4 +1,12 @@
-﻿using BEFOYS.DataLayer.Entity;
+﻿
+using BEFOYS.DataLayer.Entity.Account;
+using BEFOYS.DataLayer.Entity.Address;
+using BEFOYS.DataLayer.Entity.City;
+using BEFOYS.DataLayer.Entity.Code;
+using BEFOYS.DataLayer.Entity.Document;
+using BEFOYS.DataLayer.Entity.Permission;
+using BEFOYS.DataLayer.Entity.Province;
+using BEFOYS.DataLayer.Entity.Supplier;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,9 +18,24 @@ namespace BEFOYS.DataLayer.ServiceContext
     {
         public ServiceContext(DbContextOptions<ServiceContext> options) : base(options)
         {
-         
+            ChangeTracker.LazyLoadingEnabled = false;
+           
         }
         public virtual DbSet<Tbl_Login> Tbl_Login { get; set; }
+        public virtual DbSet<Tbl_Supplier> Tbl_Supplier { get; set; }
+        public virtual DbSet<Tbl_BaseRole> Tbl_BaseRole { get; set; }
+        public virtual DbSet<Tbl_ForgetPassword> Tbl_ForgetPassword { get; set; }
+        public virtual DbSet<Tbl_SupplierLegal> Tbl_SupplierLegal { get; set; }
+        public virtual DbSet<Tbl_SupplierReal> Tbl_SupplierReal { get; set; }
+        public virtual DbSet<Tbl_Address> Tbl_Address { get; set; }
+        public virtual DbSet<Tbl_City> Tbl_City { get; set; }
+        public virtual DbSet<Tbl_Code> Tbl_Code { get; set; }
+        public virtual DbSet<Tbl_CodeGroup> Tbl_CodeGroup { get; set; }
+        public virtual DbSet<Tbl_Document> Tbl_Document { get; set; }
+        public virtual DbSet<Tbl_Permission> Tbl_Permission { get; set; }
+        public virtual DbSet<Tbl_PermissionGroup> Tbl_PermissionGroup { get; set; }
+        public virtual DbSet<Tbl_Province> Tbl_Province { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

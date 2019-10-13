@@ -19,7 +19,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
     [Authorize]
     public class StepController : ControllerBase
     {
-        private readonly ServiceContext _context;
+        private ServiceContext _context;
 
         public StepController(ServiceContext context)
         {
@@ -47,6 +47,11 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         }
         [HttpPost]
         public IActionResult Step3([FromBody]ViewStep3 model)
+        {
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult Step4()
         {
             return Ok();
         }

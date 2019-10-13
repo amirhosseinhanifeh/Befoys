@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BEFOYS.DataLayer.Entity
+namespace BEFOYS.DataLayer.Entity.Account
 {
     public class Tbl_Login
     {

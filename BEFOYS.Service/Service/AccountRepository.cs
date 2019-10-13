@@ -1,4 +1,5 @@
-﻿using BEFOYS.DataLayer.Entity;
+﻿
+using BEFOYS.DataLayer.Entity.Account;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.Service.BaseRepository;
 using System;

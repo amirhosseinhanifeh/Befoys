@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Persia" Version="1.0.1" />
+    <PackageReference Include="MD.PersianDateTime.Core" Version="2.3.5" />
   </ItemGroup>
 
   <ItemGroup>

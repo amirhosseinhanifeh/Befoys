@@ -1,7 +1,7 @@
-﻿using BEFOYS.DataLayer.Entity;
+﻿
+using BEFOYS.DataLayer.Entity.Account;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels.Account;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -31,7 +31,7 @@ namespace BEFOYS.WEB.Controllers
         public IActionResult Login([FromBody]ViewLogin model)
         {
             IActionResult response = Unauthorized();
-            var user = _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.UserName);
+            var user = _context.Tbl_Login.FirstOrDefault(x => (x.Login_Mobile == model.UserName )||(x.Login_Email==model.UserName));
             if (user != null)
             {
                 var tokenString = GenerateJSONWebToken(user);
