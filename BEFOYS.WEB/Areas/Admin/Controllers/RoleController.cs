@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BEFOYS.DataLayer.Entity.Account;
+using BEFOYS.DataLayer.Entity.Role;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels.Role;
 using Microsoft.AspNetCore.Authorization;

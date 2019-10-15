@@ -30,14 +30,17 @@ namespace BEFOYS.WEB.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]ViewLogin model)
         {
-            IActionResult response = Unauthorized();
             var user = _context.Tbl_Login.FirstOrDefault(x => (x.Login_Mobile == model.UserName )||(x.Login_Email==model.UserName));
             if (user != null)
             {
+                if(user.Login_IsBan.GetValueOrDefault())
+                    return Ok(new { Message = "کاربر مسدود شده است",IsBan=true });
+                
+
                 var tokenString = GenerateJSONWebToken(user);
-                response = Ok(new { token = tokenString });
+                return Ok(new { token = tokenString,IsBan=false });
             }
-            return response;
+            return Ok(new { });
         }
 
         /// <summary>

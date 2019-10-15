@@ -47,7 +47,8 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         }
         [HttpPost]
         public IActionResult Step3([FromBody]ViewStep3 model)
-        {
+      
+        { 
             return Ok();
         }
         [HttpPost]

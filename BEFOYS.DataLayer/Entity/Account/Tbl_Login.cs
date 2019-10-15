@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BEFOYS.DataLayer.Entity.Account
 {
@@ -19,7 +20,9 @@ namespace BEFOYS.DataLayer.Entity.Account
         public bool? Login_IsRegister { get; set; } = true;
         public int? Login_PTID { get; set; }
         public int? Login_BRID { get; set; }
+        public int? Login_ACID { get; set; }
 
-
+        [ForeignKey("Login_ACID")]
+        public Tbl_AccountControl AccountControl { get; set; }
     }
 }

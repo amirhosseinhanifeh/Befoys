@@ -10,6 +10,9 @@ namespace BEFOYS.DataLayer.Entity.Code
         [Key]
         public int CG_ID { get; set; }
         public Guid CG_GUID { get; set; }
+        public string CG_Name { get; set; }
+        public string CG_Display { get; set; }
+
 
     }
 }

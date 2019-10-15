@@ -10,5 +10,9 @@ namespace BEFOYS.DataLayer.Entity.Permission
         [Key]
         public int Permission_ID { get; set; }
         public Guid Permission_GUID { get; set; }
+        public int Permission_CodeID { get; set; }
+        public string Permission_Name { get; set; }
+        public string Permission_Display { get; set; }
+        public bool Permission_ISFree { get; set; }
     }
 }

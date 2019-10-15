@@ -6,6 +6,7 @@ using BEFOYS.DataLayer.Entity.Code;
 using BEFOYS.DataLayer.Entity.Document;
 using BEFOYS.DataLayer.Entity.Permission;
 using BEFOYS.DataLayer.Entity.Province;
+using BEFOYS.DataLayer.Entity.Role;
 using BEFOYS.DataLayer.Entity.Supplier;
 using Microsoft.EntityFrameworkCore;
 using System;
