@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BEFOYS.DataLayer.ViewModels.Permission;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,5 +12,6 @@ namespace BEFOYS.DataLayer.ViewModels.Supplier
         public string Email { get; set; }
         public bool IsBan { get; set; }
         public string Picture { get; set; }
+        public List<ViewPermission> Permissions { get; set; }
     }
 }

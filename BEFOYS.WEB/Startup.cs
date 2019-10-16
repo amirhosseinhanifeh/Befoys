@@ -9,7 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace BEFOYS.WEB
@@ -63,7 +65,9 @@ namespace BEFOYS.WEB
                     Title = "Befoys Api",
                     Version = "v1"
                 });
+
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +79,7 @@ namespace BEFOYS.WEB
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Befoys Api");
             });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

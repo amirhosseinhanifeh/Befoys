@@ -12,6 +12,8 @@ namespace BEFOYS.DataLayer.Entity.City
         [Key]
         public int City_ID { get; set; }
         public Guid City_GUID { get; set; }
+        public string City_Name { get; set; }
+        public string City_Display { get; set; }
         //public int Province_ID { get; set; }
 
         //[ForeignKey("Province_ID")]

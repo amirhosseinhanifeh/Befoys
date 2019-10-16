@@ -34,8 +34,9 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<Tbl_CodeGroup> Tbl_CodeGroup { get; set; }
         public virtual DbSet<Tbl_Document> Tbl_Document { get; set; }
         public virtual DbSet<Tbl_Permission> Tbl_Permission { get; set; }
-        public virtual DbSet<Tbl_PermissionGroup> Tbl_PermissionGroup { get; set; }
+        public virtual DbSet<Tbl_GroupPermission> Tbl_PermissionGroup { get; set; }
         public virtual DbSet<Tbl_Province> Tbl_Province { get; set; }
+        public virtual DbSet<Tbl_Phone> Tbl_Phone { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

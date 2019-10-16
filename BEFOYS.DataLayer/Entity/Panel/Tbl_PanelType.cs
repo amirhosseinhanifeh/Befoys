@@ -13,7 +13,8 @@ namespace BEFOYS.DataLayer.Entity.Panel
         public string PT_NAME { get; set; }
         public string PT_Display { get; set; }
         public bool PT_ISFree { get; set; }
-        public int PT_Price { get; set; }
+        public int? PT_Price { get; set; }
 
+        public ICollection<Tbl_PanelTypePermission> PanelTypePermissions { get; set; }
     }
 }

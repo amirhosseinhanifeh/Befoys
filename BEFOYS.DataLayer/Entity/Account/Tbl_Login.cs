@@ -19,7 +19,6 @@ namespace BEFOYS.DataLayer.Entity.Account
         public bool? Login_IsDelete { get; set; } = false;
         public bool? Login_IsRegister { get; set; } = true;
         public int? Login_PTID { get; set; }
-        public int? Login_BRID { get; set; }
         public int? Login_ACID { get; set; }
 
         [ForeignKey("Login_ACID")]

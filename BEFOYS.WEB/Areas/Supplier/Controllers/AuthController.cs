@@ -2,11 +2,13 @@
 using BEFOYS.Common.Messages;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
+using BEFOYS.DataLayer.ViewModels.Permission;
 using BEFOYS.DataLayer.ViewModels.Supplier;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,12 +31,14 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             try
             {
                 var user = User.Identity.UserID();
-                var Result = await _context.Tbl_Login.Select(x => new ViewSupplierInfo
+                var Result = await _context.Tbl_Login.Where(x=>x.Login_ID==user).Select(x => new ViewSupplierInfo
                 {
                     FirstName = x.Login_FirstName,
                     LastName = x.Login_LastName,
                     Email=x.Login_Email,
                     IsBan=x.Login_IsBan.GetValueOrDefault(),
+                    Permissions = x.AccountControl.PanelType.PanelTypePermissions.Select(y=>new ViewPermission(y.Permission)).ToList()
+
                     
                 }).FirstOrDefaultAsync();
 

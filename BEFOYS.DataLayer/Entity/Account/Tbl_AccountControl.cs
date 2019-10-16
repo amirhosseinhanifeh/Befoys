@@ -1,6 +1,7 @@
 ﻿
 using BEFOYS.DataLayer.Entity.Panel;
 using BEFOYS.DataLayer.Entity.Role;
+using BEFOYS.DataLayer.Entity.SubUser;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,8 +15,15 @@ namespace BEFOYS.DataLayer.Entity.Account
         public int AC_ID { get; set; }
         public Guid AC_GUID { get; set; }
         public int AC_BaseRoleID { get; set; }
-        public int AC_BasePTID { get; set; }
+        public int? AC_BasePTID { get; set; }
         public bool AC_ISBasicAccount { get; set; }
+        public bool? AC_IsSubUser { get; set; }
+        public int? AC_LoginID { get; set; }
+        public int? AC_SURID { get; set; }
+
+
+        [ForeignKey("AC_LoginID")]
+        public Tbl_Login Login { get; set; }
 
         [ForeignKey("AC_BasePTID")]
         public Tbl_PanelType PanelType { get; set; }
@@ -23,6 +31,7 @@ namespace BEFOYS.DataLayer.Entity.Account
         [ForeignKey("AC_BaseRoleID")]
         public Tbl_BaseRole BaseRole { get; set; }
 
-        public ICollection<Tbl_Login> Logins { get; set; }
+        [ForeignKey("AC_SURID")]
+        public Tbl_SubUserRole SubUserRole { get; set; }
     }
 }
