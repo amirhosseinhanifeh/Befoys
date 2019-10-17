@@ -13,6 +13,7 @@ namespace BEFOYS.DataLayer.Entity.Role
         public Guid BR_GUID { get; set; }
         public string BR_Name { get; set; }
         public string BR_Display { get; set; }
+        public bool IsDelete { get; set; } = false;
 
 
         public ICollection<Tbl_AccountControl> AccountControls { get; set; }

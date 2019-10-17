@@ -1,9 +1,10 @@
-﻿using BEFOYS.DataLayer.Entity.Province;
+﻿using BEFOYS.DataLayer.Entity.Account;
+using BEFOYS.DataLayer.Entity.City;
+using BEFOYS.DataLayer.Entity.Code;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace BEFOYS.DataLayer.Entity.Address
 {
@@ -13,14 +14,22 @@ namespace BEFOYS.DataLayer.Entity.Address
         public int Address_ID { get; set; }
         public Guid Address_GUID { get; set; }
         public string Address_Text { get; set; }
-        public int? Address_ProvinceID { get; set; }
+        public int? Address_CityID { get; set; }
         public bool Address_ISSetGPS { get; set; }
         public string Address_GPSLat { get; set; }
         public string Address_GPSLong { get; set; }
+        public int Address_LoginID { get; set; }
+        public int Address_TypeCodeID { get; set; }
 
 
-        [ForeignKey("Address_ProvinceID")]
-        public Tbl_Province Province { get; set; }
+        [ForeignKey("Address_CityID")]
+        public Tbl_City City { get; set; }
+
+        [ForeignKey("Address_LoginID")]
+        public Tbl_Login Login { get; set; }
+
+        [ForeignKey("Address_TypeCodeID")]
+        public Tbl_Code Code { get; set; }
 
         public ICollection<Tbl_Phone> Phones { get; set; }
 

@@ -63,7 +63,8 @@ namespace BEFOYS.WEB
                 options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
                 {
                     Title = "Befoys Api",
-                    Version = "v1"
+                    Version = "v1",
+                   
                 });
 
             });

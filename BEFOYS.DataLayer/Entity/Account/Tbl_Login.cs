@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BEFOYS.DataLayer.Entity.Address;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,5 +25,7 @@ namespace BEFOYS.DataLayer.Entity.Account
 
         [ForeignKey("Login_ACID")]
         public Tbl_AccountControl AccountControl { get; set; }
+
+        public ICollection<Tbl_Address> Addresses { get; set; }
     }
 }

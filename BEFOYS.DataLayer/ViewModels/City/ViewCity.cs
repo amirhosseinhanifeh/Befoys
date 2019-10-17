@@ -6,5 +6,7 @@ namespace BEFOYS.DataLayer.ViewModels.City
 {
     public class ViewCity
     {
+        public string Name { get; set; }
+        public string Display { get; set; }
     }
 }

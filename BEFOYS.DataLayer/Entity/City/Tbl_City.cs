@@ -1,4 +1,5 @@
-﻿using BEFOYS.DataLayer.Entity.Province;
+﻿using BEFOYS.DataLayer.Entity.Address;
+using BEFOYS.DataLayer.Entity.Province;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,10 +15,12 @@ namespace BEFOYS.DataLayer.Entity.City
         public Guid City_GUID { get; set; }
         public string City_Name { get; set; }
         public string City_Display { get; set; }
-        //public int Province_ID { get; set; }
+        public int City_ProvinceID { get; set; }
 
-        //[ForeignKey("Province_ID")]
-        //public Tbl_Province Province{ get; set; }
+        [ForeignKey("City_ProvinceID")]
+        public Tbl_Province Province { get; set; }
+
+        public ICollection<Tbl_Address> Addresses { get; set; }
 
     }
 }

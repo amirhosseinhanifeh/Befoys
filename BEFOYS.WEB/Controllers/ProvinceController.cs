@@ -27,22 +27,25 @@ namespace BEFOYS.WEB.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]ViewProvince model)
+        public async Task<ActionResult<BaseViewModel<Tbl_Province>>> Post([FromBody]ViewProvince model)
         {
             try
             {
                 Tbl_Province pr = new Tbl_Province()
                 {
-
+                    Province_CityID=model.CityID,
+                    Province_Display=model.Display,
+                    Province_Name=model.Name,
+                    
                 };
                 await _context.Tbl_Province.AddAsync(pr);
                 await _context.SaveChangesAsync();
-                return Ok(new BaseViewModel<Tbl_Province> { Value = pr, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
+                return new BaseViewModel<Tbl_Province> { Value = pr, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             catch (Exception e)
             {
-                return Ok(new BaseViewModel<string> { Value = e.Message, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error });
+                return new BaseViewModel<Tbl_Province> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         [HttpGet]

@@ -15,6 +15,14 @@ namespace BEFOYS.DataLayer.Entity.Supplier
         public Guid Supplier_GUID { get; set; }
         public int Supplier_TypeCodeID { get; set; }
         public int Supplier_LoginID { get; set; }
+        public bool Supplier_Govahi { get; set; }
+        public string Supplier_Sheba { get; set; }
+        public string Supplier_AccountName { get; set; }
+        public string Supplier_AccountNumber { get; set; }
+        public string Supplier_Brand { get; set; }
+        public int Supplier_MaxSupply { get; set; }
+        public int Supplier_CategoryID { get; set; }
+
 
         [ForeignKey("Supplier_TypeCodeID")]
         public Tbl_Code Code { get; set; }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.WEB.Areas.Supplier.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Produces("application/json")]
     public class PhoneController : ControllerBase
