@@ -22,7 +22,31 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         {
             _context = context;
         }
-
+        [HttpGet]
+        public IActionResult Step1()
+        {
+            var user = User.Identity.UserID();
+            var supplier = _context.Tbl_Supplier.Include(x => x.Code).FirstOrDefault(x => x.Supplier_LoginID == user);
+            if (supplier.Code.Code_Display == "HAGHIGHI")
+            {
+                var real = supplier.SupplierReals.FirstOrDefault();
+                return Ok(new ViewStep1
+                {
+                    BirthDay = real.SR_Birthday,
+                    Gender = (Enum_Gender)real.SR_GenderCodeID.GetValueOrDefault(),
+                    NationalCode = real.SR_NationalCode,
+                });
+            }
+            else
+            {
+                var legal = supplier.SupplierLegals.FirstOrDefault();
+                return Ok(new ViewStep1
+                {
+                    EconomicCode = legal.SL_EconomicCode,
+                    CompanyName=legal.SL_CompanyName
+                });
+            }
+        }
         [HttpPost]
         public IActionResult Step1([FromBody]ViewStep1 model)
         {
@@ -60,13 +84,13 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                         Address_Text = item.Address,
                         Address_CityID = city.City_ID,
                     };
-                    foreach(var item2 in item.Phones)
+                    foreach (var item2 in item.Phones)
                     {
                         address.Phones = new List<Tbl_Phone>();
                         address.Phones.Add(new Tbl_Phone
                         {
-                                Phone_Number=item2.Phone,
-                                
+                            Phone_Number = item2.Phone,
+
                         });
                     }
                     list.Add(address);
@@ -74,7 +98,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             }
 
             _context.SaveChanges();
-            return Ok();
+            return Ok(model);
         }
         [HttpPost]
         public IActionResult Step2([FromBody]ViewStep2 model)
