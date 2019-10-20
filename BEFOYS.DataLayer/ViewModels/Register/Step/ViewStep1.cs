@@ -11,7 +11,8 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
         //Haghighi
         public string IdNumber { get; set; }
         public string PersonalCode { get; set; }
-        public string BirthDay { get; set; }
+        public DateTime BirthDay { get; set; }
+        public string NationalCode { get; set; }
         public Enum_Gender Gender { get; set; }
 
         //End 
@@ -19,9 +20,10 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
         //Hoghoghi
 
         public string CompanyName { get; set; }
-        public string CompanyType { get; set; }
+        public Guid CompanyType { get; set; }
         public string RegisteredNumber { get; set; }
         public string EconomicCode { get; set; }
+        public string ShenaseID { get; set; }
 
         //
 

@@ -22,5 +22,7 @@ namespace BEFOYS.DataLayer.ViewModels.Register
         public string ConfirmPassword { get; set; }
         [Required]
         public Enum_UserType Type { get; set; }
+        [Required]
+        public Enum_BaseRole Role { get; set; }
     }
 }

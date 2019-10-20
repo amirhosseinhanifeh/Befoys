@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.Entity.SubUser
     {
         [Key]
         public int SURC_ID { get; set; }
-        public Guid SURC_GUID { get; set; }
+        public Guid SURC_GUID { get; set; } = Guid.NewGuid();
         public int SURC_LoginID { get; set; }
         public int SURC_SURID { get; set; }
 

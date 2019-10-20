@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.Entity.Account
     {
         [Key]
         public int Token_ID { get; set; }
-        public Guid Token_GUID { get; set; }
+        public Guid Token_GUID { get; set; } = Guid.NewGuid();
         public int Token_TypeCodeID { get; set; }
         public DateTime Token_Start { get; set; }
         public DateTime Token_EXP { get; set; }

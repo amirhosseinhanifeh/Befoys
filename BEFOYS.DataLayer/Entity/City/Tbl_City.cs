@@ -12,7 +12,7 @@ namespace BEFOYS.DataLayer.Entity.City
     {
         [Key]
         public int City_ID { get; set; }
-        public Guid City_GUID { get; set; }
+        public Guid City_GUID { get; set; } = Guid.NewGuid();
         public string City_Name { get; set; }
         public string City_Display { get; set; }
         public int City_ProvinceID { get; set; }

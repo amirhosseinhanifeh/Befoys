@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.Entity.Document
     {
         [Key]
         public int Document_ID { get; set; }
-        public Guid Document_GUID { get; set; }
+        public Guid Document_GUID { get; set; } = Guid.NewGuid();
         public int Document_TypeCodeID { get; set; }
         public bool Document_ExternalServer { get; set; }
         public string Document_ExternalServerAddress { get; set; }

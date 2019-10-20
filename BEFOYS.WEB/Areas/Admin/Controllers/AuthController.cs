@@ -17,6 +17,7 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
 {
     [Route("api/Admin/[controller]/[action]")]
     [ApiController]
+    [Produces("application/json")]
     [Authorize]
     public class AuthController : ControllerBase
     {

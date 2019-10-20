@@ -9,7 +9,7 @@ namespace BEFOYS.DataLayer.Entity.Panel
     {
         [Key]
         public int PTP_ID { get; set; }
-        public Guid PTP_GUID { get; set; }
+        public Guid PTP_GUID { get; set; } = Guid.NewGuid();
         public int PTP_PTID { get; set; }
         public int PTP_PermissionID { get; set; }
 

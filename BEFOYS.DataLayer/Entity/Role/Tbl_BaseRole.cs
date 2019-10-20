@@ -10,10 +10,9 @@ namespace BEFOYS.DataLayer.Entity.Role
     {
         [Key]
         public int BR_ID { get; set; }
-        public Guid BR_GUID { get; set; }
+        public Guid BR_GUID { get; set; } = Guid.NewGuid();
         public string BR_Name { get; set; }
         public string BR_Display { get; set; }
-        public bool IsDelete { get; set; } = false;
 
 
         public ICollection<Tbl_AccountControl> AccountControls { get; set; }

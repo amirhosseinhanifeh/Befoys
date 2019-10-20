@@ -8,7 +8,7 @@ namespace BEFOYS.DataLayer.Entity.Code
     {
         [Key]
         public int Code_ID { get; set; }
-        public Guid Code_GUID { get; set; }
+        public Guid Code_GUID { get; set; } = Guid.NewGuid();
         public int Code_CGID { get; set; }
         public string Code_Name { get; set; }
         public string Code_Display { get; set; }

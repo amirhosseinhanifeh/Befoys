@@ -1,4 +1,4 @@
-﻿using BEFOYS.DataLayer.Entity.Role;
+﻿using BEFOYS.DataLayer.Entity.Group;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.Entity.Permission
     {
         [Key]
         public int GP_ID { get; set; }
-        public Guid GP_GUID { get; set; }
+        public Guid GP_GUID { get; set; } = Guid.NewGuid();
 
         public int GP_PermissionID { get; set; }
         public int GP_GroupID { get; set; }

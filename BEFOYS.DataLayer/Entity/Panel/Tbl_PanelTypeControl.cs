@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.Entity.Panel
     {
         [Key]
         public int PTC_ID { get; set; }
-        public Guid PTC_GUID { get; set; }
+        public Guid PTC_GUID { get; set; } = Guid.NewGuid();
         public int PTC_PTID { get; set; }
         public int PTC_ACID { get; set; }
         public DateTime PTC_StartDate { get; set; }

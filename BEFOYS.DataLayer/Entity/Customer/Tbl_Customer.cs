@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.Entity.Customer
     {
         [Key]
         public int Customr_ID { get; set; }
-        public Guid Customer_GUID { get; set; }
+        public Guid Customer_GUID { get; set; } = Guid.NewGuid();
         public int Customer_LoginID { get; set; }
 
         [ForeignKey("Customer_LoginID")]

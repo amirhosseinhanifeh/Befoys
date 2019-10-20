@@ -1,4 +1,6 @@
 ﻿using BEFOYS.DataLayer.ServiceContext;
+using BEFOYS.Service.IServices;
+using BEFOYS.Service.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +32,9 @@ namespace BEFOYS.WEB
         {
             services.AddDbContext<ServiceContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
+
+            services.AddScoped<IBaseRoleService, BaseRoleService>();
+            //Jwt
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       .AddJwtBearer(options =>
       {
@@ -44,6 +49,8 @@ namespace BEFOYS.WEB
               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
           };
       });
+            // End Jwt
+
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
@@ -74,7 +81,7 @@ namespace BEFOYS.WEB
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.Entity.Part
     {
         [Key]
         public int Part_ID { get; set; }
-        public Guid Part_GUID { get; set; }
+        public Guid Part_GUID { get; set; } = Guid.NewGuid();
         public string Part_Name { get; set; }
         public string Part_Display { get; set; }
         public int Part_ProvinceID { get; set; }

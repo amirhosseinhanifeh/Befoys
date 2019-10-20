@@ -10,13 +10,12 @@ namespace BEFOYS.DataLayer.Entity.Supplier
     {
         [Key]
         public int SR_ID { get; set; }
-        public Guid SR_GUID { get; set; }
+        public Guid SR_GUID { get; set; } = Guid.NewGuid();
         public int SR_SupplierID { get; set; }
         public string SR_NationalCode { get; set; }
         public string SR_ShenasnameID { get; set; }
-        public DateTime SR_Birthday { get; set; }
-        public string SR_Site { get; set; }
-        public int SR_GenderCodeID { get; set; }
+        public DateTime? SR_Birthday { get; set; }
+        public int? SR_GenderCodeID { get; set; }
 
 
         [ForeignKey("SR_SupplierID")]

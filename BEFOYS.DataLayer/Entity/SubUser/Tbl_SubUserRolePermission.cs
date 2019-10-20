@@ -9,7 +9,7 @@ namespace BEFOYS.DataLayer.Entity.SubUser
     public class Tbl_SubUserRolePermission
     {
         public int SURP_ID { get; set; }
-        public Guid SURP_GUID { get; set; }
+        public Guid SURP_GUID { get; set; } = Guid.NewGuid();
         public int SURP_SURID { get; set; }
         public int SURP_PermissionID { get; set; }
 

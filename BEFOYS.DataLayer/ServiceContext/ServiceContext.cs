@@ -4,6 +4,8 @@ using BEFOYS.DataLayer.Entity.Address;
 using BEFOYS.DataLayer.Entity.City;
 using BEFOYS.DataLayer.Entity.Code;
 using BEFOYS.DataLayer.Entity.Document;
+using BEFOYS.DataLayer.Entity.Group;
+using BEFOYS.DataLayer.Entity.Panel;
 using BEFOYS.DataLayer.Entity.Permission;
 using BEFOYS.DataLayer.Entity.Province;
 using BEFOYS.DataLayer.Entity.Role;
@@ -34,9 +36,12 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<Tbl_CodeGroup> Tbl_CodeGroup { get; set; }
         public virtual DbSet<Tbl_Document> Tbl_Document { get; set; }
         public virtual DbSet<Tbl_Permission> Tbl_Permission { get; set; }
-        public virtual DbSet<Tbl_GroupPermission> Tbl_PermissionGroup { get; set; }
+        public virtual DbSet<Tbl_GroupPermission> Tbl_GroupPermission { get; set; }
         public virtual DbSet<Tbl_Province> Tbl_Province { get; set; }
         public virtual DbSet<Tbl_Phone> Tbl_Phone { get; set; }
+        public virtual DbSet<Tbl_Group> Tbl_Group{ get; set; }
+        public virtual DbSet<Tbl_PanelType> Tbl_PanelType { get; set; }
+        public virtual DbSet<Tbl_PanelTypePermission> Tbl_PanelTypePermission { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

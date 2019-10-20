@@ -16,7 +16,7 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
-    public class PermissionController : ControllerBase, IDisposable
+    public class PermissionController : ControllerBase,IDisposable
     {
         private ServiceContext _context;
 
@@ -25,38 +25,47 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
             _context = context;
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_Permission>>> Post([FromBody]ViewPermission model)
+        public async Task<ActionResult<BaseViewModel<ViewPermission>>> Post([FromBody]ViewPermission model)
         {
             try
             {
-                if (model.ID != null)
+                if (model.ID != null && model.ID != 0)
                 {
                     var result = await _context.Tbl_Permission.FindAsync(model.ID);
                     result.Permission_Display = model.DisplayName;
                     result.Permission_Name = model.Name;
                     result.Permission_ISFree = model.IsFree;
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_Permission> { Value = result, Message = ViewMessage.SuccessFullEdited, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<ViewPermission> { Value = new ViewPermission(result), Message = ViewMessage.SuccessFullEdited, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
                 }
                 Tbl_Permission permission = new Tbl_Permission()
                 {
                     Permission_Display = model.DisplayName,
                     Permission_Name = model.Name,
-                    Permission_ISFree = model.IsFree
+                    Permission_ISFree = model.IsFree,
                 };
                 _context.Tbl_Permission.Add(permission);
+
+                Tbl_GroupPermission gp = new Tbl_GroupPermission()
+                {
+                    GP_GroupID = model.Group_ID,
+                    GP_PermissionID = permission.Permission_ID
+                };
+                _context.Tbl_GroupPermission.Add(gp);
+
                 await _context.SaveChangesAsync();
 
-                return new BaseViewModel<Tbl_Permission> { Value = permission, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<ViewPermission> { Value = new ViewPermission(permission), Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<Tbl_Permission> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<ViewPermission> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tbl_Permission>>> Get()
         {

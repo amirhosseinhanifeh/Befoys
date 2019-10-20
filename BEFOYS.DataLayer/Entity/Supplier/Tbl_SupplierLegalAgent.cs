@@ -10,7 +10,7 @@ namespace BEFOYS.DataLayer.Entity.Supplier
     {
         [Key]
         public int SLA_ID { get; set; }
-        public Guid SLA_GUID { get; set; }
+        public Guid SLA_GUID { get; set; } = Guid.NewGuid();
         public string SLA_Name { get; set; }
         public string SLA_Family { get; set; }
         public string SLA_Mobile { get; set; }

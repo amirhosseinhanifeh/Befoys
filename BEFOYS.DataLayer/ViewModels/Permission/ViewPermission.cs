@@ -11,6 +11,8 @@ namespace BEFOYS.DataLayer.ViewModels.Permission
         public string DisplayName { get; set; }
         public string Name { get; set; }
         public int? ID { get; set; }
+        public int Group_ID { get; set; }
+        public ViewPermission() { }
         public ViewPermission(Tbl_Permission model)
         {
             this.DisplayName = model.Permission_Display;

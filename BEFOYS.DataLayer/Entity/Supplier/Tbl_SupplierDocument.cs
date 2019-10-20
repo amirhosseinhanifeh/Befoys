@@ -12,7 +12,7 @@ namespace BEFOYS.DataLayer.Entity.Supplier
     {
         [Key]
         public int SD_ID { get; set; }
-        public Guid SD_GUID { get; set; }
+        public Guid SD_GUID { get; set; } = Guid.NewGuid();
         public int SD_TypeCodeID { get; set; }
         public int SD_SupplierID { get; set; }
         public int SD_DocumentID { get; set; }

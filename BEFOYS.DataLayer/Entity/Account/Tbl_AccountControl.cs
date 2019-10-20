@@ -13,7 +13,7 @@ namespace BEFOYS.DataLayer.Entity.Account
     {
         [Key]
         public int AC_ID { get; set; }
-        public Guid AC_GUID { get; set; }
+        public Guid AC_GUID { get; set; } = Guid.NewGuid();
         public int AC_BaseRoleID { get; set; }
         public int? AC_BasePTID { get; set; }
         public bool AC_ISBasicAccount { get; set; }

@@ -1,4 +1,5 @@
 ﻿using BEFOYS.DataLayer.Entity.Address;
+using BEFOYS.DataLayer.Entity.Supplier;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,5 +28,7 @@ namespace BEFOYS.DataLayer.Entity.Account
         public Tbl_AccountControl AccountControl { get; set; }
 
         public ICollection<Tbl_Address> Addresses { get; set; }
+
+        public ICollection<Tbl_Supplier> Suppliers{ get; set; }
     }
 }

@@ -74,7 +74,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         public async Task<ActionResult<List<Tbl_Address>>> Get()
         {
             var user = User.Identity.UserID();
-            return await _context.Tbl_Address.ToListAsync();
+            return await _context.Tbl_Address.Where(x=>x.Address_LoginID==user).ToListAsync();
         }
         [HttpPost]
         public async Task<ActionResult<BaseViewModel<Tbl_Address>>> Delete([FromBody]int? id)

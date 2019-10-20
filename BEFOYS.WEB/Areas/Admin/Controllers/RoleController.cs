@@ -22,7 +22,7 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
             _context = context;
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_BaseRole>>> Post([FromBody]ViewBaseRole model)
+        public async Task<ActionResult<BaseViewModel<ViewBaseRole>>> Post([FromBody]ViewBaseRole model)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
                     result.BR_Display = model.DisplayName;
                     result.BR_Name = model.Name;
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_BaseRole> { Value = result, Message = ViewMessage.SuccessFullEdited, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<ViewBaseRole> { Value = new ViewBaseRole(result), Message = ViewMessage.SuccessFullEdited, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
                 }
                 Tbl_BaseRole baseRole = new Tbl_BaseRole()
@@ -43,13 +43,13 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
                 _context.Tbl_BaseRole.Add(baseRole);
                 await _context.SaveChangesAsync();
 
-                return new BaseViewModel<Tbl_BaseRole> { Value = baseRole, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<ViewBaseRole> { Value = new ViewBaseRole(baseRole), Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<Tbl_BaseRole> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<ViewBaseRole> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         [HttpGet]

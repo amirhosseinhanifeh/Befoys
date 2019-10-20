@@ -9,6 +9,6 @@ namespace BEFOYS.DataLayer.Entity.Account
     {
         [Key]
         public int FP_ID { get; set; }
-        public Guid FP_GUID { get; set; }
+        public Guid FP_GUID { get; set; } = Guid.NewGuid();
     }
 }
