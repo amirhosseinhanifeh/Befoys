@@ -26,6 +26,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         }
         public virtual DbSet<Tbl_Login> Tbl_Login { get; set; }
         public virtual DbSet<Tbl_Supplier> Tbl_Supplier { get; set; }
+        public virtual DbSet<Tbl_SupplierDocument> Tbl_SupplierDocument { get; set; }
         public virtual DbSet<Tbl_BaseRole> Tbl_BaseRole { get; set; }
         public virtual DbSet<Tbl_ForgetPassword> Tbl_ForgetPassword { get; set; }
         public virtual DbSet<Tbl_SupplierLegal> Tbl_SupplierLegal { get; set; }

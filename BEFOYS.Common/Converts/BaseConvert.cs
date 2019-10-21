@@ -15,5 +15,14 @@ namespace BEFOYS.Common.Converts
             }
             return id;
         }
+        public static Guid ToGuid(this string value)
+        {
+            Guid id = Guid.Empty;
+            if (Guid.TryParse(value, out id))
+            {
+                return id;
+            }
+            return id;
+        }
     }
 }

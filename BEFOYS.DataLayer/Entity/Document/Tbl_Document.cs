@@ -13,7 +13,7 @@ namespace BEFOYS.DataLayer.Entity.Document
         public int Document_ID { get; set; }
         public Guid Document_GUID { get; set; } = Guid.NewGuid();
         public int Document_TypeCodeID { get; set; }
-        public bool Document_ExternalServer { get; set; }
+        public bool Document_ExternalServer { get; set; } = false;
         public string Document_ExternalServerAddress { get; set; }
         public string Document_Path { get; set; }
         public string Document_FolderName { get; set; }

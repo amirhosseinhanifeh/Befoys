@@ -6,5 +6,9 @@ namespace BEFOYS.DataLayer.Enums
 {
     public enum Enum_Code
     {
+        PICTURE,
+        VIDEO,
+        FILE
+
     }
 }

@@ -6,7 +6,7 @@ namespace BEFOYS.DataLayer.Enums
 {
     public enum Enum_Gender
     {
-        Male=1,
-        Female=0
+        Male=4,
+        Female=5
     }
 }
