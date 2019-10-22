@@ -56,6 +56,8 @@ namespace BEFOYS.WEB.Controllers
                         case Enum_BaseRole.SUPPLIER:
                             RegisterSupplier(login.Login_ID, model);
                             break;
+                        case Enum_BaseRole.CUSTOMER:
+                            break;
                     }
                     _context.SaveChanges();
                     string token = GenerateJSONWebToken(login);

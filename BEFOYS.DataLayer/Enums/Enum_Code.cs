@@ -8,7 +8,12 @@ namespace BEFOYS.DataLayer.Enums
     {
         PICTURE,
         VIDEO,
-        FILE
+        FILE,
+
+
+        HAGHIGHI,
+        HOGHOGHI,
+        SUBUSER,
 
     }
 }

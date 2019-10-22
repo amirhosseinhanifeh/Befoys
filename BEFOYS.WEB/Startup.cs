@@ -76,7 +76,6 @@ namespace BEFOYS.WEB
                 });
 
             });
-            services.AddSingleton<IHostingEnvironment>(new HostingEnvironment());
 
         }
 

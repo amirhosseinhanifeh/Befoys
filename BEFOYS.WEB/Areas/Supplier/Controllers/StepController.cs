@@ -2,16 +2,14 @@
 using BEFOYS.Common.Converts;
 using BEFOYS.Common.Messages;
 using BEFOYS.DataLayer.Entity.Address;
-using BEFOYS.DataLayer.Entity.Document;
 using BEFOYS.DataLayer.Entity.Supplier;
 using BEFOYS.DataLayer.Enums;
 using BEFOYS.DataLayer.Helpers;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Register.Step;
+using BEFOYS.DataLayer.ViewModels.Supplier;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -178,9 +176,8 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
 
         #endregion
 
-        #region Step3 POST & GET
 
-        #endregion
+        #region Step3 POST & GET
         [HttpGet]
         public async Task<BaseViewModel<ViewStep3>> Step3()
         {
@@ -208,40 +205,117 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             {
                 var user = User.Identity.UserID();
                 var supplier = await _context.Tbl_Supplier.FirstOrDefaultAsync(x => x.Supplier_LoginID == user);
-
-                string folder = Guid.NewGuid().ToString();
-                var shenasname = await model.Shenasname.Upload(folder,_context,Enum_Code.PICTURE);
-                var mellicart = await model.MelliCart.Upload(folder,_context,Enum_Code.PICTURE);
-                var javazkasb = await model.JavazKasb.Upload(folder,_context,Enum_Code.PICTURE);
-                var govahi = await model.Govahi.Upload(folder,_context,Enum_Code.PICTURE);
-
-                List<Tbl_SupplierDocument> suDocuments = new List<Tbl_SupplierDocument>
+                List<Tbl_SupplierDocument> suDocuments = new List<Tbl_SupplierDocument>();
+                if (supplier.Code.Code_Display == Enum_Code.HAGHIGHI.ToString())
                 {
+                    string folder = Guid.NewGuid().ToString();
+                    var shenasname = await model.Shenasname.Upload(folder, _context, Enum_Code.PICTURE);
+                    var mellicart = await model.MelliCart.Upload(folder, _context, Enum_Code.PICTURE);
+                    var javazkasb = await model.JavazKasb.Upload(folder, _context, Enum_Code.PICTURE);
+                    var govahi = await model.Govahi.Upload(folder, _context, Enum_Code.PICTURE);
+
+
+                    suDocuments = new List<Tbl_SupplierDocument>(){
                     new Tbl_SupplierDocument{SD_DocumentID=shenasname,SD_SupplierID=supplier.Supplier_ID},
                     new Tbl_SupplierDocument{SD_DocumentID=mellicart,SD_SupplierID=supplier.Supplier_ID},
-                    new Tbl_SupplierDocument{SD_DocumentID=javazkasb,SD_SupplierID=supplier.Supplier_ID},
+                    new Tbl_SupplierDocument{SD_DocumentID=javazkasb,SD_SupplierID=supplier.Supplier_ID}
+
+                };
+                    if (govahi != 0)
+                    {
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = govahi, SD_SupplierID = supplier.Supplier_ID });
+                    }
+                }
+                else
+                {
+                    string folder = Guid.NewGuid().ToString();
+                    var roznamerasmi = await model.RoznameRasmi.Upload(folder, _context, Enum_Code.PICTURE);
+                    var asasname = await model.Asasname.Upload(folder, _context, Enum_Code.PICTURE);
+                    var Agahi = await model.Agahi.Upload(folder, _context, Enum_Code.PICTURE);
+                    var govahi = await model.Govahi.Upload(folder, _context, Enum_Code.PICTURE);
+
+
+                    suDocuments = new List<Tbl_SupplierDocument>(){
+                    new Tbl_SupplierDocument{SD_DocumentID=roznamerasmi,SD_SupplierID=supplier.Supplier_ID},
+                    new Tbl_SupplierDocument{SD_DocumentID=asasname,SD_SupplierID=supplier.Supplier_ID},
+                    new Tbl_SupplierDocument{SD_DocumentID=Agahi,SD_SupplierID=supplier.Supplier_ID},
                     new Tbl_SupplierDocument{SD_DocumentID=govahi,SD_SupplierID=supplier.Supplier_ID},
                 };
+                    if (govahi != 0)
+                    {
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = govahi, SD_SupplierID = supplier.Supplier_ID });
+                    }
+                }
+
                 _context.Tbl_SupplierDocument.AddRange(suDocuments);
                 await _context.SaveChangesAsync();
 
-                return new BaseViewModel<ViewStep3> { Value = new ViewStep3(), Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<ViewStep3> { Value = null, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             catch (Exception e)
             {
                 return new BaseViewModel<ViewStep3>
                 {
-                    Value = new ViewStep3(),
+                    Value = null,
                     Message = ViewMessage.Error,
                     NotificationType = DataLayer.Enums.Enum_NotificationType.error
                 };
             }
         }
-        [HttpPost]
+        #endregion
+
+
+        [HttpGet]
         public IActionResult Step4()
         {
             return Ok();
+        }
+        [HttpGet]
+        public IActionResult Agents()
+        {
+            try
+            {
+                var user = User.Identity.UserID();
+                var supplier = _context.Tbl_Supplier.FirstOrDefault(x => x.Supplier_LoginID == user);
+                return Ok(_context.Tbl_SupplierLegalAgent.Where(x => x.SupplierLegal.SL_SupplierID == supplier.Supplier_ID).ToList());
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
+        }
+        [HttpPost]
+        public async Task<BaseViewModel<Tbl_SupplierLegalAgent>> Agents([FromBody] ViewSupplierAgent model)
+        {
+            try
+            {
+                Tbl_SupplierLegalAgent data = new Tbl_SupplierLegalAgent()
+                {
+                    SLA_Family = model.SLA_Family,
+                    SLA_Mobile = model.SLA_Mobile,
+                    SLA_Name = model.SLA_Name,
+                    SLA_NationalCode = model.SLA_NationalCode,
+                    SLA_ShenasnameID = model.SLA_ShenasnameID,
+                    SLA_GenderCodeID = model.SLA_GenderCodeID,
+                    SLA_TypeCodeID = model.SLA_TypeCodeID
+                };
+                _context.Tbl_SupplierLegalAgent.Add(data);
+                await _context.SaveChangesAsync();
+                return new BaseViewModel<Tbl_SupplierLegalAgent> { Value = model, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+
+            }
+            catch (Exception e)
+            {
+                return new BaseViewModel<Tbl_SupplierLegalAgent>
+                {
+                    Value = null,
+                    Message = ViewMessage.Error,
+                    NotificationType = DataLayer.Enums.Enum_NotificationType.error
+                };
+            }
         }
     }
 }

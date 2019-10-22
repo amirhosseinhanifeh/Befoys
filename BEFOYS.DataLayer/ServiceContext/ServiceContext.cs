@@ -43,6 +43,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<Tbl_Group> Tbl_Group{ get; set; }
         public virtual DbSet<Tbl_PanelType> Tbl_PanelType { get; set; }
         public virtual DbSet<Tbl_PanelTypePermission> Tbl_PanelTypePermission { get; set; }
+        public virtual DbSet<Tbl_SupplierLegalAgent> Tbl_SupplierLegalAgent { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

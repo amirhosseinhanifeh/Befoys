@@ -22,5 +22,7 @@ namespace BEFOYS.DataLayer.Entity.Supplier
 
         [ForeignKey("SL_SupplierID")]
         public Tbl_Supplier Supplier { get; set; }
+
+        public ICollection<Tbl_SupplierLegalAgent> SupplierLegalAgents { get; set; }
     }
 }
