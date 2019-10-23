@@ -54,7 +54,7 @@ namespace BEFOYS.WEB.Controllers
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[] {
-        new Claim(ClaimTypes.Name, model.Login_Mobile),
+        new Claim(ClaimTypes.Name, model.Login_GUID.ToString()),
         new Claim(ClaimTypes.Sid,model.Login_ID.ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, model.Login_ID.ToString()),
         new Claim(JwtRegisteredClaimNames.Email, model.Login_Email),

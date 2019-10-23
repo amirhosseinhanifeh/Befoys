@@ -204,47 +204,43 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             try
             {
                 var user = User.Identity.UserID();
-                var supplier = await _context.Tbl_Supplier.FirstOrDefaultAsync(x => x.Supplier_LoginID == user);
+                var supplier = await _context.Tbl_Supplier.Include(x => x.Code).FirstOrDefaultAsync(x => x.Supplier_LoginID == user);
                 List<Tbl_SupplierDocument> suDocuments = new List<Tbl_SupplierDocument>();
                 if (supplier.Code.Code_Display == Enum_Code.HAGHIGHI.ToString())
                 {
-                    string folder = Guid.NewGuid().ToString();
+                    string folder = User.Identity.Name;
                     var shenasname = await model.Shenasname.Upload(folder, _context, Enum_Code.PICTURE);
                     var mellicart = await model.MelliCart.Upload(folder, _context, Enum_Code.PICTURE);
                     var javazkasb = await model.JavazKasb.Upload(folder, _context, Enum_Code.PICTURE);
                     var govahi = await model.Govahi.Upload(folder, _context, Enum_Code.PICTURE);
 
-
-                    suDocuments = new List<Tbl_SupplierDocument>(){
-                    new Tbl_SupplierDocument{SD_DocumentID=shenasname,SD_SupplierID=supplier.Supplier_ID},
-                    new Tbl_SupplierDocument{SD_DocumentID=mellicart,SD_SupplierID=supplier.Supplier_ID},
-                    new Tbl_SupplierDocument{SD_DocumentID=javazkasb,SD_SupplierID=supplier.Supplier_ID}
-
-                };
+                    suDocuments = new List<Tbl_SupplierDocument>();
+                    if (shenasname != 0)
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = shenasname, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.SHENASNAME });
+                    if (mellicart != 0)
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = mellicart, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.MELLICART });
+                    if (javazkasb != 0)
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = javazkasb, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.JAVAZKASB });
                     if (govahi != 0)
-                    {
-                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = govahi, SD_SupplierID = supplier.Supplier_ID });
-                    }
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = govahi, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.GOVAHI });
                 }
                 else
                 {
-                    string folder = Guid.NewGuid().ToString();
+                    string folder = User.Identity.Name;
                     var roznamerasmi = await model.RoznameRasmi.Upload(folder, _context, Enum_Code.PICTURE);
                     var asasname = await model.Asasname.Upload(folder, _context, Enum_Code.PICTURE);
                     var Agahi = await model.Agahi.Upload(folder, _context, Enum_Code.PICTURE);
                     var govahi = await model.Govahi.Upload(folder, _context, Enum_Code.PICTURE);
 
-
-                    suDocuments = new List<Tbl_SupplierDocument>(){
-                    new Tbl_SupplierDocument{SD_DocumentID=roznamerasmi,SD_SupplierID=supplier.Supplier_ID},
-                    new Tbl_SupplierDocument{SD_DocumentID=asasname,SD_SupplierID=supplier.Supplier_ID},
-                    new Tbl_SupplierDocument{SD_DocumentID=Agahi,SD_SupplierID=supplier.Supplier_ID},
-                    new Tbl_SupplierDocument{SD_DocumentID=govahi,SD_SupplierID=supplier.Supplier_ID},
-                };
+                    suDocuments = new List<Tbl_SupplierDocument>();
+                    if (roznamerasmi != 0)
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = roznamerasmi, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.ROZNAMERASMI });
+                    if (asasname != 0)
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = asasname, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.ASASNAME });
+                    if (Agahi != 0)
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = Agahi, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.AGAHI });
                     if (govahi != 0)
-                    {
-                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = govahi, SD_SupplierID = supplier.Supplier_ID });
-                    }
+                        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = govahi, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.GOVAHI });
                 }
 
                 _context.Tbl_SupplierDocument.AddRange(suDocuments);
@@ -271,21 +267,31 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         {
             return Ok();
         }
+
+        #region AGENTS POST & GET
+
+        
         [HttpGet]
-        public IActionResult Agents()
+        public async Task<BaseViewModel<List<ViewSupplierAgent>>> Agents()
         {
             try
             {
                 var user = User.Identity.UserID();
-                var supplier = _context.Tbl_Supplier.FirstOrDefault(x => x.Supplier_LoginID == user);
-                return Ok(_context.Tbl_SupplierLegalAgent.Where(x => x.SupplierLegal.SL_SupplierID == supplier.Supplier_ID).ToList());
+                var supplier =await _context.Tbl_SupplierLegal.Include(x=>x.SupplierLegalAgents).FirstOrDefaultAsync(x => x.Supplier.Supplier_LoginID == user);
+                var Result=  supplier.SupplierLegalAgents.Select(y=>new ViewSupplierAgent(y)).ToList();
+                return new BaseViewModel<List<ViewSupplierAgent>> { Value = Result, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+
             }
             catch (Exception e)
             {
-
-                throw;
+                return new BaseViewModel<List<ViewSupplierAgent>>
+                {
+                    Value = null,
+                    Message = ViewMessage.Error,
+                    NotificationType = DataLayer.Enums.Enum_NotificationType.error
+                };
             }
-           
+
         }
         [HttpPost]
         public async Task<BaseViewModel<Tbl_SupplierLegalAgent>> Agents([FromBody] ViewSupplierAgent model)
@@ -304,7 +310,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 };
                 _context.Tbl_SupplierLegalAgent.Add(data);
                 await _context.SaveChangesAsync();
-                return new BaseViewModel<Tbl_SupplierLegalAgent> { Value = model, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<Tbl_SupplierLegalAgent> { Value = data, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             catch (Exception e)
@@ -317,5 +323,6 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 };
             }
         }
+        #endregion
     }
 }

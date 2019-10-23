@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BEFOYS.DataLayer.Entity.Supplier;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,5 +18,6 @@ namespace BEFOYS.DataLayer.Entity.Code
 
         [ForeignKey("Code_CGID")]
         public Tbl_CodeGroup CodeGroup { get; set; }
+        public ICollection<Tbl_SupplierDocument> SupplierDocuments { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace BEFOYS.DataLayer.Helpers
             {
                 Directory.CreateDirectory(filePath);
             }
-            var uniqueFileName = $"{Guid.NewGuid()}_profilepic.png";
+            var uniqueFileName = $"{Guid.NewGuid()}.png";
             var dbPath = Path.Combine(folderName, uniqueFileName);
             using (var fileStream = new FileStream(Path.Combine(filePath, uniqueFileName), FileMode.Create))
             {
@@ -35,9 +35,9 @@ namespace BEFOYS.DataLayer.Helpers
 
             Tbl_Document document = new Tbl_Document()
             {
-                Document_FileName = file.FileName,
+                Document_FileName = uniqueFileName,
                 Document_FolderName=folderpath,
-                Document_Path= dbPath,
+                Document_Path= filePath,
                 Document_TypeCodeID=typeid.Code_ID
             };
 

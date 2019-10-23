@@ -15,5 +15,13 @@ namespace BEFOYS.DataLayer.Enums
         HOGHOGHI,
         SUBUSER,
 
+        ROZNAMERASMI=22,
+        ASASNAME=24,
+        AGAHI=25,
+        GOVAHI=26,
+        SHENASNAME=27,
+        MELLICART=28,
+        JAVAZKASB=29
+
     }
 }
