@@ -9,6 +9,7 @@ using BEFOYS.DataLayer.Entity.Panel;
 using BEFOYS.DataLayer.Entity.Permission;
 using BEFOYS.DataLayer.Entity.Province;
 using BEFOYS.DataLayer.Entity.Role;
+using BEFOYS.DataLayer.Entity.SubUser;
 using BEFOYS.DataLayer.Entity.Supplier;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -44,6 +45,9 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<Tbl_PanelType> Tbl_PanelType { get; set; }
         public virtual DbSet<Tbl_PanelTypePermission> Tbl_PanelTypePermission { get; set; }
         public virtual DbSet<Tbl_SupplierLegalAgent> Tbl_SupplierLegalAgent { get; set; }
+        public virtual DbSet<Tbl_SubUserRole> Tbl_SubUserRole { get; set; }
+        public virtual DbSet<Tbl_SubUserRolePermission> Tbl_SubUserRolePermission { get; set; }
+        public virtual DbSet<Tbl_SubUserRegisterCode> Tbl_SubUserRegisterCode { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

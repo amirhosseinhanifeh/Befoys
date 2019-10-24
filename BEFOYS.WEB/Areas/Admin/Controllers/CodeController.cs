@@ -15,7 +15,7 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CodeController : ControllerBase,IDisposable
+    public class CodeController : ControllerBase, IDisposable
     {
         private ServiceContext _context;
 
@@ -28,7 +28,7 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
         {
             try
             {
-                if (model.ID != null && model.ID !=0)
+                if (model.ID != null && model.ID != 0)
                 {
                     var result = await _context.Tbl_Code.FindAsync(model.ID);
                     result.Code_Display = model.Code_Display;
@@ -41,7 +41,7 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
                 {
                     Code_Display = model.Code_Display,
                     Code_Name = model.Code_Name,
-                    Code_CGID=model.Code_CGID
+                    Code_CGID = model.Code_CGID
                 };
                 _context.Tbl_Code.Add(code);
                 await _context.SaveChangesAsync();
@@ -59,6 +59,11 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
         public async Task<ActionResult<IEnumerable<Tbl_Code>>> Get()
         {
             return await _context.Tbl_Code.ToListAsync();
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Tbl_Code>> Get(int id)
+        {
+            return await _context.Tbl_Code.FindAsync(id);
         }
         [HttpPost]
         public async Task<ActionResult<BaseViewModel<Tbl_Code>>> Delete([FromBody]int? id)
