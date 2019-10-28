@@ -13,5 +13,7 @@ namespace BEFOYS.Common.Messages
         public const string Duplicate = "رکورد تکراری می باشد";
         public const string Warning = "رکوردی یافت نشد";
         public const string Remove = "اطلاعات با موفقیت حذف شد";
+        public const string LoginFailed = "کد تاییدیه نا معتبر می باشد";
+
     }
 }

@@ -12,8 +12,6 @@ namespace BEFOYS.DataLayer.Entity.Account
         [Key]
         public int Login_ID { get; set; }
         public Guid Login_GUID { get; set; } = Guid.NewGuid();
-        public string Login_PasswordHash { get; set; }
-        public string Login_PasswordSalt { get; set; }
         public string Login_FirstName { get; set; }
         public string Login_LastName { get; set; }
         public string Login_Email { get; set; }

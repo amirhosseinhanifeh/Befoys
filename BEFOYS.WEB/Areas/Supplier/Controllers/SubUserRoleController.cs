@@ -4,6 +4,7 @@ using BEFOYS.DataLayer.Entity.SubUser;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Supplier;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,6 +16,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class SubUserRoleController : ControllerBase
     {
         private ServiceContext _context;
@@ -67,6 +69,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             var user = User.Identity.UserID();
             return await _context.Tbl_SubUserRole.Where(x => x.SUR_LoginID == user).Select(x => new ViewSubUserRole(x)).ToListAsync();
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Tbl_SubUserRole>> Get(int id)
         {

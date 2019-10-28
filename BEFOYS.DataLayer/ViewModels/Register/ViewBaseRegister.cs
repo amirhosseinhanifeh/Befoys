@@ -24,5 +24,6 @@ namespace BEFOYS.DataLayer.ViewModels.Register
         public Enum_UserType Type { get; set; }
         [Required]
         public Enum_BaseRole Role { get; set; }
+        public string Code { get; set; }
     }
 }

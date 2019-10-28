@@ -30,7 +30,7 @@ namespace BEFOYS.WEB.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]ViewLogin model)
         {
-            var user = _context.Tbl_Login.FirstOrDefault(x => (x.Login_Mobile == model.UserName )||(x.Login_Email==model.UserName));
+            var user = _context.Tbl_Login.FirstOrDefault(x => (x.Login_Mobile == model.UserName ));
             if (user != null)
             {
                 if(user.Login_IsBan.GetValueOrDefault())
@@ -59,7 +59,7 @@ namespace BEFOYS.WEB.Controllers
         new Claim(JwtRegisteredClaimNames.Sub, model.Login_ID.ToString()),
         new Claim(JwtRegisteredClaimNames.Email, model.Login_Email),
         new Claim(JwtRegisteredClaimNames.Jti, model.Login_GUID.ToString()),
-        new Claim(ClaimTypes.Role,"Supplier")
+        new Claim(ClaimTypes.Role,model.AccountControl.BaseRole.BR_Display)
     };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],

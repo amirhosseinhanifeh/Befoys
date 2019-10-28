@@ -3,6 +3,7 @@ using BEFOYS.DataLayer.Entity.SubUser;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Supplier;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,6 +15,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class SubUserRolePermissionController : ControllerBase, IDisposable
     {
         private ServiceContext _context;

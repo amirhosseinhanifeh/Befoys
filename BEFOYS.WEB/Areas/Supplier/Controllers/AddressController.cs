@@ -17,6 +17,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class AddressController : ControllerBase
     {
         private ServiceContext _context;

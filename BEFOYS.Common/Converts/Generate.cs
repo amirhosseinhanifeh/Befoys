@@ -10,7 +10,7 @@ namespace BEFOYS.Common.Converts
             var r = new Random();
             for (int i = 0; i < count; i++)
             {
-                Code += i.ToString();
+                Code += r.Next(0,9);
             }
             return Code;
         }
