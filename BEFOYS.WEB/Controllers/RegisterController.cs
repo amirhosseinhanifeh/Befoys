@@ -8,6 +8,7 @@ using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Register;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -37,66 +38,67 @@ namespace BEFOYS.WEB.Controllers
             try
             {
 
-            Tbl_Login login = new Tbl_Login();
-            login.Login_Mobile = model.Mobile;
-            _context.Tbl_Login.AddAsync(login).Wait();
-            var Code = Generate.GenerateCode(6);
-            Tbl_Token toke = new Tbl_Token()
-            {
-                Token_Hush = Code,
-                Token_LoginID = login.Login_ID,
-                Token_EXP = DateTime.Now.AddMinutes(2),
-                Token_Start = DateTime.Now,
-                
-            };
-            _context.Tbl_Token.AddAsync(toke).Wait();
+                Tbl_Login login = new Tbl_Login();
+                login.Login_Mobile = model.Mobile;
+                _context.Tbl_Login.AddAsync(login).Wait();
+                var Code = Generate.GenerateCode(6);
+                Tbl_Token toke = new Tbl_Token()
+                {
+                    Token_Hush = Code,
+                    Token_LoginID = login.Login_ID,
+                    Token_EXP = DateTime.Now.AddMinutes(2),
+                    Token_Start = DateTime.Now,
 
-            //Tbl_AccountControl tbl_AccountControl = new Tbl_AccountControl()
-            //{
-            //    AC_LoginID = login.Login_ID,
-            //    AC_BaseRoleID = _context.Tbl_BaseRole.FirstOrDefault(x => x.BR_Display == model.Role.ToString()).BR_ID,
-            //    AC_ISBasicAccount = true,
+                };
+                _context.Tbl_Token.AddAsync(toke).Wait();
 
-            //};
-            //if (model.Type == Enum_UserType.SUBUSER)
-            //{
-            //    tbl_AccountControl.AC_IsSubUser = true;
-            //    //if (model.Code != null)
-            //    //{
-            //    //    var data = _context.Tbl_SubUserRegisterCode.FirstOrDefault(x => x.SURC_Code == model.Code);
-            //    //    if (data != null)
-            //    //    {
-            //    //        tbl_AccountControl.AC_SURID = data.SURC_SURID;
-            //    //    }
-            //    //    else
-            //    //    {
-            //    //        return Ok(new BaseViewModel<object> { Value = "کد وارد شده اشتباه می باشد", Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
+                Tbl_AccountControl tbl_AccountControl = new Tbl_AccountControl()
+                {
+                    AC_LoginID = login.Login_ID,
+                    AC_BaseRoleID = _context.Tbl_BaseRole.FirstOrDefault(x => x.BR_Display == model.Role.ToString()).BR_ID,
+                    AC_ISBasicAccount = true,
+                    
 
-            //    //    }
-            //    //}
-            //}
-            //_context.Tbl_AccountControl.Add(tbl_AccountControl);
+                };
+                if (model.Type == Enum_UserType.SUBUSER)
+                {
+                    tbl_AccountControl.AC_IsSubUser = true;
+                    //if (model.Code != null)
+                    //{
+                    //    var data = _context.Tbl_SubUserRegisterCode.FirstOrDefault(x => x.SURC_Code == model.Code);
+                    //    if (data != null)
+                    //    {
+                    //        tbl_AccountControl.AC_SURID = data.SURC_SURID;
+                    //    }
+                    //    else
+                    //    {
+                    //        return Ok(new BaseViewModel<object> { Value = "کد وارد شده اشتباه می باشد", Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
 
-            switch (model.Role)
-            {
-                case Enum_BaseRole.SUPPLIER:
-                    RegisterSupplier(login.Login_ID, model.Type);
-                    break;
-                case Enum_BaseRole.CUSTOMER:
-                    break;
-            }
-            _context.SaveChanges();
+                    //    }
+                    //}
+                }
+                _context.Tbl_AccountControl.Add(tbl_AccountControl);
+
+                switch (model.Role)
+                {
+                    case Enum_BaseRole.SUPPLIER:
+                        RegisterSupplier(login.Login_ID, model.Type);
+                        break;
+                    case Enum_BaseRole.CUSTOMER:
+                        break;
+                }
+                _context.SaveChanges();
 
 
 
 
-            await SmsPortal.SendSmsAsync(reciver: model.Mobile, message: Code);
-            //else
-            //     EmailPortal.SendEmail(model.UserName,"کد تاییدیه",$"کد تاییدیه شما {Code} می باشد");
+                await SmsPortal.SendSmsAsync(reciver: model.Mobile, message: Code);
+                //else
+                //     EmailPortal.SendEmail(model.UserName,"کد تاییدیه",$"کد تاییدیه شما {Code} می باشد");
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return Ok(true);
+                return Ok(true);
 
             }
             catch (Exception e)
@@ -106,17 +108,17 @@ namespace BEFOYS.WEB.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Verify([FromBody] ViewVerify model)
+        public async Task<IActionResult> Verify([FromBody] ViewVerify model)
         {
-            var login = _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.Mobile);
+            var login =await _context.Tbl_Login.FirstOrDefaultAsync(x => x.Login_Mobile == model.Mobile);
             if (login != null)
             {
-                var token = _context.Tbl_Token.FirstOrDefault(x => x.Token_LoginID == login.Login_ID);
+                var token =await _context.Tbl_Token.LastOrDefaultAsync(x => x.Token_LoginID == login.Login_ID && x.Token_EXP > DateTime.Now);
                 if (token != null)
                 {
                     if (token.Token_Hush == model.Code)
                     {
-                        
+
                         string tokenkey = GenerateJSONWebToken(login);
                         return Ok(new BaseViewModel<object> { Value = new { token = tokenkey }, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
 
@@ -127,7 +129,7 @@ namespace BEFOYS.WEB.Controllers
 
         }
         [HttpPost]
-        public IActionResult Post([FromBody]ViewBaseRegister model)
+        public async Task<IActionResult> Post([FromBody]ViewBaseRegister model)
         {
             try
             {
@@ -139,10 +141,10 @@ namespace BEFOYS.WEB.Controllers
                         Login_Mobile = model.Mobile,
                     };
 
-                    _context.Tbl_Login.Add(login);
+                   await _context.Tbl_Login.AddAsync(login);
 
                     //پنل پیش فرض گذاشته شود
-                    
+
                     string token = GenerateJSONWebToken(login);
                     return Ok(new BaseViewModel<object> { Value = new { token = token }, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
                 }
@@ -170,7 +172,7 @@ namespace BEFOYS.WEB.Controllers
         new Claim(ClaimTypes.Sid,model.Login_ID.ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, model.Login_ID.ToString()),
         new Claim(JwtRegisteredClaimNames.Jti, model.Login_GUID.ToString()),
-        new Claim(ClaimTypes.Role,"Supplier")
+        new Claim(ClaimTypes.Role,model.AccountControl.BaseRole.BR_Display)
     };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],

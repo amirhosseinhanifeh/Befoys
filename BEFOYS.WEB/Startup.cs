@@ -1,11 +1,13 @@
 ﻿using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.Service.IServices;
 using BEFOYS.Service.Services;
+using BEFOYS.WEB.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -76,7 +78,7 @@ namespace BEFOYS.WEB
                 });
 
             });
-
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,6 +108,10 @@ namespace BEFOYS.WEB
             app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
             app.UseMvc();
+            app.UseSignalR(options=>
+            {
+                options.MapHub<ServiceHub>("/servicehub");
+            });
         }
     }
 }
