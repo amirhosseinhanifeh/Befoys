@@ -3,6 +3,7 @@ using BEFOYS.DataLayer.Entity.Account;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -30,7 +31,7 @@ namespace BEFOYS.WEB.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]ViewLogin model)
         {
-            var user = _context.Tbl_Login.FirstOrDefault(x => (x.Login_Mobile == model.UserName ));
+            var user = _context.Tbl_Login.Include(x=>x.AccountControl.BaseRole).Include(x=>x.AccountControl).FirstOrDefault(x => (x.Login_Mobile == model.UserName ));
             if (user != null)
             {
                 if(user.Login_IsBan.GetValueOrDefault())

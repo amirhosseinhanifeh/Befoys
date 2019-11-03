@@ -54,7 +54,6 @@ namespace BEFOYS.WEB.Controllers
 
                 Tbl_AccountControl tbl_AccountControl = new Tbl_AccountControl()
                 {
-                    AC_LoginID = login.Login_ID,
                     AC_BaseRoleID = _context.Tbl_BaseRole.FirstOrDefault(x => x.BR_Display == model.Role.ToString()).BR_ID,
                     AC_ISBasicAccount = true,
                     

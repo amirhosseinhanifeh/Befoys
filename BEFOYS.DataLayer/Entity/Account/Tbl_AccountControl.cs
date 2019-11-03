@@ -18,12 +18,7 @@ namespace BEFOYS.DataLayer.Entity.Account
         public int? AC_BasePTID { get; set; }
         public bool AC_ISBasicAccount { get; set; }
         public bool? AC_IsSubUser { get; set; }
-        public int? AC_LoginID { get; set; }
         public int? AC_SURID { get; set; }
-
-
-        [ForeignKey("AC_LoginID")]
-        public Tbl_Login Login { get; set; }
 
         [ForeignKey("AC_BasePTID")]
         public Tbl_PanelType PanelType { get; set; }
