@@ -12,16 +12,16 @@ namespace BEFOYS.WEB.Hubs
         public override async Task OnConnectedAsync()
         {
             var userId = Context.User.Identity.UserID();
-            await base.OnConnectedAsync();
+           await base.OnConnectedAsync();
         }
         public async Task SendMessage(string user, string message)
         {
             var userId = Context.User.Identity.UserID();
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
-        public override Task OnDisconnectedAsync(Exception exception)
+        public override async Task OnDisconnectedAsync(Exception exception)
         {
-            return base.OnDisconnectedAsync(exception);
+            await base.OnDisconnectedAsync(exception);
         }
 
     }

@@ -16,6 +16,7 @@ namespace BEFOYS.WEB.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Produces("application/json")]
     public class AccountController : ControllerBase
     {
         private IConfiguration _config;
