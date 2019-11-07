@@ -16,6 +16,7 @@ namespace BEFOYS.DataLayer.Entity.City
         public string City_Name { get; set; }
         public string City_Display { get; set; }
         public int City_ProvinceID { get; set; }
+        public bool City_IsCapital { get; set; }
 
         [ForeignKey("City_ProvinceID")]
         public Tbl_Province Province { get; set; }
