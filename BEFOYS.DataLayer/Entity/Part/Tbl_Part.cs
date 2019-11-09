@@ -1,4 +1,5 @@
-﻿using BEFOYS.DataLayer.Entity.Province;
+﻿using BEFOYS.DataLayer.Entity.City;
+using BEFOYS.DataLayer.Entity.Province;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,9 +15,9 @@ namespace BEFOYS.DataLayer.Entity.Part
         public Guid Part_GUID { get; set; } = Guid.NewGuid();
         public string Part_Name { get; set; }
         public string Part_Display { get; set; }
-        public int Part_ProvinceID { get; set; }
+        public int Part_CityID { get; set; }
 
         [ForeignKey("Part_ProvinceID")]
-        public Tbl_Province Province { get; set; }
+        public Tbl_City City { get; set; }
     }
 }

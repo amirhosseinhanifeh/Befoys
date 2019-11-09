@@ -43,7 +43,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 .Include(x => x.Login)
                 .Include(x => x.SupplierLegals)
                 .Include(x => x.SupplierReals)
-                .Include(x => x.Login.Addresses).FirstOrDefaultAsync(x => x.Supplier_LoginID == user);
+                .FirstOrDefaultAsync(x => x.Supplier_LoginID == user);
 
             if (supplier.Code.Code_Display == "HAGHIGHI")
             {
@@ -57,77 +57,77 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 return Ok(new ViewStep1Hoghoghi(legal));
             }
         }
-        [HttpPost]
-        public async Task<BaseViewModel<string>> Step1([FromBody]ViewStep1 model)
-        {
-            try
-            {
+        //[HttpPost]
+        //public async Task<BaseViewModel<string>> Step1([FromBody]ViewStep1 model)
+        //{
+        //    try
+        //    {
 
-                var userId = User.Identity.UserID();
-                var user = await _context.Tbl_Supplier.Include(x => x.Code).FirstOrDefaultAsync(x => x.Supplier_LoginID == userId);
-                user.Supplier_Website = model.Website;
-                if (user.Code.Code_Display == Enum_UserType.HAGHIGHI.ToString())
-                {
-                    var real = await _context.Tbl_SupplierReal.FirstOrDefaultAsync(x => x.SR_SupplierID == user.Supplier_ID);
-                    real.SR_Birthday = model.Haghighi.SR_Birthday;
-                    real.SR_GenderCodeID = (int)model.Haghighi.Gender;
-                    real.SR_NationalCode = model.Haghighi.SR_NationalCode;
-                    real.SR_ShenasnameID = model.Haghighi.SR_ShenasnameID;
+        //        var userId = User.Identity.UserID();
+        //        var user = await _context.Tbl_Supplier.Include(x => x.Code).FirstOrDefaultAsync(x => x.Supplier_LoginID == userId);
+        //        user.Supplier_Website = model.Website;
+        //        if (user.Code.Code_Display == Enum_UserType.HAGHIGHI.ToString())
+        //        {
+        //            var real = await _context.Tbl_SupplierReal.FirstOrDefaultAsync(x => x.SR_SupplierID == user.Supplier_ID);
+        //            real.SR_Birthday = model.Haghighi.SR_Birthday;
+        //            real.SR_GenderCodeID = (int)model.Haghighi.Gender;
+        //            real.SR_NationalCode = model.Haghighi.SR_NationalCode;
+        //            real.SR_ShenasnameID = model.Haghighi.SR_ShenasnameID;
 
-                }
-                else
-                {
-                    Guid CompanyTypeCodeGUID = model.Hoghoghi.SL_CompanyTypeCodeGUID.ToGuid();
-                    var code = _context.Tbl_Code.FirstOrDefault(x => x.Code_GUID == CompanyTypeCodeGUID);
-                    var legal = _context.Tbl_SupplierLegal.FirstOrDefault(x => x.SL_SupplierID == user.Supplier_ID);
-                    legal.SL_CompanyName = model.Hoghoghi.SL_CompanyName;
-                    legal.SL_EconomicCode = model.Hoghoghi.SL_EconomicCode;
-                    legal.SL_SabtNumber = model.Hoghoghi.SL_SabtNumber;
-                    legal.SL_NationalCode = model.Hoghoghi.SL_NationalCode;
-                    legal.SL_CompanyTypeCodeID = code?.Code_ID;
-                }
-                if (model.Addresses != null)
-                {
-                    List<Tbl_Address> list = new List<Tbl_Address>();
-                    foreach (var item in model.Addresses)
-                    {
-                        Guid iguid = item.CityID.ToGuid();
-                        var city = _context.Tbl_City.FirstOrDefault(x => x.City_GUID == iguid);
-                        Tbl_Address address = new Tbl_Address
-                        {
-                            Address_LoginID = userId,
-                            Address_Text = item.Address,
-                            Address_CityID = city.City_ID,
-                        };
-                        foreach (var item2 in item.Phones)
-                        {
-                            address.Phones = new List<Tbl_Phone>
-                            {
-                                new Tbl_Phone
-                                {
-                                    Phone_Number = item2.Phone,
+        //        }
+        //        else
+        //        {
+        //            Guid CompanyTypeCodeGUID = model.Hoghoghi.SL_CompanyTypeCodeGUID.ToGuid();
+        //            var code = _context.Tbl_Code.FirstOrDefault(x => x.Code_GUID == CompanyTypeCodeGUID);
+        //            var legal = _context.Tbl_SupplierLegal.FirstOrDefault(x => x.SL_SupplierID == user.Supplier_ID);
+        //            legal.SL_CompanyName = model.Hoghoghi.SL_CompanyName;
+        //            legal.SL_EconomicCode = model.Hoghoghi.SL_EconomicCode;
+        //            legal.SL_SabtNumber = model.Hoghoghi.SL_SabtNumber;
+        //            legal.SL_NationalCode = model.Hoghoghi.SL_NationalCode;
+        //            legal.SL_CompanyTypeCodeID = code?.Code_ID;
+        //        }
+        //        if (model.Addresses != null)
+        //        {
+        //            List<Tbl_Address> list = new List<Tbl_Address>();
+        //            foreach (var item in model.Addresses)
+        //            {
+        //                Guid iguid = item.CityID.ToGuid();
+        //                var city = _context.Tbl_City.FirstOrDefault(x => x.City_GUID == iguid);
+        //                Tbl_Address address = new Tbl_Address
+        //                {
+        //                    Address_LoginID = userId,
+        //                    Address_Text = item.Address,
+        //                    Address_CityID = city.City_ID,
+        //                };
+        //                foreach (var item2 in item.Phones)
+        //                {
+        //                    address.Phones = new List<Tbl_Phone>
+        //                    {
+        //                        new Tbl_Phone
+        //                        {
+        //                            Phone_Number = item2.Phone,
 
-                                }
-                            };
-                        }
-                        list.Add(address);
-                    }
-                }
+        //                        }
+        //                    };
+        //                }
+        //                list.Add(address);
+        //            }
+        //        }
 
-                await _context.SaveChangesAsync();
-                return new BaseViewModel<string> { Value = "", Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+        //        await _context.SaveChangesAsync();
+        //        return new BaseViewModel<string> { Value = "", Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
-            }
-            catch (Exception e)
-            {
-                return new BaseViewModel<string>
-                {
-                    Value = e.Message,
-                    Message = ViewMessage.Error,
-                    NotificationType = DataLayer.Enums.Enum_NotificationType.error
-                };
-            }
-        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return new BaseViewModel<string>
+        //        {
+        //            Value = e.Message,
+        //            Message = ViewMessage.Error,
+        //            NotificationType = DataLayer.Enums.Enum_NotificationType.error
+        //        };
+        //    }
+        //}
         #endregion
 
 

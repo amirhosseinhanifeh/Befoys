@@ -11,7 +11,6 @@ namespace BEFOYS.WEB.Hubs
     {
         public override async Task OnConnectedAsync()
         {
-            var userId = Context.User.Identity.UserID();
            await base.OnConnectedAsync();
         }
         public async Task SendMessage(string user, string message)

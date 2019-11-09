@@ -14,10 +14,10 @@ namespace BEFOYS.DataLayer.Entity.Province
         public Guid Province_GUID { get; set; } = Guid.NewGuid();
         public string Province_Name { get; set; }
         public string Province_Display { get; set; }
-        public int? Province_CityID { get; set; }
+        public int Province_CityID { get; set; }
 
-        [ForeignKey("Province_CityID")]
-        public Tbl_City City { get; set; }
+        //[ForeignKey("Province_CityID")]
+        //public Tbl_City City { get; set; }
 
     }
 }

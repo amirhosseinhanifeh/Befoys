@@ -21,6 +21,6 @@ namespace BEFOYS.DataLayer.Entity.Employee
         public Tbl_Login Login { get; set; }
 
         [ForeignKey("Employee_OrganizationID")]
-        public Tbl_Organization MyProperty { get; set; }
+        public Tbl_Organization Organization { get; set; }
     }
 }

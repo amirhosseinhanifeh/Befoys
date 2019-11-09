@@ -20,8 +20,7 @@ namespace BEFOYS.DataLayer.Entity.Panel
         [ForeignKey("PTC_PTID")]
         public Tbl_PanelType PanelType { get; set; }
 
-        [ForeignKey("PTC_ACID")]
-        public Tbl_AccountControl AccountControl { get; set; }
+
     }
 
 }

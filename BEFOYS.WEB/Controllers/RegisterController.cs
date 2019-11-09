@@ -37,11 +37,19 @@ namespace BEFOYS.WEB.Controllers
         {
             try
             {
-
-                Tbl_Login login = new Tbl_Login();
-                login.Login_Mobile = model.Mobile;
-                _context.Tbl_Login.AddAsync(login).Wait();
                 var Code = Generate.GenerateCode(6);
+                var Result= _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.Mobile);
+                Tbl_Login login = new Tbl_Login();
+                if (Result == null)
+                {
+
+                    login.Login_Mobile = model.Mobile;
+                    _context.Tbl_Login.AddAsync(login).Wait();
+                }
+                else
+                {
+                    login = Result;
+                }
                 Tbl_Token toke = new Tbl_Token()
                 {
                     Token_Hush = Code,
@@ -52,40 +60,14 @@ namespace BEFOYS.WEB.Controllers
                 };
                 _context.Tbl_Token.AddAsync(toke).Wait();
 
-                Tbl_AccountControl tbl_AccountControl = new Tbl_AccountControl()
-                {
-                    AC_BaseRoleID = _context.Tbl_BaseRole.FirstOrDefault(x => x.BR_Display == model.Role.ToString()).BR_ID,
-                    AC_ISBasicAccount = true,
-                    
-
-                };
-                if (model.Type == Enum_UserType.SUBUSER)
-                {
-                    tbl_AccountControl.AC_IsSubUser = true;
-                    //if (model.Code != null)
-                    //{
-                    //    var data = _context.Tbl_SubUserRegisterCode.FirstOrDefault(x => x.SURC_Code == model.Code);
-                    //    if (data != null)
-                    //    {
-                    //        tbl_AccountControl.AC_SURID = data.SURC_SURID;
-                    //    }
-                    //    else
-                    //    {
-                    //        return Ok(new BaseViewModel<object> { Value = "کد وارد شده اشتباه می باشد", Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
-
-                    //    }
-                    //}
-                }
-                _context.Tbl_AccountControl.Add(tbl_AccountControl);
-
-                switch (model.Role)
-                {
-                    case Enum_BaseRole.SUPPLIER:
-                        RegisterSupplier(login.Login_ID, model.Type);
-                        break;
-                    case Enum_BaseRole.CUSTOMER:
-                        break;
-                }
+                //switch (model.Role)
+                //{
+                //    case Enum_BaseRole.SUPPLIER:
+                //        RegisterSupplier(login.Login_ID, model.Type);
+                //        break;
+                //    case Enum_BaseRole.CUSTOMER:
+                //        break;
+                //}
                 _context.SaveChanges();
 
 
@@ -97,13 +79,13 @@ namespace BEFOYS.WEB.Controllers
 
                 await _context.SaveChangesAsync();
 
-                return Ok(true);
+                return Ok(new { IsLogin=true });
 
             }
             catch (Exception e)
             {
 
-                return Ok(e.Message);
+                return Ok(new { IsLogin=false});
             }
         }
         [HttpPost]
@@ -119,7 +101,7 @@ namespace BEFOYS.WEB.Controllers
                     {
 
                         string tokenkey = GenerateJSONWebToken(login);
-                        return Ok(new BaseViewModel<object> { Value = new { token = tokenkey }, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
+                        return Ok( new { token = tokenkey });
 
                     }
                 }
@@ -171,7 +153,7 @@ namespace BEFOYS.WEB.Controllers
         new Claim(ClaimTypes.Sid,model.Login_ID.ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, model.Login_ID.ToString()),
         new Claim(JwtRegisteredClaimNames.Jti, model.Login_GUID.ToString()),
-        new Claim(ClaimTypes.Role,model.AccountControl.BaseRole.BR_Display)
+        //new Claim(ClaimTypes.Role,model.AccountControl.BaseRole.BR_Display)
     };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],

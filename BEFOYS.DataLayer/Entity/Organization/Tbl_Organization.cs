@@ -16,8 +16,8 @@ namespace BEFOYS.DataLayer.Entity.Organization
         public bool Organization_IsBan { get; set; }
         public bool Organization_IsDelete { get; set; }
         public bool Organization_IsActive { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime ModifyDate { get; set; }
+        public DateTime Organization_CreateDate { get; set; }
+        public DateTime Organization_ModifyDate { get; set; }
 
     }
 }

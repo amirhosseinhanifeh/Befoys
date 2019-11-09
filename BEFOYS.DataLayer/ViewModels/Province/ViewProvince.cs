@@ -9,6 +9,6 @@ namespace BEFOYS.DataLayer.ViewModels.Province
         public int? ID { get; set; }
         public string Name { get; set; }
         public string Display { get; set; }
-        public int? CityID { get; set; }
+        public int CityID { get; set; }
     }
 }

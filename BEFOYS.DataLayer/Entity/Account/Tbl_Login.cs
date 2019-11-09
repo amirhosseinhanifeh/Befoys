@@ -19,14 +19,8 @@ namespace BEFOYS.DataLayer.Entity.Account
         public bool? Login_IsBan { get; set; } = false;
         public bool? Login_IsDelete { get; set; } = false;
         public bool? Login_IsRegister { get; set; } = true;
-        public int? Login_PTID { get; set; }
-        public int? Login_ACID { get; set; }
+        public DateTime Login_CreateDate { get; set; }
+        public DateTime Login_ModifyDate { get; set; }
 
-        [ForeignKey("Login_ACID")]
-        public Tbl_AccountControl AccountControl { get; set; }
-
-        public ICollection<Tbl_Address> Addresses { get; set; }
-
-        public ICollection<Tbl_Supplier> Suppliers{ get; set; }
     }
 }

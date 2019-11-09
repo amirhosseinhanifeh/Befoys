@@ -31,7 +31,6 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
             SR_Birthday = model.SR_Birthday;
             Gender = (Enum_Gender?)model.SR_GenderCodeID;
             Website = model.Supplier.Supplier_Website;
-            Addresses = model.Supplier.Login.Addresses.Select(x=>new ViewAddress(x)).ToArray();
         
         }
     }

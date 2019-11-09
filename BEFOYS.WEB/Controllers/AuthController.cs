@@ -40,8 +40,7 @@ namespace BEFOYS.WEB.Controllers
                     LastName = x.Login_LastName,
                     Email = x.Login_Email,
                     IsBan = x.Login_IsBan.GetValueOrDefault(),
-                    Permissions = x.AccountControl.PanelType.PanelTypePermissions.Select(y => new ViewPermission(y.Permission)).ToList()
-
+                    
                 }).FirstOrDefaultAsync();
 
                 return new BaseViewModel<ViewAccountInfo> { Value = Result, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
