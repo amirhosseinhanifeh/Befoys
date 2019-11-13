@@ -12,8 +12,12 @@ namespace BEFOYS.DataLayer.Entity.Organization
         public int ODN_ID { get; set; }
         public Guid ODN_Guid { get; set; }
         public int ODN_ODFID { get; set; }
+        public int ODN_OTID { get; set; }
 
         [ForeignKey("ODN_ODFID")]
-        public Tbl_OrganizationDocumentFeatures Tbl_OrganizationDocumentFeatures { get; set; }
+        public Tbl_OrganizationDocumentFeatures OrganizationDocumentFeatures { get; set; }
+
+        [ForeignKey("ODN_OTID")]
+        public Tbl_OrganizationType OrganizationType { get; set; }
     }
 }

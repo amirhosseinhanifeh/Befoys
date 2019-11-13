@@ -5,6 +5,7 @@ using BEFOYS.DataLayer.Entity.City;
 using BEFOYS.DataLayer.Entity.Code;
 using BEFOYS.DataLayer.Entity.Document;
 using BEFOYS.DataLayer.Entity.Group;
+using BEFOYS.DataLayer.Entity.Organization;
 using BEFOYS.DataLayer.Entity.Panel;
 using BEFOYS.DataLayer.Entity.Permission;
 using BEFOYS.DataLayer.Entity.Province;
@@ -49,6 +50,12 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<Tbl_SubUserRolePermission> Tbl_SubUserRolePermission { get; set; }
         public virtual DbSet<Tbl_SubUserRegisterCode> Tbl_SubUserRegisterCode { get; set; }
         public virtual DbSet<Tbl_Token> Tbl_Token { get; set; }
+        public virtual DbSet<Tbl_Organization> Tbl_Organization { get; set; }
+        public virtual DbSet<Tbl_OrganizationDocument> Tbl_OrganizationDocument { get; set; }
+        public virtual DbSet<Tbl_OrganizationDocumentFeatures> Tbl_OrganizationDocumentFeatures { get; set; }
+        public virtual DbSet<Tbl_OrganizationDocumentNavigator> Tbl_OrganizationDocumentNavigator { get; set; }
+        public virtual DbSet<Tbl_OrganizationType> Tbl_OrganizationType{ get; set; }
+        public virtual DbSet<Tbl_OrganizationInformation> Tbl_OrganizationInformation{ get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

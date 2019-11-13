@@ -65,6 +65,11 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
         {
             return await _context.Tbl_Code.FindAsync(id);
         }
+        [HttpGet("{GroupId}")]
+        public async Task<ActionResult<BaseViewModel<List<ViewCode>>>> GetByCodeGroup(Guid GroupId){
+
+            return new BaseViewModel<List<ViewCode>> {Value=await _context.Tbl_Code.Where(x=>x.CodeGroup.CG_GUID == GroupId).Select(x=>new ViewCode(x)).ToListAsync() };
+        }
         [HttpPost]
         public async Task<ActionResult<BaseViewModel<Tbl_Code>>> Delete([FromBody]int? id)
         {

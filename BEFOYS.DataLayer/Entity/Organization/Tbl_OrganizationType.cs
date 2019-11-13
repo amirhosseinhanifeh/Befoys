@@ -13,9 +13,7 @@ namespace BEFOYS.DataLayer.Entity.Organization
         public Guid OT_Guid { get; set; }
         public string OT_Name { get; set; }
         public string OT_Display { get; set; }
-        public int OT_ODNID { get; set; }
 
-        [ForeignKey("OT_ODNID")]
-        public Tbl_OrganizationDocumentNavigator OrganizationDocumentNavigator  { get; set; }
+        public ICollection<Tbl_OrganizationDocumentNavigator> OrganizationDocumentNavigators{ get; set; }
     }
 }

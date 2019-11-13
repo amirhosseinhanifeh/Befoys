@@ -23,8 +23,6 @@ namespace BEFOYS.WEB.Controllers
         {
             _context = context;
         }
-
-
         /// <summary>
         /// برای ذخیره داخل دیتابیس
         /// </summary>

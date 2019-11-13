@@ -33,12 +33,22 @@ namespace BEFOYS.WEB.Controllers
             _config = config;
         }
         [HttpPost]
+        public async Task<IActionResult> HarrisLogin([FromBody] ViewRegister model)
+        {
+            var Result = _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.Mobile);
+            if (Result == null)
+            {
+                return Ok(new { Message = "کاربر یافت نشد",IsAny=false,IsLogin=false });
+            }
+           return(await SetMobile(model));
+        }
+        [HttpPost]
         public async Task<IActionResult> SetMobile([FromBody] ViewRegister model)
         {
             try
             {
                 var Code = Generate.GenerateCode(6);
-                var Result= _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.Mobile);
+                var Result = _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.Mobile);
                 Tbl_Login login = new Tbl_Login();
                 if (Result == null)
                 {
@@ -73,36 +83,40 @@ namespace BEFOYS.WEB.Controllers
 
 
 
-                await SmsPortal.SendSmsAsync(reciver: model.Mobile, message: Code);
+                await SmsPortal.SendSmsAsync(reciver: model.Mobile, message: $"کد تاییدیه شما {Code} می باشد");
                 //else
                 //     EmailPortal.SendEmail(model.UserName,"کد تاییدیه",$"کد تاییدیه شما {Code} می باشد");
 
                 await _context.SaveChangesAsync();
 
-                return Ok(new { IsLogin=true });
+                return Ok(new { IsLogin = true,IsAny=true });
 
             }
             catch (Exception e)
             {
 
-                return Ok(new { IsLogin=false});
+                return Ok(new { IsLogin = false });
             }
         }
         [HttpPost]
         public async Task<IActionResult> Verify([FromBody] ViewVerify model)
         {
-            var login =await _context.Tbl_Login.FirstOrDefaultAsync(x => x.Login_Mobile == model.Mobile);
+            var login = await _context.Tbl_Login.FirstOrDefaultAsync(x => x.Login_Mobile == model.Mobile);
             if (login != null)
             {
-                var token =await _context.Tbl_Token.LastOrDefaultAsync(x => x.Token_LoginID == login.Login_ID && x.Token_EXP > DateTime.Now);
+                var token = await _context.Tbl_Token.LastOrDefaultAsync(x => x.Token_LoginID == login.Login_ID && x.Token_EXP > DateTime.Now);
                 if (token != null)
                 {
                     if (token.Token_Hush == model.Code)
                     {
 
                         string tokenkey = GenerateJSONWebToken(login);
-                        return Ok( new { token = tokenkey });
+                        return Ok(new { isOK = true, token = tokenkey });
 
+                    }
+                    else
+                    {
+                        return Ok(new { isOK = false });
                     }
                 }
             }
@@ -122,7 +136,7 @@ namespace BEFOYS.WEB.Controllers
                         Login_Mobile = model.Mobile,
                     };
 
-                   await _context.Tbl_Login.AddAsync(login);
+                    await _context.Tbl_Login.AddAsync(login);
 
                     //پنل پیش فرض گذاشته شود
 
