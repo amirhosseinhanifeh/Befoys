@@ -1,4 +1,5 @@
 ﻿using BEFOYS.DataLayer.Entity.Address;
+using BEFOYS.DataLayer.Entity.Document;
 using BEFOYS.DataLayer.Entity.Supplier;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,21 @@ namespace BEFOYS.DataLayer.Entity.Account
         [Key]
         public int Login_ID { get; set; }
         public Guid Login_GUID { get; set; } = Guid.NewGuid();
+        public int? Login_PictureDocumentID { get; set; }
+        public string Login_PasswordHash { get; set; }
+        public string Login_PasswordSalt { get; set; }
         public string Login_FirstName { get; set; }
         public string Login_LastName { get; set; }
         public string Login_Email { get; set; }
         public string Login_Mobile { get; set; }
-        public bool? Login_IsBan { get; set; } = false;
-        public bool? Login_IsDelete { get; set; } = false;
-        public bool? Login_IsRegister { get; set; } = true;
+        public bool Login_IsBan { get; set; } = false;
+        public bool Login_IsDelete { get; set; } = false;
+        public bool Login_IsRegister { get; set; } = true;
         public DateTime Login_CreateDate { get; set; }
         public DateTime Login_ModifyDate { get; set; }
+
+        [ForeignKey("Login_PictureDocumentID")]
+        public Tbl_Document Document { get; set; }
 
     }
 }

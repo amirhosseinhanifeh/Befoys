@@ -35,6 +35,8 @@ namespace BEFOYS.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> HarrisLogin([FromBody] ViewRegister model)
         {
+
+
             var Result = _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.Mobile);
             if (Result == null)
             {

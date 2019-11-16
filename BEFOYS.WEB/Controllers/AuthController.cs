@@ -39,7 +39,7 @@ namespace BEFOYS.WEB.Controllers
                     FirstName = x.Login_FirstName,
                     LastName = x.Login_LastName,
                     Email = x.Login_Email,
-                    IsBan = x.Login_IsBan.GetValueOrDefault(),
+                    IsBan = x.Login_IsBan,
                     
                 }).FirstOrDefaultAsync();
 

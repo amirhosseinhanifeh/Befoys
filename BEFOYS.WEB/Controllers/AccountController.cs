@@ -1,4 +1,5 @@
 ﻿
+using BEFOYS.Common.Converts;
 using BEFOYS.DataLayer.Entity.Account;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels.Account;
@@ -32,16 +33,18 @@ namespace BEFOYS.WEB.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]ViewLogin model)
         {
-            var user = _context.Tbl_Login.FirstOrDefault(x => (x.Login_Mobile == model.UserName ));
-            //if (user != null)
-            //{
-                //if(user.Login_IsBan.GetValueOrDefault())
-                //    return Ok(new { Message = "کاربر مسدود شده است",IsBan=true });
+           string Password= HashPassword.HushPassword(model.Password);
+            var user = _context.Tbl_Login.FirstOrDefault(x => (x.Login_Mobile == model.UserName /*&&x.Login_PasswordHash==Password*/) || (x.Login_Email==model.UserName /*&& x.Login_PasswordHash==Password*/));
+            if (user != null)
+            {
+                if(user.Login_IsBan)
+                    return Ok(new { Message = "کاربر مسدود شده است",IsBan=true,IsLogin=false });
                 
 
                 var tokenString = GenerateJSONWebToken(user);
-                return Ok(new { token = tokenString,IsBan=false });
-            //}
+                return Ok(new { token = tokenString,IsBan=false,IsLogin=true });
+            }
+            return Ok(new { token = "", IsBan = false,IsLogin=false,Message="نام کاربری و رمز عبور اشتباه می باشد" });
         }
 
         /// <summary>
