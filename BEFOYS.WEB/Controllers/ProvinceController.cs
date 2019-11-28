@@ -1,5 +1,5 @@
 ﻿using BEFOYS.Common.Messages;
-using BEFOYS.DataLayer.Entity.Province;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Province;
@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BEFOYS.WEB.Controllers
@@ -27,31 +26,31 @@ namespace BEFOYS.WEB.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_Province>>> Post([FromBody]ViewProvince model)
+        public async Task<ActionResult<BaseViewModel<TblProvince>>> Post([FromBody]ViewProvince model)
         {
             try
             {
-                Tbl_Province pr = new Tbl_Province()
+                TblProvince pr = new TblProvince()
                 {
-                    Province_CityID=model.CityID,
-                    Province_Display=model.Display,
-                    Province_Name=model.Name,
+                    ProvinceCityId=model.CityID,
+                    ProvinceDisplay=model.Display,
+                    ProvinceName=model.Name,
                     
                 };
-                await _context.Tbl_Province.AddAsync(pr);
+                await _context.TblProvince.AddAsync(pr);
                 await _context.SaveChangesAsync();
-                return new BaseViewModel<Tbl_Province> { Value = pr, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<TblProvince> { Value = pr, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<Tbl_Province> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<TblProvince> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tbl_Province>>> Get()
+        public async Task<ActionResult<IEnumerable<TblProvince>>> Get()
         {
-            return await _context.Tbl_Province.ToListAsync();
+            return await _context.TblProvince.ToListAsync();
         }
         public void Dispose()
         {

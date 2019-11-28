@@ -1,5 +1,4 @@
-﻿using BEFOYS.DataLayer.Entity.Supplier;
-using BEFOYS.DataLayer.Enums;
+﻿using BEFOYS.DataLayer.Enums;
 using BEFOYS.DataLayer.ViewModels.Register.General;
 using System;
 using System.Collections.Generic;
@@ -25,14 +24,6 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
         public string Website { get; set; }
         public ViewAddress[] Addresses { get; set; }
         public ViewStep1Haghighi() { }
-        public ViewStep1Haghighi(Tbl_SupplierReal model) {
-            SR_NationalCode = model.SR_NationalCode;
-            SR_ShenasnameID = model.SR_ShenasnameID;
-            SR_Birthday = model.SR_Birthday;
-            Gender = (Enum_Gender?)model.SR_GenderCodeID;
-            Website = model.Supplier.Supplier_Website;
-        
-        }
     }
     public class ViewStep1Hoghoghi
     {
@@ -46,15 +37,6 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
         public string Website { get; set; }
         public ViewAddress[] Addresses { get; set; }
         public ViewStep1Hoghoghi() { }
-        public ViewStep1Hoghoghi(Tbl_SupplierLegal model) {
-            SL_CompanyName = model.SL_CompanyName;
-            SL_NationalCode = model.SL_NationalCode;
-            SL_EconomicCode = model.SL_EconomicCode;
-            SL_SabtNumber = model.SL_SabtNumber;
-            SL_HasAgent = model.SL_HasAgent;
-            Website = model.Supplier.Supplier_Website;
-            SL_CompanyTypeCodeID = model.SL_CompanyTypeCodeID;
-        }
     }
 
 }

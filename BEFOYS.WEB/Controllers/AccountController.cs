@@ -1,6 +1,6 @@
 ﻿
 using BEFOYS.Common.Converts;
-using BEFOYS.DataLayer.Entity.Account;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +20,8 @@ namespace BEFOYS.WEB.Controllers
     [Produces("application/json")]
     public class AccountController : ControllerBase
     {
-        private IConfiguration _config;
-        private ServiceContext _context;
+        private readonly IConfiguration _config;
+        private readonly ServiceContext _context;
 
         public AccountController(IConfiguration config,ServiceContext context)
         {
@@ -34,10 +34,10 @@ namespace BEFOYS.WEB.Controllers
         public IActionResult Login([FromBody]ViewLogin model)
         {
            string Password= HashPassword.HushPassword(model.Password);
-            var user = _context.Tbl_Login.FirstOrDefault(x => (x.Login_Mobile == model.UserName /*&&x.Login_PasswordHash==Password*/) || (x.Login_Email==model.UserName /*&& x.Login_PasswordHash==Password*/));
+            var user = _context.TblLogin.FirstOrDefault(x => (x.LoginMobile == model.UserName /*&&x.Login_PasswordHash==Password*/) || (x.LoginEmail==model.UserName /*&& x.Login_PasswordHash==Password*/));
             if (user != null)
             {
-                if(user.Login_IsBan)
+                if(user.LoginIsBan)
                     return Ok(new { Message = "کاربر مسدود شده است",IsBan=true,IsLogin=false });
                 
 
@@ -53,22 +53,22 @@ namespace BEFOYS.WEB.Controllers
         /// <param name="username"></param>
         /// <param name="uniq"></param>
         /// <returns></returns>
-        private string GenerateJSONWebToken(Tbl_Login model)
+        private string GenerateJSONWebToken(TblLogin model)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[] {
-        new Claim(ClaimTypes.Name, model.Login_GUID.ToString()),
-        new Claim(ClaimTypes.Sid,model.Login_ID.ToString()),
-        new Claim(JwtRegisteredClaimNames.Sub, model.Login_ID.ToString()),
-        new Claim(JwtRegisteredClaimNames.Email, model.Login_Email),
-        new Claim(JwtRegisteredClaimNames.Jti, model.Login_GUID.ToString()),
+        new Claim(ClaimTypes.Name, model.LoginGuid.ToString()),
+        new Claim(ClaimTypes.Sid,model.LoginId.ToString()),
+        new Claim(JwtRegisteredClaimNames.Sub, model.LoginId.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, model.LoginEmail),
+        new Claim(JwtRegisteredClaimNames.Jti, model.LoginGuid.ToString()),
         //new Claim(ClaimTypes.Role,model.AccountControl.BaseRole.BR_Display)
     };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               claims,
-              expires: DateTime.Now.AddMinutes(120),
+              expires: DateTime.Now.AddDays(1),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

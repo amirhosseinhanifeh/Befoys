@@ -1,13 +1,10 @@
-﻿using BEFOYS.DataLayer.Entity.Account;
+﻿using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ViewModels.Register;
 using BEFOYS.Service.BaseRepository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BEFOYS.Service.IServices
 {
-    public interface ILoginService : IBaseRepository<Tbl_Login>
+    public interface ILoginService : IBaseRepository<TblLogin>
     {
         bool Check(ViewBaseRegister model);
     }

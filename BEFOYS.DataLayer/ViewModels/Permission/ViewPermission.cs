@@ -1,4 +1,5 @@
-﻿using BEFOYS.DataLayer.Entity.Permission;
+﻿
+using BEFOYS.DataLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,11 +14,11 @@ namespace BEFOYS.DataLayer.ViewModels.Permission
         public int? ID { get; set; }
         public int Group_ID { get; set; }
         public ViewPermission() { }
-        public ViewPermission(Tbl_Permission model)
+        public ViewPermission(TblPermission model)
         {
-            this.DisplayName = model.Permission_Display;
-            this.ID = model.Permission_ID;
-            this.IsFree = model.Permission_ISFree;
+            this.DisplayName = model.PermissionDisplay;
+            this.ID = model.PermissionId;
+            this.IsFree = model.PermissionIsFree.GetValueOrDefault();
         }
     }
 }

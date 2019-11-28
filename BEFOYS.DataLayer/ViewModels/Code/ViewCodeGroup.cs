@@ -1,7 +1,4 @@
-﻿using BEFOYS.DataLayer.Entity.Code;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BEFOYS.DataLayer.Model;
 
 namespace BEFOYS.DataLayer.ViewModels.Code
 {
@@ -11,11 +8,11 @@ namespace BEFOYS.DataLayer.ViewModels.Code
         public string CG_Name { get; set; }
         public string CG_Display { get; set; }
         public ViewCodeGroup() { }
-        public ViewCodeGroup(Tbl_CodeGroup model)
+        public ViewCodeGroup(TblCodeGroup model)
         {
-            CG_Display = model.CG_Display;
-            CG_Name = model.CG_Name;
-            ID = model.CG_ID;
+            CG_Display = model.CgDisplay;
+            CG_Name = model.CgName;
+            ID = model.CgId;
         }
     }
 }

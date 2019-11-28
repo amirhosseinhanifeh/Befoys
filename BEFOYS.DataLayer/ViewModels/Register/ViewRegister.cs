@@ -9,9 +9,9 @@ namespace BEFOYS.DataLayer.ViewModels.Register
     public class ViewRegister
     {
         public string Mobile { get; set; }
-        [Required]
-        public Enum_UserType Type { get; set; }
-        [Required]
-        public Enum_BaseRole Role { get; set; }
+        //[Required]
+        //public Enum_UserType Type { get; set; }
+        //[Required]
+        //public Enum_BaseRole Role { get; set; }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using BEFOYS.Common.Converts;
 using BEFOYS.Common.Messages;
 using BEFOYS.Common.Utilities;
-using BEFOYS.DataLayer.Entity.Account;
-using BEFOYS.DataLayer.Entity.Supplier;
 using BEFOYS.DataLayer.Enums;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Register;
@@ -12,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -31,46 +29,60 @@ namespace BEFOYS.WEB.Controllers
         {
             _context = context;
             _config = config;
+           
         }
         [HttpPost]
         public async Task<IActionResult> HarrisLogin([FromBody] ViewRegister model)
         {
 
 
-            var Result = _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.Mobile);
+            var Result = _context.TblLogin.FirstOrDefault(x => x.LoginMobile == model.Mobile);
             if (Result == null)
             {
                 return Ok(new { Message = "کاربر یافت نشد",IsAny=false,IsLogin=false });
             }
-           return(await SetMobile(model));
+           return(await Registeration(model.Mobile));
         }
+        /// <summary>
+        /// ارسال شماره و دریافت کد تاییدیه
+        /// </summary>
+        /// <param name="Mobile">شماره موبایل</param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Todo
+        ///     {
+        ///     "Mobile":"09354547295"
+        ///     }
+        /// </remarks>
+        /// <returns>خروجی کد تاییدیه می باشد</returns>
         [HttpPost]
-        public async Task<IActionResult> SetMobile([FromBody] ViewRegister model)
+        public async Task<IActionResult> Registeration([FromBody] string Mobile)
         {
             try
             {
                 var Code = Generate.GenerateCode(6);
-                var Result = _context.Tbl_Login.FirstOrDefault(x => x.Login_Mobile == model.Mobile);
-                Tbl_Login login = new Tbl_Login();
+                var Result = _context.TblLogin.FirstOrDefault(x => x.LoginMobile == Mobile);
+                TblLogin login = new TblLogin();
                 if (Result == null)
                 {
 
-                    login.Login_Mobile = model.Mobile;
-                    _context.Tbl_Login.AddAsync(login).Wait();
+                    login.LoginMobile = Mobile;
+                    _context.TblLogin.AddAsync(login).GetAwaiter();
                 }
                 else
                 {
                     login = Result;
                 }
-                Tbl_Token toke = new Tbl_Token()
+                TblToken toke = new TblToken()
                 {
-                    Token_Hush = Code,
-                    Token_LoginID = login.Login_ID,
-                    Token_EXP = DateTime.Now.AddMinutes(2),
-                    Token_Start = DateTime.Now,
+                    TokenHush = Code,
+                    TokenLoginId = login.LoginId,
+                    TokenExp = DateTime.Now.AddMinutes(2),
+                    TokenStart = DateTime.Now,
 
                 };
-                _context.Tbl_Token.AddAsync(toke).Wait();
+                _context.TblToken.AddAsync(toke).GetAwaiter();
 
                 //switch (model.Role)
                 //{
@@ -80,36 +92,39 @@ namespace BEFOYS.WEB.Controllers
                 //    case Enum_BaseRole.CUSTOMER:
                 //        break;
                 //}
-                _context.SaveChanges();
 
-
-
-
-                await SmsPortal.SendSmsAsync(reciver: model.Mobile, message: $"کد تاییدیه شما {Code} می باشد");
+                try
+                {
+                    await SmsPortal.SendSmsAsync(reciver:Mobile, message:Code);
+                }
+                catch( Exception e)
+                {
+                    return Ok(new { Smserror = true });
+                }
                 //else
                 //     EmailPortal.SendEmail(model.UserName,"کد تاییدیه",$"کد تاییدیه شما {Code} می باشد");
-
                 await _context.SaveChangesAsync();
 
-                return Ok(new { IsLogin = true,IsAny=true });
+             
+                return Ok(new { IsLogin = true,IsAny=true,smserror=false  });
 
             }
             catch (Exception e)
             {
 
-                return Ok(new { IsLogin = false });
+                return Ok(new { IsLogin = false, smserror = false });
             }
         }
         [HttpPost]
         public async Task<IActionResult> Verify([FromBody] ViewVerify model)
         {
-            var login = await _context.Tbl_Login.FirstOrDefaultAsync(x => x.Login_Mobile == model.Mobile);
+            var login = await _context.TblLogin.FirstOrDefaultAsync(x => x.LoginMobile == model.Mobile);
             if (login != null)
             {
-                var token = await _context.Tbl_Token.LastOrDefaultAsync(x => x.Token_LoginID == login.Login_ID && x.Token_EXP > DateTime.Now);
+                var token = await _context.TblToken.LastOrDefaultAsync(x => x.TokenLoginId == login.LoginId && x.TokenExp > DateTime.Now);
                 if (token != null)
                 {
-                    if (token.Token_Hush == model.Code)
+                    if (token.TokenHush == model.Code)
                     {
 
                         string tokenkey = GenerateJSONWebToken(login);
@@ -130,51 +145,53 @@ namespace BEFOYS.WEB.Controllers
         {
             try
             {
-                if (!_context.Tbl_Login.Any(x => x.Login_Mobile == model.Mobile) && !_context.Tbl_Login.Any(x => x.Login_Email == model.Email))
+                if (!_context.TblLogin.Any(x => x.LoginMobile == model.Mobile) && !_context.TblLogin.Any(x => x.LoginEmail == model.Email))
                 {
 
-                    Tbl_Login login = new Tbl_Login()
+                    TblLogin login = new TblLogin()
                     {
-                        Login_Mobile = model.Mobile,
+                        LoginMobile = model.Mobile,
                     };
 
-                    await _context.Tbl_Login.AddAsync(login);
+                    await _context.TblLogin.AddAsync(login);
 
                     //پنل پیش فرض گذاشته شود
 
                     string token = GenerateJSONWebToken(login);
                     return Ok(new BaseViewModel<object> { Value = new { token = token }, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
                 }
-                return Ok(new BaseViewModel<Tbl_Login> { Value = null, Message = ViewMessage.Duplicate, NotificationType = DataLayer.Enums.Enum_NotificationType.warning });
+                return Ok(new BaseViewModel<TblLogin> { Value = null, Message = ViewMessage.Duplicate, NotificationType = DataLayer.Enums.Enum_NotificationType.warning });
 
             }
             catch (Exception e)
             {
-                return Ok(new BaseViewModel<Tbl_Login> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error });
+                return Ok(new BaseViewModel<TblLogin> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error });
             }
 
         }
         /// <summary>
         /// generate token
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="uniq"></param>
+        /// <param name="model"></param>
+        /// <remarks>
+        /// 
+        /// </remarks>
         /// <returns></returns>
-        private string GenerateJSONWebToken(Tbl_Login model)
+        private string GenerateJSONWebToken(TblLogin model)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[] {
-        new Claim(ClaimTypes.Name, model.Login_Mobile),
-        new Claim(ClaimTypes.Sid,model.Login_ID.ToString()),
-        new Claim(JwtRegisteredClaimNames.Sub, model.Login_ID.ToString()),
-        new Claim(JwtRegisteredClaimNames.Jti, model.Login_GUID.ToString()),
+        new Claim(ClaimTypes.Name, model.LoginMobile),
+        new Claim(ClaimTypes.Sid,model.LoginId.ToString()),
+        new Claim(JwtRegisteredClaimNames.Sub, model.LoginId.ToString()),
+        new Claim(JwtRegisteredClaimNames.Jti, model.LoginGuid.ToString()),
         //new Claim(ClaimTypes.Role,model.AccountControl.BaseRole.BR_Display)
     };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               claims,
-              expires: DateTime.Now.AddMinutes(120),
+              expires: DateTime.Now.AddDays(2),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -182,27 +199,27 @@ namespace BEFOYS.WEB.Controllers
         [NonAction]
         public void RegisterSupplier(int LoginId, Enum_UserType Type)
         {
-            var code = _context.Tbl_Code.FirstOrDefault(x => x.Code_Display == Type.ToString());
-            Tbl_Supplier supplier = new Tbl_Supplier()
-            {
-                Supplier_LoginID = LoginId,
-                Supplier_TypeCodeID = code.Code_ID
-            };
-            _context.Tbl_Supplier.Add(supplier);
-            if (Type == Enum_UserType.HAGHIGHI)
-            {
-                supplier.SupplierReals = new List<Tbl_SupplierReal>();
-                supplier.SupplierReals.Add(new Tbl_SupplierReal());
-            }
-            else if (Type == Enum_UserType.HOGHOGHI)
-            {
-                supplier.SupplierLegals = new List<Tbl_SupplierLegal>();
-                supplier.SupplierLegals.Add(new Tbl_SupplierLegal());
-            }
-            else if (Type == Enum_UserType.SUBUSER)
-            {
+            var code = _context.TblCode.FirstOrDefault(x => x.CodeDisplay == Type.ToString());
+            //Tbl_Supplier supplier = new Tbl_Supplier()
+            //{
+            //    Supplier_LoginID = LoginId,
+            //    Supplier_TypeCodeID = code.Code_ID
+            //};
+            //_context.Tbl_Supplier.Add(supplier);
+            //if (Type == Enum_UserType.HAGHIGHI)
+            //{
+            //    supplier.SupplierReals = new List<Tbl_SupplierReal>();
+            //    supplier.SupplierReals.Add(new Tbl_SupplierReal());
+            //}
+            //else if (Type == Enum_UserType.HOGHOGHI)
+            //{
+            //    supplier.SupplierLegals = new List<Tbl_SupplierLegal>();
+            //    supplier.SupplierLegals.Add(new Tbl_SupplierLegal());
+            //}
+            //else if (Type == Enum_UserType.SUBUSER)
+            //{
 
-            }
+            //}
         }
     }
 }

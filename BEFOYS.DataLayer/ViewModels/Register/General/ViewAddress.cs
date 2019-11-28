@@ -1,7 +1,4 @@
-﻿using BEFOYS.DataLayer.Entity.Address;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BEFOYS.DataLayer.Model;
 
 namespace BEFOYS.DataLayer.ViewModels.Register.General
 {
@@ -11,10 +8,10 @@ namespace BEFOYS.DataLayer.ViewModels.Register.General
         public string Address { get; set; }
         public ViewPhone[] Phones { get; set; }
         public ViewAddress() { }
-        public ViewAddress(Tbl_Address model)
+        public ViewAddress(TblAddress model)
         {
-            CityID = model.City.City_GUID.ToString();
-            Address = model.Address_Text;
+            CityID = model.AddressCity.CityGuid.ToString();
+            Address = model.AddressText;
             
         }
     }

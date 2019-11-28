@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using BEFOYS.Common.Messages;
-using BEFOYS.DataLayer.Entity.Code;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Code;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,19 +28,19 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
             {
                 if (model.ID != null)
                 {
-                    var result = await _context.Tbl_CodeGroup.FindAsync(model.ID);
-                    result.CG_Display = model.CG_Display;
-                    result.CG_Name = model.CG_Name;
+                    var result = await _context.TblCodeGroup.FindAsync(model.ID);
+                    result.CgDisplay = model.CG_Display;
+                    result.CgName = model.CG_Name;
                     await _context.SaveChangesAsync();
                     return new BaseViewModel<ViewCodeGroup> { Value = new ViewCodeGroup(result), Message = ViewMessage.SuccessFullEdited, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
                 }
-                Tbl_CodeGroup code = new Tbl_CodeGroup()
+                TblCodeGroup code = new TblCodeGroup()
                 {
-                    CG_Display = model.CG_Display,
-                    CG_Name = model.CG_Name,
+                    CgDisplay = model.CG_Display,
+                    CgName = model.CG_Name,
                 };
-                _context.Tbl_CodeGroup.Add(code);
+                _context.TblCodeGroup.Add(code);
                 await _context.SaveChangesAsync();
 
                 return new BaseViewModel<ViewCodeGroup> { Value = new ViewCodeGroup(code), Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
@@ -55,28 +53,28 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
             }
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tbl_CodeGroup>>> Get()
+        public async Task<ActionResult<IEnumerable<TblCodeGroup>>> Get()
         {
-            return await _context.Tbl_CodeGroup.ToListAsync();
+            return await _context.TblCodeGroup.ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_CodeGroup>>> Delete([FromBody]int? id)
+        public async Task<ActionResult<BaseViewModel<TblCodeGroup>>> Delete([FromBody]int? id)
         {
             try
             {
-                var data = await _context.Tbl_CodeGroup.FindAsync(id);
+                var data = await _context.TblCodeGroup.FindAsync(id);
                 if (data != null)
                 {
-                    _context.Tbl_CodeGroup.Remove(data);
+                    _context.TblCodeGroup.Remove(data);
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_CodeGroup> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<TblCodeGroup> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
                 }
-                return new BaseViewModel<Tbl_CodeGroup> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.notfound };
+                return new BaseViewModel<TblCodeGroup> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.notfound };
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<Tbl_CodeGroup> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<TblCodeGroup> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         public void Dispose()

@@ -1,5 +1,5 @@
 ﻿using BEFOYS.Common.Messages;
-using BEFOYS.DataLayer.Entity.Panel;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Panel;
@@ -23,53 +23,53 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
             _context = context;
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<List<Tbl_PanelTypePermission>>>> Post([FromBody]ViewPanelTypePermission model)
+        public async Task<ActionResult<BaseViewModel<List<TblPanelTypePermission>>>> Post([FromBody]ViewPanelTypePermission model)
         {
             try
             {
-                var panel = _context.Tbl_PanelType.FirstOrDefault(x => x.PT_GUID == model.ID);
-                List<Tbl_PanelTypePermission> list = new List<Tbl_PanelTypePermission>();
+                var panel = _context.TblPanelType.FirstOrDefault(x => x.PtGuid == model.ID);
+                List<TblPanelTypePermission> list = new List<TblPanelTypePermission>();
                 foreach (var item in model.Permissions)
                 {
-                    var per = _context.Tbl_Permission.FirstOrDefault(x => x.Permission_GUID == item);
-                    list.Add(new Tbl_PanelTypePermission()
+                    var per = _context.TblPermission.FirstOrDefault(x => x.PermissionGuid == item);
+                    list.Add(new TblPanelTypePermission()
                     {
-                        PTP_PermissionID = per.Permission_ID,
-                        PTP_PTID = panel.PT_ID
+                        PtpPermissionId = per.PermissionId,
+                        PtpPtid = panel.PtId
                     });
                 }
 
-                _context.Tbl_PanelTypePermission.AddRange(list);
+                _context.TblPanelTypePermission.AddRange(list);
 
                 await _context.SaveChangesAsync();
 
-                return new BaseViewModel<List<Tbl_PanelTypePermission>> { Value = list, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<List<TblPanelTypePermission>> { Value = list, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<List<Tbl_PanelTypePermission>> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<List<TblPanelTypePermission>> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tbl_PanelTypePermission>>> Get()
+        public async Task<ActionResult<IEnumerable<TblPanelTypePermission>>> Get()
         {
-            return await _context.Tbl_PanelTypePermission.ToListAsync();
+            return await _context.TblPanelTypePermission.ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_PanelTypePermission>>> Delete([FromBody] int? id)
+        public async Task<ActionResult<BaseViewModel<TblPanelTypePermission>>> Delete([FromBody] int? id)
         {
             try
             {
-                var data = await _context.Tbl_PanelTypePermission.FindAsync(id);
+                var data = await _context.TblPanelTypePermission.FindAsync(id);
                 if (data != null)
                 {
-                    _context.Tbl_PanelTypePermission.Remove(data);
+                    _context.TblPanelTypePermission.Remove(data);
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_PanelTypePermission> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<TblPanelTypePermission> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
                 }
-                return new BaseViewModel<Tbl_PanelTypePermission> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
+                return new BaseViewModel<TblPanelTypePermission> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
 
             }
             catch (Exception e)

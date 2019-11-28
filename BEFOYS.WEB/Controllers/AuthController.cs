@@ -34,12 +34,12 @@ namespace BEFOYS.WEB.Controllers
             try
             {
                 var user = User.Identity.UserID();
-                var Result = await _context.Tbl_Login.Where(x => x.Login_ID == user).Select(x => new ViewAccountInfo
+                var Result = await _context.TblLogin.Where(x => x.LoginId == user).Select(x => new ViewAccountInfo
                 {
-                    FirstName = x.Login_FirstName,
-                    LastName = x.Login_LastName,
-                    Email = x.Login_Email,
-                    IsBan = x.Login_IsBan,
+                    FirstName = x.LoginFirstName,
+                    LastName = x.LoginLastName,
+                    Email = x.LoginEmail,
+                    IsBan = x.LoginIsBan,
                     
                 }).FirstOrDefaultAsync();
 

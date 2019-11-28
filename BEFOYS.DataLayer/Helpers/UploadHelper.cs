@@ -1,5 +1,5 @@
-﻿using BEFOYS.DataLayer.Entity.Document;
-using BEFOYS.DataLayer.Enums;
+﻿using BEFOYS.DataLayer.Enums;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -31,20 +31,20 @@ namespace BEFOYS.DataLayer.Helpers
             {
                 await file.CopyToAsync(fileStream);
             }
-            var typeid = context.Tbl_Code.FirstOrDefault(x => x.Code_Display == code.ToString());
+            var typeid = context.TblCode.FirstOrDefault(x => x.CodeDisplay == code.ToString());
 
-            Tbl_Document document = new Tbl_Document()
+            TblDocument document = new TblDocument()
             {
-                Document_FileName = uniqueFileName,
-                Document_FolderName=folderpath,
-                Document_Path= filePath,
-                Document_TypeCodeID=typeid.Code_ID
+                DocumentFileName = uniqueFileName,
+                DocumentFolderName=folderpath,
+                DocumentPath= filePath,
+                DocumentTypeCodeId=typeid.CodeId
             };
 
-            context.Tbl_Document.Add(document);
+            context.TblDocument.Add(document);
             await context.SaveChangesAsync();
 
-            return document.Document_ID;
+            return document.DocumentId;
         }
     }
 }

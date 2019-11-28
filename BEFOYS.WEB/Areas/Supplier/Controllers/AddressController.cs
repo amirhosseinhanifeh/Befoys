@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using BEFOYS.Common.AppUser;
 using BEFOYS.Common.Messages;
-using BEFOYS.DataLayer.Entity.Address;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
-using BEFOYS.DataLayer.ViewModels.City;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.WEB.Areas.Supplier.Controllers
 {
@@ -78,18 +72,18 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         //    return await _context.Tbl_Address.Where(x=>x.Address_LoginID==user).ToListAsync();
         //}
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_Address>>> Delete([FromBody]int? id)
+        public async Task<ActionResult<BaseViewModel<TblAddress>>> Delete([FromBody]int? id)
         {
             try
             {
-                var data = await _context.Tbl_Address.FindAsync(id);
+                var data = await _context.TblAddress.FindAsync(id);
                 if (data != null)
                 {
-                    _context.Tbl_Address.Remove(data);
+                    _context.TblAddress.Remove(data);
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_Address> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<TblAddress> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
                 }
-                return new BaseViewModel<Tbl_Address> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
+                return new BaseViewModel<TblAddress> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
 
             }
             catch (Exception e)

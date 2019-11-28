@@ -1,12 +1,8 @@
-﻿using BEFOYS.DataLayer.Entity.Code;
-using BEFOYS.DataLayer.Enums;
+﻿using BEFOYS.DataLayer.Enums;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.Service.IServices;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BEFOYS.Service.Services
 {
@@ -19,9 +15,9 @@ namespace BEFOYS.Service.Services
             _context = context;
         }
 
-        public Tbl_Code GetByLabel(Enum_Code label)
+        public TblCode GetByLabel(Enum_Code label)
         {
-            return _context.Tbl_Code.FirstOrDefault(x => x.Code_Display == label.ToString());
+            return _context.TblCode.FirstOrDefault(x => x.CodeDisplay == label.ToString());
         }
         public void Dispose()
         {

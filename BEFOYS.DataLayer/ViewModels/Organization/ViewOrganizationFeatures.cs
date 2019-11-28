@@ -1,7 +1,5 @@
-﻿using BEFOYS.DataLayer.Entity.Organization;
+﻿using BEFOYS.DataLayer.Model;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BEFOYS.DataLayer.ViewModels.Organization
 {
@@ -13,13 +11,13 @@ namespace BEFOYS.DataLayer.ViewModels.Organization
         public string ODF_CodeName { get; set; }
         public string ODF_CodeDisplay { get; set; }
         public bool ODF_Mandatory { get; set; }
-        public ViewOrganizationFeatures(Tbl_OrganizationDocumentFeatures model)
+        public ViewOrganizationFeatures(TblOrganizationDocumentFeatures model)
         {
-            ODF_ID = model.ODF_ID;
-            ODF_Guid = model.ODF_Guid;
-            ODF_Mandatory = model.ODF_Mandatory;
-            ODF_CodeName = model.Code.Code_Name;
-            ODF_CodeDisplay = model.Code.Code_Display;
+            ODF_ID = model.OdfId;
+            ODF_Guid = model.OdfGuid;
+            ODF_Mandatory = model.OdfMandatory;
+            ODF_CodeName = model.OdfKindCode.CodeName;
+            ODF_CodeDisplay = model.OdfKindCode.CodeDisplay;
 
         }
     }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using BEFOYS.Common.Messages;
-using BEFOYS.DataLayer.Entity.Panel;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Panel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,60 +22,60 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
             _context = context;
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_PanelType>>> Post([FromBody]ViewPanelType model)
+        public async Task<ActionResult<BaseViewModel<TblPanelType>>> Post([FromBody]ViewPanelType model)
         {
             try
             {
                 if (model.ID != null && model.ID != 0)
                 {
-                    var result = await _context.Tbl_PanelType.FindAsync(model.ID);
-                    result.PT_Display = model.Display;
-                    result.PT_NAME = model.NAME;
-                    result.PT_ISFree = model.ISFree;
-                    result.PT_Price = model.Price;
+                    var result = await _context.TblPanelType.FindAsync(model.ID);
+                    result.PtDisplay = model.Display;
+                    result.PtName = model.NAME;
+                    result.PtIsFree = model.ISFree;
+                    result.PtPrice = model.Price;
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_PanelType> { Value = result, Message = ViewMessage.SuccessFullEdited, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<TblPanelType> { Value = result, Message = ViewMessage.SuccessFullEdited, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
                 }
-                Tbl_PanelType permission = new Tbl_PanelType()
+                TblPanelType permission = new TblPanelType()
                 {
-                    PT_Display = model.Display,
-                    PT_NAME = model.NAME,
-                    PT_ISFree = model.ISFree,
-                    PT_Price = model.Price,
+                    PtDisplay = model.Display,
+                    PtName = model.NAME,
+                    PtIsFree = model.ISFree,
+                    PtPrice = model.Price,
 
                 };
-                _context.Tbl_PanelType.Add(permission);
+                _context.TblPanelType.Add(permission);
 
                 await _context.SaveChangesAsync();
 
-                return new BaseViewModel<Tbl_PanelType> { Value = permission, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<TblPanelType> { Value = permission, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<Tbl_PanelType> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<TblPanelType> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tbl_PanelType>>> Get()
+        public async Task<ActionResult<IEnumerable<TblPanelType>>> Get()
         {
-            return await _context.Tbl_PanelType.ToListAsync();
+            return await _context.TblPanelType.ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_PanelType>>> Delete([FromBody] int? id)
+        public async Task<ActionResult<BaseViewModel<TblPanelType>>> Delete([FromBody] int? id)
         {
             try
             {
-                var data = await _context.Tbl_PanelType.FindAsync(id);
+                var data = await _context.TblPanelType.FindAsync(id);
                 if (data != null)
                 {
-                    _context.Tbl_PanelType.Remove(data);
+                    _context.TblPanelType.Remove(data);
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_PanelType> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<TblPanelType> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
                 }
-                return new BaseViewModel<Tbl_PanelType> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
+                return new BaseViewModel<TblPanelType> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
 
             }
             catch (Exception e)

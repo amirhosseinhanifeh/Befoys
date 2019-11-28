@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BEFOYS.DataLayer.Entity.Address;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,15 +20,15 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Tbl_Phone>>> Get()
+        public async Task<ActionResult<List<TblPhone>>> Get()
         {
-            return await _context.Tbl_Phone.ToListAsync();
+            return await _context.TblPhone.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Tbl_Phone>>> Get(int? id)
+        public async Task<ActionResult<List<TblPhone>>> Get(int? id)
         {
-            return await _context.Tbl_Phone.Where(y=>y.Phone_AddressID==id).ToListAsync();
+            return await _context.TblPhone.Where(y=>y.PhoneAddressId==id).ToListAsync();
         }
     }
 }

@@ -7,8 +7,8 @@ namespace BEFOYS.DataLayer.Enums
 
     public enum Enum_UserType
     {
-        HAGHIGHI,
-        HOGHOGHI,
+        Supplier_Real,
+        Supplier_Legal,
         SUBUSER,
     }
 }

@@ -5,7 +5,6 @@ using BEFOYS.WEB.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Internal;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +16,9 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IO;
 using System.Reflection;
+using Microsoft.Extensions.Hosting;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace BEFOYS.WEB
 {
@@ -33,10 +34,10 @@ namespace BEFOYS.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddDbContext<ServiceContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
 
-            services.AddScoped<IBaseRoleService, BaseRoleService>();
             //Jwt
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       .AddJwtBearer(options =>
@@ -59,36 +60,52 @@ namespace BEFOYS.WEB
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://sarfeland.ir")
+                    builder
                     .WithOrigins("http://localhost:3000/")
                     .AllowAnyMethod()
                     .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowCredentials();
+                    .AllowAnyHeader();
                 });
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddSwaggerGen((options) =>
             {
-                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Befoys Api",
                     Version = "v1",
-                   
+                    TermsOfService = new Uri("https://befoys.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Amirhossein hanifeh",
+                        Email = "hosseinhanifeh@gmail.com",
+                        Url = new Uri("https://twitter.com/spboyer"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Befoys Lincence",
+                        Url = new Uri("https://befoys.com/license"),
+                    }
+
                 });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
 
             });
             services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Befoys Api");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Befoys Api v1");
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "Befoys Api v2");
+
             });
 
             if (env.IsDevelopment())
@@ -106,11 +123,15 @@ namespace BEFOYS.WEB
                 RequestPath = new PathString("/Uploads")
             });
             app.UseCors(MyAllowSpecificOrigins);
+
+            app.UseRouting();
             app.UseAuthentication();
-            app.UseMvc();
-            app.UseSignalR(options=>
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                options.MapHub<ServiceHub>("/servicehub");
+                endpoints.MapControllers();
+                endpoints.MapHub<ServiceHub>("/serviceHub");
             });
         }
     }

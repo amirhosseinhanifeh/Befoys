@@ -1,15 +1,10 @@
-﻿
-using BEFOYS.DataLayer.Entity.Account;
+﻿using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.Service.BaseRepository;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BEFOYS.Service.Service
 {
-    public class AccountRepository : BaseRepository<Tbl_Login>
+    public class AccountRepository : BaseRepository<TblLogin>
     {
         private ServiceContext _context;
         public AccountRepository(ServiceContext context):base(context)

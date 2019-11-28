@@ -1,5 +1,5 @@
 ﻿using BEFOYS.Common.Messages;
-using BEFOYS.DataLayer.Entity.Permission;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Permission;
@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BEFOYS.WEB.Areas.Admin.Controllers
@@ -31,28 +30,28 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
             {
                 if (model.ID != null && model.ID != 0)
                 {
-                    var result = await _context.Tbl_Permission.FindAsync(model.ID);
-                    result.Permission_Display = model.DisplayName;
-                    result.Permission_Name = model.Name;
-                    result.Permission_ISFree = model.IsFree;
+                    var result = await _context.TblPermission.FindAsync(model.ID);
+                    result.PermissionDisplay = model.DisplayName;
+                    result.PermissionName = model.Name;
+                    result.PermissionIsFree = model.IsFree;
                     await _context.SaveChangesAsync();
                     return new BaseViewModel<ViewPermission> { Value = new ViewPermission(result), Message = ViewMessage.SuccessFullEdited, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
                 }
-                Tbl_Permission permission = new Tbl_Permission()
+                TblPermission permission = new TblPermission()
                 {
-                    Permission_Display = model.DisplayName,
-                    Permission_Name = model.Name,
-                    Permission_ISFree = model.IsFree,
+                    PermissionDisplay = model.DisplayName,
+                    PermissionName = model.Name,
+                    PermissionIsFree = model.IsFree,
                 };
-                _context.Tbl_Permission.Add(permission);
+                _context.TblPermission.Add(permission);
 
-                Tbl_GroupPermission gp = new Tbl_GroupPermission()
+                TblGroupPermission gp = new TblGroupPermission()
                 {
-                    GP_GroupID = model.Group_ID,
-                    GP_PermissionID = permission.Permission_ID
+                    GpGroupId = model.Group_ID,
+                    GpPermissionId = permission.PermissionId
                 };
-                _context.Tbl_GroupPermission.Add(gp);
+                _context.TblGroupPermission.Add(gp);
 
                 await _context.SaveChangesAsync();
 
@@ -67,23 +66,23 @@ namespace BEFOYS.WEB.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tbl_Permission>>> Get()
+        public async Task<ActionResult<IEnumerable<TblPermission>>> Get()
         {
-            return await _context.Tbl_Permission.ToListAsync();
+            return await _context.TblPermission.ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_Permission>>> Delete([FromBody] int? id)
+        public async Task<ActionResult<BaseViewModel<TblPermission>>> Delete([FromBody] int? id)
         {
             try
             {
-                var data = await _context.Tbl_Permission.FindAsync(id);
+                var data = await _context.TblPermission.FindAsync(id);
                 if (data != null)
                 {
-                    _context.Tbl_Permission.Remove(data);
+                    _context.TblPermission.Remove(data);
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_Permission> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<TblPermission> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
                 }
-                return new BaseViewModel<Tbl_Permission> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
+                return new BaseViewModel<TblPermission> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
 
             }
             catch (Exception e)

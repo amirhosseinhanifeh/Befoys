@@ -1,5 +1,5 @@
 ﻿using BEFOYS.Common.Messages;
-using BEFOYS.DataLayer.Entity.City;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.City;
@@ -29,49 +29,49 @@ namespace BEFOYS.WEB.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<BaseViewModel<Tbl_City>> Post([FromBody]ViewCity model)
+        public async Task<BaseViewModel<TblCity>> Post([FromBody]ViewCity model)
         {
             try
             {
-                Tbl_City ci = new Tbl_City()
+                TblCity ci = new TblCity()
                 {
-                    City_Name = model.Name,
-                    City_Display = model.Display
+                    CityName = model.Name,
+                    CityDisplay = model.Display
                 };
-                await _context.Tbl_City.AddAsync(ci);
+                await _context.TblCity.AddAsync(ci);
                 await _context.SaveChangesAsync();
-                return new BaseViewModel<Tbl_City> { Value = ci, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<TblCity> { Value = ci, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<Tbl_City> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<TblCity> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tbl_City>>> Get()
+        public async Task<ActionResult<IEnumerable<TblCity>>> Get()
         {
 
-            return await _context.Tbl_City.ToListAsync();
+            return await _context.TblCity.ToListAsync();
         }
         [HttpGet("{Province_ID}")]
-        public async Task<ActionResult<IEnumerable<Tbl_City>>> Get(int? Province_ID = null)
+        public async Task<ActionResult<IEnumerable<TblCity>>> Get(int? Province_ID = null)
         {
-            return await _context.Tbl_City.Where(x => x.City_ProvinceID == Province_ID).ToListAsync();
+            return await _context.TblCity.Where(x => x.CityProvinceId == Province_ID).ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<Tbl_City>>> Delete(int? id)
+        public async Task<ActionResult<BaseViewModel<TblCity>>> Delete(int? id)
         {
             try
             {
-                var data = await _context.Tbl_City.FindAsync(id);
+                var data = await _context.TblCity.FindAsync(id);
                 if (data != null)
                 {
-                    _context.Tbl_City.Remove(data);
+                    _context.TblCity.Remove(data);
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<Tbl_City> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<TblCity> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
                 }
-                return new BaseViewModel<Tbl_City> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
+                return new BaseViewModel<TblCity> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
 
             }
             catch (Exception e)
