@@ -1,4 +1,5 @@
-﻿using BEFOYS.Common.Converts;
+﻿using BEFOYS.Common.AppUser;
+using BEFOYS.Common.Converts;
 using BEFOYS.Common.Messages;
 using BEFOYS.Common.Utilities;
 using BEFOYS.DataLayer.Enums;
@@ -29,7 +30,7 @@ namespace BEFOYS.WEB.Controllers
         {
             _context = context;
             _config = config;
-           
+
         }
         [HttpPost]
         public async Task<IActionResult> HarrisLogin([FromBody] ViewRegister model)
@@ -39,9 +40,9 @@ namespace BEFOYS.WEB.Controllers
             var Result = _context.TblLogin.FirstOrDefault(x => x.LoginMobile == model.Mobile);
             if (Result == null)
             {
-                return Ok(new { Message = "کاربر یافت نشد",IsAny=false,IsLogin=false });
+                return Ok(new { Message = "کاربر یافت نشد", IsAny = false, IsLogin = false });
             }
-           return(await Registeration(model.Mobile));
+            return (await Registeration(model));
         }
         /// <summary>
         /// ارسال شماره و دریافت کد تاییدیه
@@ -52,22 +53,22 @@ namespace BEFOYS.WEB.Controllers
         ///
         ///     POST /Todo
         ///     {
-        ///     "Mobile":"09354547295"
+        ///     Mobile:"09354547295"
         ///     }
         /// </remarks>
         /// <returns>خروجی کد تاییدیه می باشد</returns>
         [HttpPost]
-        public async Task<IActionResult> Registeration([FromBody] string Mobile)
+        public async Task<IActionResult> Registeration([FromBody] ViewRegister Mobile)
         {
             try
             {
                 var Code = Generate.GenerateCode(6);
-                var Result = _context.TblLogin.FirstOrDefault(x => x.LoginMobile == Mobile);
+                var Result = _context.TblLogin.FirstOrDefault(x => x.LoginMobile == Mobile.Mobile);
                 TblLogin login = new TblLogin();
                 if (Result == null)
                 {
 
-                    login.LoginMobile = Mobile;
+                    login.LoginMobile = Mobile.Mobile;
                     _context.TblLogin.AddAsync(login).GetAwaiter();
                 }
                 else
@@ -82,7 +83,7 @@ namespace BEFOYS.WEB.Controllers
                     TokenStart = DateTime.Now,
 
                 };
-                _context.TblToken.AddAsync(toke).GetAwaiter();
+                _context.TblToken.Add(toke);
 
                 //switch (model.Role)
                 //{
@@ -95,9 +96,9 @@ namespace BEFOYS.WEB.Controllers
 
                 try
                 {
-                    await SmsPortal.SendSmsAsync(reciver:Mobile, message:Code);
+                    await SmsPortal.SendSmsAsync(reciver: Mobile.Mobile, message: Code);
                 }
-                catch( Exception e)
+                catch (Exception e)
                 {
                     return Ok(new { Smserror = true });
                 }
@@ -105,8 +106,8 @@ namespace BEFOYS.WEB.Controllers
                 //     EmailPortal.SendEmail(model.UserName,"کد تاییدیه",$"کد تاییدیه شما {Code} می باشد");
                 await _context.SaveChangesAsync();
 
-             
-                return Ok(new { IsLogin = true,IsAny=true,smserror=false  });
+
+                return Ok(new { IsLogin = true, IsAny = true, smserror = false });
 
             }
             catch (Exception e)
@@ -121,54 +122,99 @@ namespace BEFOYS.WEB.Controllers
             var login = await _context.TblLogin.FirstOrDefaultAsync(x => x.LoginMobile == model.Mobile);
             if (login != null)
             {
-                var token = await _context.TblToken.LastOrDefaultAsync(x => x.TokenLoginId == login.LoginId && x.TokenExp > DateTime.Now);
-                if (token != null)
+                //var token = _context.TblToken.AsEnumerable().Where(x => x.TokenLoginId == login.LoginId && x.TokenExp > DateTime.Now).LastOrDefault();
+                //if (token == null)
+                //{
+                //if (token.TokenHush == model.Code)
+                //{
+
+                string tokenkey = GenerateJSONWebToken(login);
+                string panel = null;
+                if (login.LoginIsRegister)
                 {
-                    if (token.TokenHush == model.Code)
-                    {
-
-                        string tokenkey = GenerateJSONWebToken(login);
-                        return Ok(new { isOK = true, token = tokenkey });
-
-                    }
-                    else
-                    {
-                        return Ok(new { isOK = false });
-                    }
+                    panel = login.TblEmployee.First().EmployeeOrganization.OrganizationOt.OtName;
                 }
+                return Ok(new { isOK = true, token = tokenkey, IsRegister = login.LoginIsRegister, panel = panel });
+
+                //}
+                //else
+                //{
+                //    return Ok(new { isOK = false });
+                //}
+                //}
             }
             return Ok(new BaseViewModel<object> { Message = ViewMessage.LoginFailed, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
 
         }
+
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]ViewBaseRegister model)
+        public async Task<BaseViewModel<bool>> RegisterEmployeeCode([FromBody] int Code)
         {
             try
             {
-                if (!_context.TblLogin.Any(x => x.LoginMobile == model.Mobile) && !_context.TblLogin.Any(x => x.LoginEmail == model.Email))
+                var code = await _context.TblEmployeeRegistrationCode.FirstOrDefaultAsync(x => x.SurcCode == Code.ToString());
+
+                if (code != null)
                 {
-
-                    TblLogin login = new TblLogin()
-                    {
-                        LoginMobile = model.Mobile,
-                    };
-
-                    await _context.TblLogin.AddAsync(login);
-
-                    //پنل پیش فرض گذاشته شود
-
-                    string token = GenerateJSONWebToken(login);
-                    return Ok(new BaseViewModel<object> { Value = new { token = token }, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
+                    return new BaseViewModel<bool> { Message = ViewMessage.SuccessFull, NotificationType = Enum_NotificationType.success, Value = true };
                 }
-                return Ok(new BaseViewModel<TblLogin> { Value = null, Message = ViewMessage.Duplicate, NotificationType = DataLayer.Enums.Enum_NotificationType.warning });
+                return new BaseViewModel<bool> { Message = "کد معرف اشتباه می باشد", NotificationType = Enum_NotificationType.warning, Value = false };
 
             }
             catch (Exception e)
             {
-                return Ok(new BaseViewModel<TblLogin> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error });
-            }
 
+                return  new BaseViewModel<bool> { Value = false, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+
+            }
         }
+        [HttpPost]
+        public async Task<IActionResult> RegisterEmployee([FromBody]ViewRegisterEmployee model)
+        {
+                var user = User.Identity.UserID();
+            var code = await _context.TblEmployeeRegistrationCode.FirstOrDefaultAsync(x => x.SurcCode == model.Code);
+
+            var login = await _context.TblLogin.FirstOrDefaultAsync(x => x.LoginId == user);
+                login.LoginFirstName = model.FirstName;
+                login.LoginLastName = model.LastName;
+                login.LoginEmail = model.Email;
+
+                var employee = await _context.TblEmployee.FirstOrDefaultAsync(x => x.EmployeeId == code.ErcEmployeeId);
+                employee.EmployeeLoginId = login.LoginId;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new {Message="با موفقیت ثبت شد",IsOK=true });
+        }
+        //[HttpPost]
+        //public async Task<IActionResult> Post([FromBody]ViewBaseRegister model)
+        //{
+        //    try
+        //    {
+        //        if (!_context.TblLogin.Any(x => x.LoginMobile == model.Mobile) && !_context.TblLogin.Any(x => x.LoginEmail == model.Email))
+        //        {
+
+        //            TblLogin login = new TblLogin()
+        //            {
+        //                LoginMobile = model.Mobile,
+        //            };
+
+        //            await _context.TblLogin.AddAsync(login);
+
+        //            //پنل پیش فرض گذاشته شود
+
+        //            string token = GenerateJSONWebToken(login);
+        //            return Ok(new BaseViewModel<object> { Value = new { token = token }, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
+        //        }
+        //        return Ok(new BaseViewModel<TblLogin> { Value = null, Message = ViewMessage.Duplicate, NotificationType = DataLayer.Enums.Enum_NotificationType.warning });
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Ok(new BaseViewModel<TblLogin> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error });
+        //    }
+
+        //}
         /// <summary>
         /// generate token
         /// </summary>

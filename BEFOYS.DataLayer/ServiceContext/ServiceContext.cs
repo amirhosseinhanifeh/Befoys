@@ -39,18 +39,28 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblPart> TblPart { get; set; }
         public virtual DbSet<TblPermission> TblPermission { get; set; }
         public virtual DbSet<TblPhone> TblPhone { get; set; }
+        public virtual DbSet<TblProduct> TblProduct { get; set; }
+        public virtual DbSet<TblProductDetails> TblProductDetails { get; set; }
+        public virtual DbSet<TblProductOrganization> TblProductOrganization { get; set; }
+        public virtual DbSet<TblProductOrganizationDetails> TblProductOrganizationDetails { get; set; }
         public virtual DbSet<TblProvince> TblProvince { get; set; }
+        public virtual DbSet<TblSiteArea> TblSiteArea { get; set; }
+        public virtual DbSet<TblSmsproviderConfiguration> TblSmsproviderConfiguration { get; set; }
+        public virtual DbSet<TblSmsproviderNumber> TblSmsproviderNumber { get; set; }
+        public virtual DbSet<TblSmsresponse> TblSmsresponse { get; set; }
+        public virtual DbSet<TblSmssetting> TblSmssetting { get; set; }
+        public virtual DbSet<TblSmstemplate> TblSmstemplate { get; set; }
         public virtual DbSet<TblToken> TblToken { get; set; }
-
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=185.173.104.205;Database=Befoys_Core;userId=sa;password=A@rd123456;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;");
             }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TblAddress>(entity =>
@@ -412,9 +422,118 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_Phone_Tbl_Code");
             });
 
+            modelBuilder.Entity<TblProduct>(entity =>
+            {
+                entity.Property(e => e.ProductGuid).HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<TblProductDetails>(entity =>
+            {
+                entity.Property(e => e.PdGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PdProductNavigation)
+                    .WithMany(p => p.TblProductDetails)
+                    .HasForeignKey(d => d.PdProduct)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductDetails_Tbl_Product");
+            });
+
+            modelBuilder.Entity<TblProductOrganization>(entity =>
+            {
+                entity.Property(e => e.PoGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PoOrganization)
+                    .WithMany(p => p.TblProductOrganization)
+                    .HasForeignKey(d => d.PoOrganizationId)
+                    .HasConstraintName("FK_Tbl_ProductOrganization_Tbl_Organization");
+
+                entity.HasOne(d => d.PoProduct)
+                    .WithMany(p => p.TblProductOrganization)
+                    .HasForeignKey(d => d.PoProductId)
+                    .HasConstraintName("FK_Tbl_ProductOrganization_Tbl_Product");
+
+                entity.HasOne(d => d.PoSa)
+                    .WithMany(p => p.TblProductOrganization)
+                    .HasForeignKey(d => d.PoSaid)
+                    .HasConstraintName("FK_Tbl_ProductOrganization_Tbl_SiteArea");
+            });
+
+            modelBuilder.Entity<TblProductOrganizationDetails>(entity =>
+            {
+                entity.Property(e => e.PodGuid).HasDefaultValueSql("(newid())");
+            });
+
             modelBuilder.Entity<TblProvince>(entity =>
             {
                 entity.Property(e => e.ProvinceGuid).HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<TblSiteArea>(entity =>
+            {
+                entity.Property(e => e.SaGuid).HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<TblSmsproviderConfiguration>(entity =>
+            {
+                entity.Property(e => e.SpcCreationDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.SpcGuid).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.SpcModifiedDate).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<TblSmsproviderNumber>(entity =>
+            {
+                entity.Property(e => e.SpnCreationDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.SpnGuid).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.SpnModifiedDate).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.SpnSpc)
+                    .WithMany(p => p.TblSmsproviderNumber)
+                    .HasForeignKey(d => d.SpnSpcid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_SMSProviderNumber_Tbl_SMSProviderConfiguration");
+            });
+
+            modelBuilder.Entity<TblSmsresponse>(entity =>
+            {
+                entity.Property(e => e.SmsCreationDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.SmsGuid).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.SmsModifiedDate).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<TblSmssetting>(entity =>
+            {
+                entity.Property(e => e.SsCreationDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.SsGuid).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.SsModifiedDate).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.SsSpc)
+                    .WithMany(p => p.TblSmssetting)
+                    .HasForeignKey(d => d.SsSpcid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_SMSSetting_Tbl_SMSProviderConfiguration");
+
+                entity.HasOne(d => d.SsSt)
+                    .WithMany(p => p.TblSmssetting)
+                    .HasForeignKey(d => d.SsStid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_SMSSetting_Tbl_SMSTemplate");
+            });
+
+            modelBuilder.Entity<TblSmstemplate>(entity =>
+            {
+                entity.Property(e => e.StCreationDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.StGuid).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.StModifiedDate).HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<TblToken>(entity =>

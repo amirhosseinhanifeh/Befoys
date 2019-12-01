@@ -2,6 +2,7 @@
 using BEFOYS.Common.Converts;
 using BEFOYS.Common.Messages;
 using BEFOYS.DataLayer.Enums;
+using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Register.Step;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BEFOYS.WEB.Areas.Supplier.Controllers
@@ -29,33 +31,66 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         #region OrganizationType
 
         [HttpPost]
-        public async Task<IActionResult> SetOrganizationType([FromBody]Enum_UserType type)
+        public async Task<ActionResult<BaseViewModel<bool>>> SetOrganizationType([FromQuery]Enum_UserType type)
         {
-            var user = User.Identity.Name.ToGuid();
-            var ot = await _context.TblOrganizationType.FirstOrDefaultAsync(x => x.OtName == type.ToString());
-            //Tbl_Organization organization = new Tbl_Organization()
-            //{
-            //    Organization_DefaultPTID=
-            //};
-            //_context.Tbl_Organization.Add(organization);
-            await _context.SaveChangesAsync();
-            return null;
+            try
+            {
+                var user = User.Identity.UserID();
+                var ot = await _context.TblOrganizationType.FirstOrDefaultAsync(x => x.OtName == type.ToString());
+                var de = await _context.TblPanelType.FirstOrDefaultAsync(x => x.PtName == Enum_PanelType.DEFAULT.ToString());
+                TblOrganization organization = new TblOrganization()
+                {
+                    OrganizationDefaultPtid = de.PtId,
+                    OrganizationIsActive = true,
+                    OrganizationIsBan = false,
+                    OrganizationIsRegistar = true,
+                    OrganizationIsDelete = false,
+                    OrganizationCreateDate = DateTime.Now,
+                    OrganizationIsMotherOrganization = true,
+                    OrganizationOtid = ot.OtId,
+                };
+                _context.TblOrganization.Add(organization);
+                await _context.SaveChangesAsync();
+                TblEmployee empl = new TblEmployee()
+                {
+                    EmployeeLoginId = user,
+                    EmployeeOrganizationId = organization.OrganizationId,
+                    EmployeeIsAgent=true,
+                    EmployeeWalletSize=-1
+                };
+                _context.TblEmployee.Add(empl);
+                await _context.SaveChangesAsync();
+                return new BaseViewModel<bool> { Value = true, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+
+
+            }
+            catch (Exception e)
+            {
+                return new BaseViewModel<bool>
+                {
+                    Value = false,
+                    Message = ViewMessage.Error,
+                    NotificationType = DataLayer.Enums.Enum_NotificationType.error
+                };
+            }
         }
         #endregion
 
         #region Step1 POST & GET
 
-
+       
         [HttpGet]
         public async Task<IActionResult> Step1()
         {
             var user = User.Identity.UserID();
 
-            var supplier = await _context.TblOrganizationInformation
-                .Include(x => x.OiTypeCode).FirstOrDefaultAsync();
-            return null;
+            var info =await  _context.TblOrganizationInformation
+                .Include(x => x.OiTypeCode).Where(x=>x.OiOrganization.TblEmployee.Any(y=>y.EmployeeLoginId==user)).FirstOrDefaultAsync();
+            return Ok(info);
 
         }
+
+
         //[HttpPost]
         //public async Task<BaseViewModel<string>> Step1([FromBody]ViewStep1 model)
         //{
@@ -209,48 +244,6 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             catch (Exception e)
             {
                 return new BaseViewModel<ViewStep3>
-                {
-                    Value = null,
-                    Message = ViewMessage.Error,
-                    NotificationType = DataLayer.Enums.Enum_NotificationType.error
-                };
-            }
-        }
-        #endregion
-
-
-        [HttpGet]
-        public IActionResult Step4()
-        {
-            return Ok();
-        }
-
-        #region AGENTS POST & GET
-
-
-        [HttpPost]
-        public async Task<BaseViewModel<string>> Agents([FromBody] ViewSupplierAgent model)
-        {
-            try
-            {
-                //Tbl_SupplierLegalAgent data = new Tbl_SupplierLegalAgent()
-                //{
-                //    SLA_Family = model.SLA_Family,
-                //    SLA_Mobile = model.SLA_Mobile,
-                //    SLA_Name = model.SLA_Name,
-                //    SLA_NationalCode = model.SLA_NationalCode,
-                //    SLA_ShenasnameID = model.SLA_ShenasnameID,
-                //    SLA_GenderCodeID = model.SLA_GenderCodeID,
-                //    SLA_TypeCodeID = model.SLA_TypeCodeID
-                //};
-                //_context.Tbl_SupplierLegalAgent.Add(data);
-                //await _context.SaveChangesAsync();
-                return new BaseViewModel<string> { Value = "", Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
-
-            }
-            catch (Exception e)
-            {
-                return new BaseViewModel<string>
                 {
                     Value = null,
                     Message = ViewMessage.Error,

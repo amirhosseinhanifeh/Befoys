@@ -55,6 +55,7 @@ namespace BEFOYS.WEB.Controllers
         /// <returns></returns>
         private string GenerateJSONWebToken(TblLogin model)
         {
+            
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[] {
@@ -63,7 +64,6 @@ namespace BEFOYS.WEB.Controllers
         new Claim(JwtRegisteredClaimNames.Sub, model.LoginId.ToString()),
         new Claim(JwtRegisteredClaimNames.Email, model.LoginEmail),
         new Claim(JwtRegisteredClaimNames.Jti, model.LoginGuid.ToString()),
-        //new Claim(ClaimTypes.Role,model.AccountControl.BaseRole.BR_Display)
     };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],

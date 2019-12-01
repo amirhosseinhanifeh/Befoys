@@ -24,7 +24,10 @@ namespace BEFOYS.DataLayer.Model
         public int OrOrid { get; set; }
         [Column("OR_OrganizationID")]
         public int OrOrganizationId { get; set; }
-
+        [Column("OR_Display")]
+        public string OrDisplay { get; set; }
+        [Column("OR_CanCreateRole")]
+        public bool OrCanCreateRole { get; set; }
         [ForeignKey(nameof(OrOrid))]
         [InverseProperty(nameof(TblOrganizationRole.InverseOrOr))]
         public virtual TblOrganizationRole OrOr { get; set; }

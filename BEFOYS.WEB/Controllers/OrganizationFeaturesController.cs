@@ -23,7 +23,7 @@ namespace BEFOYS.WEB.Controllers
             _context = context;
         }
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<TblOrganizationDocumentFeatures>>> Post()
+        public async Task<ActionResult<BaseViewModel<bool>>> Post()
         {
             return Ok();
         }
@@ -35,7 +35,7 @@ namespace BEFOYS.WEB.Controllers
             var OrType = await _context.TblOrganizationDocumentNavigator.Include(c => c.OdnOdf).Include(x => x.OdnOdf.OdfTypeCode).Where(x => x.OdnOt.OtGuid == OrganizationTypeID).ToListAsync();
             if (OrType != null)
             {
-                return new BaseViewModel<List<ViewOrganizationFeatures>> { Value = OrType.Select(x => x.OdnOdf).Select(y => new ViewOrganizationFeatures(y)).ToList(), Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.notfound };
+                return new BaseViewModel<List<ViewOrganizationFeatures>> { Value = OrType.Select(x => x.OdnOdf).Select(y => new ViewOrganizationFeatures(y)).ToList(), Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             return new BaseViewModel<List<ViewOrganizationFeatures>> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };

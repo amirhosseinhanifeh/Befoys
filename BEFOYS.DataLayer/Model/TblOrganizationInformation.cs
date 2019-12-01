@@ -19,7 +19,8 @@ namespace BEFOYS.DataLayer.Model
         public string OiText { get; set; }
         [Column("OI_OrganizationID")]
         public int? OiOrganizationId { get; set; }
-
+        [Column("OI_IsAccept")]
+        public bool OiIsAccept { get; set; }
         [ForeignKey(nameof(OiOrganizationId))]
         [InverseProperty(nameof(TblOrganization.TblOrganizationInformation))]
         public virtual TblOrganization OiOrganization { get; set; }

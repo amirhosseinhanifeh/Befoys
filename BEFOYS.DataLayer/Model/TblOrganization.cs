@@ -16,6 +16,7 @@ namespace BEFOYS.DataLayer.Model
             TblOrganizationInformation = new HashSet<TblOrganizationInformation>();
             TblOrganizationRole = new HashSet<TblOrganizationRole>();
             TblPanelTypeControl = new HashSet<TblPanelTypeControl>();
+            TblProductOrganization = new HashSet<TblProductOrganization>();
         }
 
         [Key]
@@ -66,5 +67,7 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblOrganizationRole> TblOrganizationRole { get; set; }
         [InverseProperty("PtcOrganization")]
         public virtual ICollection<TblPanelTypeControl> TblPanelTypeControl { get; set; }
+        [InverseProperty("PoOrganization")]
+        public virtual ICollection<TblProductOrganization> TblProductOrganization { get; set; }
     }
 }

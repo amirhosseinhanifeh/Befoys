@@ -27,7 +27,7 @@ namespace BEFOYS.DataLayer.Model
         [Column("Employee_IsAgent")]
         public bool EmployeeIsAgent { get; set; }
         [Column("Employee_ORID")]
-        public int EmployeeOrid { get; set; }
+        public int? EmployeeOrid { get; set; }
 
         [ForeignKey(nameof(EmployeeLoginId))]
         [InverseProperty(nameof(TblLogin.TblEmployee))]
