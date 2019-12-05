@@ -11,11 +11,15 @@ namespace BEFOYS.DataLayer.Model
         public TblCode()
         {
             TblAddress = new HashSet<TblAddress>();
+            TblColors = new HashSet<TblColors>();
             TblDocument = new HashSet<TblDocument>();
-            TblOrganizationDocumentFeaturesOdfKindCode = new HashSet<TblOrganizationDocumentFeatures>();
-            TblOrganizationDocumentFeaturesOdfTypeCode = new HashSet<TblOrganizationDocumentFeatures>();
+            TblOrganizationFeaturesOdfKindCode = new HashSet<TblOrganizationFeatures>();
+            TblOrganizationFeaturesOdfTypeCode = new HashSet<TblOrganizationFeatures>();
             TblOrganizationInformation = new HashSet<TblOrganizationInformation>();
             TblPhone = new HashSet<TblPhone>();
+            TblProductCategoryDocument = new HashSet<TblProductCategoryDocument>();
+            TblProductDocumentPdKindCode = new HashSet<TblProductDocument>();
+            TblProductDocumentPdTypeCode = new HashSet<TblProductDocument>();
         }
 
         [Key]
@@ -25,7 +29,6 @@ namespace BEFOYS.DataLayer.Model
         public Guid CodeGuid { get; set; }
         [Column("Code_CGID")]
         public int CodeCgid { get; set; }
-        [Required]
         [Column("Code_Name")]
         [StringLength(100)]
         public string CodeName { get; set; }
@@ -39,15 +42,23 @@ namespace BEFOYS.DataLayer.Model
         public virtual TblCodeGroup CodeCg { get; set; }
         [InverseProperty("AddressTypeCode")]
         public virtual ICollection<TblAddress> TblAddress { get; set; }
+        [InverseProperty("ColorsTypeCode")]
+        public virtual ICollection<TblColors> TblColors { get; set; }
         [InverseProperty("DocumentTypeCode")]
         public virtual ICollection<TblDocument> TblDocument { get; set; }
-        [InverseProperty(nameof(TblOrganizationDocumentFeatures.OdfKindCode))]
-        public virtual ICollection<TblOrganizationDocumentFeatures> TblOrganizationDocumentFeaturesOdfKindCode { get; set; }
-        [InverseProperty(nameof(TblOrganizationDocumentFeatures.OdfTypeCode))]
-        public virtual ICollection<TblOrganizationDocumentFeatures> TblOrganizationDocumentFeaturesOdfTypeCode { get; set; }
+        [InverseProperty(nameof(TblOrganizationFeatures.OdfKindCode))]
+        public virtual ICollection<TblOrganizationFeatures> TblOrganizationFeaturesOdfKindCode { get; set; }
+        [InverseProperty(nameof(TblOrganizationFeatures.OdfTypeCode))]
+        public virtual ICollection<TblOrganizationFeatures> TblOrganizationFeaturesOdfTypeCode { get; set; }
         [InverseProperty("OiTypeCode")]
         public virtual ICollection<TblOrganizationInformation> TblOrganizationInformation { get; set; }
         [InverseProperty("PhoneTypeCode")]
         public virtual ICollection<TblPhone> TblPhone { get; set; }
+        [InverseProperty("PcdTypeCode")]
+        public virtual ICollection<TblProductCategoryDocument> TblProductCategoryDocument { get; set; }
+        [InverseProperty(nameof(TblProductDocument.PdKindCode))]
+        public virtual ICollection<TblProductDocument> TblProductDocumentPdKindCode { get; set; }
+        [InverseProperty(nameof(TblProductDocument.PdTypeCode))]
+        public virtual ICollection<TblProductDocument> TblProductDocumentPdTypeCode { get; set; }
     }
 }

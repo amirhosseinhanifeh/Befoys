@@ -28,11 +28,15 @@ namespace BEFOYS.DataLayer.Model
         public int OrganizationOtid { get; set; }
         [Column("Organization_DefaultPTID")]
         public int OrganizationDefaultPtid { get; set; }
-        [Column("Organization_MotherOrganizationID")]
-        public int? OrganizationMotherOrganizationId { get; set; }
+        [Column("Organization_NameFA")]
+        public string OrganizationNameFa { get; set; }
+        [Column("Organization_NameEN")]
+        public string OrganizationNameEn { get; set; }
         [Required]
         [Column("Organization_IsMotherOrganization")]
         public bool? OrganizationIsMotherOrganization { get; set; }
+        [Column("Organization_MotherOrganizationID")]
+        public int? OrganizationMotherOrganizationId { get; set; }
         [Column("Organization_IsBan")]
         public bool OrganizationIsBan { get; set; }
         [Column("Organization_IsDelete")]

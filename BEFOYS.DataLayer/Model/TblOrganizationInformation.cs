@@ -12,15 +12,17 @@ namespace BEFOYS.DataLayer.Model
         [Column("OI_ID")]
         public int OiId { get; set; }
         [Column("OI_Guid")]
-        public Guid? OiGuid { get; set; }
+        public Guid OiGuid { get; set; }
         [Column("OI_TypeCodeID")]
-        public int? OiTypeCodeId { get; set; }
+        public int OiTypeCodeId { get; set; }
+        [Required]
         [Column("OI_Text", TypeName = "ntext")]
         public string OiText { get; set; }
         [Column("OI_OrganizationID")]
-        public int? OiOrganizationId { get; set; }
+        public int OiOrganizationId { get; set; }
         [Column("OI_IsAccept")]
-        public bool OiIsAccept { get; set; }
+        public bool? OiIsAccept { get; set; }
+
         [ForeignKey(nameof(OiOrganizationId))]
         [InverseProperty(nameof(TblOrganization.TblOrganizationInformation))]
         public virtual TblOrganization OiOrganization { get; set; }

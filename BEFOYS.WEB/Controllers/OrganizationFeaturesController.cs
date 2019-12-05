@@ -32,7 +32,7 @@ namespace BEFOYS.WEB.Controllers
         public async Task<ActionResult<BaseViewModel<List<ViewOrganizationFeatures>>>> Get(Guid OrganizationTypeID)
         {
 
-            var OrType = await _context.TblOrganizationDocumentNavigator.Include(c => c.OdnOdf).Include(x => x.OdnOdf.OdfTypeCode).Where(x => x.OdnOt.OtGuid == OrganizationTypeID).ToListAsync();
+            var OrType = await _context.TblOrganizationNavigator.Include(c => c.OdnOdf).Include(x => x.OdnOdf.OdfTypeCode).Where(x => x.OdnOt.OtGuid == OrganizationTypeID).ToListAsync();
             if (OrType != null)
             {
                 return new BaseViewModel<List<ViewOrganizationFeatures>> { Value = OrType.Select(x => x.OdnOdf).Select(y => new ViewOrganizationFeatures(y)).ToList(), Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };

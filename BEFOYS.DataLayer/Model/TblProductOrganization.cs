@@ -12,13 +12,13 @@ namespace BEFOYS.DataLayer.Model
         [Column("PO_ID")]
         public int PoId { get; set; }
         [Column("PO_Guid")]
-        public Guid? PoGuid { get; set; }
+        public Guid PoGuid { get; set; }
         [Column("PO_ProductID")]
-        public int? PoProductId { get; set; }
+        public int PoProductId { get; set; }
         [Column("PO_OrganizationID")]
-        public int? PoOrganizationId { get; set; }
+        public int PoOrganizationId { get; set; }
         [Column("PO_SAID")]
-        public int? PoSaid { get; set; }
+        public int PoSaid { get; set; }
 
         [ForeignKey(nameof(PoOrganizationId))]
         [InverseProperty(nameof(TblOrganization.TblProductOrganization))]

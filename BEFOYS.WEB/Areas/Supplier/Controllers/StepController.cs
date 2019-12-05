@@ -1,16 +1,17 @@
 ﻿using BEFOYS.Common.AppUser;
-using BEFOYS.Common.Converts;
 using BEFOYS.Common.Messages;
 using BEFOYS.DataLayer.Enums;
+using BEFOYS.DataLayer.Helpers;
 using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using BEFOYS.DataLayer.ViewModels;
+using BEFOYS.DataLayer.ViewModels.Organization;
 using BEFOYS.DataLayer.ViewModels.Register.Step;
-using BEFOYS.DataLayer.ViewModels.Supplier;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -55,8 +56,8 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 {
                     EmployeeLoginId = user,
                     EmployeeOrganizationId = organization.OrganizationId,
-                    EmployeeIsAgent=true,
-                    EmployeeWalletSize=-1
+                    EmployeeIsAgent = true,
+                    EmployeeWalletSize = -1
                 };
                 _context.TblEmployee.Add(empl);
                 await _context.SaveChangesAsync();
@@ -78,114 +79,133 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
 
         #region Step1 POST & GET
 
-       
+
         [HttpGet]
-        public async Task<IActionResult> Step1()
+        public async Task<ActionResult<BaseViewModel<List<ViewOrganizationInformation>>>> GetInformation()
         {
             var user = User.Identity.UserID();
 
-            var info =await  _context.TblOrganizationInformation
-                .Include(x => x.OiTypeCode).Where(x=>x.OiOrganization.TblEmployee.Any(y=>y.EmployeeLoginId==user)).FirstOrDefaultAsync();
-            return Ok(info);
+            var info = await _context.TblOrganizationInformation
+                .Include(x => x.OiTypeCode)
+                .Where(x => x.OiOrganization.TblEmployee.Any(y => y.EmployeeLoginId == user))
+                .Select(x => new ViewOrganizationInformation(x)).ToListAsync();
+
+
+            return new BaseViewModel<List<ViewOrganizationInformation>> { Message = "موفقیت آمیز", NotificationType = Enum_NotificationType.success, Value = info };
 
         }
 
 
-        //[HttpPost]
-        //public async Task<BaseViewModel<string>> Step1([FromBody]ViewStep1 model)
-        //{
-        //    try
-        //    {
-
-        //        var userId = User.Identity.UserID();
-        //        var user = await _context.Tbl_Supplier.Include(x => x.Code).FirstOrDefaultAsync(x => x.Supplier_LoginID == userId);
-        //        user.Supplier_Website = model.Website;
-        //        if (user.Code.Code_Display == Enum_UserType.HAGHIGHI.ToString())
-        //        {
-        //            var real = await _context.Tbl_SupplierReal.FirstOrDefaultAsync(x => x.SR_SupplierID == user.Supplier_ID);
-        //            real.SR_Birthday = model.Haghighi.SR_Birthday;
-        //            real.SR_GenderCodeID = (int)model.Haghighi.Gender;
-        //            real.SR_NationalCode = model.Haghighi.SR_NationalCode;
-        //            real.SR_ShenasnameID = model.Haghighi.SR_ShenasnameID;
-
-        //        }
-        //        else
-        //        {
-        //            Guid CompanyTypeCodeGUID = model.Hoghoghi.SL_CompanyTypeCodeGUID.ToGuid();
-        //            var code = _context.Tbl_Code.FirstOrDefault(x => x.Code_GUID == CompanyTypeCodeGUID);
-        //            var legal = _context.Tbl_SupplierLegal.FirstOrDefault(x => x.SL_SupplierID == user.Supplier_ID);
-        //            legal.SL_CompanyName = model.Hoghoghi.SL_CompanyName;
-        //            legal.SL_EconomicCode = model.Hoghoghi.SL_EconomicCode;
-        //            legal.SL_SabtNumber = model.Hoghoghi.SL_SabtNumber;
-        //            legal.SL_NationalCode = model.Hoghoghi.SL_NationalCode;
-        //            legal.SL_CompanyTypeCodeID = code?.Code_ID;
-        //        }
-        //        if (model.Addresses != null)
-        //        {
-        //            List<Tbl_Address> list = new List<Tbl_Address>();
-        //            foreach (var item in model.Addresses)
-        //            {
-        //                Guid iguid = item.CityID.ToGuid();
-        //                var city = _context.Tbl_City.FirstOrDefault(x => x.City_GUID == iguid);
-        //                Tbl_Address address = new Tbl_Address
-        //                {
-        //                    Address_LoginID = userId,
-        //                    Address_Text = item.Address,
-        //                    Address_CityID = city.City_ID,
-        //                };
-        //                foreach (var item2 in item.Phones)
-        //                {
-        //                    address.Phones = new List<Tbl_Phone>
-        //                    {
-        //                        new Tbl_Phone
-        //                        {
-        //                            Phone_Number = item2.Phone,
-
-        //                        }
-        //                    };
-        //                }
-        //                list.Add(address);
-        //            }
-        //        }
-
-        //        await _context.SaveChangesAsync();
-        //        return new BaseViewModel<string> { Value = "", Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return new BaseViewModel<string>
-        //        {
-        //            Value = e.Message,
-        //            Message = ViewMessage.Error,
-        //            NotificationType = DataLayer.Enums.Enum_NotificationType.error
-        //        };
-        //    }
-        //}
-        #endregion
-
-
-        #region Step2 POST& GET
-
-
         [HttpPost]
-        public async Task<BaseViewModel<string>> Step2([FromBody]ViewStep2 model)
+        public async Task<BaseViewModel<bool>> UpdateInformation([FromBody]UpdateInformation[] model)
         {
             try
             {
-                var user = User.Identity.UserID();
+                var userId = User.Identity.UserID();
+                var organization = _context.TblEmployee.FirstOrDefault(x => x.EmployeeLoginId == userId);
+                foreach (var item in model)
+                {
+                    var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == organization.EmployeeOrganizationId);
+                    if (info == null)
+                    {
+                        TblOrganizationInformation tblOrganizationInformation = new TblOrganizationInformation()
+                        {
+                            OiIsAccept = null,
+                            OiOrganizationId = organization.EmployeeOrganizationId,
+                            OiText = item.Value,
+                            OiTypeCodeId = item.TypeCodeId
+                        };
+                        _context.TblOrganizationInformation.Add(tblOrganizationInformation);
 
-                return new BaseViewModel<string> { Value = "", Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    }
+                    else
+                    {
+                        info.OiText = item.Value;
+                    }
+                    await _context.SaveChangesAsync();
+
+                }
+
+                //user.Supplier_Website = model.Website;
+                //if (user.Code.Code_Display == Enum_UserType.Supplier_Legal.ToString())
+                //{
+                //    var real = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiOrganizationId == user && x.OiTypeCodeId==);
+                //    real.SR_Birthday = model.Haghighi.SR_Birthday;
+                //    real.SR_GenderCodeID = (int)model.Haghighi.Gender;
+                //    real.SR_NationalCode = model.Haghighi.SR_NationalCode;
+                //    real.SR_ShenasnameID = model.Haghighi.SR_ShenasnameID;
+
+                //}
+                //else
+                //{
+                //    Guid CompanyTypeCodeGUID = model.Hoghoghi.SL_CompanyTypeCodeGUID.ToGuid();
+                //    var code = _context.Tbl_Code.FirstOrDefault(x => x.Code_GUID == CompanyTypeCodeGUID);
+                //    var legal = _context.Tbl_SupplierLegal.FirstOrDefault(x => x.SL_SupplierID == user.Supplier_ID);
+                //    legal.SL_CompanyName = model.Hoghoghi.SL_CompanyName;
+                //    legal.SL_EconomicCode = model.Hoghoghi.SL_EconomicCode;
+                //    legal.SL_SabtNumber = model.Hoghoghi.SL_SabtNumber;
+                //    legal.SL_NationalCode = model.Hoghoghi.SL_NationalCode;
+                //    legal.SL_CompanyTypeCodeID = code?.Code_ID;
+                //}
+                //if (model.Addresses != null)
+                //{
+                //    List<Tbl_Address> list = new List<Tbl_Address>();
+                //    foreach (var item in model.Addresses)
+                //    {
+                //        Guid iguid = item.CityID.ToGuid();
+                //        var city = _context.Tbl_City.FirstOrDefault(x => x.City_GUID == iguid);
+                //        Tbl_Address address = new Tbl_Address
+                //        {
+                //            Address_LoginID = userId,
+                //            Address_Text = item.Address,
+                //            Address_CityID = city.City_ID,
+                //        };
+                //        foreach (var item2 in item.Phones)
+                //        {
+                //            address.Phones = new List<Tbl_Phone>
+                //            {
+                //                new Tbl_Phone
+                //                {
+                //                    Phone_Number = item2.Phone,
+
+                //                }
+                //            };
+                //        }
+                //        list.Add(address);
+                //    }
+                //}
+                return new BaseViewModel<bool> { Value = true, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<string> { Value = e.Message, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<bool>
+                {
+                    Value = false,
+                    Message = ViewMessage.Error,
+                    NotificationType = DataLayer.Enums.Enum_NotificationType.error
+                };
             }
-
         }
-
         #endregion
+        [HttpPost]
+        public ActionResult<BaseViewModel<bool>> CreateAddress()
+        {
+            try
+            {
+                return new BaseViewModel<bool>
+                {
+                    Message = "آدرس ذخیر شد",
+                    NotificationType = Enum_NotificationType.success,
+                    Value = true
+                };
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
 
 
         #region Step3 POST & GET
@@ -195,49 +215,22 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         {
             try
             {
-                //var user = User.Identity.UserID();
-                //var supplier = await _context.Tbl_Supplier.Include(x => x.Code).FirstOrDefaultAsync(x => x.Supplier_LoginID == user);
-                //List<Tbl_SupplierDocument> suDocuments = new List<Tbl_SupplierDocument>();
-                //if (supplier.Code.Code_Display == Enum_Code.HAGHIGHI.ToString())
-                //{
-                //    string folder = User.Identity.Name;
-                //    var shenasname = await model.Shenasname.Upload(folder, _context, Enum_Code.PICTURE);
-                //    var mellicart = await model.MelliCart.Upload(folder, _context, Enum_Code.PICTURE);
-                //    var javazkasb = await model.JavazKasb.Upload(folder, _context, Enum_Code.PICTURE);
-                //    var govahi = await model.Govahi.Upload(folder, _context, Enum_Code.PICTURE);
+                var userId = User.Identity.UserID();
+                var organization = _context.TblEmployee.FirstOrDefault(x => x.EmployeeLoginId == userId);
+                foreach (var item in model.files)
+                {
+                    string folder = User.Identity.Name;
+                    var doc = await item.Upload(folder, _context, Enum_Code.PICTURE);
+                    TblOrganizationDocument data = new TblOrganizationDocument()
+                    {
+                        OdDocumentId = doc,
+                        OdIsAccept = null,
+                        OdOrganizationId = organization.EmployeeOrganizationId,
 
-                //    suDocuments = new List<Tbl_SupplierDocument>();
-                //    if (shenasname != 0)
-                //        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = shenasname, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.SHENASNAME });
-                //    if (mellicart != 0)
-                //        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = mellicart, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.MELLICART });
-                //    if (javazkasb != 0)
-                //        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = javazkasb, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.JAVAZKASB });
-                //    if (govahi != 0)
-                //        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = govahi, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.GOVAHI });
-                //}
-                //else
-                //{
-                //    string folder = User.Identity.Name;
-                //    var roznamerasmi = await model.RoznameRasmi.Upload(folder, _context, Enum_Code.PICTURE);
-                //    var asasname = await model.Asasname.Upload(folder, _context, Enum_Code.PICTURE);
-                //    var Agahi = await model.Agahi.Upload(folder, _context, Enum_Code.PICTURE);
-                //    var govahi = await model.Govahi.Upload(folder, _context, Enum_Code.PICTURE);
-
-                //    suDocuments = new List<Tbl_SupplierDocument>();
-                //    if (roznamerasmi != 0)
-                //        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = roznamerasmi, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.ROZNAMERASMI });
-                //    if (asasname != 0)
-                //        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = asasname, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.ASASNAME });
-                //    if (Agahi != 0)
-                //        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = Agahi, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.AGAHI });
-                //    if (govahi != 0)
-                //        suDocuments.Add(new Tbl_SupplierDocument { SD_DocumentID = govahi, SD_SupplierID = supplier.Supplier_ID, SD_TypeCodeID = (int)Enum_Code.GOVAHI });
-                //}
-
-                //_context.Tbl_SupplierDocument.AddRange(suDocuments);
-                //await _context.SaveChangesAsync();
-
+                    };
+                    _context.TblOrganizationDocument.Add(data);
+                    await _context.SaveChangesAsync();
+                }
                 return new BaseViewModel<ViewStep3> { Value = null, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }

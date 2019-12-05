@@ -164,17 +164,19 @@ namespace BEFOYS.WEB.Controllers
             catch (Exception e)
             {
 
-                return  new BaseViewModel<bool> { Value = false, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<bool> { Value = false, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
 
             }
         }
         [HttpPost]
-        public async Task<IActionResult> RegisterEmployee([FromBody]ViewRegisterEmployee model)
+        public async Task<ActionResult<BaseViewModel<bool>>> RegisterEmployee([FromBody]ViewRegisterEmployee model)
         {
+            try
+            {
                 var user = User.Identity.UserID();
-            var code = await _context.TblEmployeeRegistrationCode.FirstOrDefaultAsync(x => x.SurcCode == model.Code);
+                var code = await _context.TblEmployeeRegistrationCode.FirstOrDefaultAsync(x => x.SurcCode == model.Code);
 
-            var login = await _context.TblLogin.FirstOrDefaultAsync(x => x.LoginId == user);
+                var login = await _context.TblLogin.FirstOrDefaultAsync(x => x.LoginId == user);
                 login.LoginFirstName = model.FirstName;
                 login.LoginLastName = model.LastName;
                 login.LoginEmail = model.Email;
@@ -183,8 +185,20 @@ namespace BEFOYS.WEB.Controllers
                 employee.EmployeeLoginId = login.LoginId;
 
                 await _context.SaveChangesAsync();
+                return new BaseViewModel<bool> { Message = "با موفقیت ثبت شد", NotificationType = Enum_NotificationType.success, Value = true };
 
-                return Ok(new {Message="با موفقیت ثبت شد",IsOK=true });
+            }
+            catch (Exception e)
+            {
+
+                return new BaseViewModel<bool>
+                {
+                    Value = false,
+                    Message = ViewMessage.Error,
+                    NotificationType = DataLayer.Enums.Enum_NotificationType.error
+                };
+
+            }
         }
         //[HttpPost]
         //public async Task<IActionResult> Post([FromBody]ViewBaseRegister model)

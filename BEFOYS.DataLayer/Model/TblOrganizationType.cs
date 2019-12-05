@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.Model
         public TblOrganizationType()
         {
             TblOrganization = new HashSet<TblOrganization>();
-            TblOrganizationDocumentNavigator = new HashSet<TblOrganizationDocumentNavigator>();
+            TblOrganizationNavigator = new HashSet<TblOrganizationNavigator>();
         }
 
         [Key]
@@ -31,6 +31,6 @@ namespace BEFOYS.DataLayer.Model
         [InverseProperty("OrganizationOt")]
         public virtual ICollection<TblOrganization> TblOrganization { get; set; }
         [InverseProperty("OdnOt")]
-        public virtual ICollection<TblOrganizationDocumentNavigator> TblOrganizationDocumentNavigator { get; set; }
+        public virtual ICollection<TblOrganizationNavigator> TblOrganizationNavigator { get; set; }
     }
 }

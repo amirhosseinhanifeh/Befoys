@@ -11,7 +11,7 @@ namespace BEFOYS.DataLayer.ViewModels.Organization
         public string ODF_CodeName { get; set; }
         public string ODF_CodeDisplay { get; set; }
         public bool ODF_Mandatory { get; set; }
-        public ViewOrganizationFeatures(TblOrganizationDocumentFeatures model)
+        public ViewOrganizationFeatures(TblOrganizationFeatures model)
         {
             ODF_ID = model.OdfId;
             ODF_Guid = model.OdfGuid;

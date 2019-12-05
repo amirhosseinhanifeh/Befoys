@@ -21,6 +21,15 @@ namespace BEFOYS.DataLayer.Model
         public Guid LoginGuid { get; set; }
         [Column("Login_PictureDocumentID")]
         public int? LoginPictureDocumentId { get; set; }
+        [Column("Login_GenderCodeID")]
+        public int? LoginGenderCodeId { get; set; }
+        [Required]
+        [Column("Login_Mobile")]
+        [StringLength(100)]
+        public string LoginMobile { get; set; }
+        [Column("Login_Email")]
+        [StringLength(100)]
+        public string LoginEmail { get; set; }
         [Column("Login_PasswordHash")]
         public string LoginPasswordHash { get; set; }
         [Column("Login_PasswordSalt")]
@@ -31,13 +40,11 @@ namespace BEFOYS.DataLayer.Model
         [Column("Login_LastName")]
         [StringLength(100)]
         public string LoginLastName { get; set; }
-        [Column("Login_Email")]
-        [StringLength(100)]
-        public string LoginEmail { get; set; }
-        [Required]
-        [Column("Login_Mobile")]
-        [StringLength(100)]
-        public string LoginMobile { get; set; }
+        [Column("Login_NationalCode")]
+        [StringLength(50)]
+        public string LoginNationalCode { get; set; }
+        [Column("Login_Birthday", TypeName = "date")]
+        public DateTime? LoginBirthday { get; set; }
         [Column("Login_IsBan")]
         public bool LoginIsBan { get; set; }
         [Column("Login_IsDelete")]

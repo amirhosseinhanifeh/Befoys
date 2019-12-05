@@ -37,7 +37,6 @@ namespace BEFOYS.DataLayer.Helpers
             {
                 DocumentFileName = uniqueFileName,
                 DocumentFolderName=folderpath,
-                DocumentPath= filePath,
                 DocumentTypeCodeId=typeid.CodeId
             };
 

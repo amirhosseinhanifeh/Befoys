@@ -29,7 +29,7 @@ namespace BEFOYS.WEB.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<BaseViewModel<TblCity>> Post([FromBody]ViewCity model)
+        public async Task<BaseViewModel<bool>> Post([FromBody]ViewCity model)
         {
             try
             {
@@ -40,12 +40,12 @@ namespace BEFOYS.WEB.Controllers
                 };
                 await _context.TblCity.AddAsync(ci);
                 await _context.SaveChangesAsync();
-                return new BaseViewModel<TblCity> { Value = ci, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<bool> { Value = true, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<TblCity> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<bool> { Value = false, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         [HttpGet]

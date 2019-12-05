@@ -32,7 +32,7 @@ namespace BEFOYS.WEB.Controllers
         /// <returns></returns>
         [HttpPost]
 
-        public async Task<BaseViewModel<TblEmployee>> Post([FromBody]ViewEmployee model)
+        public async Task<BaseViewModel<bool>> Post([FromBody]ViewEmployee model)
         {
             try
             {
@@ -47,12 +47,12 @@ namespace BEFOYS.WEB.Controllers
                 };
                 await _context.TblEmployee.AddAsync(ci);
                 await _context.SaveChangesAsync();
-                return new BaseViewModel<TblEmployee> { Value = ci, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                return new BaseViewModel<bool> { Value = true, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
             catch (Exception e)
             {
-                return new BaseViewModel<TblEmployee> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
+                return new BaseViewModel<bool> { Value = false, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         [HttpGet]
@@ -61,13 +61,18 @@ namespace BEFOYS.WEB.Controllers
 
             return await _context.TblEmployee.ToListAsync();
         }
+        [HttpGet("{OrganizationID}")]
+        public async Task<ActionResult<IEnumerable<TblEmployee>>> Get(int OrganizationID)
+        {
+            return await _context.TblEmployee.Where(x=>x.EmployeeOrganizationId==OrganizationID).ToListAsync();
+        }
         //[HttpGet("{Province_ID}")]
         //public async Task<ActionResult<IEnumerable<TblEmployee>>> Get(int? Province_ID = null)
         //{
         //    return await _context.TblEmployee.Where(x => x.CityProvinceId == Province_ID).ToListAsync();
         //}
         [HttpPost]
-        public async Task<ActionResult<BaseViewModel<TblEmployee>>> Delete(int? id)
+        public async Task<ActionResult<BaseViewModel<bool>>> Delete(int? id)
         {
             try
             {
@@ -76,14 +81,14 @@ namespace BEFOYS.WEB.Controllers
                 {
                     _context.TblEmployee.Remove(data);
                     await _context.SaveChangesAsync();
-                    return new BaseViewModel<TblEmployee> { Value = null, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+                    return new BaseViewModel<bool> { Value = true, Message = ViewMessage.Remove, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
                 }
-                return new BaseViewModel<TblEmployee> { Value = null, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
+                return new BaseViewModel<bool> { Value = false, Message = ViewMessage.Warning, NotificationType = DataLayer.Enums.Enum_NotificationType.warning };
 
             }
             catch (Exception e)
             {
-                return Ok(new BaseViewModel<string> { Value = e.Message, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error });
+                return new BaseViewModel<bool> { Value = false, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error };
             }
         }
         public void Dispose()

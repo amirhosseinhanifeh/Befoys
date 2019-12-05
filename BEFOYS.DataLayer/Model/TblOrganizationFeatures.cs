@@ -5,12 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BEFOYS.DataLayer.Model
 {
-    [Table("Tbl_OrganizationDocumentFeatures")]
-    public partial class TblOrganizationDocumentFeatures
+    [Table("Tbl_OrganizationFeatures")]
+    public partial class TblOrganizationFeatures
     {
-        public TblOrganizationDocumentFeatures()
+        public TblOrganizationFeatures()
         {
-            TblOrganizationDocumentNavigator = new HashSet<TblOrganizationDocumentNavigator>();
+            TblOrganizationNavigator = new HashSet<TblOrganizationNavigator>();
         }
 
         [Key]
@@ -26,12 +26,12 @@ namespace BEFOYS.DataLayer.Model
         public bool OdfMandatory { get; set; }
 
         [ForeignKey(nameof(OdfKindCodeId))]
-        [InverseProperty(nameof(TblCode.TblOrganizationDocumentFeaturesOdfKindCode))]
+        [InverseProperty(nameof(TblCode.TblOrganizationFeaturesOdfKindCode))]
         public virtual TblCode OdfKindCode { get; set; }
         [ForeignKey(nameof(OdfTypeCodeId))]
-        [InverseProperty(nameof(TblCode.TblOrganizationDocumentFeaturesOdfTypeCode))]
+        [InverseProperty(nameof(TblCode.TblOrganizationFeaturesOdfTypeCode))]
         public virtual TblCode OdfTypeCode { get; set; }
         [InverseProperty("OdnOdf")]
-        public virtual ICollection<TblOrganizationDocumentNavigator> TblOrganizationDocumentNavigator { get; set; }
+        public virtual ICollection<TblOrganizationNavigator> TblOrganizationNavigator { get; set; }
     }
 }

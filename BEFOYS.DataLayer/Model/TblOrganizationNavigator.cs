@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BEFOYS.DataLayer.Model
 {
-    [Table("Tbl_OrganizationDocumentNavigator")]
-    public partial class TblOrganizationDocumentNavigator
+    [Table("Tbl_OrganizationNavigator")]
+    public partial class TblOrganizationNavigator
     {
         [Key]
         [Column("ODN_ID")]
@@ -19,10 +19,10 @@ namespace BEFOYS.DataLayer.Model
         public int OdnOtid { get; set; }
 
         [ForeignKey(nameof(OdnOdfid))]
-        [InverseProperty(nameof(TblOrganizationDocumentFeatures.TblOrganizationDocumentNavigator))]
-        public virtual TblOrganizationDocumentFeatures OdnOdf { get; set; }
+        [InverseProperty(nameof(TblOrganizationFeatures.TblOrganizationNavigator))]
+        public virtual TblOrganizationFeatures OdnOdf { get; set; }
         [ForeignKey(nameof(OdnOtid))]
-        [InverseProperty(nameof(TblOrganizationType.TblOrganizationDocumentNavigator))]
+        [InverseProperty(nameof(TblOrganizationType.TblOrganizationNavigator))]
         public virtual TblOrganizationType OdnOt { get; set; }
     }
 }

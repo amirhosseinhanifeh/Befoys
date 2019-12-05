@@ -19,6 +19,7 @@ using System.Reflection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace BEFOYS.WEB
 {
@@ -67,7 +68,8 @@ namespace BEFOYS.WEB
                     .AllowAnyHeader();
                 });
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore); ;
             services.AddSwaggerGen((options) =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
