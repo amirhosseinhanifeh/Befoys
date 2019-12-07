@@ -4,8 +4,60 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="wwwroot\lib\d3\node_modules\d3-force\.eslintrc.json" />
+    <Content Include="wwwroot\lib\d3\node_modules\d3-force\package.json" />
+  </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\d3\node_modules\.bin\csv2json" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\csv2json.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\csv2tsv" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\csv2tsv.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\dsv2dsv" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\dsv2dsv.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\dsv2json" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\dsv2json.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\json2csv" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\json2csv.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\json2dsv" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\json2dsv.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\json2tsv" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\json2tsv.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\tsv2csv" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\tsv2csv.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\tsv2json" />
+    <None Include="wwwroot\lib\d3\node_modules\.bin\tsv2json.cmd" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\dist\d3-force.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\dist\d3-force.min.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\LICENSE" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\README.md" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\rollup.config.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\center.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\collide.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\constant.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\index.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\jiggle.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\link.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\manyBody.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\radial.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\simulation.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\x.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\src\y.js" />
+    <None Include="wwwroot\lib\d3\node_modules\d3-force\yarn.lock" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
 
 </Project>
