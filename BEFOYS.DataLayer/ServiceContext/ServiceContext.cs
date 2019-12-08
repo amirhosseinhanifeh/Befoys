@@ -204,6 +204,12 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .WithMany(p => p.TblEmployee)
                     .HasForeignKey(d => d.EmployeeOrid)
                     .HasConstraintName("FK_Tbl_Employee_Tbl_OrganizationRole");
+
+                entity.HasOne(d => d.EmployeeTypeCode)
+                    .WithMany(p => p.TblEmployee)
+                    .HasForeignKey(d => d.EmployeeTypeCodeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Employee_Tbl_Code");
             });
 
             modelBuilder.Entity<TblEmployeeRegistrationCode>(entity =>
@@ -269,10 +275,22 @@ namespace BEFOYS.DataLayer.ServiceContext
 
                 entity.Property(e => e.OrganizationModifyDate).HasDefaultValueSql("(getdate())");
 
+                entity.HasOne(d => d.OrganizationDefaultPt)
+                    .WithMany(p => p.TblOrganization)
+                    .HasForeignKey(d => d.OrganizationDefaultPtid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Organization_Tbl_PanelType");
+
                 entity.HasOne(d => d.OrganizationMotherOrganization)
                     .WithMany(p => p.InverseOrganizationMotherOrganization)
                     .HasForeignKey(d => d.OrganizationMotherOrganizationId)
                     .HasConstraintName("FK_Tbl_Organization_Tbl_Organization");
+
+                entity.HasOne(d => d.OrganizationOt)
+                    .WithMany(p => p.TblOrganization)
+                    .HasForeignKey(d => d.OrganizationOtid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Organization_Tbl_OrganizationType");
             });
 
             modelBuilder.Entity<TblOrganizationDocument>(entity =>

@@ -20,6 +20,8 @@ namespace BEFOYS.DataLayer.Model
         public Guid EmployeeGuid { get; set; }
         [Column("Employee_LoginID")]
         public int? EmployeeLoginId { get; set; }
+        [Column("Employee_TypeCodeID")]
+        public int EmployeeTypeCodeId { get; set; }
         [Column("Employee_OrganizationID")]
         public int EmployeeOrganizationId { get; set; }
         [Column("Employee_WalletSize")]
@@ -38,6 +40,9 @@ namespace BEFOYS.DataLayer.Model
         [ForeignKey(nameof(EmployeeOrganizationId))]
         [InverseProperty(nameof(TblOrganization.TblEmployee))]
         public virtual TblOrganization EmployeeOrganization { get; set; }
+        [ForeignKey(nameof(EmployeeTypeCodeId))]
+        [InverseProperty(nameof(TblCode.TblEmployee))]
+        public virtual TblCode EmployeeTypeCode { get; set; }
         [InverseProperty("ErcEmployee")]
         public virtual ICollection<TblEmployeeRegistrationCode> TblEmployeeRegistrationCode { get; set; }
     }

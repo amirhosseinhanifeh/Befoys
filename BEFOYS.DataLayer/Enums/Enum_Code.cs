@@ -8,20 +8,23 @@ namespace BEFOYS.DataLayer.Enums
     {
         PICTURE,
         VIDEO,
-        FILE,
-
+        FILE=4,
+        TEXT=6,
+        CompanyType=7,
 
         HAGHIGHI,
         HOGHOGHI,
         SUBUSER,
 
-        ROZNAMERASMI=22,
-        ASASNAME=24,
-        AGAHI=25,
-        GOVAHI=26,
-        SHENASNAME=27,
-        MELLICART=28,
-        JAVAZKASB=29
+        ROZNAMERASMI ,
+        ASASNAME,
+        AGAHI ,
+        GOVAHI ,
+        SHENASNAME ,
+        MELLICART ,
+        JAVAZKASB,
+
+        CEO=24,
 
     }
 }

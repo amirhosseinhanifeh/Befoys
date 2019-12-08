@@ -15,7 +15,10 @@ namespace BEFOYS.Common.Converts
         {
             return new PersianDateTime(date).ToDateTime();
         }
-
+        public static DateTime ToEnglishDate(this string date)
+        {
+            return new PersianDateTime(int.Parse(date.Split('/')[0]), int.Parse(date.Split('/')[1]), int.Parse(date.Split('/')[2])).ToDateTime();
+        }
         //public static string toPersianNumber(this string input)
         //{
         //    string[] persian = new string[10] { "۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹" };

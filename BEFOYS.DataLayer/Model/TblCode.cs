@@ -13,6 +13,7 @@ namespace BEFOYS.DataLayer.Model
             TblAddress = new HashSet<TblAddress>();
             TblColors = new HashSet<TblColors>();
             TblDocument = new HashSet<TblDocument>();
+            TblEmployee = new HashSet<TblEmployee>();
             TblOrganizationFeaturesOdfKindCode = new HashSet<TblOrganizationFeatures>();
             TblOrganizationFeaturesOdfTypeCode = new HashSet<TblOrganizationFeatures>();
             TblOrganizationInformation = new HashSet<TblOrganizationInformation>();
@@ -46,6 +47,8 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblColors> TblColors { get; set; }
         [InverseProperty("DocumentTypeCode")]
         public virtual ICollection<TblDocument> TblDocument { get; set; }
+        [InverseProperty("EmployeeTypeCode")]
+        public virtual ICollection<TblEmployee> TblEmployee { get; set; }
         [InverseProperty(nameof(TblOrganizationFeatures.OdfKindCode))]
         public virtual ICollection<TblOrganizationFeatures> TblOrganizationFeaturesOdfKindCode { get; set; }
         [InverseProperty(nameof(TblOrganizationFeatures.OdfTypeCode))]

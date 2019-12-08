@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Verify";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<form befoys-url="/api/Register/Verify" befoys-ajax="true" befoys-method="POST" befoys-OnSuccess="OnSuccess" befoys-OnBefore="OnBefore">
+
+    <input hidden class="form-control" name="mobile" value="" />
+    <input class="form-control" name="code" />
+
+    <button befoys-ajax="true" class="btn btn-success" type="submit">ورود</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("input[name=mobile]").val(GetParameterValues("mobile"));
+
+    });
+    function OnSuccess(response) {
+        document.cookie = "token=" + response.token;
+        window.location.href = "@Url.Action("Goto","Account")?token=" + response.token;
+    }
+    function OnBefore() {
+
+    }
+</script>

@@ -44,7 +44,6 @@
     <Folder Include="Areas\Web\Data\" />
     <Folder Include="Areas\Web\Models\" />
     <Folder Include="Areas\Web\Views\" />
-    <Folder Include="Model\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
 

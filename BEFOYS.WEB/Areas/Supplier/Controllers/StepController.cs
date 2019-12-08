@@ -1,4 +1,5 @@
 ﻿using BEFOYS.Common.AppUser;
+using BEFOYS.Common.Converts;
 using BEFOYS.Common.Messages;
 using BEFOYS.DataLayer.Enums;
 using BEFOYS.DataLayer.Helpers;
@@ -39,28 +40,33 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 var user = User.Identity.UserID();
                 var ot = await _context.TblOrganizationType.FirstOrDefaultAsync(x => x.OtName == type.ToString());
                 var de = await _context.TblPanelType.FirstOrDefaultAsync(x => x.PtName == Enum_PanelType.DEFAULT.ToString());
-                TblOrganization organization = new TblOrganization()
+                if (!_context.TblEmployee.Any(x => x.EmployeeLoginId == user))
                 {
-                    OrganizationDefaultPtid = de.PtId,
-                    OrganizationIsActive = true,
-                    OrganizationIsBan = false,
-                    OrganizationIsRegistar = true,
-                    OrganizationIsDelete = false,
-                    OrganizationCreateDate = DateTime.Now,
-                    OrganizationIsMotherOrganization = true,
-                    OrganizationOtid = ot.OtId,
-                };
-                _context.TblOrganization.Add(organization);
-                await _context.SaveChangesAsync();
-                TblEmployee empl = new TblEmployee()
-                {
-                    EmployeeLoginId = user,
-                    EmployeeOrganizationId = organization.OrganizationId,
-                    EmployeeIsAgent = true,
-                    EmployeeWalletSize = -1
-                };
-                _context.TblEmployee.Add(empl);
-                await _context.SaveChangesAsync();
+                    TblOrganization organization = new TblOrganization()
+                    {
+                        OrganizationDefaultPtid = de.PtId,
+                        OrganizationIsActive = true,
+                        OrganizationIsBan = false,
+                        OrganizationIsRegistar = true,
+                        OrganizationIsDelete = false,
+                        OrganizationCreateDate = DateTime.Now,
+                        OrganizationIsMotherOrganization = true,
+                        OrganizationOtid = ot.OtId,
+                    };
+                    _context.TblOrganization.Add(organization);
+                    await _context.SaveChangesAsync();
+                    TblEmployee empl = new TblEmployee()
+                    {
+                        EmployeeLoginId = user,
+                        EmployeeOrganizationId = organization.OrganizationId,
+                        EmployeeIsAgent = true,
+                        EmployeeWalletSize = -1,
+                        EmployeeTypeCodeId = (int)Enum_Code.CEO
+
+                    };
+                    _context.TblEmployee.Add(empl);
+                    await _context.SaveChangesAsync();
+                }
                 return new BaseViewModel<bool> { Value = true, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
 
@@ -97,17 +103,27 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
 
 
         [HttpPost]
-        public async Task<BaseViewModel<bool>> UpdateInformation([FromBody]UpdateInformation[] model)
+        public async Task<BaseViewModel<bool>> UpdateInformation([FromBody]Step1 model)
         {
             try
             {
                 var userId = User.Identity.UserID();
                 var organization = _context.TblEmployee.FirstOrDefault(x => x.EmployeeLoginId == userId);
-                foreach (var item in model)
+                var login = _context.TblLogin.FirstOrDefault(x => x.LoginId == userId);
+                login.LoginFirstName = model.FirstName;
+                login.LoginLastName = model.LastName;
+                login.LoginNationalCode = model.NationalCode;
+                login.LoginEmail = model.Email;
+                login.LoginPasswordHash = model.Password;
+                login.LoginGenderCodeId = (int)model.Gender;
+                login.LoginBirthday = model.Birthday.ToEnglishDate();
+
+                foreach (var item in model.infoes)
                 {
                     var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == organization.EmployeeOrganizationId);
                     if (info == null)
                     {
+                        
                         TblOrganizationInformation tblOrganizationInformation = new TblOrganizationInformation()
                         {
                             OiIsAccept = null,
