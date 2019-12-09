@@ -68,7 +68,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;");
             }
         }
@@ -285,6 +285,11 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .WithMany(p => p.InverseOrganizationMotherOrganization)
                     .HasForeignKey(d => d.OrganizationMotherOrganizationId)
                     .HasConstraintName("FK_Tbl_Organization_Tbl_Organization");
+
+                entity.HasOne(d => d.OrganizationNameInformation)
+                    .WithMany(p => p.TblOrganization)
+                    .HasForeignKey(d => d.OrganizationNameInformationId)
+                    .HasConstraintName("FK_Tbl_Organization_Tbl_OrganizationInformation");
 
                 entity.HasOne(d => d.OrganizationOt)
                     .WithMany(p => p.TblOrganization)
@@ -763,5 +768,6 @@ namespace BEFOYS.DataLayer.ServiceContext
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }

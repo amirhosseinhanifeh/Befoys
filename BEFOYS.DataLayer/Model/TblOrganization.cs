@@ -28,10 +28,8 @@ namespace BEFOYS.DataLayer.Model
         public int OrganizationOtid { get; set; }
         [Column("Organization_DefaultPTID")]
         public int OrganizationDefaultPtid { get; set; }
-        [Column("Organization_NameFA")]
-        public string OrganizationNameFa { get; set; }
-        [Column("Organization_NameEN")]
-        public string OrganizationNameEn { get; set; }
+        [Column("Organization_NameInformationID")]
+        public int? OrganizationNameInformationId { get; set; }
         [Required]
         [Column("Organization_IsMotherOrganization")]
         public bool? OrganizationIsMotherOrganization { get; set; }
@@ -56,6 +54,8 @@ namespace BEFOYS.DataLayer.Model
         [ForeignKey(nameof(OrganizationMotherOrganizationId))]
         [InverseProperty(nameof(TblOrganization.InverseOrganizationMotherOrganization))]
         public virtual TblOrganization OrganizationMotherOrganization { get; set; }
+        [ForeignKey(nameof(OrganizationNameInformationId))]
+        public virtual TblOrganizationInformation OrganizationNameInformation { get; set; }
         [ForeignKey(nameof(OrganizationOtid))]
         [InverseProperty(nameof(TblOrganizationType.TblOrganization))]
         public virtual TblOrganizationType OrganizationOt { get; set; }

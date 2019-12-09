@@ -33,6 +33,8 @@ namespace BEFOYS.DataLayer.Model
         public string PcName { get; set; }
         [Column("PC_Commission")]
         public double PcCommission { get; set; }
+        [Column("PC_ContractClause")]
+        public string PcContractClause { get; set; }
         [Column("PC_IsBase")]
         public bool PcIsBase { get; set; }
         [Column("PC_IsActive")]

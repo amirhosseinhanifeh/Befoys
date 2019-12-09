@@ -36,7 +36,9 @@ namespace BEFOYS.WEB.Controllers
                 TblCity ci = new TblCity()
                 {
                     CityName = model.Name,
-                    CityDisplay = model.Display
+                    CityDisplay = model.Display,
+                    CityProvinceId=model.ProvinceId,
+                    
                 };
                 await _context.TblCity.AddAsync(ci);
                 await _context.SaveChangesAsync();

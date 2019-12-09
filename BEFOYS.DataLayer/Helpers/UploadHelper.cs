@@ -31,13 +31,15 @@ namespace BEFOYS.DataLayer.Helpers
             {
                 await file.CopyToAsync(fileStream);
             }
-            var typeid = context.TblCode.FirstOrDefault(x => x.CodeDisplay == code.ToString());
+            var typeid = context.TblCode.FirstOrDefault(x => x.CodeName == code.ToString());
 
             TblDocument document = new TblDocument()
             {
                 DocumentFileName = uniqueFileName,
                 DocumentFolderName=folderpath,
-                DocumentTypeCodeId=typeid.CodeId
+                DocumentTypeCodeId=typeid.CodeId,
+                DocumentServerId=2,
+                
             };
 
             context.TblDocument.Add(document);

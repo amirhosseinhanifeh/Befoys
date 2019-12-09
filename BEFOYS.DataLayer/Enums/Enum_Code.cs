@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BEFOYS.DataLayer.Enums
+﻿namespace BEFOYS.DataLayer.Enums
 {
     public enum Enum_Code
     {
@@ -23,8 +19,9 @@ namespace BEFOYS.DataLayer.Enums
         SHENASNAME ,
         MELLICART ,
         JAVAZKASB,
-
-        CEO=24,
+        Shenase_Meli=9,
+        Organization_Name=31,
+        CEO =24,
 
     }
 }

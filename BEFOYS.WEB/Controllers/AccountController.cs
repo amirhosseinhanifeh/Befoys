@@ -50,8 +50,7 @@ namespace BEFOYS.WEB.Controllers
         /// <summary>
         /// generate token
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="uniq"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         private string GenerateJSONWebToken(TblLogin model)
         {

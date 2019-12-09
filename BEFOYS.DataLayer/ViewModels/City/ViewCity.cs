@@ -8,5 +8,6 @@ namespace BEFOYS.DataLayer.ViewModels.City
     {
         public string Name { get; set; }
         public string Display { get; set; }
+        public int ProvinceId { get; set; }
     }
 }

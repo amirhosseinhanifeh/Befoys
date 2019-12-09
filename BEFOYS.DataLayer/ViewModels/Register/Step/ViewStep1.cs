@@ -14,6 +14,7 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
     }
     public class Step1
     {
+        public Enum_UserType type { get; set; }
         public int StepNumber { get; set; }
         public Enum_Gender Gender { get; set; }
         public string Birthday { get; set; }
@@ -24,6 +25,17 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
         public string LastName { get; set; }
         public UpdateInformation[] infoes { get; set; }
         
+    }
+    public class AddressValue
+    {
+        public string StateName { get; set; }
+        public string CityName { get; set; }
+        public string Address { get; set; }
+        public Phone[] phones { get; set; }
+    }
+    public class Phone
+    {
+        public string PhoneValue { get; set; }
     }
 
 }
