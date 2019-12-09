@@ -1,4 +1,4 @@
-﻿@model Panel.Controllers.Step1
+﻿@model Panel.Controllers.Step1HA
 
 @{
     ViewData["Title"] = "Step1";
@@ -14,18 +14,15 @@
         <input class="form-control" name="LastName" value="" />
         <br />
         <label>ایمیل</label>
-        <input hidden class="form-control" name="infoes[0].TypeCodeId" value="2" />
-        <input class="form-control" name="infoes[0].Value" value="" type="email" />
+        <input class="form-control" name="Email" value="" type="email" />
 
         <br />
         <label>رمزعبور</label>
-        <input hidden class="form-control" name="infoes[1].TypeCodeId" value="2" />
-        <input class="form-control" name="infoes[1].Value" value="" type="password" />
+        <input class="form-control" name="Password" value="" type="password" />
 
         <br />
         <label>تکرار رمز عبور</label>
-        <input hidden class="form-control" name="infoes[2].TypeCodeId" value="2" />
-        <input class="form-control" name="infoes[2].Value" value="" type="password" />
+        <input class="form-control" name="Password" value="" type="password" />
 
         <h4>اطلاعات شخصی</h4>
         <br />
@@ -35,23 +32,23 @@
 
         <br />
         <label>روز</label>
-        <select class="form-control" name="Day">
+        <select asp-for="Day" class="form-control">
             <option value="01">01</option>
         </select>
         <br />
         <label>ماه</label>>
-        <select class="form-control" name="Month">
+        <select asp-for="Month" class="form-control">
             <option value="1">فروردین</option>
         </select>
 
         <br />
         <label>سال</label>
-        <select class="form-control" name="Year">
+        <select asp-for="Year" class="form-control">
             <option value="1398">1398</option>
         </select>
         <br />
         <label>جنسیت</label>
-        <select class="form-control" name="Gender">
+        <select asp-for="Gender" class="form-control" name="Gender">
             <option value="1">مرد</option>
             <option value="2">زن</option>
         </select>

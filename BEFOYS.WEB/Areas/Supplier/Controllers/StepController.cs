@@ -110,33 +110,38 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 var userId = User.Identity.UserID();
                 var organization = _context.TblEmployee.FirstOrDefault(x => x.EmployeeLoginId == userId);
                 var login = _context.TblLogin.FirstOrDefault(x => x.LoginId == userId);
-                login.LoginFirstName = model.FirstName;
-                login.LoginLastName = model.LastName;
-                login.LoginNationalCode = model.NationalCode;
-                login.LoginEmail = model.Email;
-                login.LoginPasswordHash = model.Password;
-                login.LoginGenderCodeId = (int)model.Gender;
-                login.LoginBirthday = model.Birthday.ToEnglishDate();
-
-                foreach (var item in model.infoes)
+                if (model.StepNumber == 1)
                 {
-                    var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == organization.EmployeeOrganizationId);
-                    if (info == null)
+                    login.LoginFirstName = model.FirstName;
+                    login.LoginLastName = model.LastName;
+                    login.LoginNationalCode = model.NationalCode;
+                    login.LoginEmail = model.Email;
+                    login.LoginPasswordHash = model.Password;
+                    login.LoginGenderCodeId = (int)model.Gender;
+                    login.LoginBirthday = model.Birthday.ToEnglishDate();
+                }
+                else
+                {
+                    foreach (var item in model.infoes)
                     {
-                        
-                        TblOrganizationInformation tblOrganizationInformation = new TblOrganizationInformation()
+                        var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == organization.EmployeeOrganizationId);
+                        if (info == null)
                         {
-                            OiIsAccept = null,
-                            OiOrganizationId = organization.EmployeeOrganizationId,
-                            OiText = item.Value,
-                            OiTypeCodeId = item.TypeCodeId
-                        };
-                        _context.TblOrganizationInformation.Add(tblOrganizationInformation);
 
-                    }
-                    else
-                    {
-                        info.OiText = item.Value;
+                            TblOrganizationInformation tblOrganizationInformation = new TblOrganizationInformation()
+                            {
+                                OiIsAccept = null,
+                                OiOrganizationId = organization.EmployeeOrganizationId,
+                                OiText = item.Value,
+                                OiTypeCodeId = item.TypeCodeId
+                            };
+                            _context.TblOrganizationInformation.Add(tblOrganizationInformation);
+
+                        }
+                        else
+                        {
+                            info.OiText = item.Value;
+                        }
                     }
                     await _context.SaveChangesAsync();
 

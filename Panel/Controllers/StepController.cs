@@ -16,10 +16,11 @@ namespace Panel.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Step1(Step1 model)
+        public IActionResult Step1(Step1HA model)
         {
 
             string Token = Get("token");
+            model.StepNumber = 1;
             string json = JsonConvert.SerializeObject(model);
             var result = DownloadData<dynamic>.DownloadValue("https://localhost:44317/api/Step/UpdateInformation", "POST", json, Token);
             return View();
@@ -32,9 +33,20 @@ namespace Panel.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Step2(StepValues[] model)
+        {
+
+            string Token = Get("token");
+            //model.StepNumber = 1;
+            string json = JsonConvert.SerializeObject(model);
+            var result = DownloadData<dynamic>.DownloadValue("https://localhost:44317/api/Step/UpdateInformation", "POST", json, Token);
+            return View();
+        }
     }
-    public class Step1
+    public class Step1HA
     {
+        public int StepNumber { get; set; }
         public string Day { get; set; }
         public string Month { get; set; }
         public string Year { get; set; }
@@ -46,6 +58,13 @@ namespace Panel.Controllers
         public string NationalCode { get; set; }
         public StepValues[] infoes { get; set; }
     }
+    public class Step1HO
+    {
+        public int StepNumber { get; set; }
+        public string OrganizationName { get; set; }
+        public StepValues[] infoes { get; set; }
+    }
+
     public class StepValues
     {
         public int TypeCodeId { get; set; }
