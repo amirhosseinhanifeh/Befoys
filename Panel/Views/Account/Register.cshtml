@@ -7,18 +7,23 @@
 
 
 <form befoys-url="/api/Register/Registeration" befoys-ajax="true" befoys-method="POST" befoys-OnSuccess="OnSuccess" befoys-OnBefore="OnBefore">
-    <div class="float-left clearfix" style="height:140px; width:65%;">
-        <div style="padding-left:10px;padding-right:10px">
-            <div class="form-group">
-                <label class="col-form-label float-right">تلفن همراه</label>
-                <input class="form-control text-center" name="mobile" placeholder="09XXXXXXXXX" required />
+    <div class="card  " style="max-width:500px;margin:0 auto;margin-top:33vh ">
+        <div class="card-body" style="padding:0px;">
+
+            <div class="float-left clearfix" style="width:65%;">
+                <div style="padding-left:10px;padding-right:10px">
+                    <div class="form-group">
+                        <label class="col-form-label float-right">تلفن همراه</label>
+                        <input class="form-control text-center" name="mobile" placeholder="09XXXXXXXXX" required />
+                    </div>
+                    <button class="btn btn-primary float-left" style="background-color:#1968b3;width:40%;" befoys-ajax="true" type="submit">ورود</button>
+                    <button class="btn btn-primary float-right" style="background-color:#1968b3;width:40%;">ایمیل</button>
+                </div>
             </div>
-            <button class="btn btn-primary float-left" style="background-color:#1968b3;width:40%;" befoys-ajax="true" type="submit">ورود</button>
-            <button class="btn btn-primary float-right" style="background-color:#1968b3;width:40%;">ورود با ایمیل</button>
+            <div class="float-right" style="height:150px;width:35%;background-color:#1968b3">
+                <img src="~/images/logo.png" style="position:absolute;right:12px;top:55px;width:150px;" />
+            </div>
         </div>
-    </div>
-    <div class="float-right" style="height:140px;width:35%;background-color:#1968b3">
-        <img src="~/images/logo.png" style="position:absolute;right:12px;top:55px;width:150px;" />
     </div>
 </form>
 

@@ -62,6 +62,7 @@ namespace BEFOYS.WEB
                 {
                     builder
                     .WithOrigins("http://localhost:3000/")
+                    .WithOrigins("http://localhost:26126/")
                     .AllowAnyMethod()
                     .AllowAnyOrigin()
                     .AllowAnyHeader();
