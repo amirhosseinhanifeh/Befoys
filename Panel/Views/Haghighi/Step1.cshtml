@@ -1,4 +1,4 @@
-﻿@model Panel.Controllers.Step1HA
+﻿@model Panel.ViewModels.Account.HaghighiViewModel
 
 @{
     ViewData["Title"] = "Step1";
@@ -8,27 +8,27 @@
     <form method="post" enctype="multipart/form-data">
 
         <label>نام</label>
-        <input class="form-control" name="FirstName" value="" />
+        <input asp-for="FirstName" class="form-control" value="" />
         <br />
         <label>نام خانوادگی</label>
-        <input class="form-control" name="LastName" value="" />
+        <input asp-for="LastName" class="form-control" name="LastName" value="" />
         <br />
         <label>ایمیل</label>
-        <input class="form-control" name="Email" value="" type="email" />
+        <input asp-for="Email" class="form-control" value="" type="email" />
 
         <br />
         <label>رمزعبور</label>
-        <input class="form-control" name="Password" value="" type="password" />
+        <input asp-for="Password" class="form-control" value="" type="password" />
 
         <br />
         <label>تکرار رمز عبور</label>
-        <input class="form-control" name="Password" value="" type="password" />
+        <input asp-for="ConfirmPassword" class="form-control" value="" type="password" />
 
         <h4>اطلاعات شخصی</h4>
         <br />
         <label>کد ملی</label>
 
-        <input class="form-control" name="NationalCode" value="" />
+        <input asp-for="NationalCode" class="form-control" value="" />
 
         <br />
         <label>روز</label>
@@ -53,6 +53,28 @@
             <option value="2">زن</option>
         </select>
         <br />
+
+
+
+        <div>
+            <select name="Addresses[0].StateName" >
+                <option value="تهران">
+                    تهران
+                </option>
+            </select>
+            <select name="Addresses[0].CityName">
+                <option value="تهران">
+                    تهران
+                </option>
+            </select>
+            <label>آدرس</label>
+            <input name="Addresses[0].Address" />
+           
+            <div>
+                <input name="Addresses[0].phones[0].PhoneValue" />
+            </div>
+
+        </div>
         <button class="btn btn-success" type="submit">ورود</button>
     </form>
 <script>

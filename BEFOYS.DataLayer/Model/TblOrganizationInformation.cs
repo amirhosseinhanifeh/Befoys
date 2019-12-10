@@ -8,6 +8,11 @@ namespace BEFOYS.DataLayer.Model
     [Table("Tbl_OrganizationInformation")]
     public partial class TblOrganizationInformation
     {
+        public TblOrganizationInformation()
+        {
+            TblOrganization = new HashSet<TblOrganization>();
+        }
+
         [Key]
         [Column("OI_ID")]
         public int OiId { get; set; }
@@ -24,10 +29,11 @@ namespace BEFOYS.DataLayer.Model
         public bool? OiIsAccept { get; set; }
 
         [ForeignKey(nameof(OiOrganizationId))]
-        [InverseProperty(nameof(TblOrganization.TblOrganizationInformation))]
         public virtual TblOrganization OiOrganization { get; set; }
         [ForeignKey(nameof(OiTypeCodeId))]
         [InverseProperty(nameof(TblCode.TblOrganizationInformation))]
         public virtual TblCode OiTypeCode { get; set; }
+        [InverseProperty("OrganizationNameInformation")]
+        public virtual ICollection<TblOrganization> TblOrganization { get; set; }
     }
 }

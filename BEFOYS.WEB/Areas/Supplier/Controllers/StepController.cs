@@ -9,6 +9,7 @@ using BEFOYS.DataLayer.ViewModels;
 using BEFOYS.DataLayer.ViewModels.Organization;
 using BEFOYS.DataLayer.ViewModels.Register.Step;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -108,8 +109,9 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             try
             {
                 var userId = User.Identity.UserID();
-                var organization = _context.TblEmployee.FirstOrDefault(x => x.EmployeeLoginId == userId);
+                var employe = _context.TblEmployee.FirstOrDefault(x => x.EmployeeLoginId == userId);
                 var login = _context.TblLogin.FirstOrDefault(x => x.LoginId == userId);
+
                 if (model.StepNumber == 1)
                 {
                     login.LoginFirstName = model.FirstName;
@@ -119,55 +121,44 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                     login.LoginPasswordHash = model.Password;
                     login.LoginGenderCodeId = (int)model.Gender;
                     login.LoginBirthday = model.Birthday.ToEnglishDate();
-                }
-                else
-                {
-                    foreach (var item in model.infoes)
+
+                    if (model.type == Enum_UserType.Supplier_Legal)
                     {
-                        var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == organization.EmployeeOrganizationId);
-                        if (info == null)
+                        var orgname = model.infoes.FirstOrDefault(x => x.TypeCodeId == (int)Enum_Code.Organization_Name);
+                        if (orgname != null)
                         {
+                            var organization = await _context.TblOrganization.FirstOrDefaultAsync(x => x.OrganizationId == employe.EmployeeOrganizationId);
+                            organization.OrganizationNameInformationId = (int)Enum_Code.Organization_Name;
 
-                            TblOrganizationInformation tblOrganizationInformation = new TblOrganizationInformation()
-                            {
-                                OiIsAccept = null,
-                                OiOrganizationId = organization.EmployeeOrganizationId,
-                                OiText = item.Value,
-                                OiTypeCodeId = item.TypeCodeId
-                            };
-                            _context.TblOrganizationInformation.Add(tblOrganizationInformation);
-
-                        }
-                        else
-                        {
-                            info.OiText = item.Value;
                         }
                     }
-                    await _context.SaveChangesAsync();
+                }
+                foreach (var item in model.infoes)
+                {
+                    var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == employe.EmployeeOrganizationId);
+                    if (info == null)
+                    {
 
+                        TblOrganizationInformation tblOrganizationInformation = new TblOrganizationInformation()
+                        {
+                            OiIsAccept = null,
+                            OiOrganizationId = employe.EmployeeOrganizationId,
+                            OiText = item.Value,
+                            OiTypeCodeId = item.TypeCodeId
+                        };
+                        _context.TblOrganizationInformation.Add(tblOrganizationInformation);
+
+                    }
+                    else
+                    {
+                        info.OiText = item.Value;
+                    }
                 }
 
-                //user.Supplier_Website = model.Website;
-                //if (user.Code.Code_Display == Enum_UserType.Supplier_Legal.ToString())
-                //{
-                //    var real = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiOrganizationId == user && x.OiTypeCodeId==);
-                //    real.SR_Birthday = model.Haghighi.SR_Birthday;
-                //    real.SR_GenderCodeID = (int)model.Haghighi.Gender;
-                //    real.SR_NationalCode = model.Haghighi.SR_NationalCode;
-                //    real.SR_ShenasnameID = model.Haghighi.SR_ShenasnameID;
+                await _context.SaveChangesAsync();
 
-                //}
-                //else
-                //{
-                //    Guid CompanyTypeCodeGUID = model.Hoghoghi.SL_CompanyTypeCodeGUID.ToGuid();
-                //    var code = _context.Tbl_Code.FirstOrDefault(x => x.Code_GUID == CompanyTypeCodeGUID);
-                //    var legal = _context.Tbl_SupplierLegal.FirstOrDefault(x => x.SL_SupplierID == user.Supplier_ID);
-                //    legal.SL_CompanyName = model.Hoghoghi.SL_CompanyName;
-                //    legal.SL_EconomicCode = model.Hoghoghi.SL_EconomicCode;
-                //    legal.SL_SabtNumber = model.Hoghoghi.SL_SabtNumber;
-                //    legal.SL_NationalCode = model.Hoghoghi.SL_NationalCode;
-                //    legal.SL_CompanyTypeCodeID = code?.Code_ID;
-                //}
+
+
                 //if (model.Addresses != null)
                 //{
                 //    List<Tbl_Address> list = new List<Tbl_Address>();
@@ -232,13 +223,13 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         #region Step3 POST & GET
 
         [HttpPost, DisableRequestSizeLimit]
-        public async Task<BaseViewModel<ViewStep3>> Step3([FromForm]ViewStep3 model)
+        public async Task<BaseViewModel<ViewStep3>> Step3([FromForm]IFormFile[] files)
         {
             try
             {
                 var userId = User.Identity.UserID();
                 var organization = _context.TblEmployee.FirstOrDefault(x => x.EmployeeLoginId == userId);
-                foreach (var item in model.files)
+                foreach (var item in files)
                 {
                     string folder = User.Identity.Name;
                     var doc = await item.Upload(folder, _context, Enum_Code.PICTURE);

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Step2";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<form method="post" enctype="multipart/form-data">
+
+    <label>شماره شبا</label>
+    <input hidden name="infoes[0].TypeCodeId" value="12" />
+    <input class="form-control" name="infoes[0].Value" value="" />
+    <br />
+    <label>شماره حساب</label>
+    <input hidden name="infoes[1].TypeCodeId" value="13" />
+    <input class="form-control" name="infoes[1].Value" value="" />
+
+    <br />
+    <label>نام دارنده حساب</label>
+    <input hidden name="infoes[2].TypeCodeId" value="13" />
+    <input class="form-control" name="infoes[2].Value" value="" />
+
+
+    <br />
+    <label>گواهی ارزش افزوده</label>
+    <input hidden name="infoes[3].TypeCodeId" value="14" />
+    <input class="form-control" name="infoes[3].Value" value="" />
+
+    <button class="btn btn-success" type="submit">ورود</button>
+</form>
+
+
+
