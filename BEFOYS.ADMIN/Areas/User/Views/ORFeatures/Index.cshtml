@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblOrganizationInformation>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+
+*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.OiTypeCode.CodeName
+            </td>
+            <td>
+                @item.OiText
+            </td>
+            <td>
+                @Html.ActionLink("تایید", "UpdateStatus", "ORFeatures", new { id = item.OiId, status = true })
+                @Html.ActionLink("لغو", "UpdateStatus", "ORFeatures", new { id = item.OiId, status = false })
+            </td>
+            <td>
+               <a ></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<div id="reasonpanel">
+    <form method="post" action="@Url.Action("")">
+        <textarea class="form-control" name="ReasonText" />
+        <button type="submit">ثبت</button>
+    </form>
+
+</div>
+<script>
+    function showreason() {
+        $("#reasonpanel").show();
+    }
+</script>

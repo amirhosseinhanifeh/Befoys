@@ -1,0 +1,88 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblOrganization>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationOtid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationDefaultPtid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationNameInformationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationIsMotherOrganization)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationMotherOrganizationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationIsBan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationIsDelete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationIsRegistar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationIsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationCreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationModifyDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganizationNameInformation.OiText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganizationOtid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganizationDefaultPtid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganizationIsBan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganizationIsDelete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganizationIsRegistar)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganizationIsActive)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+                <td>
+                    @Html.ActionLink("مشخصات","Information","ORFeatures",new { id=item.OrganizationId})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

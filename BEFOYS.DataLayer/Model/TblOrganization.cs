@@ -12,6 +12,7 @@ namespace BEFOYS.DataLayer.Model
         {
             InverseOrganizationMotherOrganization = new HashSet<TblOrganization>();
             TblEmployee = new HashSet<TblEmployee>();
+            TblMessage = new HashSet<TblMessage>();
             TblOrganizationDocument = new HashSet<TblOrganizationDocument>();
             TblOrganizationInformation = new HashSet<TblOrganizationInformation>();
             TblOrganizationRole = new HashSet<TblOrganizationRole>();
@@ -63,6 +64,8 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblOrganization> InverseOrganizationMotherOrganization { get; set; }
         [InverseProperty("EmployeeOrganization")]
         public virtual ICollection<TblEmployee> TblEmployee { get; set; }
+        [InverseProperty("MessageReceiverOrganization")]
+        public virtual ICollection<TblMessage> TblMessage { get; set; }
         [InverseProperty("OdOrganization")]
         public virtual ICollection<TblOrganizationDocument> TblOrganizationDocument { get; set; }
         [InverseProperty("OiOrganization")]

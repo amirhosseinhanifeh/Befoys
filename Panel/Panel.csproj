@@ -16,7 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BEFOYS.Common\BEFOYS.Common.csproj" />
     <ProjectReference Include="..\BEFOYS.DataLayer\BEFOYS.DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Crm\Data\" />
+    <Folder Include="Areas\Crm\Models\" />
   </ItemGroup>
 
 </Project>

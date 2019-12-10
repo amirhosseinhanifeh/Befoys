@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BEFOYS.Common", "BEFOYS.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BEFOYS.PANEL", "BEFOYS.PANEL\BEFOYS.PANEL.csproj", "{C4952AE4-A6CC-47FA-99D5-213D5BE81910}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panel", "Panel\Panel.csproj", "{E82D0889-C8C0-4EEC-9211-A456C7C7AF27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panel", "Panel\Panel.csproj", "{E82D0889-C8C0-4EEC-9211-A456C7C7AF27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEFOYS.ADMIN", "BEFOYS.ADMIN\BEFOYS.ADMIN.csproj", "{2DCA22E6-AEB6-4DA5-903E-3C8771B3070D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{E82D0889-C8C0-4EEC-9211-A456C7C7AF27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E82D0889-C8C0-4EEC-9211-A456C7C7AF27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E82D0889-C8C0-4EEC-9211-A456C7C7AF27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DCA22E6-AEB6-4DA5-903E-3C8771B3070D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DCA22E6-AEB6-4DA5-903E-3C8771B3070D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DCA22E6-AEB6-4DA5-903E-3C8771B3070D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DCA22E6-AEB6-4DA5-903E-3C8771B3070D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

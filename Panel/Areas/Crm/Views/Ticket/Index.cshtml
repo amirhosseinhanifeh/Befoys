@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblTicket>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.TicketId
+            </td>
+            <td>
+                @Html.ActionLink("پاسخ ها","Answer","Ticket",new {id=item.TicketId })
+            </td>
+        </tr>
+
+    }
+</table>

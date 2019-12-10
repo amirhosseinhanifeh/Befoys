@@ -28,6 +28,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblGroup> TblGroup { get; set; }
         public virtual DbSet<TblGroupPermission> TblGroupPermission { get; set; }
         public virtual DbSet<TblLogin> TblLogin { get; set; }
+        public virtual DbSet<TblMessage> TblMessage { get; set; }
         public virtual DbSet<TblOrganization> TblOrganization { get; set; }
         public virtual DbSet<TblOrganizationDocument> TblOrganizationDocument { get; set; }
         public virtual DbSet<TblOrganizationFeatures> TblOrganizationFeatures { get; set; }
@@ -62,6 +63,8 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblSmssetting> TblSmssetting { get; set; }
         public virtual DbSet<TblSmstemplate> TblSmstemplate { get; set; }
         public virtual DbSet<TblTags> TblTags { get; set; }
+        public virtual DbSet<TblTicket> TblTicket { get; set; }
+        public virtual DbSet<TblTicketAnswer> TblTicketAnswer { get; set; }
         public virtual DbSet<TblToken> TblToken { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -260,6 +263,38 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .WithMany(p => p.TblLogin)
                     .HasForeignKey(d => d.LoginPictureDocumentId)
                     .HasConstraintName("FK_Tbl_Login_Tbl_Document");
+            });
+
+            modelBuilder.Entity<TblMessage>(entity =>
+            {
+                entity.HasOne(d => d.MessagePriorityCode)
+                    .WithMany(p => p.TblMessageMessagePriorityCode)
+                    .HasForeignKey(d => d.MessagePriorityCodeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Message_Tbl_Code");
+
+                entity.HasOne(d => d.MessageReceiverLogin)
+                    .WithMany(p => p.TblMessageMessageReceiverLogin)
+                    .HasForeignKey(d => d.MessageReceiverLoginId)
+                    .HasConstraintName("FK_Tbl_Message_Tbl_Login");
+
+                entity.HasOne(d => d.MessageReceiverOrganization)
+                    .WithMany(p => p.TblMessage)
+                    .HasForeignKey(d => d.MessageReceiverOrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Message_Tbl_Organization");
+
+                entity.HasOne(d => d.MessageSenderLogin)
+                    .WithMany(p => p.TblMessageMessageSenderLogin)
+                    .HasForeignKey(d => d.MessageSenderLoginId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Message_Tbl_Login1");
+
+                entity.HasOne(d => d.MessageTypeCode)
+                    .WithMany(p => p.TblMessageMessageTypeCode)
+                    .HasForeignKey(d => d.MessageTypeCodeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Message_Tbl_Code1");
             });
 
             modelBuilder.Entity<TblOrganization>(entity =>
@@ -753,6 +788,35 @@ namespace BEFOYS.DataLayer.ServiceContext
                 entity.Property(e => e.TagsGuid).HasDefaultValueSql("(newid())");
             });
 
+            modelBuilder.Entity<TblTicket>(entity =>
+            {
+                entity.HasOne(d => d.TicketPriorityCode)
+                    .WithMany(p => p.TblTicket)
+                    .HasForeignKey(d => d.TicketPriorityCodeId)
+                    .HasConstraintName("FK_Tbl_Ticket_Tbl_Code");
+
+                entity.HasOne(d => d.TicketReciverLogin)
+                    .WithMany(p => p.TblTicketTicketReciverLogin)
+                    .HasForeignKey(d => d.TicketReciverLoginId)
+                    .HasConstraintName("FK_Tbl_Ticket_Tbl_Login1");
+
+                entity.HasOne(d => d.TicketSenderLogin)
+                    .WithMany(p => p.TblTicketTicketSenderLogin)
+                    .HasForeignKey(d => d.TicketSenderLoginId)
+                    .HasConstraintName("FK_Tbl_Ticket_Tbl_Login");
+            });
+
+            modelBuilder.Entity<TblTicketAnswer>(entity =>
+            {
+                entity.Property(e => e.TaGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.TaTicket)
+                    .WithMany(p => p.TblTicketAnswer)
+                    .HasForeignKey(d => d.TaTicketId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_TicketAnswer_Tbl_Ticket");
+            });
+
             modelBuilder.Entity<TblToken>(entity =>
             {
                 entity.Property(e => e.TokenGuid).HasDefaultValueSql("(newid())");
@@ -768,6 +832,5 @@ namespace BEFOYS.DataLayer.ServiceContext
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
     }
 }

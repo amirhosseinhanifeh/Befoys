@@ -11,6 +11,10 @@ namespace BEFOYS.DataLayer.Model
         public TblLogin()
         {
             TblEmployee = new HashSet<TblEmployee>();
+            TblMessageMessageReceiverLogin = new HashSet<TblMessage>();
+            TblMessageMessageSenderLogin = new HashSet<TblMessage>();
+            TblTicketTicketReciverLogin = new HashSet<TblTicket>();
+            TblTicketTicketSenderLogin = new HashSet<TblTicket>();
             TblToken = new HashSet<TblToken>();
         }
 
@@ -61,6 +65,14 @@ namespace BEFOYS.DataLayer.Model
         public virtual TblDocument LoginPictureDocument { get; set; }
         [InverseProperty("EmployeeLogin")]
         public virtual ICollection<TblEmployee> TblEmployee { get; set; }
+        [InverseProperty(nameof(TblMessage.MessageReceiverLogin))]
+        public virtual ICollection<TblMessage> TblMessageMessageReceiverLogin { get; set; }
+        [InverseProperty(nameof(TblMessage.MessageSenderLogin))]
+        public virtual ICollection<TblMessage> TblMessageMessageSenderLogin { get; set; }
+        [InverseProperty(nameof(TblTicket.TicketReciverLogin))]
+        public virtual ICollection<TblTicket> TblTicketTicketReciverLogin { get; set; }
+        [InverseProperty(nameof(TblTicket.TicketSenderLogin))]
+        public virtual ICollection<TblTicket> TblTicketTicketSenderLogin { get; set; }
         [InverseProperty("TokenLogin")]
         public virtual ICollection<TblToken> TblToken { get; set; }
     }
