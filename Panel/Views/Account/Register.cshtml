@@ -1,15 +1,27 @@
 ﻿
 @{
     ViewData["Title"] = "Register";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    Layout = "~/Views/Shared/_Master.cshtml";
 }
 
+
+
 <form befoys-url="/api/Register/Registeration" befoys-ajax="true" befoys-method="POST" befoys-OnSuccess="OnSuccess" befoys-OnBefore="OnBefore">
-
-    <input class="form-control" name="mobile" />
-
-    <button befoys-ajax="true" class="btn btn-success" type="submit">ورود</button>
+    <div class="float-left clearfix" style="height:140px; width:65%;">
+        <div style="padding-left:10px;padding-right:10px">
+            <div class="form-group">
+                <label class="col-form-label float-right">تلفن همراه</label>
+                <input class="form-control text-center" name="mobile" placeholder="09XXXXXXXXX" required />
+            </div>
+            <button class="btn btn-primary float-left" style="background-color:#1968b3;width:40%;" befoys-ajax="true" type="submit">ورود</button>
+            <button class="btn btn-primary float-right" style="background-color:#1968b3;width:40%;">ورود با ایمیل</button>
+        </div>
+    </div>
+    <div class="float-right" style="height:140px;width:35%;background-color:#1968b3">
+        <img src="~/images/logo.png" style="position:absolute;right:12px;top:55px;width:150px;" />
+    </div>
 </form>
+
 
 <script>
     function OnSuccess(response) {
@@ -19,4 +31,3 @@
     function OnBefore() {
     }
 </script>
-

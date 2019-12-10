@@ -1,0 +1,175 @@
+:root {
+    --befoys-primary: #0066b3;
+    --text-color: #727272;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    width: 100vw;
+    height: 100vh;
+    direction: rtl;
+    font: 100% Yekan, Tahoma, sans-serif;
+   
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background: url("../images/curve-suppliers.png") no-repeat center / cover;
+}
+
+.layout {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.befoys-logo-blue {
+    display:none;
+}
+
+.befoys-logo-white {
+    position: absolute;
+    left: 27px;
+    z-index: 1;
+    height: 85px;
+    margin-top: 20px;
+}
+
+.content {
+    width: 1000px;
+    height: 650px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.content .picture {
+    width: 1000px;
+    height: 650px;
+    position: absolute;
+    background: url(../images/laptop.png) no-repeat center / cover;
+}
+
+.content h1,
+.content h2,
+.content .buttons,
+.content .social {
+    width: 50%;
+}
+
+    .content h1 {
+        margin: 0;
+        margin-top: -28px;
+    }
+
+    .content h2 {
+        max-width: 375px;
+        font-size: 28px;
+        margin: 103px 62.5px 0 0;
+    }
+
+.content .buttons {
+    position: relative;
+    margin-top: 130px;
+}
+
+.content .buttons a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    background: var(--befoys-primary);
+    margin: 10px 130px;
+    padding: 10px 50px;
+    border-radius: 25px;
+}
+
+.content .social {
+    margin-top: 25px;
+}
+
+.content .social a {
+    color: var(--text-color);
+    margin: 0 15px;
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .befoys-logo-white {
+        left: 15px;
+        height: 65px;
+        margin-top: 20px;
+    }
+
+    .content {
+        width: 800px;
+        height: 500px;
+    }
+
+    .content .picture {
+        width: 800px;
+        height: 500px;
+    }
+
+        .content h1 {
+            margin: 0;
+            margin-top: -100px;
+        }
+
+        .content h2 {
+            font-size: 28px;
+            margin: 130px 12.5px 0 0;
+        }
+
+
+
+    .content .buttons {
+        margin-top: 60px;
+    }
+
+    .content .buttons a {
+        margin: 10px 100px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .befoys-logo-white {
+        display:none;
+    }
+    .befoys-logo-blue {
+        display: unset;
+        height:60px;
+        margin-bottom: 110px;
+        margin-top: -90px;
+    }
+
+    .content h1,
+    .content h2,
+    .content .buttons,
+    .content .social {
+        width: 100%;
+    }
+    
+    .content .picture {
+        opacity: 0.1;
+    }
+
+    .content h1 {
+        margin: 0;
+        margin-top: -28px;
+    }
+
+    .content h2 {
+        max-width: 375px;
+        font-size: 28px;
+        margin: auto;
+        margin-top: 103px;
+    }
+
+    .content .social {
+        margin-top: 55px;
+    }
+}
