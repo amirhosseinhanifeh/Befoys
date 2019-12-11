@@ -30,7 +30,11 @@ namespace BEFOYS.ADMIN.Areas.User.Controllers
             var Result =await _context.TblOrganizationInformation.FindAsync(id);
             Result.OiIsAccept = Status;
             await _context.SaveChangesAsync();
-            return RedirectToAction("SendReason");
+            if (Status == false)
+            {
+                return RedirectToAction("SendReason", new { id = id });
+            }
+            return RedirectToAction("Index",new {id=id });
         }
 
         public IActionResult SendReason()

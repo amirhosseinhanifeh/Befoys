@@ -1,0 +1,89 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProductCategory>
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PcId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PcGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PcPcdid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PcDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PcName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PcCommission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PcContractClause)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PcIsBase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PcIsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcGuid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcPcdid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcDisplay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcCommission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcContractClause)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcIsBase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PcIsActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+            <td>
+                @*<a asp-action="Create" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">افزودن زیر دسته</a>*@
+                @Html.ActionLink("افزودن زیر دسته","Create","ProductCategory",new {id=item.PcId,area="Crm" },null)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

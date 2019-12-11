@@ -17,7 +17,8 @@
   <ItemGroup>
     <Folder Include="Areas\Crm\Data\" />
     <Folder Include="Areas\Crm\Models\" />
-    <Folder Include="Areas\Crm\Views\" />
+    <Folder Include="Areas\Setting\Data\" />
+    <Folder Include="Areas\Setting\Models\" />
     <Folder Include="Areas\User\Data\" />
     <Folder Include="Areas\User\Models\" />
   </ItemGroup>

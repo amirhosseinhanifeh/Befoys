@@ -246,7 +246,7 @@ namespace BEFOYS.WEB.Controllers
         new Claim(ClaimTypes.Sid,model.LoginId.ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, model.LoginId.ToString()),
         new Claim(JwtRegisteredClaimNames.Jti, model.LoginGuid.ToString()),
-        //new Claim(ClaimTypes.Role,model.AccountControl.BaseRole.BR_Display)
+        //new Claim(ClaimTypes.Role,model.TblEmployee.FirstOrDefault().EmployeeOr.OrDisplay)
     };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],

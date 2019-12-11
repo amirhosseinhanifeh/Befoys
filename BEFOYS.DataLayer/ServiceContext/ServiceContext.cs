@@ -27,6 +27,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblEmployeeRegistrationCode> TblEmployeeRegistrationCode { get; set; }
         public virtual DbSet<TblGroup> TblGroup { get; set; }
         public virtual DbSet<TblGroupPermission> TblGroupPermission { get; set; }
+        public virtual DbSet<TblGuarantee> TblGuarantee { get; set; }
         public virtual DbSet<TblLogin> TblLogin { get; set; }
         public virtual DbSet<TblMessage> TblMessage { get; set; }
         public virtual DbSet<TblOrganization> TblOrganization { get; set; }
@@ -48,10 +49,14 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblProductCategoryDocument> TblProductCategoryDocument { get; set; }
         public virtual DbSet<TblProductCategoryTags> TblProductCategoryTags { get; set; }
         public virtual DbSet<TblProductColors> TblProductColors { get; set; }
+        public virtual DbSet<TblProductCustomOrganizationForm> TblProductCustomOrganizationForm { get; set; }
+        public virtual DbSet<TblProductCustomRequest> TblProductCustomRequest { get; set; }
+        public virtual DbSet<TblProductCustomRequestAttachment> TblProductCustomRequestAttachment { get; set; }
+        public virtual DbSet<TblProductCustomRequestFormValue> TblProductCustomRequestFormValue { get; set; }
+        public virtual DbSet<TblProductCustomRequestMessage> TblProductCustomRequestMessage { get; set; }
         public virtual DbSet<TblProductDetails> TblProductDetails { get; set; }
         public virtual DbSet<TblProductDocument> TblProductDocument { get; set; }
         public virtual DbSet<TblProductOrganization> TblProductOrganization { get; set; }
-        public virtual DbSet<TblProductOrganizationDetails> TblProductOrganizationDetails { get; set; }
         public virtual DbSet<TblProductTags> TblProductTags { get; set; }
         public virtual DbSet<TblProvince> TblProvince { get; set; }
         public virtual DbSet<TblServer> TblServer { get; set; }
@@ -246,6 +251,11 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.GpPermissionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_GroupPermission_Tbl_Permission");
+            });
+
+            modelBuilder.Entity<TblGuarantee>(entity =>
+            {
+                entity.Property(e => e.GuaranteeGuid).HasDefaultValueSql("(newid())");
             });
 
             modelBuilder.Entity<TblLogin>(entity =>
@@ -531,7 +541,6 @@ namespace BEFOYS.DataLayer.ServiceContext
                 entity.HasOne(d => d.ProductBrands)
                     .WithMany(p => p.TblProduct)
                     .HasForeignKey(d => d.ProductBrandsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_Product_Tbl_Brands");
 
                 entity.HasOne(d => d.ProductPc)
@@ -615,6 +624,82 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_ProductColors_Tbl_Product");
             });
 
+            modelBuilder.Entity<TblProductCustomOrganizationForm>(entity =>
+            {
+                entity.HasKey(e => e.PcofId)
+                    .HasName("PK_Tbl_ProductOrganizationDetails");
+
+                entity.Property(e => e.PcofGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcofPo)
+                    .WithMany(p => p.TblProductCustomOrganizationForm)
+                    .HasForeignKey(d => d.PcofPoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomOrganizationForm_Tbl_ProductOrganization");
+            });
+
+            modelBuilder.Entity<TblProductCustomRequest>(entity =>
+            {
+                entity.Property(e => e.PcrGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcrOrganiziton)
+                    .WithMany(p => p.TblProductCustomRequest)
+                    .HasForeignKey(d => d.PcrOrganizitonId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequest_Tbl_Organization");
+
+                entity.HasOne(d => d.PcrPo)
+                    .WithMany(p => p.TblProductCustomRequest)
+                    .HasForeignKey(d => d.PcrPoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequest_Tbl_ProductOrganization");
+            });
+
+            modelBuilder.Entity<TblProductCustomRequestAttachment>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.HasOne(d => d.PcraPcr)
+                    .WithMany(p => p.TblProductCustomRequestAttachment)
+                    .HasForeignKey(d => d.PcraPcrid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestAttachment_Tbl_ProductCustomRequest");
+            });
+
+            modelBuilder.Entity<TblProductCustomRequestFormValue>(entity =>
+            {
+                entity.Property(e => e.PcrfvGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcrfvPcof)
+                    .WithMany(p => p.TblProductCustomRequestFormValue)
+                    .HasForeignKey(d => d.PcrfvPcofid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestFormValue_Tbl_ProductCustomOrganizationForm");
+
+                entity.HasOne(d => d.PcrfvPcr)
+                    .WithMany(p => p.TblProductCustomRequestFormValue)
+                    .HasForeignKey(d => d.PcrfvPcrid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestFormValue_Tbl_ProductCustomRequest");
+            });
+
+            modelBuilder.Entity<TblProductCustomRequestMessage>(entity =>
+            {
+                entity.Property(e => e.PcrmGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcrmDocument)
+                    .WithMany(p => p.TblProductCustomRequestMessage)
+                    .HasForeignKey(d => d.PcrmDocumentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestMessage_Tbl_Document");
+
+                entity.HasOne(d => d.PcrmPcr)
+                    .WithMany(p => p.TblProductCustomRequestMessage)
+                    .HasForeignKey(d => d.PcrmPcrid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestMessage_Tbl_ProductCustomRequest");
+            });
+
             modelBuilder.Entity<TblProductDetails>(entity =>
             {
                 entity.Property(e => e.PdGuid).HasDefaultValueSql("(newid())");
@@ -659,6 +744,11 @@ namespace BEFOYS.DataLayer.ServiceContext
             {
                 entity.Property(e => e.PoGuid).HasDefaultValueSql("(newid())");
 
+                entity.HasOne(d => d.PoGuarantee)
+                    .WithMany(p => p.TblProductOrganization)
+                    .HasForeignKey(d => d.PoGuaranteeId)
+                    .HasConstraintName("FK_Tbl_ProductOrganization_Tbl_Guarantee");
+
                 entity.HasOne(d => d.PoOrganization)
                     .WithMany(p => p.TblProductOrganization)
                     .HasForeignKey(d => d.PoOrganizationId)
@@ -676,11 +766,6 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.PoSaid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_ProductOrganization_Tbl_SiteArea");
-            });
-
-            modelBuilder.Entity<TblProductOrganizationDetails>(entity =>
-            {
-                entity.Property(e => e.PodGuid).HasDefaultValueSql("(newid())");
             });
 
             modelBuilder.Entity<TblProductTags>(entity =>

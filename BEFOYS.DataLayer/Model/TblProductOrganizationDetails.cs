@@ -13,5 +13,7 @@ namespace BEFOYS.DataLayer.Model
         public int PodId { get; set; }
         [Column("POD_Guid")]
         public Guid PodGuid { get; set; }
+        [Column("POD_OrganizationID")]
+        public int PodOrganizationId { get; set; }
     }
 }

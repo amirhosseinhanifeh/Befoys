@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblPanelType>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PtId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PtGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PtName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PtDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PtIsFree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PtPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PtId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PtGuid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PtName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PtDisplay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PtIsFree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PtPrice)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
