@@ -14,6 +14,8 @@ namespace BEFOYS.DataLayer.Model
             TblColors = new HashSet<TblColors>();
             TblDocument = new HashSet<TblDocument>();
             TblEmployee = new HashSet<TblEmployee>();
+            TblMessageMessagePriorityCode = new HashSet<TblMessage>();
+            TblMessageMessageTypeCode = new HashSet<TblMessage>();
             TblOrganizationFeaturesOdfKindCode = new HashSet<TblOrganizationFeatures>();
             TblOrganizationFeaturesOdfTypeCode = new HashSet<TblOrganizationFeatures>();
             TblOrganizationInformation = new HashSet<TblOrganizationInformation>();
@@ -21,6 +23,7 @@ namespace BEFOYS.DataLayer.Model
             TblProductCategoryDocument = new HashSet<TblProductCategoryDocument>();
             TblProductDocumentPdKindCode = new HashSet<TblProductDocument>();
             TblProductDocumentPdTypeCode = new HashSet<TblProductDocument>();
+            TblTicket = new HashSet<TblTicket>();
         }
 
         [Key]
@@ -49,6 +52,10 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblDocument> TblDocument { get; set; }
         [InverseProperty("EmployeeTypeCode")]
         public virtual ICollection<TblEmployee> TblEmployee { get; set; }
+        [InverseProperty(nameof(TblMessage.MessagePriorityCode))]
+        public virtual ICollection<TblMessage> TblMessageMessagePriorityCode { get; set; }
+        [InverseProperty(nameof(TblMessage.MessageTypeCode))]
+        public virtual ICollection<TblMessage> TblMessageMessageTypeCode { get; set; }
         [InverseProperty(nameof(TblOrganizationFeatures.OdfKindCode))]
         public virtual ICollection<TblOrganizationFeatures> TblOrganizationFeaturesOdfKindCode { get; set; }
         [InverseProperty(nameof(TblOrganizationFeatures.OdfTypeCode))]
@@ -63,5 +70,7 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblProductDocument> TblProductDocumentPdKindCode { get; set; }
         [InverseProperty(nameof(TblProductDocument.PdTypeCode))]
         public virtual ICollection<TblProductDocument> TblProductDocumentPdTypeCode { get; set; }
+        [InverseProperty("TicketPriorityCode")]
+        public virtual ICollection<TblTicket> TblTicket { get; set; }
     }
 }

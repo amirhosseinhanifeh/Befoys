@@ -14,6 +14,7 @@ namespace BEFOYS.DataLayer.Model
             TblLogin = new HashSet<TblLogin>();
             TblOrganizationDocument = new HashSet<TblOrganizationDocument>();
             TblProductCategoryDocument = new HashSet<TblProductCategoryDocument>();
+            TblProductCustomRequestMessage = new HashSet<TblProductCustomRequestMessage>();
             TblProductDocument = new HashSet<TblProductDocument>();
         }
 
@@ -49,6 +50,8 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblOrganizationDocument> TblOrganizationDocument { get; set; }
         [InverseProperty("PcdDocument")]
         public virtual ICollection<TblProductCategoryDocument> TblProductCategoryDocument { get; set; }
+        [InverseProperty("PcrmDocument")]
+        public virtual ICollection<TblProductCustomRequestMessage> TblProductCustomRequestMessage { get; set; }
         [InverseProperty("PdDocument")]
         public virtual ICollection<TblProductDocument> TblProductDocument { get; set; }
     }

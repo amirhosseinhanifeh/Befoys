@@ -1,0 +1,50 @@
+﻿@model BEFOYS.DataLayer.Model.TblEmployee
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Roles = ViewBag.Roles as List<SelectListItem>;
+}
+
+<h1>Create</h1>
+
+<h4>TblEmployee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmployeeTypeCodeId" class="control-label"></label>
+                <input asp-for="EmployeeTypeCodeId" class="form-control" />
+                <span asp-validation-for="EmployeeTypeCodeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeWalletSize" class="control-label"></label>
+                <input asp-for="EmployeeWalletSize" class="form-control" />
+                <span asp-validation-for="EmployeeWalletSize" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="EmployeeIsAgent" /> @Html.DisplayNameFor(model => model.EmployeeIsAgent)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeOrid" class="control-label"></label>
+                <select asp-items="Roles" asp-for="EmployeeOrid">
+
+                </select>
+                <span asp-validation-for="EmployeeOrid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

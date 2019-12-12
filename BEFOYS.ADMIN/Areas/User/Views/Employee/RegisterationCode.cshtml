@@ -1,0 +1,55 @@
+﻿@model BEFOYS.DataLayer.Model.TblEmployeeRegistrationCode
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "RegisterationCode";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>RegisterationCode</h1>
+
+<h4>TblEmployeeRegistrationCode</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="RegisterationCode">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SurcCode" class="control-label"></label>
+                <input asp-for="SurcCode" class="form-control" />
+                <span asp-validation-for="SurcCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ErcStart" class="control-label"></label>
+                <input asp-for="ErcStart" class="form-control" />
+                <span asp-validation-for="ErcStart" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ErcIsExpired" /> @Html.DisplayNameFor(model => model.ErcIsExpired)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts{ 
+<script>
+     function randomStr(len, arr) { 
+            var ans = ''; 
+            for (var i = len; i > 0; i--) { 
+                ans +=  
+                  arr[Math.floor(Math.random() * arr.length)]; 
+            } 
+            return ans; 
+    }
+    $(document).ready(function () {
+        $("input[name=SurcCode]").val(randomStr(6, "123456789ABCDEFGHIKLMNOPQRS"));
+    });
+</script>
+}

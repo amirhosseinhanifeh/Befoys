@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblTicketAnswer>
+
+@using BEFOYS.DataLayer.Model
+
+@{
+    ViewData["Title"] = "Answer";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+
+    var Ticket = ViewBag.Ticket as TblTicket;
+}
+
+<h1>Answer</h1>
+Ticket:
+
+@Ticket.TicketId
+
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.TaMessage
+            </td>
+        </tr>
+    }
+</table>
+
+<form method="post">
+    <input name="TaMessage" class="form-control" />
+    <button type="submit">ثبت</button>
+
+</form>

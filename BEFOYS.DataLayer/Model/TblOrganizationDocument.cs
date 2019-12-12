@@ -19,6 +19,8 @@ namespace BEFOYS.DataLayer.Model
         public int OdDocumentId { get; set; }
         [Column("OD_IsAccept")]
         public bool? OdIsAccept { get; set; }
+        [Column("OD_RejectDetails")]
+        public string OdRejectDetails { get; set; }
 
         [ForeignKey(nameof(OdDocumentId))]
         [InverseProperty(nameof(TblDocument.TblOrganizationDocument))]

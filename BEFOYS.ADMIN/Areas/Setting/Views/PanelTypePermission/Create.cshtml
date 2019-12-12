@@ -1,0 +1,21 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblPermission>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <table class="table">
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td><input type="checkbox" name="permissions" value="@item.PermissionId" /></td>
+            <td>@item.PermissionName</td>
+            <td>@item.PermissionDisplay</td>
+        </tr>
+        }
+    </table>
+    <button type="submit">ثبت اطلاعات</button>
+</form>

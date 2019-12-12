@@ -56,5 +56,10 @@ namespace Panel.Controllers
         {
             return View();
         }
+        
+        public IActionResult Step4()
+        {
+            return View();
+        }
     }
 }

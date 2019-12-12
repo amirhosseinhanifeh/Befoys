@@ -1,0 +1,67 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblOrganizationRole>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.ID">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrOrid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrOrganizationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrCanCreateRole)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrGuid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrOrid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrOrganizationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrDisplay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrCanCreateRole)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.OrId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

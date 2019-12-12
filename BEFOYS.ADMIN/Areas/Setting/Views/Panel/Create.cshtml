@@ -1,0 +1,56 @@
+﻿@model BEFOYS.DataLayer.Model.TblPanelType
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>TblPanelType</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PtId" class="control-label"></label>
+                <input asp-for="PtId" class="form-control" />
+                <span asp-validation-for="PtId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PtGuid" class="control-label"></label>
+                <input asp-for="PtGuid" class="form-control" />
+                <span asp-validation-for="PtGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PtName" class="control-label"></label>
+                <input asp-for="PtName" class="form-control" />
+                <span asp-validation-for="PtName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PtDisplay" class="control-label"></label>
+                <input asp-for="PtDisplay" class="form-control" />
+                <span asp-validation-for="PtDisplay" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PtIsFree" /> @Html.DisplayNameFor(model => model.PtIsFree)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="PtPrice" class="control-label"></label>
+                <input asp-for="PtPrice" class="form-control" />
+                <span asp-validation-for="PtPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

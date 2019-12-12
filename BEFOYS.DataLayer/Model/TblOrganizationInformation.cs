@@ -27,6 +27,8 @@ namespace BEFOYS.DataLayer.Model
         public int OiOrganizationId { get; set; }
         [Column("OI_IsAccept")]
         public bool? OiIsAccept { get; set; }
+        [Column("OI_RejectDetails")]
+        public string OiRejectDetails { get; set; }
 
         [ForeignKey(nameof(OiOrganizationId))]
         public virtual TblOrganization OiOrganization { get; set; }
