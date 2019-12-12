@@ -26,7 +26,7 @@ namespace BEFOYS.ADMIN
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
             var connection = "Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;";
             services.AddDbContext<ServiceContext>(options => options.UseSqlServer(connection));
         }

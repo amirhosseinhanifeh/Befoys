@@ -9,42 +9,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.ADMIN.Areas.Crm.Controllers
 {
-    [Area("Setting")]
-    [Route("Setting/[controller]/[action]/{id?}")]
-    public class ProductController : Controller
+    public class ProductColorController : Controller
     {
         private readonly ServiceContext _context;
 
-        public ProductController(ServiceContext context)
+        public ProductColorController(ServiceContext context)
         {
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? PCID=null)
+        public async Task<IActionResult> Index()
         {
-            if(PCID.HasValue)
-            {
-                return View(await _context.TblProduct.Where(x=>x.ProductPcid== PCID).ToListAsync());
-
-            }
-            return View(await _context.TblProduct.ToListAsync());
+            return View(await _context.TblPanelType.ToListAsync());
         }
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(TblProduct model)
+        public async Task<IActionResult> Create(TblPanelType model)
         {
-            _context.TblProduct.Add(model);
+            _context.TblPanelType.Add(model);
             await _context.SaveChangesAsync();
 
             return View();
         }
         public async Task<IActionResult> Delete(int? id)
         {
-            var data = _context.TblProduct.Find(id);
-            _context.TblProduct.Remove(data);
+            var data = _context.TblPanelType.Find(id);
+            _context.TblPanelType.Remove(data);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

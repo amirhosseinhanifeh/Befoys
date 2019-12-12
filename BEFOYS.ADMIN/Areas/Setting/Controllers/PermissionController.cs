@@ -7,44 +7,38 @@ using BEFOYS.DataLayer.ServiceContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BEFOYS.ADMIN.Areas.Crm.Controllers
+namespace BEFOYS.ADMIN.Areas.Setting.Controllers
 {
     [Area("Setting")]
-    [Route("Setting/[controller]/[action]/{id?}")]
-    public class ProductController : Controller
+    [Route("Setting/[controller]/[action]")]
+    public class PermissionController : Controller
     {
         private readonly ServiceContext _context;
 
-        public ProductController(ServiceContext context)
+        public PermissionController(ServiceContext context)
         {
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? PCID=null)
+        public async Task<IActionResult> Index()
         {
-            if(PCID.HasValue)
-            {
-                return View(await _context.TblProduct.Where(x=>x.ProductPcid== PCID).ToListAsync());
-
-            }
-            return View(await _context.TblProduct.ToListAsync());
+            return View(await _context.TblPermission.ToListAsync());
         }
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(TblProduct model)
+        public async Task<IActionResult> Create(TblPermission model)
         {
-            _context.TblProduct.Add(model);
+            _context.TblPermission.Add(model);
             await _context.SaveChangesAsync();
-
-            return View();
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> Delete(int? id)
         {
-            var data = _context.TblProduct.Find(id);
-            _context.TblProduct.Remove(data);
+            var data = _context.TblPermission.Find(id);
+            _context.TblPermission.Remove(data);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

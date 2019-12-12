@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.ADMIN.Areas.Setting.Controllers
 {
+    [Area("Setting")]
+    [Route("Setting/[controller]/[action]/{id?}")]
     public class PanelController : Controller
     {
         private readonly ServiceContext _context;

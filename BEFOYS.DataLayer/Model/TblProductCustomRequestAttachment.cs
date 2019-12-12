@@ -8,6 +8,7 @@ namespace BEFOYS.DataLayer.Model
     [Table("Tbl_ProductCustomRequestAttachment")]
     public partial class TblProductCustomRequestAttachment
     {
+        [Key]
         [Column("PCRA_ID")]
         public int PcraId { get; set; }
         [Column("PCRA_Guid")]

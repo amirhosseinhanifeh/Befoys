@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblPanelType>
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblPermission>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
@@ -14,22 +14,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PtId)
+                @Html.DisplayNameFor(model => model.PermissionId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PtGuid)
+                @Html.DisplayNameFor(model => model.PermissionGuid)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PtName)
+                @Html.DisplayNameFor(model => model.PermissionCodeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PtDisplay)
+                @Html.DisplayNameFor(model => model.PermissionName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PtIsFree)
+                @Html.DisplayNameFor(model => model.PermissionDisplay)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PtPrice)
+                @Html.DisplayNameFor(model => model.PermissionIsFree)
             </th>
             <th></th>
         </tr>
@@ -39,31 +39,27 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PtId)
+                    @Html.DisplayFor(modelItem => item.PermissionId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PtGuid)
+                    @Html.DisplayFor(modelItem => item.PermissionGuid)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PtName)
+                    @Html.DisplayFor(modelItem => item.PermissionCodeId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PtDisplay)
+                    @Html.DisplayFor(modelItem => item.PermissionName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PtIsFree)
+                    @Html.DisplayFor(modelItem => item.PermissionDisplay)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PtPrice)
+                    @Html.DisplayFor(modelItem => item.PermissionIsFree)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-                <td>
-                    @Html.ActionLink("دسترسی ها", "Index", "Permission", new { id = item.PtId, area = "Setting" }, null)
-
                 </td>
             </tr>
         }

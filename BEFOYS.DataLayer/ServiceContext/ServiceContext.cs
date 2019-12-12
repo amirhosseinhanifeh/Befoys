@@ -11,7 +11,6 @@ namespace BEFOYS.DataLayer.ServiceContext
     {
         public ServiceContext(DbContextOptions<ServiceContext> options) : base(options)
         {
-            ChangeTracker.LazyLoadingEnabled = false;
            
         }
         public virtual DbSet<TblAddress> TblAddress { get; set; }
@@ -35,6 +34,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblOrganizationFeatures> TblOrganizationFeatures { get; set; }
         public virtual DbSet<TblOrganizationInformation> TblOrganizationInformation { get; set; }
         public virtual DbSet<TblOrganizationNavigator> TblOrganizationNavigator { get; set; }
+        public virtual DbSet<TblOrganizationPanelType> TblOrganizationPanelType { get; set; }
         public virtual DbSet<TblOrganizationRole> TblOrganizationRole { get; set; }
         public virtual DbSet<TblOrganizationRolePermission> TblOrganizationRolePermission { get; set; }
         public virtual DbSet<TblOrganizationType> TblOrganizationType { get; set; }
@@ -77,7 +77,7 @@ namespace BEFOYS.DataLayer.ServiceContext
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;");
+                optionsBuilder.UseSqlServer("Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;").UseLazyLoadingProxies();
             }
         }
 
@@ -416,6 +416,23 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_OrganizationDocumentNavigator_Tbl_OrganizationType");
             });
 
+            modelBuilder.Entity<TblOrganizationPanelType>(entity =>
+            {
+                entity.Property(e => e.OptGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.OptOt)
+                    .WithMany(p => p.TblOrganizationPanelType)
+                    .HasForeignKey(d => d.OptOtid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationPanelType_Tbl_OrganizationType");
+
+                entity.HasOne(d => d.OptPtp)
+                    .WithMany(p => p.TblOrganizationPanelType)
+                    .HasForeignKey(d => d.OptPtpid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationPanelType_Tbl_PanelTypePermission");
+            });
+
             modelBuilder.Entity<TblOrganizationRole>(entity =>
             {
                 entity.Property(e => e.OrGuid).HasDefaultValueSql("(newid())");
@@ -657,8 +674,6 @@ namespace BEFOYS.DataLayer.ServiceContext
 
             modelBuilder.Entity<TblProductCustomRequestAttachment>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.HasOne(d => d.PcraPcr)
                     .WithMany(p => p.TblProductCustomRequestAttachment)
                     .HasForeignKey(d => d.PcraPcrid)

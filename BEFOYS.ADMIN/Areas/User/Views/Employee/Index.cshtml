@@ -1,0 +1,85 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblEmployee>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.ID">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeLoginId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeTypeCodeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeOrganizationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeWalletSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeIsAgent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeOrid)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeGuid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeLoginId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeTypeCodeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeOrganizationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeWalletSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeIsAgent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeOrid)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeId">حذف</a>
+                    @if (!item.TblEmployeeRegistrationCode.Any())
+                    {
+                    <a asp-action="RegisterationCode" asp-route-id="@item.EmployeeId">تعریف کد</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

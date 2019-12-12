@@ -1,5 +1,5 @@
 ﻿@model BEFOYS.DataLayer.Model.TblProductCategory
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,16 +13,6 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PcId" class="control-label"></label>
-                <input asp-for="PcId" class="form-control" />
-                <span asp-validation-for="PcId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PcGuid" class="control-label"></label>
-                <input asp-for="PcGuid" class="form-control" />
-                <span asp-validation-for="PcGuid" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="PcPcdid" class="control-label"></label>
                 <input asp-for="PcPcdid" class="form-control" value="@ViewBag.ID" />

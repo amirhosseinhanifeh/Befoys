@@ -12,6 +12,7 @@ namespace BEFOYS.DataLayer.Model
         {
             TblOrganization = new HashSet<TblOrganization>();
             TblOrganizationNavigator = new HashSet<TblOrganizationNavigator>();
+            TblOrganizationPanelType = new HashSet<TblOrganizationPanelType>();
         }
 
         [Key]
@@ -32,5 +33,7 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblOrganization> TblOrganization { get; set; }
         [InverseProperty("OdnOt")]
         public virtual ICollection<TblOrganizationNavigator> TblOrganizationNavigator { get; set; }
+        [InverseProperty("OptOt")]
+        public virtual ICollection<TblOrganizationPanelType> TblOrganizationPanelType { get; set; }
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.ADMIN.Areas.User.Controllers
 {
+    [Area("User")]
+    [Route("User/[controller]/[action]")]
     public class ORFeaturesController : Controller
     {
         private readonly ServiceContext _context;
