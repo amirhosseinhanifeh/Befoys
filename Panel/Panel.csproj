@@ -14,6 +14,10 @@
   <ItemGroup>
     <Content Include="wwwroot\node_modules\c3\c3.min.css" />
     <Content Include="wwwroot\node_modules\chartist\dist\chartist.min.css" />
+    <Content Include="wwwroot\node_modules\node_modules\c3\c3.min.css" />
+    <Content Include="wwwroot\node_modules\node_modules\chartist\dist\chartist.min.css" />
+    <Content Include="wwwroot\node_modules\node_modules\perfect-scrollbar\css\perfect-scrollbar.css" />
+    <Content Include="wwwroot\node_modules\node_modules\select2\dist\css\select2.min.css" />
     <Content Include="wwwroot\node_modules\perfect-scrollbar\css\perfect-scrollbar.css" />
     <Content Include="wwwroot\node_modules\select2\dist\css\select2.min.css" />
   </ItemGroup>
@@ -25,6 +29,15 @@
     <None Include="wwwroot\node_modules\chartist\dist\chartist.min.js" />
     <None Include="wwwroot\node_modules\d3\d3.min.js" />
     <None Include="wwwroot\node_modules\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\bigslide\dist\bigSlide.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\c3\c3.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\chartist\dist\chartist.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\d3\d3.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\perfect-scrollbar\dist\perfect-scrollbar.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\select2\dist\js\select2.full.min.js" />
+    <None Include="wwwroot\node_modules\node_modules\twitter-bootstrap-wizard\jquery.bootstrap.wizard.min.js" />
     <None Include="wwwroot\node_modules\perfect-scrollbar\dist\perfect-scrollbar.min.js" />
     <None Include="wwwroot\node_modules\select2\dist\js\select2.full.min.js" />
     <None Include="wwwroot\node_modules\twitter-bootstrap-wizard\jquery.bootstrap.wizard.min.js" />

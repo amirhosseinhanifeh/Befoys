@@ -10,9 +10,11 @@ namespace BEFOYS.DataLayer.Model
     {
         public TblProduct()
         {
+            TblProductCode = new HashSet<TblProductCode>();
             TblProductColors = new HashSet<TblProductColors>();
             TblProductDetails = new HashSet<TblProductDetails>();
             TblProductDocument = new HashSet<TblProductDocument>();
+            TblProductFeatureNoClassification = new HashSet<TblProductFeatureNoClassification>();
             TblProductOrganization = new HashSet<TblProductOrganization>();
             TblProductTags = new HashSet<TblProductTags>();
         }
@@ -37,8 +39,6 @@ namespace BEFOYS.DataLayer.Model
         public DateTime ProductCreate { get; set; }
         [Column("Product_Modify")]
         public DateTime ProductModify { get; set; }
-        [Column("Product_Code")]
-        public string ProductCode { get; set; }
 
         [ForeignKey(nameof(ProductBrandsId))]
         [InverseProperty(nameof(TblBrands.TblProduct))]
@@ -47,11 +47,15 @@ namespace BEFOYS.DataLayer.Model
         [InverseProperty(nameof(TblProductCategory.TblProduct))]
         public virtual TblProductCategory ProductPc { get; set; }
         [InverseProperty("PcProduct")]
+        public virtual ICollection<TblProductCode> TblProductCode { get; set; }
+        [InverseProperty("PcProduct")]
         public virtual ICollection<TblProductColors> TblProductColors { get; set; }
-        [InverseProperty("PdProductNavigation")]
+        [InverseProperty("PdProduct")]
         public virtual ICollection<TblProductDetails> TblProductDetails { get; set; }
         [InverseProperty("PdProduct")]
         public virtual ICollection<TblProductDocument> TblProductDocument { get; set; }
+        [InverseProperty("PfncProduct")]
+        public virtual ICollection<TblProductFeatureNoClassification> TblProductFeatureNoClassification { get; set; }
         [InverseProperty("PoProduct")]
         public virtual ICollection<TblProductOrganization> TblProductOrganization { get; set; }
         [InverseProperty("PtProduct")]

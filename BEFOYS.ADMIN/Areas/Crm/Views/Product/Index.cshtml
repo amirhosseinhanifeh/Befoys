@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProduct>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
+
     @{
         ViewData["Title"] = "Index";
         Layout = "~/Views/Shared/_Layout.cshtml";
@@ -41,9 +41,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.ProductModify)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductCode)
-                </th>
                 <th></th>
             </tr>
         </thead>
@@ -77,9 +74,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductModify)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductCode)
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

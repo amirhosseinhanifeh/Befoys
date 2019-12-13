@@ -28,7 +28,12 @@ namespace BEFOYS.DataLayer.Model
         public string ProvinceDisplay { get; set; }
         [Column("Province_CityID")]
         public int ProvinceCityId { get; set; }
+        [Column("Province_CountryID")]
+        public int ProvinceCountryId { get; set; }
 
+        [ForeignKey(nameof(ProvinceCountryId))]
+        [InverseProperty(nameof(TblCountry.TblProvince))]
+        public virtual TblCountry ProvinceCountry { get; set; }
         [InverseProperty("CityProvince")]
         public virtual ICollection<TblCity> TblCity { get; set; }
     }

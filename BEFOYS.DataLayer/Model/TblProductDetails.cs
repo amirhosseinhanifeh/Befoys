@@ -13,11 +13,25 @@ namespace BEFOYS.DataLayer.Model
         public int PdId { get; set; }
         [Column("PD_Guid")]
         public Guid PdGuid { get; set; }
-        [Column("PD_Product")]
-        public int PdProduct { get; set; }
+        [Column("PD_ProductID")]
+        public int PdProductId { get; set; }
+        [Column("PD_PFID")]
+        public int PdPfid { get; set; }
+        [Column("PD_Value")]
+        public string PdValue { get; set; }
+        [Column("PD_Description")]
+        public string PdDescription { get; set; }
+        [Column("PD_PFIID")]
+        public int? PdPfiid { get; set; }
 
-        [ForeignKey(nameof(PdProduct))]
+        [ForeignKey(nameof(PdPfid))]
+        [InverseProperty(nameof(TblProductFeatures.TblProductDetails))]
+        public virtual TblProductFeatures PdPf { get; set; }
+        [ForeignKey(nameof(PdPfiid))]
+        [InverseProperty(nameof(TblProductFeatureItems.TblProductDetails))]
+        public virtual TblProductFeatureItems PdPfi { get; set; }
+        [ForeignKey(nameof(PdProductId))]
         [InverseProperty(nameof(TblProduct.TblProductDetails))]
-        public virtual TblProduct PdProductNavigation { get; set; }
+        public virtual TblProduct PdProduct { get; set; }
     }
 }

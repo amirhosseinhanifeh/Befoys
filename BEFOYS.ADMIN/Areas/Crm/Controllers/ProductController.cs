@@ -36,6 +36,7 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TblProduct model)
         {
+            
             _context.TblProduct.Add(model);
             await _context.SaveChangesAsync();
 

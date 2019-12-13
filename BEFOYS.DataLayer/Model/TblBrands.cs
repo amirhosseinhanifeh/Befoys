@@ -10,6 +10,7 @@ namespace BEFOYS.DataLayer.Model
     {
         public TblBrands()
         {
+            TblOrganizationBrand = new HashSet<TblOrganizationBrand>();
             TblProduct = new HashSet<TblProduct>();
         }
 
@@ -24,15 +25,19 @@ namespace BEFOYS.DataLayer.Model
         public string BrandsName { get; set; }
         [Column("Brands_IsVerify")]
         public bool BrandsIsVerify { get; set; }
-        [Column("Brands_CountryReference")]
-        [StringLength(100)]
-        public string BrandsCountryReference { get; set; }
+        [Column("Brands_CountryReferenceID")]
+        public int? BrandsCountryReferenceId { get; set; }
         [Column("Brands_LogoDocumentID")]
         public int? BrandsLogoDocumentId { get; set; }
 
+        [ForeignKey(nameof(BrandsCountryReferenceId))]
+        [InverseProperty(nameof(TblCountry.TblBrands))]
+        public virtual TblCountry BrandsCountryReference { get; set; }
         [ForeignKey(nameof(BrandsLogoDocumentId))]
         [InverseProperty(nameof(TblDocument.TblBrands))]
         public virtual TblDocument BrandsLogoDocument { get; set; }
+        [InverseProperty("ObBrand")]
+        public virtual ICollection<TblOrganizationBrand> TblOrganizationBrand { get; set; }
         [InverseProperty("ProductBrands")]
         public virtual ICollection<TblProduct> TblProduct { get; set; }
     }

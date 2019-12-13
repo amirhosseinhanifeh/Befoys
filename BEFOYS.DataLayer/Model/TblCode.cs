@@ -23,6 +23,7 @@ namespace BEFOYS.DataLayer.Model
             TblProductCategoryDocument = new HashSet<TblProductCategoryDocument>();
             TblProductDocumentPdKindCode = new HashSet<TblProductDocument>();
             TblProductDocumentPdTypeCode = new HashSet<TblProductDocument>();
+            TblProductFeatures = new HashSet<TblProductFeatures>();
             TblTicket = new HashSet<TblTicket>();
         }
 
@@ -70,6 +71,8 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblProductDocument> TblProductDocumentPdKindCode { get; set; }
         [InverseProperty(nameof(TblProductDocument.PdTypeCode))]
         public virtual ICollection<TblProductDocument> TblProductDocumentPdTypeCode { get; set; }
+        [InverseProperty("PfTypeCode")]
+        public virtual ICollection<TblProductFeatures> TblProductFeatures { get; set; }
         [InverseProperty("TicketPriorityCode")]
         public virtual ICollection<TblTicket> TblTicket { get; set; }
     }
