@@ -1,17 +1,43 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    Layout = "~/Views/Shared/_Master.cshtml";
 }
 
-    <form befoys-url="/api/Step/SetOrganizationType" befoys-ajax="true" befoys-method="POST" befoys-OnSuccess="OnSuccess" befoys-OnBefore="OnBefore">
+<form befoys-url="/api/Step/SetOrganizationType" befoys-ajax="true" befoys-method="POST" befoys-OnSuccess="OnSuccess" befoys-OnBefore="OnBefore">
 
-        <input type="radio" value="Supplier_Real" name="organs" />تامین کننده حقیقی
-        <input type="radio" value="Supplier_Legal" name="organs" />تامین کننده حقوقی
-        <input type="radio" value="SUBUSER" name="organs" />کارمند
+    <div class="card  " style="max-width:500px;margin:0 auto;margin-top:33vh ">
+        <div class="card-body" style="padding:0px;">
 
-        <button befoys-ajax="true" class="btn btn-success" type="submit">ورود</button>
-    </form>
+            <input hidden class="form-control" name="mobile" value="" />
+            <div class="float-left clearfix" style="width:65%;">
+                <div style="padding-left:10px;padding-right:10px">
+                    <div class="clearfix"></div>
+                    <br />
+                    <div class="Login-btn-gender" data-toggle="buttons">
+                        <label class="btn btn-primary float-left col-md-5">
+                            <input type="radio" value="Supplier_Real" class="form-control" style="display:none;" name="organs" />حقیقی
+                        </label>
+                        <label class="btn btn-primary float-right col-md-5">
+                            <input type="radio" value="Supplier_Legal" class="form-control" style="display:none;" name="organs" />حقوقی
+                        </label>
+                        <div class="clearfix"></div>
+                        <hr />
+                        <label class="btn btn-primary btn-block">
+                            <input type="radio" value="SUBUSER" class="form-control" style="display:none;" name="organs" />کارمند
+                        </label>
+                        <div class="clearfix"></div>
+                    </div>
+                    <button class="btn btn-primary float-left" style="background-color:#1968b3;width:40%;" befoys-ajax="true" type="submit">ورود</button>
+                </div>
+            </div>
+            <div class="float-right" style="height:150px;width:35%;background-color:#1968b3">
+                <img src="~/images/logo.png" style="position:absolute;right:12px;top:55px;width:150px;" />
+            </div>
+        </div>
+    </div>
+
+</form>
 
 <script>
     $(document).ready(function () {
