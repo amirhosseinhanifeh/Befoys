@@ -2,19 +2,48 @@ $(document).ready(function() {
 
     $("#addTelephone").click(function(){
 
-        var telephoneNum = parseInt($(this).prev().attr("id").replace("telephone", "")) + 1;
+        var addressNum = $(this).parent().parent().parent().parent().attr("id").replace("address", "");
+        var telephoneNum = parseInt($(this).prev().find("input").attr("id").replace("telephone", "")) + 1;
 
-        $("<input/>").addClass("form-control mt-2 required").attr({
+        var input = $("<input/>").addClass("form-control mt-2 required").attr({
             type: "text",
             id: "telephone" + telephoneNum,
-            name: "telephone" + telephoneNum
-        }).insertBefore("#addTelephone");
+            name: "telephone" + addressNum + "[]"
+        });
 
+        var a = $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeTelephone").click(function () {
+            $(this).parent().parent().remove();
+        }).append(
+            $("<i></i>").addClass("zmdi zmdi-delete zmdi-hc-fw")
+        )
+
+        $("<div></div>").addClass("row").append(
+            $("<div></div>").addClass("col-md-12 d-flex telephone").append(input, a)
+        ).insertBefore("#addTelephone");
+
+    });
+
+    $("#removeTelephone").click(function () {
+        //$(this).parent().parent().remove();
+    });
+
+    $("#removeAddress").click(function () {
+        //$(this).parent().parent().parent().remove();
     });
 
     $("#addAddress").click(function(){
         
         var addressNum = parseInt($(this).prev().attr("id").replace("address", "")) + 1;
+
+        var heading = $("<div></div>").addClass("row").append(
+            $("<div></div>").addClass("col-md-12 remove-address").append(
+                $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeAddress").text("آدرس " + addressNum).click(function () {
+                    $(this).parent().parent().parent().remove();
+                }).prepend(
+                    $("<i></i>").addClass("zmdi zmdi-delete zmdi-hc-fw")
+                )
+            )
+        );
 
         var lblState = $("<label></label>").addClass("control-label").attr("for", "state").text("استان");
         var states = $("<select></select>").addClass("form-control select2 required").attr("name", "state").append(
@@ -50,32 +79,47 @@ $(document).ready(function() {
         var rightPart = $("<div></div>").addClass("col-md-6").append(firstRow).append(secondRow);
 
         var lblTelephone = $("<label></label>").addClass("control-label").attr("for", "telephone1").text("تلفن ثابت");
+
         var inputTelephone = $("<input/>").addClass("form-control required").attr({
             type: "text",
             id: "telephone1",
-            name: "telephone1"
+            name: "telephone" + addressNum + "[]"
         });
+        var telephone = $("<div></div>").addClass("row").append(
+            $("<div></div>").addClass("col-md-12 d-flex telephone").append(inputTelephone)
+        );
+
         var addTelephone = $("<div></div>").addClass("add d-flex mt-3").attr("id", "addTelephone").append(
             $("<a></a>").attr("href", "javascript:void(0)").text(" افزودن تلفن ثابت").prepend(
                 $("<i></i>").addClass("zmdi zmdi-plus zmdi-hc-fw")
             )
         ).click(function() {
-            
-            var telephoneNum = parseInt($(this).prev().attr("id").replace("telephone", "")) + 1;
 
-            $("<input/>").addClass("form-control mt-2 required").attr({
+            var telephoneNum = parseInt($(this).prev().find("input").attr("id").replace("telephone", "")) + 1;
+
+            var input = $("<input/>").addClass("form-control mt-2 required").attr({
                 type: "text",
                 id: "telephone" + telephoneNum,
-                name: "telephone" + telephoneNum
-            }).insertBefore($(this));
+                name: "telephone" + addressNum + "[]"
+            });
+
+            var a = $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeTelephone").click(function () {
+                $(this).parent().parent().remove();
+            }).append(
+                $("<i></i>").addClass("zmdi zmdi-delete zmdi-hc-fw")
+            )
+
+            $("<div></div>").addClass("row").append(
+                $("<div></div>").addClass("col-md-12 d-flex telephone").append(input, a)
+            ).insertBefore($(this));
 
         });
 
         var leftPart = $("<div></div>").addClass("col-md-6").append(
-            $("<div></div>").addClass("form-group").append(lblTelephone).append(inputTelephone).append(addTelephone)
+            $("<div></div>").addClass("form-group").append(lblTelephone).append(telephone).append(addTelephone)
         )
 
-        var address = $("<div></div>").addClass("address").attr("id", "address" + addressNum).append(
+        var address = $("<div></div>").addClass("address").attr("id", "address" + addressNum).append(heading).append(
             $("<div></div>").addClass("row").append(rightPart).append(leftPart)
         );
 

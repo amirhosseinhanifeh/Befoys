@@ -25,7 +25,7 @@ namespace Panel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             var connection = "Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;";
             services.AddDbContext<ServiceContext>(options => options.UseSqlServer(connection));
         }
