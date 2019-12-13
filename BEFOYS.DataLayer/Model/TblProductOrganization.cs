@@ -39,8 +39,6 @@ namespace BEFOYS.DataLayer.Model
         public bool? PoIsHas { get; set; }
         [Column("PO_Description")]
         public string PoDescription { get; set; }
-        [Column("PO_Code")]
-        public string PoCode { get; set; }
         [Column("PO_GuaranteeID")]
         public int? PoGuaranteeId { get; set; }
 

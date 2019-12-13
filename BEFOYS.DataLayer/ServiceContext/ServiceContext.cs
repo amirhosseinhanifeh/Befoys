@@ -21,6 +21,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblCodeGroup> TblCodeGroup { get; set; }
         public virtual DbSet<TblColors> TblColors { get; set; }
         public virtual DbSet<TblColorsGroup> TblColorsGroup { get; set; }
+        public virtual DbSet<TblCountry> TblCountry { get; set; }
         public virtual DbSet<TblDocument> TblDocument { get; set; }
         public virtual DbSet<TblEmployee> TblEmployee { get; set; }
         public virtual DbSet<TblEmployeeRegistrationCode> TblEmployeeRegistrationCode { get; set; }
@@ -30,6 +31,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblLogin> TblLogin { get; set; }
         public virtual DbSet<TblMessage> TblMessage { get; set; }
         public virtual DbSet<TblOrganization> TblOrganization { get; set; }
+        public virtual DbSet<TblOrganizationBrand> TblOrganizationBrand { get; set; }
         public virtual DbSet<TblOrganizationDocument> TblOrganizationDocument { get; set; }
         public virtual DbSet<TblOrganizationFeatures> TblOrganizationFeatures { get; set; }
         public virtual DbSet<TblOrganizationInformation> TblOrganizationInformation { get; set; }
@@ -47,7 +49,9 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblProduct> TblProduct { get; set; }
         public virtual DbSet<TblProductCategory> TblProductCategory { get; set; }
         public virtual DbSet<TblProductCategoryDocument> TblProductCategoryDocument { get; set; }
+        public virtual DbSet<TblProductCategoryFeature> TblProductCategoryFeature { get; set; }
         public virtual DbSet<TblProductCategoryTags> TblProductCategoryTags { get; set; }
+        public virtual DbSet<TblProductCode> TblProductCode { get; set; }
         public virtual DbSet<TblProductColors> TblProductColors { get; set; }
         public virtual DbSet<TblProductCustomOrganizationForm> TblProductCustomOrganizationForm { get; set; }
         public virtual DbSet<TblProductCustomRequest> TblProductCustomRequest { get; set; }
@@ -56,6 +60,10 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblProductCustomRequestMessage> TblProductCustomRequestMessage { get; set; }
         public virtual DbSet<TblProductDetails> TblProductDetails { get; set; }
         public virtual DbSet<TblProductDocument> TblProductDocument { get; set; }
+        public virtual DbSet<TblProductFeatureGroup> TblProductFeatureGroup { get; set; }
+        public virtual DbSet<TblProductFeatureItems> TblProductFeatureItems { get; set; }
+        public virtual DbSet<TblProductFeatureNoClassification> TblProductFeatureNoClassification { get; set; }
+        public virtual DbSet<TblProductFeatures> TblProductFeatures { get; set; }
         public virtual DbSet<TblProductOrganization> TblProductOrganization { get; set; }
         public virtual DbSet<TblProductTags> TblProductTags { get; set; }
         public virtual DbSet<TblProvince> TblProvince { get; set; }
@@ -77,7 +85,7 @@ namespace BEFOYS.DataLayer.ServiceContext
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;").UseLazyLoadingProxies();
+                optionsBuilder.UseSqlServer("Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;");
             }
         }
 
@@ -114,6 +122,11 @@ namespace BEFOYS.DataLayer.ServiceContext
             modelBuilder.Entity<TblBrands>(entity =>
             {
                 entity.Property(e => e.BrandsGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.BrandsCountryReference)
+                    .WithMany(p => p.TblBrands)
+                    .HasForeignKey(d => d.BrandsCountryReferenceId)
+                    .HasConstraintName("FK_Tbl_Brands_Tbl_Country");
 
                 entity.HasOne(d => d.BrandsLogoDocument)
                     .WithMany(p => p.TblBrands)
@@ -174,6 +187,16 @@ namespace BEFOYS.DataLayer.ServiceContext
             modelBuilder.Entity<TblColorsGroup>(entity =>
             {
                 entity.Property(e => e.CgGuid).HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<TblCountry>(entity =>
+            {
+                entity.Property(e => e.CountryGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.CountryFlagDocument)
+                    .WithMany(p => p.TblCountry)
+                    .HasForeignKey(d => d.CountryFlagDocumentId)
+                    .HasConstraintName("FK_Tbl_Country_Tbl_Document");
             });
 
             modelBuilder.Entity<TblDocument>(entity =>
@@ -341,6 +364,23 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.OrganizationOtid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_Organization_Tbl_OrganizationType");
+            });
+
+            modelBuilder.Entity<TblOrganizationBrand>(entity =>
+            {
+                entity.Property(e => e.ObGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.ObBrand)
+                    .WithMany(p => p.TblOrganizationBrand)
+                    .HasForeignKey(d => d.ObBrandId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationBrand_Tbl_Brands");
+
+                entity.HasOne(d => d.ObOrganization)
+                    .WithMany(p => p.TblOrganizationBrand)
+                    .HasForeignKey(d => d.ObOrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationBrand_Tbl_Organization");
             });
 
             modelBuilder.Entity<TblOrganizationDocument>(entity =>
@@ -601,6 +641,23 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_CategoryDocument_Tbl_Code");
             });
 
+            modelBuilder.Entity<TblProductCategoryFeature>(entity =>
+            {
+                entity.Property(e => e.PcfGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcfPc)
+                    .WithMany(p => p.TblProductCategoryFeature)
+                    .HasForeignKey(d => d.PcfPcid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCategoryFeature_Tbl_ProductCategory");
+
+                entity.HasOne(d => d.PcfPfg)
+                    .WithMany(p => p.TblProductCategoryFeature)
+                    .HasForeignKey(d => d.PcfPfgid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCategoryFeature_Tbl_ProductFeatureGroup");
+            });
+
             modelBuilder.Entity<TblProductCategoryTags>(entity =>
             {
                 entity.Property(e => e.PctId).ValueGeneratedNever();
@@ -616,6 +673,23 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.PctTagsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_ProductCategoryTags_Tbl_Tags");
+            });
+
+            modelBuilder.Entity<TblProductCode>(entity =>
+            {
+                entity.Property(e => e.PcGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcOrganization)
+                    .WithMany(p => p.TblProductCode)
+                    .HasForeignKey(d => d.PcOrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCode_Tbl_Organization");
+
+                entity.HasOne(d => d.PcProduct)
+                    .WithMany(p => p.TblProductCode)
+                    .HasForeignKey(d => d.PcProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCode_Tbl_Product");
             });
 
             modelBuilder.Entity<TblProductColors>(entity =>
@@ -674,6 +748,12 @@ namespace BEFOYS.DataLayer.ServiceContext
 
             modelBuilder.Entity<TblProductCustomRequestAttachment>(entity =>
             {
+                entity.HasOne(d => d.PcraDocument)
+                    .WithMany(p => p.TblProductCustomRequestAttachment)
+                    .HasForeignKey(d => d.PcraDocumentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestAttachment_Tbl_Document");
+
                 entity.HasOne(d => d.PcraPcr)
                     .WithMany(p => p.TblProductCustomRequestAttachment)
                     .HasForeignKey(d => d.PcraPcrid)
@@ -719,9 +799,20 @@ namespace BEFOYS.DataLayer.ServiceContext
             {
                 entity.Property(e => e.PdGuid).HasDefaultValueSql("(newid())");
 
-                entity.HasOne(d => d.PdProductNavigation)
+                entity.HasOne(d => d.PdPf)
                     .WithMany(p => p.TblProductDetails)
-                    .HasForeignKey(d => d.PdProduct)
+                    .HasForeignKey(d => d.PdPfid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductDetails_Tbl_ProductFeatures");
+
+                entity.HasOne(d => d.PdPfi)
+                    .WithMany(p => p.TblProductDetails)
+                    .HasForeignKey(d => d.PdPfiid)
+                    .HasConstraintName("FK_Tbl_ProductDetails_Tbl_ProductFeatureItems");
+
+                entity.HasOne(d => d.PdProduct)
+                    .WithMany(p => p.TblProductDetails)
+                    .HasForeignKey(d => d.PdProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_ProductDetails_Tbl_Product");
             });
@@ -753,6 +844,52 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.PdTypeCodeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_ProductDocument_Tbl_Code");
+            });
+
+            modelBuilder.Entity<TblProductFeatureGroup>(entity =>
+            {
+                entity.Property(e => e.PfgGuid).HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<TblProductFeatureItems>(entity =>
+            {
+                entity.Property(e => e.PfiGuid).HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<TblProductFeatureNoClassification>(entity =>
+            {
+                entity.Property(e => e.PfncGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PfncProduct)
+                    .WithMany(p => p.TblProductFeatureNoClassification)
+                    .HasForeignKey(d => d.PfncProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductFeatureNoClassification_Tbl_Product");
+            });
+
+            modelBuilder.Entity<TblProductFeatures>(entity =>
+            {
+                entity.Property(e => e.PfId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.PfGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.Pf)
+                    .WithOne(p => p.TblProductFeatures)
+                    .HasForeignKey<TblProductFeatures>(d => d.PfId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductFeatures_Tbl_ProductFeatureItems");
+
+                entity.HasOne(d => d.PfPfg)
+                    .WithMany(p => p.TblProductFeatures)
+                    .HasForeignKey(d => d.PfPfgid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductFeatures_Tbl_ProductFeatureGroup");
+
+                entity.HasOne(d => d.PfTypeCode)
+                    .WithMany(p => p.TblProductFeatures)
+                    .HasForeignKey(d => d.PfTypeCodeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductFeatures_Tbl_Code");
             });
 
             modelBuilder.Entity<TblProductOrganization>(entity =>
@@ -803,6 +940,12 @@ namespace BEFOYS.DataLayer.ServiceContext
             modelBuilder.Entity<TblProvince>(entity =>
             {
                 entity.Property(e => e.ProvinceGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.ProvinceCountry)
+                    .WithMany(p => p.TblProvince)
+                    .HasForeignKey(d => d.ProvinceCountryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Province_Tbl_Country");
             });
 
             modelBuilder.Entity<TblServer>(entity =>

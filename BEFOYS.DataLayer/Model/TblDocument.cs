@@ -11,9 +11,11 @@ namespace BEFOYS.DataLayer.Model
         public TblDocument()
         {
             TblBrands = new HashSet<TblBrands>();
+            TblCountry = new HashSet<TblCountry>();
             TblLogin = new HashSet<TblLogin>();
             TblOrganizationDocument = new HashSet<TblOrganizationDocument>();
             TblProductCategoryDocument = new HashSet<TblProductCategoryDocument>();
+            TblProductCustomRequestAttachment = new HashSet<TblProductCustomRequestAttachment>();
             TblProductCustomRequestMessage = new HashSet<TblProductCustomRequestMessage>();
             TblProductDocument = new HashSet<TblProductDocument>();
         }
@@ -44,12 +46,16 @@ namespace BEFOYS.DataLayer.Model
         public virtual TblCode DocumentTypeCode { get; set; }
         [InverseProperty("BrandsLogoDocument")]
         public virtual ICollection<TblBrands> TblBrands { get; set; }
+        [InverseProperty("CountryFlagDocument")]
+        public virtual ICollection<TblCountry> TblCountry { get; set; }
         [InverseProperty("LoginPictureDocument")]
         public virtual ICollection<TblLogin> TblLogin { get; set; }
         [InverseProperty("OdDocument")]
         public virtual ICollection<TblOrganizationDocument> TblOrganizationDocument { get; set; }
         [InverseProperty("PcdDocument")]
         public virtual ICollection<TblProductCategoryDocument> TblProductCategoryDocument { get; set; }
+        [InverseProperty("PcraDocument")]
+        public virtual ICollection<TblProductCustomRequestAttachment> TblProductCustomRequestAttachment { get; set; }
         [InverseProperty("PcrmDocument")]
         public virtual ICollection<TblProductCustomRequestMessage> TblProductCustomRequestMessage { get; set; }
         [InverseProperty("PdDocument")]

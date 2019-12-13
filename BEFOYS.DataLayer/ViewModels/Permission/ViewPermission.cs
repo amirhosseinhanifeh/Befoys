@@ -18,7 +18,7 @@ namespace BEFOYS.DataLayer.ViewModels.Permission
         {
             this.DisplayName = model.PermissionDisplay;
             this.ID = model.PermissionId;
-            this.IsFree = model.PermissionIsFree;
+            this.IsFree = model.PermissionIsFree.GetValueOrDefault();
         }
     }
 }

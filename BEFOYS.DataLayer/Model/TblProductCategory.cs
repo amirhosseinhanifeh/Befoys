@@ -13,6 +13,7 @@ namespace BEFOYS.DataLayer.Model
             InversePcPcd = new HashSet<TblProductCategory>();
             TblProduct = new HashSet<TblProduct>();
             TblProductCategoryDocument = new HashSet<TblProductCategoryDocument>();
+            TblProductCategoryFeature = new HashSet<TblProductCategoryFeature>();
             TblProductCategoryTags = new HashSet<TblProductCategoryTags>();
         }
 
@@ -49,6 +50,8 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblProduct> TblProduct { get; set; }
         [InverseProperty("PcdPc")]
         public virtual ICollection<TblProductCategoryDocument> TblProductCategoryDocument { get; set; }
+        [InverseProperty("PcfPc")]
+        public virtual ICollection<TblProductCategoryFeature> TblProductCategoryFeature { get; set; }
         [InverseProperty("PctPc")]
         public virtual ICollection<TblProductCategoryTags> TblProductCategoryTags { get; set; }
     }

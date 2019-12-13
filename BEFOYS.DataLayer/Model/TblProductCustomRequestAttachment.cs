@@ -18,6 +18,9 @@ namespace BEFOYS.DataLayer.Model
         [Column("PCRA_PCRID")]
         public int PcraPcrid { get; set; }
 
+        [ForeignKey(nameof(PcraDocumentId))]
+        [InverseProperty(nameof(TblDocument.TblProductCustomRequestAttachment))]
+        public virtual TblDocument PcraDocument { get; set; }
         [ForeignKey(nameof(PcraPcrid))]
         [InverseProperty(nameof(TblProductCustomRequest.TblProductCustomRequestAttachment))]
         public virtual TblProductCustomRequest PcraPcr { get; set; }
