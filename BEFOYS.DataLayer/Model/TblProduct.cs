@@ -24,11 +24,21 @@ namespace BEFOYS.DataLayer.Model
         public Guid ProductGuid { get; set; }
         [Column("Product_PCID")]
         public int ProductPcid { get; set; }
+        [Column("Product_BrandsID")]
+        public int? ProductBrandsId { get; set; }
+        [Column("Product_LoginID")]
+        public int ProductLoginId { get; set; }
         [Required]
         [Column("Product_Name")]
         public string ProductName { get; set; }
-        [Column("Product_BrandsID")]
-        public int ProductBrandsId { get; set; }
+        [Column("Product_IsDelete")]
+        public bool ProductIsDelete { get; set; }
+        [Column("Product_Create")]
+        public DateTime ProductCreate { get; set; }
+        [Column("Product_Modify")]
+        public DateTime ProductModify { get; set; }
+        [Column("Product_Code")]
+        public string ProductCode { get; set; }
 
         [ForeignKey(nameof(ProductBrandsId))]
         [InverseProperty(nameof(TblBrands.TblProduct))]

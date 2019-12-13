@@ -17,6 +17,10 @@ namespace Panel.Controllers
         {
             return View();
         }
+        public IActionResult Result()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult Step1(HaghighiViewModel model)
         {

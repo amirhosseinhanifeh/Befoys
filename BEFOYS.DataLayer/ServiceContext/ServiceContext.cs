@@ -11,7 +11,6 @@ namespace BEFOYS.DataLayer.ServiceContext
     {
         public ServiceContext(DbContextOptions<ServiceContext> options) : base(options)
         {
-            ChangeTracker.LazyLoadingEnabled = false;
            
         }
         public virtual DbSet<TblAddress> TblAddress { get; set; }
@@ -27,6 +26,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblEmployeeRegistrationCode> TblEmployeeRegistrationCode { get; set; }
         public virtual DbSet<TblGroup> TblGroup { get; set; }
         public virtual DbSet<TblGroupPermission> TblGroupPermission { get; set; }
+        public virtual DbSet<TblGuarantee> TblGuarantee { get; set; }
         public virtual DbSet<TblLogin> TblLogin { get; set; }
         public virtual DbSet<TblMessage> TblMessage { get; set; }
         public virtual DbSet<TblOrganization> TblOrganization { get; set; }
@@ -34,6 +34,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblOrganizationFeatures> TblOrganizationFeatures { get; set; }
         public virtual DbSet<TblOrganizationInformation> TblOrganizationInformation { get; set; }
         public virtual DbSet<TblOrganizationNavigator> TblOrganizationNavigator { get; set; }
+        public virtual DbSet<TblOrganizationPanelType> TblOrganizationPanelType { get; set; }
         public virtual DbSet<TblOrganizationRole> TblOrganizationRole { get; set; }
         public virtual DbSet<TblOrganizationRolePermission> TblOrganizationRolePermission { get; set; }
         public virtual DbSet<TblOrganizationType> TblOrganizationType { get; set; }
@@ -48,10 +49,14 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblProductCategoryDocument> TblProductCategoryDocument { get; set; }
         public virtual DbSet<TblProductCategoryTags> TblProductCategoryTags { get; set; }
         public virtual DbSet<TblProductColors> TblProductColors { get; set; }
+        public virtual DbSet<TblProductCustomOrganizationForm> TblProductCustomOrganizationForm { get; set; }
+        public virtual DbSet<TblProductCustomRequest> TblProductCustomRequest { get; set; }
+        public virtual DbSet<TblProductCustomRequestAttachment> TblProductCustomRequestAttachment { get; set; }
+        public virtual DbSet<TblProductCustomRequestFormValue> TblProductCustomRequestFormValue { get; set; }
+        public virtual DbSet<TblProductCustomRequestMessage> TblProductCustomRequestMessage { get; set; }
         public virtual DbSet<TblProductDetails> TblProductDetails { get; set; }
         public virtual DbSet<TblProductDocument> TblProductDocument { get; set; }
         public virtual DbSet<TblProductOrganization> TblProductOrganization { get; set; }
-        public virtual DbSet<TblProductOrganizationDetails> TblProductOrganizationDetails { get; set; }
         public virtual DbSet<TblProductTags> TblProductTags { get; set; }
         public virtual DbSet<TblProvince> TblProvince { get; set; }
         public virtual DbSet<TblServer> TblServer { get; set; }
@@ -72,7 +77,7 @@ namespace BEFOYS.DataLayer.ServiceContext
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;");
+                optionsBuilder.UseSqlServer("Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;").UseLazyLoadingProxies();
             }
         }
 
@@ -248,6 +253,11 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_GroupPermission_Tbl_Permission");
             });
 
+            modelBuilder.Entity<TblGuarantee>(entity =>
+            {
+                entity.Property(e => e.GuaranteeGuid).HasDefaultValueSql("(newid())");
+            });
+
             modelBuilder.Entity<TblLogin>(entity =>
             {
                 entity.HasKey(e => e.LoginId)
@@ -406,6 +416,23 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_OrganizationDocumentNavigator_Tbl_OrganizationType");
             });
 
+            modelBuilder.Entity<TblOrganizationPanelType>(entity =>
+            {
+                entity.Property(e => e.OptGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.OptOt)
+                    .WithMany(p => p.TblOrganizationPanelType)
+                    .HasForeignKey(d => d.OptOtid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationPanelType_Tbl_OrganizationType");
+
+                entity.HasOne(d => d.OptPtp)
+                    .WithMany(p => p.TblOrganizationPanelType)
+                    .HasForeignKey(d => d.OptPtpid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationPanelType_Tbl_PanelTypePermission");
+            });
+
             modelBuilder.Entity<TblOrganizationRole>(entity =>
             {
                 entity.Property(e => e.OrGuid).HasDefaultValueSql("(newid())");
@@ -531,7 +558,6 @@ namespace BEFOYS.DataLayer.ServiceContext
                 entity.HasOne(d => d.ProductBrands)
                     .WithMany(p => p.TblProduct)
                     .HasForeignKey(d => d.ProductBrandsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_Product_Tbl_Brands");
 
                 entity.HasOne(d => d.ProductPc)
@@ -615,6 +641,80 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_ProductColors_Tbl_Product");
             });
 
+            modelBuilder.Entity<TblProductCustomOrganizationForm>(entity =>
+            {
+                entity.HasKey(e => e.PcofId)
+                    .HasName("PK_Tbl_ProductOrganizationDetails");
+
+                entity.Property(e => e.PcofGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcofPo)
+                    .WithMany(p => p.TblProductCustomOrganizationForm)
+                    .HasForeignKey(d => d.PcofPoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomOrganizationForm_Tbl_ProductOrganization");
+            });
+
+            modelBuilder.Entity<TblProductCustomRequest>(entity =>
+            {
+                entity.Property(e => e.PcrGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcrOrganiziton)
+                    .WithMany(p => p.TblProductCustomRequest)
+                    .HasForeignKey(d => d.PcrOrganizitonId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequest_Tbl_Organization");
+
+                entity.HasOne(d => d.PcrPo)
+                    .WithMany(p => p.TblProductCustomRequest)
+                    .HasForeignKey(d => d.PcrPoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequest_Tbl_ProductOrganization");
+            });
+
+            modelBuilder.Entity<TblProductCustomRequestAttachment>(entity =>
+            {
+                entity.HasOne(d => d.PcraPcr)
+                    .WithMany(p => p.TblProductCustomRequestAttachment)
+                    .HasForeignKey(d => d.PcraPcrid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestAttachment_Tbl_ProductCustomRequest");
+            });
+
+            modelBuilder.Entity<TblProductCustomRequestFormValue>(entity =>
+            {
+                entity.Property(e => e.PcrfvGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcrfvPcof)
+                    .WithMany(p => p.TblProductCustomRequestFormValue)
+                    .HasForeignKey(d => d.PcrfvPcofid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestFormValue_Tbl_ProductCustomOrganizationForm");
+
+                entity.HasOne(d => d.PcrfvPcr)
+                    .WithMany(p => p.TblProductCustomRequestFormValue)
+                    .HasForeignKey(d => d.PcrfvPcrid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestFormValue_Tbl_ProductCustomRequest");
+            });
+
+            modelBuilder.Entity<TblProductCustomRequestMessage>(entity =>
+            {
+                entity.Property(e => e.PcrmGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PcrmDocument)
+                    .WithMany(p => p.TblProductCustomRequestMessage)
+                    .HasForeignKey(d => d.PcrmDocumentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestMessage_Tbl_Document");
+
+                entity.HasOne(d => d.PcrmPcr)
+                    .WithMany(p => p.TblProductCustomRequestMessage)
+                    .HasForeignKey(d => d.PcrmPcrid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductCustomRequestMessage_Tbl_ProductCustomRequest");
+            });
+
             modelBuilder.Entity<TblProductDetails>(entity =>
             {
                 entity.Property(e => e.PdGuid).HasDefaultValueSql("(newid())");
@@ -659,6 +759,11 @@ namespace BEFOYS.DataLayer.ServiceContext
             {
                 entity.Property(e => e.PoGuid).HasDefaultValueSql("(newid())");
 
+                entity.HasOne(d => d.PoGuarantee)
+                    .WithMany(p => p.TblProductOrganization)
+                    .HasForeignKey(d => d.PoGuaranteeId)
+                    .HasConstraintName("FK_Tbl_ProductOrganization_Tbl_Guarantee");
+
                 entity.HasOne(d => d.PoOrganization)
                     .WithMany(p => p.TblProductOrganization)
                     .HasForeignKey(d => d.PoOrganizationId)
@@ -676,11 +781,6 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.PoSaid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_ProductOrganization_Tbl_SiteArea");
-            });
-
-            modelBuilder.Entity<TblProductOrganizationDetails>(entity =>
-            {
-                entity.Property(e => e.PodGuid).HasDefaultValueSql("(newid())");
             });
 
             modelBuilder.Entity<TblProductTags>(entity =>

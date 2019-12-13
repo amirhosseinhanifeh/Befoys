@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblPanelTypePermission>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.ID">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PtpId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PtpGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PtpPtid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PtpPermissionId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PtpId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PtpGuid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PtpPtid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PtpPermissionId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PtpId })
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

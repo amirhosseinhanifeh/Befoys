@@ -8,6 +8,11 @@ namespace BEFOYS.DataLayer.Model
     [Table("Tbl_PanelTypePermission")]
     public partial class TblPanelTypePermission
     {
+        public TblPanelTypePermission()
+        {
+            TblOrganizationPanelType = new HashSet<TblOrganizationPanelType>();
+        }
+
         [Key]
         [Column("PTP_ID")]
         public int PtpId { get; set; }
@@ -24,5 +29,7 @@ namespace BEFOYS.DataLayer.Model
         [ForeignKey(nameof(PtpPtid))]
         [InverseProperty(nameof(TblPanelType.TblPanelTypePermission))]
         public virtual TblPanelType PtpPt { get; set; }
+        [InverseProperty("OptPtp")]
+        public virtual ICollection<TblOrganizationPanelType> TblOrganizationPanelType { get; set; }
     }
 }

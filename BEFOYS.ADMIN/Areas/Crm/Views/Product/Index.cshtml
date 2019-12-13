@@ -1,0 +1,95 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProduct>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductGuid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPcid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductBrandsId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductLoginId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductIsDelete)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductCreate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductModify)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductCode)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductGuid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPcid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductBrandsId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductLoginId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductIsDelete)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductCreate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductModify)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductCode)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                    <td>
+                        <a asp-action="Picture" asp-controller="ProductDocument" asp-area="Crm" asp-route-id="@item.ProductId">عکس ها</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

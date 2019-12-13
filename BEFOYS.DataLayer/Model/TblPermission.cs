@@ -32,7 +32,7 @@ namespace BEFOYS.DataLayer.Model
         public string PermissionDisplay { get; set; }
         [Required]
         [Column("Permission_IsFree")]
-        public bool? PermissionIsFree { get; set; }
+        public bool PermissionIsFree { get; set; }
 
         [InverseProperty("GpPermission")]
         public virtual ICollection<TblGroupPermission> TblGroupPermission { get; set; }

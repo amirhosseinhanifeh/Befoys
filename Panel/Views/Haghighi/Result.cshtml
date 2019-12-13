@@ -1,0 +1,557 @@
+﻿@model Panel.ViewModels.Account.HaghighiViewModel
+
+@{
+    ViewData["Title"] = "Result";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+@section Styles {
+    <!-- Site favicon -->
+    <link rel='shortcut icon' type='image/x-icon' href='~/favicon.ico' />
+    <!-- Font Material stylesheet -->
+    <link rel="stylesheet" href="~/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Bootstrap stylesheet -->
+    <link href="~/css/jumbo-bootstrap.css" rel="stylesheet">
+    <!-- Perfect Scrollbar stylesheet -->
+    <link href="~/node_modules/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <!-- Select2 stylesheet -->
+    <link href="~/node_modules/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="~/css/jQuery.Select2/select2.min.css" rel="stylesheet">
+    <link href="~/css/jQuery.Select2/select2-bootstrap.css" rel="stylesheet">
+    <!-- Form stylesheet -->
+    <link href="~/css/jumbo-forms.css" rel="stylesheet">
+    <!-- Jumbo-core stylesheet -->
+    <link href="~/css/jumbo-core.min.css" rel="stylesheet">
+    <!-- Color-Theme stylesheet -->
+    <link id="override-css-id" href="~/css/theme-dark-indigo.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/jumbo-core-custom.css">
+    <link rel="stylesheet" href="~/css/perfect-scrollbar-custom.css">
+    <link rel="stylesheet" href="~/css/font.css">
+}
+
+<!-- Page container -->
+<div class="gx-container">
+
+    <!-- Page Sidebar -->
+    <div id="menu" class="side-nav gx-sidebar">
+        <div class="navbar-expand-lg">
+            <!-- Sidebar header  -->
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <img class="user-avatar" alt="Domnic" src="https://via.placeholder.com/150x150">
+                    <div class="user-detail">
+                        <h4 class="user-name">
+                            <span class="dropdown">
+                                <a class="dropdown-toggle" href="#" role="button" id="userAccount"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    روزبه شامخی
+                                </a>
+                                <span class="dropdown-menu dropdown-menu-right" aria-labelledby="userAccount">
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="zmdi zmdi-account zmdi-hc-fw mr-2"></i>
+                                        پروفایل
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="zmdi zmdi-settings zmdi-hc-fw mr-2"></i>
+                                        تنظیمات
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="zmdi zmdi-sign-in zmdi-hc-fw mr-2"></i>
+                                        خروج
+                                    </a>
+                                </span>
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <!-- /sidebar header -->
+            <!-- Main navigation -->
+            <div id="main-menu" class="main-menu navbar-collapse collapse">
+                <ul class="nav-menu">
+                    <li class="nav-header"><span class="nav-text">Main</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i>
+                            <span class="nav-text">داشبورد</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="index.html"><span class="nav-text">صفحه اصلی</span></a></li>
+                            <li><a href="ecommerce.html"><span class="nav-text">eCommerce</span></a></li>
+                            <li><a href="news.html"><span class="nav-text">News</span></a></li>
+                            <li><a href="intranet.html"><span class="nav-text">Intranet</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-folder zmdi-hc-fw"></i>
+                            <span class="nav-text">Components</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="alerts.html"><span class="nav-text">Alerts</span></a></li>
+                            <li><a href="appbar.html"><span class="nav-text text-transform-none">App Bar</span></a></li>
+                            <li><a href="avatars.html"><span class="nav-text">Avatars</span></a></li>
+                            <li><a href="badge.html"><span class="nav-text">Badge</span></a></li>
+                            <li><a href="bottom-navigation.html"><span class="nav-text">Bottom Navigation</span></a></li>
+                            <li><a href="breadcrumbs.html"><span class="nav-text">Breadcrumbs</span></a></li>
+                            <li><a href="buttons.html"><span class="nav-text">Buttons</span></a></li>
+                            <li><a href="button-group.html"><span class="nav-text">Button Group</span></a></li>
+                            <li><a href="dropdown-menus.html"><span class="nav-text">Dropdown</span></a></li>
+                            <li><a href="cards.html"><span class="nav-text">Cards</span></a></li>
+                            <li><a href="carousel.html"><span class="nav-text">Carousel</span></a></li>
+                            <li><a href="dialogs.html"><span class="nav-text">Dialogs</span></a></li>
+                            <li><a href="pagination.html"><span class="nav-text">Pagination</span></a></li>
+                            <li><a href="popovers.html"><span class="nav-text">Popovers</span></a></li>
+                            <li><a href="progress.html"><span class="nav-text">Progress</span></a></li>
+                            <li><a href="tabs.html"><span class="nav-text">Tabs</span></a></li>
+                            <li><a href="tooltips.html"><span class="nav-text">Tooltips</span></a></li>
+                            <li><a href="typography.html"><span class="nav-text">Typography</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="widget.html">
+                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
+                            <span class="nav-text">Widgets</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="metrics.html">
+                            <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>
+                            <span class="nav-text">Metrics</span>
+                        </a>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">View</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-web zmdi-hc-fw"></i>
+                            <span class="nav-text">Tables</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="basic-table.html"><span class="nav-text">Basic Table</span></a></li>
+                            <li><a href="datatable.html"><span class="nav-text">Data Table</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-swap-alt zmdi-hc-fw zmdi-hc-rotate-90"></i>
+                            <span class="nav-text">Time Line</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="timeline-default.html"><span class="nav-text">Default</span></a></li>
+                            <li><a href="timeline-with-icons.html"><span class="nav-text">Default With Icon</span></a></li>
+                            <li><a href="timeline-left-align.html"><span class="nav-text">Left Aligned</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-list zmdi-hc-fw"></i>
+                            <span class="nav-text">Custom Views</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="simple-view.html"><span class="nav-text">Plain List View</span></a></li>
+                            <li><a href="listdivider.html"><span class="nav-text">Plain List With Divider</span></a></li>
+                            <li><a href="cards-list-view.html"><span class="nav-text">Cards list View</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">From</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-book-image zmdi-hc-fw"></i>
+                            <span class="nav-text">Forms</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="basic-form.html"><span class="nav-text">Basic Form</span></a></li>
+                            <li><a href="advanced-plugins.html"><span class="nav-text">Advance Plugins</span></a></li>
+                            <li><a href="form-wizard.html"><span class="nav-text">Form Wizard</span></a></li>
+                            <li><a href="file-upload.html"><span class="nav-text">File Upload</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">Extensions</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-code-setting zmdi-hc-fw"></i>
+                            <span class="nav-text">Editors</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="editor-summernote.html"><span class="nav-text">Summernote Editor</span></a></li>
+                            <li><a href="editor-markdown.html"><span class="nav-text">Markdown Editor</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-brush zmdi-hc-fw"></i>
+                            <span class="nav-text">Pickers</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="date-time-pickers.html"><span class="nav-text">Date &amp; Time Pickers</span></a></li>
+                            <li><a href="color-pickers.html"><span class="nav-text">Color pickers</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-key zmdi-hc-fw"></i>
+                            <span class="nav-text">Extensions</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="drag-and-drop.html"><span class="nav-text">Drag and Drop</span></a></li>
+                            <li><a href="sweet-alert.html"><span class="nav-text">Sweet Alert</span></a></li>
+                            <li><a href="notification.html"><span class="nav-text">Notification</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-calendar zmdi-hc-fw"></i>
+                            <span class="nav-text">Calender</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="calendar-agenda.html"><span class="nav-text">Agenda</span></a></li>
+                            <li><a href="calendar-basic.html"><span class="nav-text">Basic</span></a></li>
+                            <li><a href="calendar-default.html"><span class="nav-text">Default</span></a></li>
+                            <li><a href="calendar-background-events.html"><span class="nav-text">Background Event</span></a></li>
+                            <li><a href="calendar-external-dragging.html"><span class="nav-text">External Dragging</span></a></li>
+                            <li><a href="calendar-gcal.html"><span class="nav-text">Gcal</span></a></li>
+                            <li><a href="calendar-list-views.html"><span class="nav-text">List View</span></a></li>
+                            <li><a href="calendar-locales.html"><span class="nav-text">Locales</span></a></li>
+                            <li><a href="calendar-selectable.html"><span class="nav-text">Selectable</span></a></li>
+                            <li><a href="calendar-themes.html"><span class="nav-text">Theme</span></a></li>
+                            <li><a href="calendar-week-numbers.html"><span class="nav-text">Week Numbers</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-chart zmdi-hc-fw"></i>
+                            <span class="nav-text">Chart</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="flot-charts.html"><span class="nav-text">Flot Chart</span></a></li>
+                            <li><a href="morris-charts.html"><span class="nav-text">Morris Chart</span></a></li>
+                            <li><a href="peity-charts.html"><span class="nav-text">Peity Chart</span></a></li>
+                            <li><a href="sparkline-charts.html"><span class="nav-text">Sparkline Chart</span></a></li>
+                            <li><a href="charts-js.html"><span class="nav-text">JS Chart</span></a></li>
+                            <li><a href="chartist.html"><span class="nav-text">Chartist</span></a></li>
+                            <li><a href="c3-chart.html"><span class="nav-text">C3 Chart</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="vector-map.html">
+                            <i class="zmdi zmdi-google-maps zmdi-hc-fw"></i>
+                            <span class="nav-text">Vector Map</span>
+                            <span class="badge badge-secondary">NEW</span>
+                        </a>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">Modules</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-shopping-cart zmdi-hc-fw"></i>
+                            <span class="nav-text">eCommerce</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="products-detail.html"><span class="nav-text">Product Detail</span></a></li>
+                            <li><a href="products-grid.html"><span class="nav-text">Product Grid</span></a></li>
+                            <li><a href="products-list.html"><span class="nav-text">Product List</span></a></li>
+                            <li><a href="shopping-cart.html"><span class="nav-text">Shopping Cart</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-collection-item-8 zmdi-hc-fw"></i>
+                            <span class="nav-text">App Module</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="login1.html"><span class="nav-text">Login Page</span></a></li>
+                            <li><a href="signup1.html"><span class="nav-text">Signup Page</span></a></li>
+                            <li><a href="forgot-password1.html"><span class="nav-text">Forgot Password</span></a></li>
+                            <li><a href="lock-screen1.html"><span class="nav-text">Lock Screen</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="todo.html">
+                            <i class="zmdi zmdi-check-square zmdi-hc-fw"></i>
+                            <span class="nav-text">To-Do</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="mail.html">
+                            <i class="zmdi zmdi-email zmdi-hc-fw"></i>
+                            <span class="nav-text">Mail</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="chat-start.html">
+                            <i class="zmdi zmdi-comment zmdi-hc-fw"></i>
+                            <span class="nav-text">Chat</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="contact.html">
+                            <i class="zmdi zmdi-account-box zmdi-hc-fw"></i>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">Extras</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-web zmdi-hc-fw"></i>
+                            <span class="nav-text">Icons</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="entypo.html"><span class="nav-text">Entypo</span></a></li>
+                            <li><a href="font-awesome.html"><span class="nav-text">Font Awesome</span></a></li>
+                            <li><a href="material-font.html"><span class="nav-text">Material</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-collection-bookmark zmdi-hc-fw zmdi-hc-rotate-90"></i>
+                            <span class="nav-text">Extra Elements</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="callouts.html"><span class="nav-text">Callouts</span></a></li>
+                            <li><a href="pricing-table.html"><span class="nav-text">Pricing Table</span></a></li>
+                            <li><a href="testimonials.html"><span class="nav-text">Testimonials</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-pages zmdi-hc-fw"></i>
+                            <span class="nav-text">Extra Pages</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="aboutus.html"><span class="nav-text">About Us</span></a></li>
+                            <li><a href="blog.html"><span class="nav-text">Blog</span></a></li>
+                            <li><a href="contact-us.html"><span class="nav-text">Contact Us</span></a></li>
+                            <li><a href="faq.html"><span class="nav-text">FAQ</span></a></li>
+                            <li><a href="portfolio.html"><span class="nav-text">Portfolio</span></a></li>
+                            <li><a href="error-page-404.html"><span class="nav-text">404 Error Page</span></a></li>
+                            <li><a href="error-page-500.html"><span class="nav-text">500 Error Page</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-device-hub zmdi-hc-fw"></i>
+                            <span class="nav-text">Menu Levels</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="nav-text">Level 1</span>
+                                </a>
+                            </li>
+                            <li class="menu">
+                                <a href="javascript:void(0)">
+                                    <span class="nav-text">Level 1</span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a class="" href="javascript:void(0)">
+                                            <span class="nav-text">Level 2</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu">
+                                        <a href="javascript:void(0)">
+                                            <span class="nav-text">Level 2</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <span class="nav-text">Level 3</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <span class="nav-text">Level 3</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /main navigation -->
+        </div>
+    </div>
+    <!-- /page sidebar -->
+    <!-- Main Container -->
+    <div class="gx-main-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="gx-toolbar">
+                <div class="sidebar-mobile-menu d-block d-lg-none">
+                    <a class="gx-menu-icon menu-toggle" href="#menu">
+                        <span class="menu-icon"></span>
+                    </a>
+                </div>
+                <a class="site-logo" href="index.html">
+                    <img src="~/images/logo.png" alt="Befoys" title="Befoys">
+                </a>
+                <div class="ellipse-shape"></div>
+            </div>
+        </header>
+        <!-- /main header -->
+        <!-- Main Content -->
+        <div class="gx-main-content">
+            <!--gx-wrapper-->
+            <div class="gx-wrapper">
+                <div class="page-heading d-sm-flex justify-content-sm-between align-items-sm-center">
+                    <h2 class="title mb-3 mb-sm-0">ثبت نام تامین کنندگان حقیقی</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="gx-card">
+                            <div class="row">
+                                <img class="mx-auto" style="width: 60vw;" src="~/images/contract.png" alt="قرارداد" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 mb-2">
+                                    <a href="javascript:void(0)" class="gx-btn btn-success gx-btn-shadow d-block">دانلود قرارداد</a>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input required" id="businessLicenseScan" name="businessLicenseScan">
+                                        <label class="custom-file-label" for="businessLicenseScan">قرارداد خود را آپلود کنید</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <a href="javascript:void(0)" class="gx-btn btn-success gx-btn-shadow d-block">درخواست بررسی</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/gx-wrapper-->
+        </div>
+        <!-- /main content -->
+    </div>
+    <!-- /main container -->
+</div>
+<!-- /page container -->
+
+@section Scripts {
+    <!--Load JQuery-->
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <!--Bootstrap JQuery-->
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--Perfect Scrollbar JQuery-->
+    <script src="~/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <!--Big Slide JQuery-->
+    <script src="~/node_modules/bigslide/dist/bigSlide.min.js"></script>
+    <!--wizard JQuery-->
+    <script src="~/node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+    <!--Select2 JQuery-->
+    <script src="~/node_modules/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/js/jQuery.Select2/select2.js"></script>
+    <script src="~/js/jQuery.Select2/i18n/fa.js"></script>
+    <script src="~/js/Select2_Config.js"></script>
+    <!--Custom JQuery-->
+    <script src="~/js/functions.js"></script>
+    <script src="~/js/custom/form-wizard.js"></script>
+
+    <script src="~/js/add-first-step-elements.js"></script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<form method="post" enctype="multipart/form-data">
+
+        <label>نام</label>
+        <input asp-for="FirstName" class="form-control" value="" />
+        <br />
+        <label>نام خانوادگی</label>
+        <input asp-for="LastName" class="form-control" name="LastName" value="" />
+        <br />
+        <label>ایمیل</label>
+        <input asp-for="Email" class="form-control" value="" type="email" />
+
+        <br />
+        <label>رمزعبور</label>
+        <input asp-for="Password" class="form-control" value="" type="password" />
+
+        <br />
+        <label>تکرار رمز عبور</label>
+        <input asp-for="ConfirmPassword" class="form-control" value="" type="password" />
+
+        <h4>اطلاعات شخصی</h4>
+        <br />
+        <label>کد ملی</label>
+
+        <input asp-for="NationalCode" class="form-control" value="" />
+
+        <br />
+        <label>روز</label>
+        <select asp-for="Day" class="form-control">
+            <option value="01">01</option>
+        </select>
+        <br />
+        <label>ماه</label>>
+        <select asp-for="Month" class="form-control">
+            <option value="1">فروردین</option>
+        </select>
+
+        <br />
+        <label>سال</label>
+        <select asp-for="Year" class="form-control">
+            <option value="1398">1398</option>
+        </select>
+        <br />
+        <label>جنسیت</label>
+        <select asp-for="Gender" class="form-control" name="Gender">
+            <option value="1">مرد</option>
+            <option value="2">زن</option>
+        </select>
+        <br />
+
+
+
+        <div>
+            <select name="Addresses[0].StateName">
+                <option value="تهران">
+                    تهران
+                </option>
+            </select>
+            <select name="Addresses[0].CityName">
+                <option value="تهران">
+                    تهران
+                </option>
+            </select>
+            <label>آدرس</label>
+            <input name="Addresses[0].Address" />
+
+            <div>
+                <input name="Addresses[0].phones[0].PhoneValue" />
+            </div>
+
+        </div>
+        <button class="btn btn-success" type="submit">ورود</button>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $("input[name=mobile]").val(GetParameterValues("mobile"));
+
+        });
+        function OnSuccess(response) {
+        }
+        function OnBefore() {
+
+        }
+    </script>*@

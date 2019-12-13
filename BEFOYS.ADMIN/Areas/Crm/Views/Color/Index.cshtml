@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblColors>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorsId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorsGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorsCgid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorsTypeCodeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorsName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorsValue)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorsId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorsGuid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorsCgid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorsTypeCodeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorsName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColorsValue)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.ColorsId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

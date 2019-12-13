@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblBrands>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandsId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandsGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandsName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandsIsVerify)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandsCountryReference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandsLogoDocumentId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandsId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandsGuid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandsName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandsIsVerify)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandsCountryReference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandsLogoDocumentId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.BrandsId  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

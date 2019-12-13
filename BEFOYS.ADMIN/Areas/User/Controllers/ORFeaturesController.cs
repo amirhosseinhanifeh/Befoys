@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.ADMIN.Areas.User.Controllers
 {
+    [Area("User")]
+    [Route("User/[controller]/[action]")]
     public class ORFeaturesController : Controller
     {
         private readonly ServiceContext _context;
@@ -30,7 +32,11 @@ namespace BEFOYS.ADMIN.Areas.User.Controllers
             var Result =await _context.TblOrganizationInformation.FindAsync(id);
             Result.OiIsAccept = Status;
             await _context.SaveChangesAsync();
-            return RedirectToAction("SendReason");
+            if (Status == false)
+            {
+                return RedirectToAction("SendReason", new { id = id });
+            }
+            return RedirectToAction("Index",new {id=id });
         }
 
         public IActionResult SendReason()

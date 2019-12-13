@@ -155,6 +155,101 @@ ul.nav-menu li.menu>a:before {
     transform: rotate(180deg);
 }
 
+.gx-main-content {
+    direction: ltr;
+}
+
+.gx-wrapper {
+    direction: rtl;
+    text-align: right;
+    margin-bottom: 0;
+}
+
+.page-heading {
+    margin-bottom: 24px;
+}
+
+#rootwizard-2 {
+    margin: 0 2.5%;
+}
+
+#rootwizard-2 .wizard-navbar {
+    margin-top: 85px;
+    margin-bottom: 50px;
+}
+
+#rootwizard-2 .wizard-navbar > ul li a span.wz-number {
+    margin-top: -78px;
+}
+
+#rootwizard-2 .tab-pane h3 {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+#rootwizard-2 .tab-pane h3:first-child {
+    margin-top: 50px;
+}
+
+#rootwizard-2 .tab-pane hr {
+    margin: 40px 0;
+}
+
+#rootwizard-2 .tab-pane .form-group.text-row-between {
+    padding-top: 14px;
+}
+
+#rootwizard-2 .pager {
+    padding-right: 0;
+    margin-top: 34px;
+    margin-bottom: 32px;
+}
+
+.custom-control-label::before,
+.custom-control-label::after {
+    left: initial;
+    right: 0;
+}
+
+.custom-control {
+    padding-left: 0;
+    padding-right: 1.5rem;
+}
+
+.custom-file-label::after {
+    right: initial;
+    left: 0;
+    border-left: initial;
+    border-right: 1px solid #ced4da;
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "انتخاب";
+}
+
+.add a {
+    text-decoration: none;
+}
+
+.add a i {
+    vertical-align: middle;
+}
+
+.pager .next > a,
+.pager .next > span {
+    float: left;
+}
+
+.pager .previous > a,
+.pager .previous > span {
+    float: right;
+}
+
+.select2-container .select2-search--inline {
+    float: right;
+}
+
 @media only screen and (max-width: 992px) {
     .gx-toolbar {
         right: 0;

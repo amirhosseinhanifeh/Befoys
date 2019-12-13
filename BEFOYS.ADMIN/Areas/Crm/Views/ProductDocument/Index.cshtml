@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProductDocument>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PdId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdTypeCodeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdKindCodeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdIsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdDocumentId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdGuid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdTypeCodeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdKindCodeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdIsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdDocumentId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
