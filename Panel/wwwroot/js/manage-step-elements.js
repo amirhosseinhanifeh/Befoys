@@ -8,7 +8,7 @@ $(document).ready(function() {
         var input = $("<input/>").addClass("form-control mt-2 required").attr({
             type: "text",
             id: "telephone" + telephoneNum,
-            name: "telephone" + addressNum + "[]"
+            name: "Addresses[" + (addressNum - 1) + "].phones[" + telephoneNum + "].PhoneValue"
         });
 
         var a = $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeTelephone").click(function () {
@@ -46,7 +46,7 @@ $(document).ready(function() {
         );
 
         var lblState = $("<label></label>").addClass("control-label").attr("for", "state").text("استان");
-        var states = $("<select></select>").addClass("form-control select2 required").attr("name", "state").append(
+        var states = $("<select></select>").addClass("form-control select2 required").attr("name", "Addresses[" + (addressNum - 1) + "].StateName").append(
             $("<option></option>").attr("value", "Tehran").text("تهران")
         );
 
@@ -55,7 +55,7 @@ $(document).ready(function() {
         );
 
         var lblCity = $("<label></label>").addClass("control-label").attr("for", "city").text("شهر");
-        var cities = $("<select></select>").addClass("form-control select2 required").attr("name", "city").append(
+        var cities = $("<select></select>").addClass("form-control select2 required").attr("name", "Addresses[" + (addressNum - 1) + "].CityName").append(
             $("<option></option>").attr("value", "Tehran").text("تهران")
         );
 
@@ -68,7 +68,7 @@ $(document).ready(function() {
         var lblAddress = $("<label></label>").addClass("control-label").attr("for", "address").text("آدرس");
         var txtAddress = $("<textarea></textarea>").addClass("form-control required").attr({
             id: "address",
-            name: "address",
+            name: "Addresses[" + (addressNum - 1) + "].Address",
             rows: "3"
         });
 
@@ -82,8 +82,8 @@ $(document).ready(function() {
 
         var inputTelephone = $("<input/>").addClass("form-control required").attr({
             type: "text",
-            id: "telephone1",
-            name: "telephone" + addressNum + "[]"
+            id: "telephone0",
+            name: "Addresses[" + (addressNum - 1) +"].phones[0].PhoneValue"
         });
         var telephone = $("<div></div>").addClass("row").append(
             $("<div></div>").addClass("col-md-12 d-flex telephone").append(inputTelephone)
@@ -100,7 +100,7 @@ $(document).ready(function() {
             var input = $("<input/>").addClass("form-control mt-2 required").attr({
                 type: "text",
                 id: "telephone" + telephoneNum,
-                name: "telephone" + addressNum + "[]"
+                name: "Addresses[" + (addressNum - 1) + "].phones[" + telephoneNum + "].PhoneValue"
             });
 
             var a = $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeTelephone").click(function () {

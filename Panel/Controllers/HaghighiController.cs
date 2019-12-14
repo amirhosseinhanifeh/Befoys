@@ -22,7 +22,7 @@ namespace Panel.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Step1([FromBody]HaghighiViewModel model)
+        public IActionResult Step1(HaghighiViewModel model)
         {
             model.type = BEFOYS.DataLayer.Enums.Enum_UserType.Supplier_Real;
             string Token = Get("token");
