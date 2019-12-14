@@ -12,6 +12,8 @@ namespace BEFOYS.DataLayer.Model
         {
             TblProductCustomOrganizationForm = new HashSet<TblProductCustomOrganizationForm>();
             TblProductCustomRequest = new HashSet<TblProductCustomRequest>();
+            TblProductOrganizationDiscount = new HashSet<TblProductOrganizationDiscount>();
+            TblProductOrganizationQuantity = new HashSet<TblProductOrganizationQuantity>();
         }
 
         [Key]
@@ -58,5 +60,9 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblProductCustomOrganizationForm> TblProductCustomOrganizationForm { get; set; }
         [InverseProperty("PcrPo")]
         public virtual ICollection<TblProductCustomRequest> TblProductCustomRequest { get; set; }
+        [InverseProperty("PodPo")]
+        public virtual ICollection<TblProductOrganizationDiscount> TblProductOrganizationDiscount { get; set; }
+        [InverseProperty("PoqPo")]
+        public virtual ICollection<TblProductOrganizationQuantity> TblProductOrganizationQuantity { get; set; }
     }
 }

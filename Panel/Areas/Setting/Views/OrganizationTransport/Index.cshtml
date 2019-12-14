@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblOrganizationTransport>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OtId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtOrganizationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtProvinceId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtMinInvoicePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtMinInvoicePriceFree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtGuid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtOrganizationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtProvinceId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtMinInvoicePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtMinInvoicePriceFree)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

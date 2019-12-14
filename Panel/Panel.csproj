@@ -63,6 +63,8 @@
   <ItemGroup>
     <Folder Include="Areas\Crm\Data\" />
     <Folder Include="Areas\Crm\Models\" />
+    <Folder Include="Areas\Setting\Data\" />
+    <Folder Include="Areas\Setting\Models\" />
   </ItemGroup>
 
 </Project>

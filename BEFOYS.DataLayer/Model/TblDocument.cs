@@ -18,6 +18,7 @@ namespace BEFOYS.DataLayer.Model
             TblProductCustomRequestAttachment = new HashSet<TblProductCustomRequestAttachment>();
             TblProductCustomRequestMessage = new HashSet<TblProductCustomRequestMessage>();
             TblProductDocument = new HashSet<TblProductDocument>();
+            TblUnit = new HashSet<TblUnit>();
         }
 
         [Key]
@@ -60,5 +61,7 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblProductCustomRequestMessage> TblProductCustomRequestMessage { get; set; }
         [InverseProperty("PdDocument")]
         public virtual ICollection<TblProductDocument> TblProductDocument { get; set; }
+        [InverseProperty("UnitLogoDocument")]
+        public virtual ICollection<TblUnit> TblUnit { get; set; }
     }
 }

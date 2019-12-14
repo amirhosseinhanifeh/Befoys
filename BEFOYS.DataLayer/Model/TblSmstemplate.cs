@@ -10,6 +10,7 @@ namespace BEFOYS.DataLayer.Model
     {
         public TblSmstemplate()
         {
+            TblSmsresponse = new HashSet<TblSmsresponse>();
             TblSmssetting = new HashSet<TblSmssetting>();
         }
 
@@ -29,6 +30,8 @@ namespace BEFOYS.DataLayer.Model
         [Column("ST_IsDelete")]
         public bool StIsDelete { get; set; }
 
+        [InverseProperty("SmsSt")]
+        public virtual ICollection<TblSmsresponse> TblSmsresponse { get; set; }
         [InverseProperty("SsSt")]
         public virtual ICollection<TblSmssetting> TblSmssetting { get; set; }
     }

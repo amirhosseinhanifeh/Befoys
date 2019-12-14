@@ -18,10 +18,8 @@ namespace BEFOYS.DataLayer.Model
         [Required]
         [Column("SMS_StatusText")]
         public string SmsStatusText { get; set; }
-        [Required]
-        [Column("SMS_MessageID")]
-        [StringLength(128)]
-        public string SmsMessageId { get; set; }
+        [Column("SMS_STID")]
+        public int? SmsStid { get; set; }
         [Required]
         [Column("SMS_Message")]
         public string SmsMessage { get; set; }
@@ -52,5 +50,14 @@ namespace BEFOYS.DataLayer.Model
         public DateTime SmsModifiedDate { get; set; }
         [Column("SMS_IsDelete")]
         public bool SmsIsDelete { get; set; }
+        [Column("SMS_LoginID")]
+        public int? SmsLoginId { get; set; }
+
+        [ForeignKey(nameof(SmsLoginId))]
+        [InverseProperty(nameof(TblLogin.TblSmsresponse))]
+        public virtual TblLogin SmsLogin { get; set; }
+        [ForeignKey(nameof(SmsStid))]
+        [InverseProperty(nameof(TblSmstemplate.TblSmsresponse))]
+        public virtual TblSmstemplate SmsSt { get; set; }
     }
 }

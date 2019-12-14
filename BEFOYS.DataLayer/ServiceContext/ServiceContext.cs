@@ -39,6 +39,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblOrganizationPanelType> TblOrganizationPanelType { get; set; }
         public virtual DbSet<TblOrganizationRole> TblOrganizationRole { get; set; }
         public virtual DbSet<TblOrganizationRolePermission> TblOrganizationRolePermission { get; set; }
+        public virtual DbSet<TblOrganizationTransport> TblOrganizationTransport { get; set; }
         public virtual DbSet<TblOrganizationType> TblOrganizationType { get; set; }
         public virtual DbSet<TblPanelType> TblPanelType { get; set; }
         public virtual DbSet<TblPanelTypeControl> TblPanelTypeControl { get; set; }
@@ -65,6 +66,8 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblProductFeatureNoClassification> TblProductFeatureNoClassification { get; set; }
         public virtual DbSet<TblProductFeatures> TblProductFeatures { get; set; }
         public virtual DbSet<TblProductOrganization> TblProductOrganization { get; set; }
+        public virtual DbSet<TblProductOrganizationDiscount> TblProductOrganizationDiscount { get; set; }
+        public virtual DbSet<TblProductOrganizationQuantity> TblProductOrganizationQuantity { get; set; }
         public virtual DbSet<TblProductTags> TblProductTags { get; set; }
         public virtual DbSet<TblProvince> TblProvince { get; set; }
         public virtual DbSet<TblServer> TblServer { get; set; }
@@ -79,6 +82,8 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblTicket> TblTicket { get; set; }
         public virtual DbSet<TblTicketAnswer> TblTicketAnswer { get; set; }
         public virtual DbSet<TblToken> TblToken { get; set; }
+        public virtual DbSet<TblUnit> TblUnit { get; set; }
+        public virtual DbSet<TblUnitGroup> TblUnitGroup { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -506,6 +511,23 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_OrganizationRolePermission_Tbl_Permission");
             });
 
+            modelBuilder.Entity<TblOrganizationTransport>(entity =>
+            {
+                entity.Property(e => e.OtGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.OtOrganization)
+                    .WithMany(p => p.TblOrganizationTransport)
+                    .HasForeignKey(d => d.OtOrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationTransport_Tbl_Organization");
+
+                entity.HasOne(d => d.OtProvince)
+                    .WithMany(p => p.TblOrganizationTransport)
+                    .HasForeignKey(d => d.OtProvinceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationTransport_Tbl_Province");
+            });
+
             modelBuilder.Entity<TblOrganizationType>(entity =>
             {
                 entity.Property(e => e.OtGuid).HasDefaultValueSql("(newid())");
@@ -920,6 +942,38 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_ProductOrganization_Tbl_SiteArea");
             });
 
+            modelBuilder.Entity<TblProductOrganizationDiscount>(entity =>
+            {
+                entity.Property(e => e.PodGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PodPo)
+                    .WithMany(p => p.TblProductOrganizationDiscount)
+                    .HasForeignKey(d => d.PodPoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductOrganizationDiscount_Tbl_ProductOrganization");
+            });
+
+            modelBuilder.Entity<TblProductOrganizationQuantity>(entity =>
+            {
+                entity.Property(e => e.PoqGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PoqColor)
+                    .WithMany(p => p.TblProductOrganizationQuantity)
+                    .HasForeignKey(d => d.PoqColorId)
+                    .HasConstraintName("FK_Tbl_ProductOrganizationQuantity_Tbl_Colors");
+
+                entity.HasOne(d => d.PoqPo)
+                    .WithMany(p => p.TblProductOrganizationQuantity)
+                    .HasForeignKey(d => d.PoqPoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductOrganizationQuantity_Tbl_ProductOrganization");
+
+                entity.HasOne(d => d.PoqProvince)
+                    .WithMany(p => p.TblProductOrganizationQuantity)
+                    .HasForeignKey(d => d.PoqProvinceId)
+                    .HasConstraintName("FK_Tbl_ProductOrganizationQuantity_Tbl_Province");
+            });
+
             modelBuilder.Entity<TblProductTags>(entity =>
             {
                 entity.Property(e => e.PtId).ValueGeneratedNever();
@@ -994,6 +1048,16 @@ namespace BEFOYS.DataLayer.ServiceContext
                 entity.Property(e => e.SmsGuid).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.SmsModifiedDate).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.SmsLogin)
+                    .WithMany(p => p.TblSmsresponse)
+                    .HasForeignKey(d => d.SmsLoginId)
+                    .HasConstraintName("FK_Tbl_SMSResponse_Tbl_Login");
+
+                entity.HasOne(d => d.SmsSt)
+                    .WithMany(p => p.TblSmsresponse)
+                    .HasForeignKey(d => d.SmsStid)
+                    .HasConstraintName("FK_Tbl_SMSResponse_Tbl_SMSTemplate");
             });
 
             modelBuilder.Entity<TblSmssetting>(entity =>
@@ -1069,6 +1133,33 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.TokenLoginId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_Token_Tbl_Login");
+            });
+
+            modelBuilder.Entity<TblUnit>(entity =>
+            {
+                entity.Property(e => e.UnitGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.UnitLogoDocument)
+                    .WithMany(p => p.TblUnit)
+                    .HasForeignKey(d => d.UnitLogoDocumentId)
+                    .HasConstraintName("FK_Tbl_Unit_Tbl_Document");
+
+                entity.HasOne(d => d.UnitUg)
+                    .WithMany(p => p.TblUnit)
+                    .HasForeignKey(d => d.UnitUgid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Unit_Tbl_UnitGroup");
+
+                entity.HasOne(d => d.UnitUint)
+                    .WithMany(p => p.InverseUnitUint)
+                    .HasForeignKey(d => d.UnitUintId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Unit_Tbl_Unit");
+            });
+
+            modelBuilder.Entity<TblUnitGroup>(entity =>
+            {
+                entity.Property(e => e.UgGuid).HasDefaultValueSql("(newid())");
             });
 
             OnModelCreatingPartial(modelBuilder);

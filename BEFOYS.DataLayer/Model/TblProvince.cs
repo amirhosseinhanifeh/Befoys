@@ -11,6 +11,8 @@ namespace BEFOYS.DataLayer.Model
         public TblProvince()
         {
             TblCity = new HashSet<TblCity>();
+            TblOrganizationTransport = new HashSet<TblOrganizationTransport>();
+            TblProductOrganizationQuantity = new HashSet<TblProductOrganizationQuantity>();
         }
 
         [Key]
@@ -36,5 +38,9 @@ namespace BEFOYS.DataLayer.Model
         public virtual TblCountry ProvinceCountry { get; set; }
         [InverseProperty("CityProvince")]
         public virtual ICollection<TblCity> TblCity { get; set; }
+        [InverseProperty("OtProvince")]
+        public virtual ICollection<TblOrganizationTransport> TblOrganizationTransport { get; set; }
+        [InverseProperty("PoqProvince")]
+        public virtual ICollection<TblProductOrganizationQuantity> TblProductOrganizationQuantity { get; set; }
     }
 }
