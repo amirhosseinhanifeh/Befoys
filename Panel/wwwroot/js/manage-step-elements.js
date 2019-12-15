@@ -2,13 +2,13 @@ $(document).ready(function() {
 
     $("#addTelephone").click(function(){
 
-        var addressNum = $(this).parent().parent().parent().parent().attr("id").replace("address", "");
-        var telephoneNum = parseInt($(this).prev().find("input").attr("id").replace("telephone", "")) + 1;
+        var addressNum = parseInt($(this).parent().parent().parent().parent().attr("id").replace("address", "")) - 1;
+        var telephoneNum = parseInt($(this).prev().find("input").attr("id").replace("telephone" + addressNum + "_", "")) + 1;
 
         var input = $("<input/>").addClass("form-control mt-2 required").attr({
             type: "text",
-            id: "telephone" + telephoneNum,
-            name: "Addresses[" + (addressNum - 1) + "].phones[" + telephoneNum + "].PhoneValue"
+            id: "telephone" + addressNum + "_" + telephoneNum,
+            name: "Addresses[" + addressNum + "].phones[" + telephoneNum + "].PhoneValue"
         });
 
         var a = $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeTelephone").click(function () {
@@ -23,21 +23,13 @@ $(document).ready(function() {
 
     });
 
-    $("#removeTelephone").click(function () {
-        //$(this).parent().parent().remove();
-    });
-
-    $("#removeAddress").click(function () {
-        //$(this).parent().parent().parent().remove();
-    });
-
     $("#addAddress").click(function(){
         
-        var addressNum = parseInt($(this).prev().attr("id").replace("address", "")) + 1;
+        var addressNum = parseInt($(this).prev().attr("id").replace("address", ""));
 
         var heading = $("<div></div>").addClass("row").append(
             $("<div></div>").addClass("col-md-12 remove-address").append(
-                $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeAddress").text("آدرس " + addressNum).click(function () {
+                $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeAddress").text("آدرس " + (addressNum + 1)).click(function () {
                     $(this).parent().parent().parent().remove();
                 }).prepend(
                     $("<i></i>").addClass("zmdi zmdi-delete zmdi-hc-fw")
@@ -45,8 +37,8 @@ $(document).ready(function() {
             )
         );
 
-        var lblState = $("<label></label>").addClass("control-label").attr("for", "state").text("استان");
-        var states = $("<select></select>").addClass("form-control select2 required").attr("name", "Addresses[" + (addressNum - 1) + "].StateName").append(
+        var lblState = $("<label></label>").addClass("control-label").attr("for", "state" + addressNum).text("استان");
+        var states = $("<select></select>").addClass("form-control select2 required").attr("id", "state" + addressNum).attr("name", "Addresses[" + addressNum + "].StateName").append(
             $("<option></option>").attr("value", "Tehran").text("تهران")
         );
 
@@ -54,8 +46,8 @@ $(document).ready(function() {
             $("<div></div>").addClass("form-group").append(lblState).append(states)
         );
 
-        var lblCity = $("<label></label>").addClass("control-label").attr("for", "city").text("شهر");
-        var cities = $("<select></select>").addClass("form-control select2 required").attr("name", "Addresses[" + (addressNum - 1) + "].CityName").append(
+        var lblCity = $("<label></label>").addClass("control-label").attr("for", "city" + addressNum).text("شهر");
+        var cities = $("<select></select>").addClass("form-control select2 required").attr("id", "city" + addressNum).attr("name", "Addresses[" + addressNum + "].CityName").append(
             $("<option></option>").attr("value", "Tehran").text("تهران")
         );
 
@@ -65,10 +57,10 @@ $(document).ready(function() {
 
         var firstRow = $("<div></div>").addClass("row").append(state).append(city);
 
-        var lblAddress = $("<label></label>").addClass("control-label").attr("for", "address").text("آدرس");
+        var lblAddress = $("<label></label>").addClass("control-label").attr("for", "address" + addressNum).text("آدرس");
         var txtAddress = $("<textarea></textarea>").addClass("form-control required").attr({
-            id: "address",
-            name: "Addresses[" + (addressNum - 1) + "].Address",
+            id: "address" + addressNum,
+            name: "Addresses[" + addressNum + "].Address",
             rows: "3"
         });
 
@@ -78,12 +70,12 @@ $(document).ready(function() {
 
         var rightPart = $("<div></div>").addClass("col-md-6").append(firstRow).append(secondRow);
 
-        var lblTelephone = $("<label></label>").addClass("control-label").attr("for", "telephone1").text("تلفن ثابت");
+        var lblTelephone = $("<label></label>").addClass("control-label").attr("for", "telephone" + addressNum + "_0").text("تلفن ثابت");
 
         var inputTelephone = $("<input/>").addClass("form-control required").attr({
             type: "text",
-            id: "telephone0",
-            name: "Addresses[" + (addressNum - 1) +"].phones[0].PhoneValue"
+            id: "telephone" + addressNum + "_0",
+            name: "Addresses[" + addressNum +"].phones[0].PhoneValue"
         });
         var telephone = $("<div></div>").addClass("row").append(
             $("<div></div>").addClass("col-md-12 d-flex telephone").append(inputTelephone)
@@ -93,14 +85,13 @@ $(document).ready(function() {
             $("<a></a>").attr("href", "javascript:void(0)").text(" افزودن تلفن ثابت").prepend(
                 $("<i></i>").addClass("zmdi zmdi-plus zmdi-hc-fw")
             )
-        ).click(function() {
-
-            var telephoneNum = parseInt($(this).prev().find("input").attr("id").replace("telephone", "")) + 1;
+        ).click(function () {
+            var telephoneNum = parseInt($(this).prev().find("input").attr("id").replace("telephone" + addressNum + "_", "")) + 1;
 
             var input = $("<input/>").addClass("form-control mt-2 required").attr({
                 type: "text",
-                id: "telephone" + telephoneNum,
-                name: "Addresses[" + (addressNum - 1) + "].phones[" + telephoneNum + "].PhoneValue"
+                id: "telephone" + addressNum + "_" + telephoneNum,
+                name: "Addresses[" + addressNum + "].phones[" + telephoneNum + "].PhoneValue"
             });
 
             var a = $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeTelephone").click(function () {
@@ -119,7 +110,7 @@ $(document).ready(function() {
             $("<div></div>").addClass("form-group").append(lblTelephone).append(telephone).append(addTelephone)
         )
 
-        var address = $("<div></div>").addClass("address").attr("id", "address" + addressNum).append(heading).append(
+        var address = $("<div></div>").addClass("address").attr("id", "address" + (addressNum + 1)).append(heading).append(
             $("<div></div>").addClass("row").append(rightPart).append(leftPart)
         );
 

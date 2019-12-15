@@ -1,5 +1,5 @@
 :root {
-    --befoys-primary: #0066b3;
+    --befoys-primary: #1961AC;
 }
 
 body {
@@ -275,6 +275,19 @@ ul.nav-menu li.menu>a:before {
 
 .select2-container .select2-search--inline {
     float: right;
+}
+
+#ValueAddedCertificate {
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.custom-control.custom-checkbox {
+    padding-right: initial;
+}
+
+.custom-control-label:before {
+    display: none;
 }
 
 @media only screen and (max-width: 992px) {
