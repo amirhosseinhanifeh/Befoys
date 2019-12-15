@@ -28,7 +28,12 @@ namespace BEFOYS.DataLayer.Model
         [Column("OT_Display")]
         [StringLength(100)]
         public string OtDisplay { get; set; }
+        [Column("OT_DefaultPTID")]
+        public int? OtDefaultPtid { get; set; }
 
+        [ForeignKey(nameof(OtDefaultPtid))]
+        [InverseProperty(nameof(TblPanelType.TblOrganizationType))]
+        public virtual TblPanelType OtDefaultPt { get; set; }
         [InverseProperty("OrganizationOt")]
         public virtual ICollection<TblOrganization> TblOrganization { get; set; }
         [InverseProperty("OdnOt")]

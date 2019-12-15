@@ -10,7 +10,7 @@ namespace BEFOYS.DataLayer.Model
     {
         public TblPanelType()
         {
-            TblOrganization = new HashSet<TblOrganization>();
+            TblOrganizationType = new HashSet<TblOrganizationType>();
             TblPanelTypeControl = new HashSet<TblPanelTypeControl>();
             TblPanelTypePermission = new HashSet<TblPanelTypePermission>();
         }
@@ -33,8 +33,8 @@ namespace BEFOYS.DataLayer.Model
         [Column("PT_Price")]
         public int? PtPrice { get; set; }
 
-        [InverseProperty("OrganizationDefaultPt")]
-        public virtual ICollection<TblOrganization> TblOrganization { get; set; }
+        [InverseProperty("OtDefaultPt")]
+        public virtual ICollection<TblOrganizationType> TblOrganizationType { get; set; }
         [InverseProperty("PtcPt")]
         public virtual ICollection<TblPanelTypeControl> TblPanelTypeControl { get; set; }
         [InverseProperty("PtpPt")]

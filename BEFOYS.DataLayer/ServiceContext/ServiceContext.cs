@@ -60,10 +60,10 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblProductCustomRequestFormValue> TblProductCustomRequestFormValue { get; set; }
         public virtual DbSet<TblProductCustomRequestMessage> TblProductCustomRequestMessage { get; set; }
         public virtual DbSet<TblProductDetails> TblProductDetails { get; set; }
+        public virtual DbSet<TblProductDetailsNoClassification> TblProductDetailsNoClassification { get; set; }
         public virtual DbSet<TblProductDocument> TblProductDocument { get; set; }
         public virtual DbSet<TblProductFeatureGroup> TblProductFeatureGroup { get; set; }
         public virtual DbSet<TblProductFeatureItems> TblProductFeatureItems { get; set; }
-        public virtual DbSet<TblProductFeatureNoClassification> TblProductFeatureNoClassification { get; set; }
         public virtual DbSet<TblProductFeatures> TblProductFeatures { get; set; }
         public virtual DbSet<TblProductOrganization> TblProductOrganization { get; set; }
         public virtual DbSet<TblProductOrganizationDiscount> TblProductOrganizationDiscount { get; set; }
@@ -348,12 +348,6 @@ namespace BEFOYS.DataLayer.ServiceContext
 
                 entity.Property(e => e.OrganizationModifyDate).HasDefaultValueSql("(getdate())");
 
-                entity.HasOne(d => d.OrganizationDefaultPt)
-                    .WithMany(p => p.TblOrganization)
-                    .HasForeignKey(d => d.OrganizationDefaultPtid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Tbl_Organization_Tbl_PanelType");
-
                 entity.HasOne(d => d.OrganizationMotherOrganization)
                     .WithMany(p => p.InverseOrganizationMotherOrganization)
                     .HasForeignKey(d => d.OrganizationMotherOrganizationId)
@@ -531,6 +525,11 @@ namespace BEFOYS.DataLayer.ServiceContext
             modelBuilder.Entity<TblOrganizationType>(entity =>
             {
                 entity.Property(e => e.OtGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.OtDefaultPt)
+                    .WithMany(p => p.TblOrganizationType)
+                    .HasForeignKey(d => d.OtDefaultPtid)
+                    .HasConstraintName("FK_Tbl_OrganizationType_Tbl_PanelType");
             });
 
             modelBuilder.Entity<TblPanelType>(entity =>
@@ -839,6 +838,20 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_ProductDetails_Tbl_Product");
             });
 
+            modelBuilder.Entity<TblProductDetailsNoClassification>(entity =>
+            {
+                entity.HasKey(e => e.PfncId)
+                    .HasName("PK_Tbl_ProductFeatureNoClassification");
+
+                entity.Property(e => e.PfncGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PfncProduct)
+                    .WithMany(p => p.TblProductDetailsNoClassification)
+                    .HasForeignKey(d => d.PfncProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductFeatureNoClassification_Tbl_Product");
+            });
+
             modelBuilder.Entity<TblProductDocument>(entity =>
             {
                 entity.Property(e => e.PdId).ValueGeneratedNever();
@@ -876,17 +889,6 @@ namespace BEFOYS.DataLayer.ServiceContext
             modelBuilder.Entity<TblProductFeatureItems>(entity =>
             {
                 entity.Property(e => e.PfiGuid).HasDefaultValueSql("(newid())");
-            });
-
-            modelBuilder.Entity<TblProductFeatureNoClassification>(entity =>
-            {
-                entity.Property(e => e.PfncGuid).HasDefaultValueSql("(newid())");
-
-                entity.HasOne(d => d.PfncProduct)
-                    .WithMany(p => p.TblProductFeatureNoClassification)
-                    .HasForeignKey(d => d.PfncProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Tbl_ProductFeatureNoClassification_Tbl_Product");
             });
 
             modelBuilder.Entity<TblProductFeatures>(entity =>

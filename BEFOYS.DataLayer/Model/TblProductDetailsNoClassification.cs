@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BEFOYS.DataLayer.Model
 {
-    [Table("Tbl_ProductFeatureNoClassification")]
-    public partial class TblProductFeatureNoClassification
+    [Table("Tbl_ProductDetailsNoClassification")]
+    public partial class TblProductDetailsNoClassification
     {
         [Key]
         [Column("PFNC_ID")]
@@ -18,8 +18,13 @@ namespace BEFOYS.DataLayer.Model
         public string PfncValue { get; set; }
         [Column("PFNC_ProductID")]
         public int PfncProductId { get; set; }
+        [Column("PFNC_IsAccept")]
+        public bool? PfncIsAccept { get; set; }
+        [Column("PFNC_Reason")]
+        public string PfncReason { get; set; }
 
         [ForeignKey(nameof(PfncProductId))]
+        [InverseProperty(nameof(TblProduct.TblProductDetailsNoClassification))]
         public virtual TblProduct PfncProduct { get; set; }
     }
 }

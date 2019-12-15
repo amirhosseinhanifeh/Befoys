@@ -31,8 +31,6 @@ namespace BEFOYS.DataLayer.Model
         public Guid OrganizationGuid { get; set; }
         [Column("Organization_OTID")]
         public int OrganizationOtid { get; set; }
-        [Column("Organization_DefaultPTID")]
-        public int OrganizationDefaultPtid { get; set; }
         [Column("Organization_NameInformationID")]
         public int? OrganizationNameInformationId { get; set; }
         [Required]
@@ -52,15 +50,13 @@ namespace BEFOYS.DataLayer.Model
         public DateTime OrganizationCreateDate { get; set; }
         [Column("Organization_ModifyDate")]
         public DateTime OrganizationModifyDate { get; set; }
+        [Column("Organization_HasPanel")]
+        public bool? OrganizationHasPanel { get; set; }
 
-        [ForeignKey(nameof(OrganizationDefaultPtid))]
-        [InverseProperty(nameof(TblPanelType.TblOrganization))]
-        public virtual TblPanelType OrganizationDefaultPt { get; set; }
         [ForeignKey(nameof(OrganizationMotherOrganizationId))]
         [InverseProperty(nameof(TblOrganization.InverseOrganizationMotherOrganization))]
         public virtual TblOrganization OrganizationMotherOrganization { get; set; }
         [ForeignKey(nameof(OrganizationNameInformationId))]
-        [InverseProperty("TblOrganization")]
         public virtual TblOrganizationInformation OrganizationNameInformation { get; set; }
         [ForeignKey(nameof(OrganizationOtid))]
         [InverseProperty(nameof(TblOrganizationType.TblOrganization))]

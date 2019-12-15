@@ -40,12 +40,10 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
             {
                 var user = User.Identity.UserID();
                 var ot = await _context.TblOrganizationType.FirstOrDefaultAsync(x => x.OtName == type.ToString());
-                var de = await _context.TblPanelType.FirstOrDefaultAsync(x => x.PtName == Enum_PanelType.DEFAULT.ToString());
                 if (!_context.TblEmployee.Any(x => x.EmployeeLoginId == user))
                 {
                     TblOrganization organization = new TblOrganization()
                     {
-                        OrganizationDefaultPtid = de.PtId,
                         OrganizationIsActive = true,
                         OrganizationIsBan = false,
                         OrganizationIsRegistar = true,
@@ -238,7 +236,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                         OdDocumentId = doc,
                         OdIsAccept = null,
                         OdOrganizationId = organization.EmployeeOrganizationId,
-
+                        
                     };
                     _context.TblOrganizationDocument.Add(data);
                     await _context.SaveChangesAsync();

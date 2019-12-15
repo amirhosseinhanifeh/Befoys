@@ -21,6 +21,8 @@ namespace BEFOYS.DataLayer.Model
         public double PodPercentValue { get; set; }
         [Column("POD_POID")]
         public int PodPoid { get; set; }
+        [Column("POD_PreparationTime")]
+        public double? PodPreparationTime { get; set; }
 
         [ForeignKey(nameof(PodPoid))]
         [InverseProperty(nameof(TblProductOrganization.TblProductOrganizationDiscount))]

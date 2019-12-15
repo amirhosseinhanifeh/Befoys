@@ -102,6 +102,7 @@ namespace BEFOYS.WEB.Controllers
                 {
                     return Ok(new { Smserror = true });
                 }
+
                 //else
                 //     EmailPortal.SendEmail(model.UserName,"کد تاییدیه",$"کد تاییدیه شما {Code} می باشد");
                 await _context.SaveChangesAsync();
@@ -119,32 +120,67 @@ namespace BEFOYS.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Verify([FromBody] ViewVerify model)
         {
-            var login = await _context.TblLogin.FirstOrDefaultAsync(x => x.LoginMobile == model.Mobile);
-            if (login != null)
+            try
             {
-                //var token = _context.TblToken.AsEnumerable().Where(x => x.TokenLoginId == login.LoginId && x.TokenExp > DateTime.Now).LastOrDefault();
-                //if (token == null)
-                //{
-                //if (token.TokenHush == model.Code)
-                //{
 
-                string tokenkey = GenerateJSONWebToken(login);
-                string panel = null;
-                if (login.LoginIsRegister)
+
+
+                var login = await _context.TblLogin.FirstOrDefaultAsync(x => x.LoginMobile == model.Mobile);
+
+                if (login != null)
                 {
-                    panel = login.TblEmployee.First().EmployeeOrganization.OrganizationOt.OtName;
+                    var employee = _context.TblEmployee.Include(x => x.EmployeeOrganization.OrganizationOt).Include(x => x.EmployeeOrganization).FirstOrDefault(x => x.EmployeeLoginId == login.LoginId);
+                    //var token = _context.TblToken.AsEnumerable().Where(x => x.TokenLoginId == login.LoginId && x.TokenExp > DateTime.Now).LastOrDefault();
+                    //if (token == null)
+                    //{
+                    //if (token.TokenHush == model.Code)
+                    //{
+
+                    string tokenkey = GenerateJSONWebToken(login);
+                    string panel = null;
+                    if (login.LoginIsRegister)
+                    {
+                        panel = employee.EmployeeOrganization.OrganizationOt.OtName;
+                    }
+                    else
+                    {
+                        return Ok(new { isOK = true, token = tokenkey, IsRegister = login.LoginIsRegister });
+
+                    }
+                    if (employee.EmployeeIsAgent)
+                    {
+                        var ss = _context.TblPanelTypeControl.Include(x=>x.PtcPt).Include(x=>x.PtcPt.TblPanelTypePermission).AsEnumerable().LastOrDefault(x => x.PtcOrganizationId == employee.EmployeeOrganizationId);
+                        var og = ss?.PtcPt?.TblPanelTypePermission?.Select(y => y.PtpPermission.PermissionName).ToArray();
+
+                        return Ok(new { isOK = true, token = tokenkey, IsRegister = login.LoginIsRegister, panel = panel, permissions = og });
+
+                    }
+                    else
+                    {
+                        var ss = _context.TblOrganizationRole.AsEnumerable().LastOrDefault(x => x.OrOrganizationId == employee.EmployeeOrganizationId);
+                        var og = ss?.TblOrganizationRolePermission?.Select(y => y.OrpPermission.PermissionName).ToArray();
+
+                        return Ok(new { isOK = true, token = tokenkey, IsRegister = login.LoginIsRegister, panel = panel, permissions = og });
+                    }
+                  
                 }
-                return Ok(new { isOK = true, token = tokenkey, IsRegister = login.LoginIsRegister, panel = panel });
-
-                //}
-                //else
-                //{
-                //    return Ok(new { isOK = false });
-                //}
-                //}
+                return Ok(new BaseViewModel<object>
+                {
+                    Message = ViewMessage.LoginFailed,
+                    NotificationType = DataLayer.Enums.Enum_NotificationType.success
+                    //}
+                    //else
+                    //{
+                    //    return Ok(new { isOK = false });
+                    //}
+                    //}
+                });
             }
-            return Ok(new BaseViewModel<object> { Message = ViewMessage.LoginFailed, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
+            catch (Exception e)
+            {
 
+                throw;
+            }
         }
 
         [HttpPost]

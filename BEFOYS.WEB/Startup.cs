@@ -36,7 +36,7 @@ namespace BEFOYS.WEB
         {
             services.AddControllers();
             services.AddDbContext<ServiceContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
+        options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")).UseLazyLoadingProxies());
 
             //Jwt
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

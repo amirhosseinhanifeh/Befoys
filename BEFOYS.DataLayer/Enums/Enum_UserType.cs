@@ -10,5 +10,7 @@ namespace BEFOYS.DataLayer.Enums
         Supplier_Real,
         Supplier_Legal,
         SUBUSER,
+        Customer,
+        BEFOYS
     }
 }

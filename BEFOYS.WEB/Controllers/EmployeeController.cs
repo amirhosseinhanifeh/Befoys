@@ -43,7 +43,8 @@ namespace BEFOYS.WEB.Controllers
                     EmployeeIsAgent=model.EmployeeIsAgent,
                     EmployeeWalletSize=model.EmployeeWalletSize,
                     EmployeeOrid=model.EmployeeOrid,
-                    EmployeeOrganizationId=organization.EmployeeOrganizationId
+                    EmployeeOrganizationId=organization.EmployeeOrganizationId,
+                   
                 };
                 await _context.TblEmployee.AddAsync(ci);
                 await _context.SaveChangesAsync();

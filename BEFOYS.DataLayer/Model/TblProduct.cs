@@ -13,8 +13,8 @@ namespace BEFOYS.DataLayer.Model
             TblProductCode = new HashSet<TblProductCode>();
             TblProductColors = new HashSet<TblProductColors>();
             TblProductDetails = new HashSet<TblProductDetails>();
+            TblProductDetailsNoClassification = new HashSet<TblProductDetailsNoClassification>();
             TblProductDocument = new HashSet<TblProductDocument>();
-            TblProductFeatureNoClassification = new HashSet<TblProductFeatureNoClassification>();
             TblProductOrganization = new HashSet<TblProductOrganization>();
             TblProductTags = new HashSet<TblProductTags>();
         }
@@ -52,10 +52,10 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblProductColors> TblProductColors { get; set; }
         [InverseProperty("PdProduct")]
         public virtual ICollection<TblProductDetails> TblProductDetails { get; set; }
+        [InverseProperty("PfncProduct")]
+        public virtual ICollection<TblProductDetailsNoClassification> TblProductDetailsNoClassification { get; set; }
         [InverseProperty("PdProduct")]
         public virtual ICollection<TblProductDocument> TblProductDocument { get; set; }
-        [InverseProperty("PfncProduct")]
-        public virtual ICollection<TblProductFeatureNoClassification> TblProductFeatureNoClassification { get; set; }
         [InverseProperty("PoProduct")]
         public virtual ICollection<TblProductOrganization> TblProductOrganization { get; set; }
         [InverseProperty("PtProduct")]

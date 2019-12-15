@@ -23,6 +23,10 @@ namespace BEFOYS.DataLayer.Model
         public string PdDescription { get; set; }
         [Column("PD_PFIID")]
         public int? PdPfiid { get; set; }
+        [Column("PD_IsAccept")]
+        public bool? PdIsAccept { get; set; }
+        [Column("PD_Reason")]
+        public string PdReason { get; set; }
 
         [ForeignKey(nameof(PdPfid))]
         [InverseProperty(nameof(TblProductFeatures.TblProductDetails))]
