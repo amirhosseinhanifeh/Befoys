@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using BEFOYS.DataLayer.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Panel.DownloadData;
@@ -17,10 +18,7 @@ namespace Panel.Controllers
         {
             return View();
         }
-        public IActionResult Result()
-        {
-            return View();
-        }
+
         [HttpPost]
         public IActionResult Step1(HaghighiViewModel model)
         {
@@ -31,33 +29,41 @@ namespace Panel.Controllers
             var result = DownloadData<dynamic>.DownloadValue("https://localhost:44317/api/Step/UpdateInformation", "POST", json, Token);
             return View();
         }
+
+        public IActionResult Result()
+        {
+            return View();
+        }
+
         public string Get(string key)
         {
             return Request.Cookies[key];
         }
+
         [Route("Step/Step2")]
         public IActionResult Step2()
         {
             return View();
         }
-        [HttpPost]
-       
-        public IActionResult Step2(StepValuesViewModel[] model)
-        {
 
+        [HttpPost]
+        public IActionResult Step2(StepValuesViewModel[] infoes)
+        {
             string Token = Get("token");
             //model.StepNumber = 1;
-            string json = JsonConvert.SerializeObject(model);
+            string json = JsonConvert.SerializeObject(infoes);
             var result = DownloadData<dynamic>.DownloadValue("https://localhost:44317/api/Step/UpdateInformation", "POST", json, Token);
             return View();
         }
-        [Route("Step/Step3")]
-        public IActionResult Step3()
+
+        [HttpPost]
+        public IActionResult Step3([FromForm]IFormCollection files)
         {
             return View();
         }
-        
-        public IActionResult Step4()
+
+        [HttpPost]
+        public IActionResult Step4(string[] select1, string[] select2)
         {
             return View();
         }

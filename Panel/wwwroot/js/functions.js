@@ -233,7 +233,7 @@
      ==============================================================================================*/
     if ($.isFunction(PerfectScrollbar)) {
         var scOptions = {
-            wheelSpeed: 2
+            wheelSpeed: 0.25
         };
         
         if ($('.main-menu').length > 0) {
