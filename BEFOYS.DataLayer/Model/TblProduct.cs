@@ -30,6 +30,8 @@ namespace BEFOYS.DataLayer.Model
         public int? ProductBrandsId { get; set; }
         [Column("Product_LoginID")]
         public int ProductLoginId { get; set; }
+        [Column("Product_OrganizationId")]
+        public int? ProductOrganizationId { get; set; }
         [Required]
         [Column("Product_Name")]
         public string ProductName { get; set; }
@@ -43,6 +45,12 @@ namespace BEFOYS.DataLayer.Model
         [ForeignKey(nameof(ProductBrandsId))]
         [InverseProperty(nameof(TblBrands.TblProduct))]
         public virtual TblBrands ProductBrands { get; set; }
+        [ForeignKey(nameof(ProductLoginId))]
+        [InverseProperty(nameof(TblLogin.TblProduct))]
+        public virtual TblLogin ProductLogin { get; set; }
+        [ForeignKey(nameof(ProductOrganizationId))]
+        [InverseProperty(nameof(TblOrganization.TblProduct))]
+        public virtual TblOrganization ProductOrganization { get; set; }
         [ForeignKey(nameof(ProductPcid))]
         [InverseProperty(nameof(TblProductCategory.TblProduct))]
         public virtual TblProductCategory ProductPc { get; set; }

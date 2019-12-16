@@ -31,6 +31,7 @@ namespace BEFOYS.DataLayer.Model
         public string OiRejectDetails { get; set; }
 
         [ForeignKey(nameof(OiOrganizationId))]
+        [InverseProperty("TblOrganizationInformation")]
         public virtual TblOrganization OiOrganization { get; set; }
         [ForeignKey(nameof(OiTypeCodeId))]
         [InverseProperty(nameof(TblCode.TblOrganizationInformation))]

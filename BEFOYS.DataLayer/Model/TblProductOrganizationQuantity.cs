@@ -21,6 +21,8 @@ namespace BEFOYS.DataLayer.Model
         public int PoqInventory { get; set; }
         [Column("POQ_ProvinceID")]
         public int? PoqProvinceId { get; set; }
+        [Column("POQ_BasePrice")]
+        public int? PoqBasePrice { get; set; }
 
         [ForeignKey(nameof(PoqColorId))]
         [InverseProperty(nameof(TblColors.TblProductOrganizationQuantity))]

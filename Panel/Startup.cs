@@ -28,7 +28,7 @@ namespace Panel
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             var connection = "Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;";
-            services.AddDbContext<ServiceContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<ServiceContext>(options => options.UseSqlServer(connection).UseLazyLoadingProxies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

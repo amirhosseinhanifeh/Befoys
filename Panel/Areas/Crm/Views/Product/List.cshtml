@@ -1,0 +1,84 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProductOrganization>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            نام محصول
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PoIsCustomization)
+            </th>
+            <th>
+               وضعیت
+            </th>
+            <th>
+                دارای کارشناسی
+            </th>
+            <th>
+             موجودی
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PoIsDelete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PoIsHas)
+            </th>
+            <th>
+                توضیحات
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PoGuaranteeId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.PoProduct.ProductName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PoIsCustomization)
+                </td>
+                <td>@(item.PoIsReject?"رد شده" :"")</td>
+                <td>
+                    @(item.PoHasExperts?"دارد":"ندارد")
+                </td>
+                <td>
+                    @item.TblProductOrganizationQuantity.Sum(y=>y.PoqInventory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PoIsDelete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PoIsHas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PoDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PoGuaranteeId)
+                </td>
+                <td><a asp-action="Index" asp-controller="ProductQuantity" asp-route-id="@item.PoProductId">تنوع کالا</a></td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

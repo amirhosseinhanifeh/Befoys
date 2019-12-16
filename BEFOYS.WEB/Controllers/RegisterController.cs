@@ -85,14 +85,6 @@ namespace BEFOYS.WEB.Controllers
                 };
                 _context.TblToken.Add(toke);
 
-                //switch (model.Role)
-                //{
-                //    case Enum_BaseRole.SUPPLIER:
-                //        RegisterSupplier(login.Login_ID, model.Type);
-                //        break;
-                //    case Enum_BaseRole.CUSTOMER:
-                //        break;
-                //}
 
                 try
                 {
@@ -236,35 +228,6 @@ namespace BEFOYS.WEB.Controllers
 
             }
         }
-        //[HttpPost]
-        //public async Task<IActionResult> Post([FromBody]ViewBaseRegister model)
-        //{
-        //    try
-        //    {
-        //        if (!_context.TblLogin.Any(x => x.LoginMobile == model.Mobile) && !_context.TblLogin.Any(x => x.LoginEmail == model.Email))
-        //        {
-
-        //            TblLogin login = new TblLogin()
-        //            {
-        //                LoginMobile = model.Mobile,
-        //            };
-
-        //            await _context.TblLogin.AddAsync(login);
-
-        //            //پنل پیش فرض گذاشته شود
-
-        //            string token = GenerateJSONWebToken(login);
-        //            return Ok(new BaseViewModel<object> { Value = new { token = token }, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success });
-        //        }
-        //        return Ok(new BaseViewModel<TblLogin> { Value = null, Message = ViewMessage.Duplicate, NotificationType = DataLayer.Enums.Enum_NotificationType.warning });
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Ok(new BaseViewModel<TblLogin> { Value = null, Message = ViewMessage.Error, NotificationType = DataLayer.Enums.Enum_NotificationType.error });
-        //    }
-
-        //}
         /// <summary>
         /// generate token
         /// </summary>

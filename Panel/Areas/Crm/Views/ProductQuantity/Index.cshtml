@@ -1,0 +1,74 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProductOrganizationQuantity>
+@using BEFOYS.DataLayer.Model
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    int index = 0;
+    List<TblProductOrganizationQuantity> quantities = Model.ToList();
+
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.ID" >Create New</a>
+</p>
+
+<form method="post" action="@Url.Action("UpdateQuantity",new {id=ViewBag.ID })">
+    <input type="hidden" value="@ViewBag.ID" name="id" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    کد
+                </th>
+                <th>
+                    رنگ
+                </th>
+                <th>
+                    قیمت پایه
+                </th>
+                <th>
+                    حداقل موجودی
+                </th>
+                <th>
+                    استان
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                TblProductOrganizationQuantity quantity = quantities[index];
+                <input type="hidden" name="model[@index].PoqId" value="@item.PoqId" />
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PoqId)
+                    </td>
+                    <td>
+                        @(item.PoqColor?.ColorsName ?? "بدون رنگ")
+                    </td>
+                    <td>
+                        <input name="model[@index].PoqBasePrice" value="@item.PoqBasePrice" />
+                    </td>
+                    <td>
+                        <input name="model[@index].PoqInventory" value="@item.PoqInventory" />
+                    </td>
+                    <td>
+                        @(item.PoqProvince?.ProvinceDisplay ?? "بدون استان")
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id=item.PoqId,POID=ViewBag.ID })
+                    </td>
+                </tr>
+                index++;
+            }
+        </tbody>
+        <tfoot>
+            <button type="submit" class="btn btn-success">Save</button>
+        </tfoot>
+    </table>
+    @ViewBag.Message
+</form>

@@ -47,7 +47,7 @@
                     jumpToNextStep(num);
                 });
 
-            } else if (form == "#step3") {
+            } else if (form === "#step3") {
 
                 var $formData = new FormData();
 

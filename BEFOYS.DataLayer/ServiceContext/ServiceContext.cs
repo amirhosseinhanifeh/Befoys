@@ -621,6 +621,17 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.ProductBrandsId)
                     .HasConstraintName("FK_Tbl_Product_Tbl_Brands");
 
+                entity.HasOne(d => d.ProductLogin)
+                    .WithMany(p => p.TblProduct)
+                    .HasForeignKey(d => d.ProductLoginId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Product_Tbl_Login");
+
+                entity.HasOne(d => d.ProductOrganization)
+                    .WithMany(p => p.TblProduct)
+                    .HasForeignKey(d => d.ProductOrganizationId)
+                    .HasConstraintName("FK_Tbl_Product_Tbl_Organization");
+
                 entity.HasOne(d => d.ProductPc)
                     .WithMany(p => p.TblProduct)
                     .HasForeignKey(d => d.ProductPcid)

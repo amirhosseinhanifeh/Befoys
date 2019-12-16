@@ -28,8 +28,6 @@ namespace BEFOYS.DataLayer.Model
         [Column("Province_Display")]
         [StringLength(50)]
         public string ProvinceDisplay { get; set; }
-        [Column("Province_CityID")]
-        public int ProvinceCityId { get; set; }
         [Column("Province_CountryID")]
         public int ProvinceCountryId { get; set; }
 
