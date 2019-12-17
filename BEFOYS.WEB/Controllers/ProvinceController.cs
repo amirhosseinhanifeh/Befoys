@@ -32,7 +32,6 @@ namespace BEFOYS.WEB.Controllers
             {
                 TblProvince pr = new TblProvince()
                 {
-                    ProvinceCityId=model.CityID,
                     ProvinceDisplay=model.Display,
                     ProvinceName=model.Name,
                     

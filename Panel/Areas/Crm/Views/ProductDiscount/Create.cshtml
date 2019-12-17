@@ -1,0 +1,51 @@
+﻿@model BEFOYS.DataLayer.Model.TblProductOrganizationDiscount
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>TblProductOrganizationDiscount</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PodFromCount" class="control-label"></label>
+                <input asp-for="PodFromCount" class="form-control" />
+                <span asp-validation-for="PodFromCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PodToCount" class="control-label"></label>
+                <input asp-for="PodToCount" class="form-control" />
+                <span asp-validation-for="PodToCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PodPercentValue" class="control-label"></label>
+                <input asp-for="PodPercentValue" class="form-control" />
+                <span asp-validation-for="PodPercentValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PodPoid" class="control-label"></label>
+                <input asp-for="PodPoid" class="form-control" />
+                <span asp-validation-for="PodPoid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PodPreparationTime" class="control-label"></label>
+                <input asp-for="PodPreparationTime" class="form-control" />
+                <span asp-validation-for="PodPreparationTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

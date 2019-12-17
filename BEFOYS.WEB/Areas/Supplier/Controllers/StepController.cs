@@ -131,25 +131,29 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                         }
                     }
                 }
-                foreach (var item in model.infoes)
+                if (model.infoes != null)
                 {
-                    var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == employe.EmployeeOrganizationId);
-                    if (info == null)
+                    foreach (var item in model.infoes)
                     {
-
-                        TblOrganizationInformation tblOrganizationInformation = new TblOrganizationInformation()
+                        var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == employe.EmployeeOrganizationId);
+                        if (info == null)
                         {
-                            OiIsAccept = null,
-                            OiOrganizationId = employe.EmployeeOrganizationId,
-                            OiText = item.Value,
-                            OiTypeCodeId = item.TypeCodeId
-                        };
-                        _context.TblOrganizationInformation.Add(tblOrganizationInformation);
 
-                    }
-                    else
-                    {
-                        info.OiText = item.Value;
+                            TblOrganizationInformation tblOrganizationInformation = new TblOrganizationInformation()
+                            {
+                                OiIsAccept = null,
+                                OiOrganizationId = employe.EmployeeOrganizationId,
+                                OiText = item.Value,
+                                OiTypeCodeId = item.TypeCodeId,
+                                
+                            };
+                            _context.TblOrganizationInformation.Add(tblOrganizationInformation);
+
+                        }
+                        else
+                        {
+                            info.OiText = item.Value;
+                        }
                     }
                 }
 
@@ -192,7 +196,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 return new BaseViewModel<bool>
                 {
                     Value = false,
-                    Message = ViewMessage.Error,
+                    Message =e.Message,
                     NotificationType = DataLayer.Enums.Enum_NotificationType.error
                 };
             }
