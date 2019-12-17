@@ -1,0 +1,907 @@
+@import './font.css';
+@font-face {
+    font-family: Yekan;
+    src: url('../fonts/yekan/Yekan.woff')
+}
+
+:root {
+    --befoys-primary: #1961ac;
+    --befoys-orange: #f36f32;
+    --text-color: #363636;
+}
+
+body {
+    font-family: Yekan;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    width: 100vw;
+    height: 100vh;
+    direction: rtl;
+    font: 100% Yekan, Tahoma, sans-serif;
+}
+
+.befoys-primary-bg {
+    background-color: var(--befoys-primary) !important;
+    color: #fff !important;
+}
+
+.befoys-orange-bg {
+    background-color: var(--befoys-orange) !important;
+    color: #fff !important;
+}
+
+.befoys-primary-text {
+    color: var(--befoys-primary) !important;
+}
+
+.befoys-orange-text {
+    color: var(--befoys-orange) !important;
+}
+
+.befoys-dark-text {
+    color: var(--text-color) !important;
+}
+
+.mar-r-10 {
+    margin-right: 10px;
+}
+
+.mar-b-zero {
+    margin-bottom: -0.3rem !important;
+}
+
+.mar-b-plus {
+    margin-bottom: 0.3rem !important;
+}
+
+.befoys-logo-black {
+    display: none;
+}
+
+.home-background {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background: url("../images/curve-suppliers.png") no-repeat center / cover;
+}
+
+.home-layout {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-befoys-logo-blue {
+    display: none;
+}
+
+.befoys-logo-white {
+    position: absolute;
+    left: 27px;
+    z-index: 1;
+    height: 85px;
+    margin-top: 30px;
+    margin-left: 15px;
+}
+
+.home-content {
+    width: 1000px;
+    height: 650px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.home-content .home-picture {
+    width: 1000px;
+    height: 650px;
+    position: absolute;
+    top: 0;
+    left: 20%;
+}
+
+.home-laptop-logo {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 900px;
+    height: 600px;
+    shape-outside: url('../images/laptop.png');
+}
+
+.descs {
+    position: relative;
+    top: 5%;
+    left: -20px;
+}
+
+.home-desc-min-size {
+    position: absolute;
+    top: 0;
+    right: -100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+}
+
+.home-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.home-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-content h1,
+.home-content h2,
+.home-content .home-buttons,
+.home-content .home-social {
+    width: 50%;
+}
+
+.home-content h1 {
+    margin: 25px 0 0 0;
+    color: var(--text-color) !important;
+    font-size: 40px;
+    width: 115%;
+}
+
+.home-content h2 {
+    max-width: 375px;
+    font-size: 28px;
+    margin: 73px 0px 0 0;
+    color: var(--text-color) !important;
+}
+
+.home-content .home-buttons {
+    position: relative;
+    margin-top: 90px;
+}
+
+.home-button-buttom {
+    color: #fff;
+    font-size: 17px;
+    padding: 13px 90px !important;
+    border-radius: 25px !important;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    margin-right: 0 !important;
+}
+
+.home-button-top {
+    color: #fff;
+    font-size: 17px;
+    padding: 13px 85px !important;
+    border-radius: 25px !important;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    margin-right: 0 !important;
+}
+
+.home-content .home-social {
+    margin-top: 25px;
+}
+
+.home-content .home-social a {
+    color: var(--text-color);
+    margin: 0 15px;
+}
+
+
+/* modal */
+
+
+/* modal */
+
+
+/* modal */
+
+
+/* #homelogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+
+.home-modal {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.home-form-logo-box {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-form-logo-image {
+    width: 110px;
+}
+
+.home-modal-form {
+    padding: 30px 40px;
+}
+
+.home-modal-form-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.home-modal-form-email {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.home-modal-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.home-modal-btn1 {
+    padding: 9px 50px;
+    outline: none;
+    border: none;
+}
+
+.home-modal-btn2 {
+    padding: 9px 30px;
+    outline: none;
+    border: none;
+}
+
+#emailForm {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#loginEmail {
+    display: none;
+}
+
+#phoneloginBtn {
+    display: none;
+}
+
+#phoneCodeSendInput {
+    display: none;
+}
+
+#phoneFormInvalid {
+    display: none;
+}
+
+.home-modal-sencode-buttons {
+    display: none;
+}
+
+.emailInputInvalid {
+    display: none;
+}
+
+.passwordInputInvalid {
+    display: none;
+}
+
+#sendCodeCanceleBtn {
+    padding: 8px 60px;
+}
+
+#sendCodeHandlerBtn {
+    padding: 8px 75px;
+}
+
+#phoneCodeSendinputInvalid,
+#employeCodeInvalid,
+#phoneFormInvalid,
+#emailInputInvalid,
+#passwordInputInvalid {
+    text-align: right !important;
+    font-size: 14px !important;
+}
+
+.registerItemsBox {
+    display: none;
+}
+
+
+/* .registerItemsButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+#hagigiButton,
+#hogogiButton {
+    padding: 9px 85px;
+    margin-right: 0 !important;
+    color: #fff;
+    font-size: 16px;
+}
+
+#employeButton {
+    padding: 9px 125px !important;
+    color: #fff;
+    font-size: 16px;
+}
+
+.employeFirstStepBox {
+    display: none;
+}
+
+#employeFirstStepInputBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.employeFirstStepButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 30px;
+    margin-top: 20px;
+}
+
+#employeCanceleButton {
+    padding: 7px 75px !important;
+    margin-right: 0 !important;
+    font-size: 16px;
+    color: #fff;
+}
+
+#employeBeginButton {
+    padding: 7px 82px !important;
+    margin-right: 0 !important;
+    font-size: 16px;
+    color: #fff;
+}
+
+.employeSecondStepInputBox {
+    display: none;
+}
+
+.employeEmailDivision,
+.employePasswordDivision,
+.employeLastnameDivision,
+.employeNameDivision {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.employeBirthdayDivision {
+    width: 85%;
+}
+
+.employeBirthdaySelects {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#daySelect,
+#monthSelect,
+#yearSelect {
+    margin: 10px;
+}
+
+.employeGenderDivision {
+    width: 85%;
+    display: block;
+}
+
+.employeGenders {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#genderSelect {
+    width: 94% !important;
+}
+
+.employeFinalButtons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80% !important;
+}
+
+#employeRegisterFinalId {
+    padding: 7px 66px !important;
+    margin-right: 0;
+}
+
+#employeRegisterFinalCanceleId {
+    padding: 7px 57px !important;
+}
+
+
+/* #employeCodeinput {
+    width: 100% !important;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+}
+
+#employeCodeinput:focus {
+    padding-top: -7px !important;
+    width: 70% !important;
+    border: none !important;
+    border-bottom: 1px solid var(--befoys-primary) !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+}
+
+#employeCodeinput:focus #employeCodeLabel {
+    margin-top: 7px !important;
+} */
+
+
+/* media  */
+
+
+/* media  */
+
+
+/* media  */
+
+
+/* media  */
+
+@media screen and (max-width: 1400px) {
+    .home-desc-min-size {
+        right: -230px !important;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .home-content .home-buttons {
+        left: 50px;
+        margin-top: 90px;
+    }
+    .home-content h1 {
+        text-align: center;
+        margin-left: 85px;
+    }
+    .home-content h2 {
+        margin-right: -100px;
+    }
+    .home-desc-min-size {
+        right: -180px !important;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .befoys-logo-white {
+        left: 15px;
+        height: 65px;
+        margin-top: 20px;
+    }
+    .home-content {
+        width: 800px;
+        height: 500px;
+    }
+    .home-content .home-picture {
+        width: 800px;
+        height: 500px;
+    }
+    .home-content .home-picture img {
+        width: 830px;
+        height: 550px;
+    }
+    .home-content h1 {
+        margin: 0 -80px 0 0;
+        text-align: center;
+    }
+    .home-content h2 {
+        font-size: 28px;
+        margin: 100px -80px 0 0;
+    }
+    .home-content .home-buttons {
+        margin-top: 90px;
+    }
+    .home-desc-min-size {
+        right: -190px;
+        top: 25px !important;
+    }
+    .home-laptop-logo {
+        top: 20%;
+        left: -7%;
+    }
+    /* .home-desc-min-size {
+        top: 50px !important;
+    } */
+}
+
+@media only screen and (max-width: 1100px) {
+    .home-content .home-picture {
+        width: 800px;
+        height: 500px;
+    }
+    .home-desc-min-size {
+        width: 76% !important;
+        top: 20px !important;
+    }
+    .home-content .home-picture img {
+        top: 15%;
+        width: 730px;
+        height: 450px;
+    }
+    .home-content h1 {
+        margin: 0 -80px 0 0;
+    }
+    .home-content h2 {
+        font-size: 26px;
+        margin: 80px -80px 0 0;
+    }
+    .home-content .home-buttons {
+        margin-top: 90px;
+    }
+    .home-laptop-logo {
+        top: 25% !important;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .home-modal {
+        width: 550px;
+    }
+    .home-layout {
+        width: 100%;
+    }
+    .befoys-logo-white {
+        display: none;
+    }
+    .home-min-size-logo-keeper {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 110px;
+    }
+    .befoys-logo-black {
+        display: block;
+        z-index: 1;
+        height: 60px;
+        margin-top: 40px;
+        margin-bottom: 110px;
+    }
+    .home-befoys-logo-blue {
+        display: none;
+        height: 60px;
+        margin-bottom: 110px;
+        margin-top: -90px;
+    }
+    .home-content h1,
+    .home-content h2,
+    .home-content .home-buttons,
+    .home-content .home-social {
+        width: 100%;
+    }
+    .home-content .home-picture {
+        opacity: 0.1;
+    }
+    .home-content h1 {
+        margin: 0;
+        margin-top: -28px;
+    }
+    .home-content h2 {
+        max-width: 375px;
+        font-size: 28px;
+        margin: 100px 0 0 0;
+    }
+    .home-content .home-social {
+        margin-top: 25px;
+    }
+    .home-content .home-buttons {
+        left: 0;
+    }
+    .home-button-buttom {
+        padding: 13px 150px !important;
+    }
+    .home-button-top {
+        padding: 13px 145px !important;
+    }
+    .home-background {
+        width: 100vw;
+        height: 100vh;
+    }
+    .home-desc-min-size {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-content: space-around;
+        align-items: center;
+        margin-right: 15%;
+        top: 180px !important;
+    }
+    .descs {
+        left: 0;
+        width: 104%;
+    }
+    #employeCanceleButton {
+        padding: 7px 55px !important;
+    }
+    #employeBeginButton {
+        padding: 7px 62px !important;
+    }
+}
+
+
+/* .home-modal {
+    margin-top: '30vh';
+    width: '500px';
+}
+
+.home-modal-form-box {
+    height: '140px';
+    width: '65%';
+}
+
+.home-modal-form-keeper {
+    padding-left: '10px';
+    padding-right: '10px';
+}
+
+.home-form-login-btn {
+    background-color: '#1968b3';
+    width: '40%';
+}
+
+.home-form-loginemail-btn {
+    background-color: '#1968b3';
+    width: '40%';
+}
+
+.home-form-logo-box {
+    height: '140px';
+    width: '35%';
+    ;
+    background-color: '#1968b3';
+}
+
+.home-form-logo-image {
+    position: 'absolute';
+    right: '12px';
+    top: '55px';
+    width: '150px';
+} */
+
+@media screen and (max-width: 820px) {
+    .home-desc-min-size {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-content: space-around;
+        align-items: center;
+        margin-right: 22%;
+        top: 180px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .home-desc-min-size {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-content: space-around;
+        align-items: center;
+        margin-right: 30%;
+        top: 180px;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .home-desc-min-size {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-content: space-around;
+        align-items: center;
+        margin-right: 37%;
+        top: 180px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    html {
+        overflow: hidden;
+        width: 98%;
+        height: 100%;
+    }
+    .home-background {
+        width: 102vw;
+        height: 102vh;
+    }
+    .home-modal {
+        width: 85% !important;
+    }
+    .home-modal-sencode-btns-flex {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    #sendCodeHandlerBtn {
+        margin-right: 0 !important;
+    }
+    .employeFirstStepButtons {
+        flex-direction: column-reverse;
+    }
+    #employeCanceleButton {
+        padding: 7px 75px !important;
+    }
+    #employeBeginButton {
+        padding: 7px 82px !important;
+    }
+    .employeBirthdaySelects {
+        flex-direction: column-reverse;
+    }
+    .employeFinalButtons {
+        display: flex;
+        flex-direction: column
+    }
+    #employeRegisterFinalId {
+        padding: 7px 120px !important;
+    }
+    #employeRegisterFinalCanceleId {
+        padding: 7px 112px !important;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .home-desc-min-size {
+        width: 68%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-content: space-around;
+        align-items: center;
+        margin-right: 37%;
+        top: 200px;
+    }
+    .home-content h2 {
+        font-size: 24px;
+        margin-top: 55px !important;
+        width: 88% !important;
+    }
+    .home-button-buttom {
+        padding: 12px 77px !important;
+    }
+    .home-button-top {
+        padding: 13px 70px !important;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .home-desc-min-size {
+        margin-right: 45%;
+        top: 180px;
+    }
+    #hagigiButton,
+    #hogogiButton {
+        padding: 9px 70px !important;
+    }
+    #employeButton {
+        padding: 9px 110px !important;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .home-desc-min-size {
+        width: 64%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-content: space-around;
+        align-items: center;
+        margin-right: 49%;
+        top: 200px;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    #hagigiButton,
+    #hogogiButton {
+        padding: 9px 50px !important;
+    }
+    #employeButton {
+        padding: 9px 90px !important;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .home-desc-min-size {
+        margin-right: 59% !important;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .home-desc-min-size {
+        margin-right: 62% !important;
+    }
+    #hagigiButton,
+    #hogogiButton {
+        padding: 9px 32px !important;
+    }
+    #employeButton {
+        padding: 9px 72px !important;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .home-desc-min-size {
+        margin-right: 68% !important;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .home-desc-min-size {
+        position: absolute;
+        top: 0;
+        right: -150px;
+        width: 62%;
+        margin-right: 65px;
+    }
+    .home-content h2 {
+        width: 120% !important;
+    }
+    .home-modal {
+        width: 600px !important;
+    }
+}
+
+@media screen and (min-width: 1700px) {
+    .home-desc-min-size {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60%;
+    }
+    .home-content h2 {
+        margin: 70px 0 0 0;
+    }
+}
+
+@media screen and (min-width: 1900px) {
+    .home-laptop-logo {
+        left: 70px;
+    }
+}
+
+@media screen and (min-width: 2100px) {
+    .home-laptop-logo {
+        left: 110px;
+    }
+}

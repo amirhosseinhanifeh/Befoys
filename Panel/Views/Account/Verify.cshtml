@@ -6,7 +6,7 @@
 
 <form befoys-url="/api/Register/Verify" befoys-ajax="true" befoys-method="POST" befoys-OnSuccess="OnSuccess" befoys-OnBefore="OnBefore">
 
-    <div class="card  " style="max-width:500px;margin:0 auto;margin-top:33vh ">
+    <div class="card" style="max-width:500px;margin:0 auto;margin-top:33vh ">
         <div class="card-body" style="padding:0px;">
 
             <input hidden class="form-control" name="mobile" value="" />
@@ -27,6 +27,7 @@
 
 </form>
 
+@section Scripts { 
 <script>
     $(document).ready(function () {
         $("input[name=mobile]").val(GetParameterValues("mobile"));
@@ -40,3 +41,4 @@
 
     }
 </script>
+}

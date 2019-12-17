@@ -1,120 +1,883 @@
-﻿@model Panel.ViewModels.Account.HoghoghiViewModel
+﻿@model Panel.ViewModels.Account.HaghighiViewModel
+
 @{
-    ViewData["Title"] = "Step1";
+    ViewData["Title"] = "ثبت نام";
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
-    <form method="post" enctype="multipart/form-data">
+@section Styles {
+    <!-- Site favicon -->
+    <link rel='shortcut icon' type='image/x-icon' href='~/favicon.ico' />
+    <!-- Font Material stylesheet -->
+    <link rel="stylesheet" href="~/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <!-- Bootstrap stylesheet -->
+    <link href="~/css/jumbo-bootstrap.css" rel="stylesheet">
+    <!-- Perfect Scrollbar stylesheet -->
+    <link href="~/node_modules/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <!-- Select2 stylesheet -->
+    <link href="~/node_modules/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="~/css/jQuery.Select2/select2.min.css" rel="stylesheet">
+    <link href="~/css/jQuery.Select2/select2-bootstrap.css" rel="stylesheet">
+    <!-- Form stylesheet -->
+    <link href="~/css/jumbo-forms.css" rel="stylesheet">
+    <!-- Jumbo-core stylesheet -->
+    <link href="~/css/jumbo-core.min.css" rel="stylesheet">
+    <!-- Color-Theme stylesheet -->
+    <link id="override-css-id" href="~/css/theme-dark-indigo.css" rel="stylesheet">
 
-        <label>نام</label>
-        <input asp-for="FirstName" class="form-control" value="" />
-        <br />
-        <label>نام خانوادگی</label>
-        <input asp-for="LastName" class="form-control" name="LastName" value="" />
-        <br />
-        <label>ایمیل</label>
-        <input asp-for="Email" class="form-control" value="" type="email" />
+    <link rel="stylesheet" href="~/css/jumbo-core-custom.css">
+    <link rel="stylesheet" href="~/css/perfect-scrollbar-custom.css">
+    <link rel="stylesheet" href="~/css/font.css">
+}
 
-        <br />
-        <label>رمزعبور</label>
-        <input asp-for="Password" class="form-control" value="" type="password" />
+<!-- Page container -->
+<div class="gx-container">
 
-        <br />
-        <label>تکرار رمز عبور</label>
-        <input asp-for="ConfirmPassword" class="form-control" value="" type="password" />
+    <!-- Page Sidebar -->
+    <div id="menu" class="side-nav gx-sidebar">
+        <div class="navbar-expand-lg">
+            <!-- Sidebar header  -->
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <img class="user-avatar" alt="Domnic" src="https://via.placeholder.com/150x150">
+                    <div class="user-detail">
+                        <h4 class="user-name">
+                            <span class="dropdown">
+                                <a class="dropdown-toggle" href="#" role="button" id="userAccount"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    روزبه شامخی
+                                </a>
+                                <span class="dropdown-menu dropdown-menu-right" aria-labelledby="userAccount">
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="zmdi zmdi-account zmdi-hc-fw mr-2"></i>
+                                        پروفایل
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="zmdi zmdi-settings zmdi-hc-fw mr-2"></i>
+                                        تنظیمات
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="zmdi zmdi-sign-in zmdi-hc-fw mr-2"></i>
+                                        خروج
+                                    </a>
+                                </span>
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <!-- /sidebar header -->
+            <!-- Main navigation -->
+            <div id="main-menu" class="main-menu navbar-collapse collapse">
+                <ul class="nav-menu">
+                    <li class="nav-header"><span class="nav-text">Main</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i>
+                            <span class="nav-text">داشبورد</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="index.html"><span class="nav-text">صفحه اصلی</span></a></li>
+                            <li><a href="ecommerce.html"><span class="nav-text">eCommerce</span></a></li>
+                            <li><a href="news.html"><span class="nav-text">News</span></a></li>
+                            <li><a href="intranet.html"><span class="nav-text">Intranet</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-folder zmdi-hc-fw"></i>
+                            <span class="nav-text">Components</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="alerts.html"><span class="nav-text">Alerts</span></a></li>
+                            <li><a href="appbar.html"><span class="nav-text text-transform-none">App Bar</span></a></li>
+                            <li><a href="avatars.html"><span class="nav-text">Avatars</span></a></li>
+                            <li><a href="badge.html"><span class="nav-text">Badge</span></a></li>
+                            <li><a href="bottom-navigation.html"><span class="nav-text">Bottom Navigation</span></a></li>
+                            <li><a href="breadcrumbs.html"><span class="nav-text">Breadcrumbs</span></a></li>
+                            <li><a href="buttons.html"><span class="nav-text">Buttons</span></a></li>
+                            <li><a href="button-group.html"><span class="nav-text">Button Group</span></a></li>
+                            <li><a href="dropdown-menus.html"><span class="nav-text">Dropdown</span></a></li>
+                            <li><a href="cards.html"><span class="nav-text">Cards</span></a></li>
+                            <li><a href="carousel.html"><span class="nav-text">Carousel</span></a></li>
+                            <li><a href="dialogs.html"><span class="nav-text">Dialogs</span></a></li>
+                            <li><a href="pagination.html"><span class="nav-text">Pagination</span></a></li>
+                            <li><a href="popovers.html"><span class="nav-text">Popovers</span></a></li>
+                            <li><a href="progress.html"><span class="nav-text">Progress</span></a></li>
+                            <li><a href="tabs.html"><span class="nav-text">Tabs</span></a></li>
+                            <li><a href="tooltips.html"><span class="nav-text">Tooltips</span></a></li>
+                            <li><a href="typography.html"><span class="nav-text">Typography</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="widget.html">
+                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
+                            <span class="nav-text">Widgets</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="metrics.html">
+                            <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>
+                            <span class="nav-text">Metrics</span>
+                        </a>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">View</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-web zmdi-hc-fw"></i>
+                            <span class="nav-text">Tables</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="basic-table.html"><span class="nav-text">Basic Table</span></a></li>
+                            <li><a href="datatable.html"><span class="nav-text">Data Table</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-swap-alt zmdi-hc-fw zmdi-hc-rotate-90"></i>
+                            <span class="nav-text">Time Line</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="timeline-default.html"><span class="nav-text">Default</span></a></li>
+                            <li><a href="timeline-with-icons.html"><span class="nav-text">Default With Icon</span></a></li>
+                            <li><a href="timeline-left-align.html"><span class="nav-text">Left Aligned</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-list zmdi-hc-fw"></i>
+                            <span class="nav-text">Custom Views</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="simple-view.html"><span class="nav-text">Plain List View</span></a></li>
+                            <li><a href="listdivider.html"><span class="nav-text">Plain List With Divider</span></a></li>
+                            <li><a href="cards-list-view.html"><span class="nav-text">Cards list View</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">From</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-book-image zmdi-hc-fw"></i>
+                            <span class="nav-text">Forms</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="basic-form.html"><span class="nav-text">Basic Form</span></a></li>
+                            <li><a href="advanced-plugins.html"><span class="nav-text">Advance Plugins</span></a></li>
+                            <li><a href="form-wizard.html"><span class="nav-text">Form Wizard</span></a></li>
+                            <li><a href="file-upload.html"><span class="nav-text">File Upload</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">Extensions</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-code-setting zmdi-hc-fw"></i>
+                            <span class="nav-text">Editors</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="editor-summernote.html"><span class="nav-text">Summernote Editor</span></a></li>
+                            <li><a href="editor-markdown.html"><span class="nav-text">Markdown Editor</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-brush zmdi-hc-fw"></i>
+                            <span class="nav-text">Pickers</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="date-time-pickers.html"><span class="nav-text">Date &amp; Time Pickers</span></a></li>
+                            <li><a href="color-pickers.html"><span class="nav-text">Color pickers</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-key zmdi-hc-fw"></i>
+                            <span class="nav-text">Extensions</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="drag-and-drop.html"><span class="nav-text">Drag and Drop</span></a></li>
+                            <li><a href="sweet-alert.html"><span class="nav-text">Sweet Alert</span></a></li>
+                            <li><a href="notification.html"><span class="nav-text">Notification</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-calendar zmdi-hc-fw"></i>
+                            <span class="nav-text">Calender</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="calendar-agenda.html"><span class="nav-text">Agenda</span></a></li>
+                            <li><a href="calendar-basic.html"><span class="nav-text">Basic</span></a></li>
+                            <li><a href="calendar-default.html"><span class="nav-text">Default</span></a></li>
+                            <li><a href="calendar-background-events.html"><span class="nav-text">Background Event</span></a></li>
+                            <li><a href="calendar-external-dragging.html"><span class="nav-text">External Dragging</span></a></li>
+                            <li><a href="calendar-gcal.html"><span class="nav-text">Gcal</span></a></li>
+                            <li><a href="calendar-list-views.html"><span class="nav-text">List View</span></a></li>
+                            <li><a href="calendar-locales.html"><span class="nav-text">Locales</span></a></li>
+                            <li><a href="calendar-selectable.html"><span class="nav-text">Selectable</span></a></li>
+                            <li><a href="calendar-themes.html"><span class="nav-text">Theme</span></a></li>
+                            <li><a href="calendar-week-numbers.html"><span class="nav-text">Week Numbers</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-chart zmdi-hc-fw"></i>
+                            <span class="nav-text">Chart</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="flot-charts.html"><span class="nav-text">Flot Chart</span></a></li>
+                            <li><a href="morris-charts.html"><span class="nav-text">Morris Chart</span></a></li>
+                            <li><a href="peity-charts.html"><span class="nav-text">Peity Chart</span></a></li>
+                            <li><a href="sparkline-charts.html"><span class="nav-text">Sparkline Chart</span></a></li>
+                            <li><a href="charts-js.html"><span class="nav-text">JS Chart</span></a></li>
+                            <li><a href="chartist.html"><span class="nav-text">Chartist</span></a></li>
+                            <li><a href="c3-chart.html"><span class="nav-text">C3 Chart</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="vector-map.html">
+                            <i class="zmdi zmdi-google-maps zmdi-hc-fw"></i>
+                            <span class="nav-text">Vector Map</span>
+                            <span class="badge badge-secondary">NEW</span>
+                        </a>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">Modules</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-shopping-cart zmdi-hc-fw"></i>
+                            <span class="nav-text">eCommerce</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="products-detail.html"><span class="nav-text">Product Detail</span></a></li>
+                            <li><a href="products-grid.html"><span class="nav-text">Product Grid</span></a></li>
+                            <li><a href="products-list.html"><span class="nav-text">Product List</span></a></li>
+                            <li><a href="shopping-cart.html"><span class="nav-text">Shopping Cart</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-collection-item-8 zmdi-hc-fw"></i>
+                            <span class="nav-text">App Module</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="login1.html"><span class="nav-text">Login Page</span></a></li>
+                            <li><a href="signup1.html"><span class="nav-text">Signup Page</span></a></li>
+                            <li><a href="forgot-password1.html"><span class="nav-text">Forgot Password</span></a></li>
+                            <li><a href="lock-screen1.html"><span class="nav-text">Lock Screen</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="todo.html">
+                            <i class="zmdi zmdi-check-square zmdi-hc-fw"></i>
+                            <span class="nav-text">To-Do</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="mail.html">
+                            <i class="zmdi zmdi-email zmdi-hc-fw"></i>
+                            <span class="nav-text">Mail</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="chat-start.html">
+                            <i class="zmdi zmdi-comment zmdi-hc-fw"></i>
+                            <span class="nav-text">Chat</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="contact.html">
+                            <i class="zmdi zmdi-account-box zmdi-hc-fw"></i>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-header"><span class="nav-text">Extras</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-web zmdi-hc-fw"></i>
+                            <span class="nav-text">Icons</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="entypo.html"><span class="nav-text">Entypo</span></a></li>
+                            <li><a href="font-awesome.html"><span class="nav-text">Font Awesome</span></a></li>
+                            <li><a href="material-font.html"><span class="nav-text">Material</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-collection-bookmark zmdi-hc-fw zmdi-hc-rotate-90"></i>
+                            <span class="nav-text">Extra Elements</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="callouts.html"><span class="nav-text">Callouts</span></a></li>
+                            <li><a href="pricing-table.html"><span class="nav-text">Pricing Table</span></a></li>
+                            <li><a href="testimonials.html"><span class="nav-text">Testimonials</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-pages zmdi-hc-fw"></i>
+                            <span class="nav-text">Extra Pages</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="aboutus.html"><span class="nav-text">About Us</span></a></li>
+                            <li><a href="blog.html"><span class="nav-text">Blog</span></a></li>
+                            <li><a href="contact-us.html"><span class="nav-text">Contact Us</span></a></li>
+                            <li><a href="faq.html"><span class="nav-text">FAQ</span></a></li>
+                            <li><a href="portfolio.html"><span class="nav-text">Portfolio</span></a></li>
+                            <li><a href="error-page-404.html"><span class="nav-text">404 Error Page</span></a></li>
+                            <li><a href="error-page-500.html"><span class="nav-text">500 Error Page</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-device-hub zmdi-hc-fw"></i>
+                            <span class="nav-text">Menu Levels</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="nav-text">Level 1</span>
+                                </a>
+                            </li>
+                            <li class="menu">
+                                <a href="javascript:void(0)">
+                                    <span class="nav-text">Level 1</span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a class="" href="javascript:void(0)">
+                                            <span class="nav-text">Level 2</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu">
+                                        <a href="javascript:void(0)">
+                                            <span class="nav-text">Level 2</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <span class="nav-text">Level 3</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <span class="nav-text">Level 3</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /main navigation -->
+        </div>
+    </div>
+    <!-- /page sidebar -->
+    <!-- Main Container -->
+    <div class="gx-main-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="gx-toolbar justify-content-center">
+                <div class="sidebar-mobile-menu d-block d-lg-none">
+                    <a class="gx-menu-icon menu-toggle" href="#menu">
+                        <span class="menu-icon"></span>
+                    </a>
+                </div>
+                <a class="site-logo" href="index.html">
+                    <img src="~/images/logo.png" alt="Befoys" title="Befoys">
+                </a>
+                <div class="ellipse-shape"></div>
+            </div>
+        </header>
+        <!-- /main header -->
+        <!-- Main Content -->
+        <div class="gx-main-content">
+            <!--gx-wrapper-->
+            <div class="gx-wrapper">
+                <div class="page-heading d-sm-flex justify-content-sm-between align-items-sm-center">
+                    <h2 class="title mb-3 mb-sm-0">ثبت نام تامین کنندگان حقوقی</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="gx-card">
+                            <div class="gx-card-body">
+                                <div id="rootwizard-2">
+                                    <div class="wizard-navbar">
+                                        <ul>
+                                            <li class="active"><a class="active show" href="#tab2-1" data-toggle="tab"><span class="wz-number">1</span> <span class="wz-label">اطلاعات کاربری</span></a></li>
+                                            <li><a href="#tab2-2" data-toggle="tab"><span class="wz-number">2</span> <span class="wz-label">اطلاعات شرکت</span></a></li>
+                                            <li><a href="#tab2-3" data-toggle="tab"><span class="wz-number">3</span> <span class="wz-label">آپلود مدارک</span></a></li>
+                                            <li><a href="#tab2-4" data-toggle="tab"><span class="wz-number">4</span> <span class="wz-label">قرارداد</span></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab2-1">
+                                            <form id="step1" class="form-wizard validate-form-wizard validate">
+                                                <h3>اطلاعات نماینده</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="FirstName" class="control-label">نام</label>
+                                                            <input type="text" class="form-control required" name="FirstName" id="FirstName">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="LastName" class="control-label">نام خانوادگی</label>
+                                                            <input type="text" class="form-control required" name="LastName" id="LastName">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="Email" class="control-label">ایمیل</label>
+                                                            <input type="text" class="form-control required email" name="Email" id="Email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="Password" class="control-label">رمز عبور</label>
+                                                            <input type="password" class="form-control required" name="Password" id="Password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="NationalCode" class="control-label">کد ملی</label>
+                                                            <input type="text" class="form-control required" name="NationalCode" id="NationalCode">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="Gender" class="control-label">جنسیت</label>
+                                                            <select class="form-control select2 required" name="Gender" id="Gender">
+                                                                <option value="1">مرد</option>
+                                                                <option value="2">زن</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="row" style="margin: 0;">
+                                                            <label for="Birthday" class="control-label">تاریخ تولد</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <select class="form-control select2 required" name="Day" id="Day">
+                                                                        @for (int i = 1; i <= 31; i++)
+                                                                        {
+                                                                            <option value="@i">@i</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <select class="form-control select2 required" name="Month" id="Month">
+                                                                        <option value="1">فروردین</option>
+                                                                        <option value="2">اردیبهشت</option>
+                                                                        <option value="3">خرداد</option>
+                                                                        <option value="4">تیر</option>
+                                                                        <option value="5">مرداد</option>
+                                                                        <option value="6">شهریور</option>
+                                                                        <option value="7">مهر</option>
+                                                                        <option value="8">آبان</option>
+                                                                        <option value="9">آذر</option>
+                                                                        <option value="10">دی</option>
+                                                                        <option value="11">بهمن</option>
+                                                                        <option value="12">اسفند</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <select class="form-control select2 required" name="Year" id="Year">
+                                                                        @for (int i = 1300; i <= 1400; i++)
+                                                                        {
+                                                                            <option value="@i">@i</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="Position" class="control-label">سمت</label>
+                                                            <input type="hidden" value="39" name="Infoes[0].TypeCodeId">
+                                                            <select class="form-control select2 required" name="Infoes[0].Value" id="Position">
+                                                                <option value="کارمند">کارمند</option>
+                                                                <option value="مدیر عامل">مدیر عامل</option>
+                                                                <option value="رییس هیئت مدیره">رییس هیئت مدیره</option>
+                                                                <option value="نایب رییس هیئت مدیره">نایب رییس هیئت مدیره</option>
+                                                                <option value="عضو هیئت مدیره">عضو هیئت مدیره</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <h3>اطلاعات تماس</h3>
+                                                <div class="address" id="address1">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="state0" class="control-label">استان</label>
+                                                                        <select class="form-control select2 required" name="Addresses[0].StateName" id="state0">
+                                                                            <option value="Tehran">تهران</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="city0" class="control-label">شهر</label>
+                                                                        <select class="form-control select2 required" name="Addresses[0].CityName" id="city0">
+                                                                            <option value="Tehran">تهران</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="address0" class="control-label">آدرس</label>
+                                                                    <textarea id="address0" name="Addresses[0].Address" class="form-control required" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="telephone0_0" class="control-label">تلفن ثابت</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-12 d-flex telephone">
+                                                                        <input type="text" class="form-control required" name="Addresses[0].phones[0].PhoneValue" id="telephone0_0">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="add d-flex mt-3" id="addTelephone">
+                                                                    <a href="javascript:void(0)"><i class="zmdi zmdi-plus zmdi-hc-fw"></i>&nbsp;افزودن تلفن ثابت</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="add d-flex mt-4" id="addAddress">
+                                                    <a href="javascript:void(0)"><i class="zmdi zmdi-plus zmdi-hc-fw"></i>&nbsp;افزودن آدرس</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="tab2-2">
+                                            <form id="step2" class="form-wizard validate-form-wizard validate">
+                                                <h3>اطلاعات شرکت</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="OrganizationName" class="control-label">نام تجاری</label>
+                                                            <input type="text" class="form-control required" name="OrganizationName" id="OrganizationName">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="OrganizationType" class="control-label">نوع شرکت</label>
+                                                            <input type="hidden" value="7" name="Infoes[0].TypeCodeId">
+                                                            <select class="form-control select2 required" name="Infoes[0].Value" id="OrganizationType">
+                                                                <option value="سهامی عام">سهامی عام</option>
+                                                                <option value="سهامی خاص">سهامی خاص</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="RegistrationNumber" class="control-label">شماره ثبت</label>
+                                                            <input type="text" class="form-control required" name="Infoes[1].Value" id="RegistrationNumber">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="NationalID" class="control-label">شناسه ملی</label>
+                                                            <input type="text" class="form-control required" name="Infoes[2].Value" id="NationalID">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="EconomicCode" class="control-label">کد اقتصادی</label>
+                                                            <input type="text" class="form-control required" name="Infoes[3].Value" id="EconomicCode">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <h3>اطلاعات مالی</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="IRCode" class="control-label">شماره شبا</label>
+                                                            <input type="hidden" value="12" name="infoes[0].TypeCodeId">
+                                                            <input type="text" class="form-control required" name="infoes[0].Value" id="IRCode">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="AccountNumber" class="control-label">شماره حساب</label>
+                                                            <input type="hidden" value="13" name="infoes[1].TypeCodeId">
+                                                            <input type="text" class="form-control required" name="infoes[1].Value" id="AccountNumber">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="AccountOwner" class="control-label">نام دارنده حساب</label>
+                                                            <input type="hidden" value="33" name="infoes[2].TypeCodeId">
+                                                            <input type="text" class="form-control required" name="infoes[2].Value" id="AccountOwner">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <br>
+                                                        <div class="form-group text-row-between">
+                                                            <div class="custom-control custom-checkbox ml-2">
+                                                                <input type="hidden" value="14" name="infoes[3].TypeCodeId">
+                                                                <input type="checkbox" name="infoes[3].Value" id="ValueAddedCertificate">
+                                                                <label class="custom-control-label" for="ValueAddedCertificate">گواهی ارزش افزوده</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="tab2-3">
+                                            <form id="step3" class="form-wizard validate-form-wizard validate">
+                                                <div class="form-group row">
+                                                    <label class="col-md-6 control-label">اسکن روزنامه رسمی خود را آپلود کنید</label>
+                                                    <div class="col-md-6">
+                                                        <div class="custom-file">
+                                                            <label class="custom-file-label" for="NewspaperScan">آپلود فایل</label>
+                                                            <input type="file" class="custom-file-input required" id="NewspaperScan" name="NewspaperScan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-6 control-label">اسکن اساسنامه خود را آپلود کنید</label>
+                                                    <div class="col-md-6">
+                                                        <div class="custom-file">
+                                                            <label class="custom-file-label" for="StatuteScan">آپلود فایل</label>
+                                                            <input type="file" class="custom-file-input required" id="StatuteScan" name="StatuteScan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-6 control-label">اسکن گواهی آخرین تغییرات خود را آپلود کنید</label>
+                                                    <div class="col-md-6">
+                                                        <div class="custom-file">
+                                                            <label class="custom-file-label" for="LatestEditScan">آپلود فایل</label>
+                                                            <input type="file" class="custom-file-input required" id="LatestEditScan" name="LatestEditScan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-md-6 control-label">اسکن جواز کسب خود را آپلود کنید</label>
+                                                    <div class="col-md-6">
+                                                        <div class="custom-file">
+                                                            <label class="custom-file-label" for="BusinessLicenseScan">آپلود فایل</label>
+                                                            <input type="file" class="custom-file-input required" id="BusinessLicenseScan" name="BusinessLicenseScan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="tab2-4">
+                                            <form id="step4" class="form-wizard validate-form-wizard validate">
+                                                <div class="form-group row">
+                                                    <label class="col-md-4 control-label">دسته بندی خود را انتخاب کنید</label>
+                                                    <div class="col-md-4">
+                                                        <select class="select2-multiple form-control required" name="select1[]" id="select1" multiple="multiple" data-placeholder="انتخاب کنید">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select class="select2-multiple form-control required" name="select2[]" id="select2" multiple="multiple" data-placeholder="انتخاب کنید">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <ul class="pager wizard">
+                                            <li class="next"><a href="javascript:void(0)">بعدی<i class="icon-right-open"></i></a> </li>
+                                            <li class="previous"><a href="javascript:void(0)"><i class="icon-left-open"></i>برگشت</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/gx-wrapper-->
+        </div>
+        <!-- /main content -->
+    </div>
+    <!-- /main container -->
+</div>
+<!-- /page container -->
 
-        <h4>اطلاعات شخصی</h4>
-        <br />
-        <label>کد ملی</label>
+@section Scripts {
+    <!--Load JQuery-->
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <!--Bootstrap JQuery-->
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--Perfect Scrollbar JQuery-->
+    <script src="~/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <!--Big Slide JQuery-->
+    <script src="~/node_modules/bigslide/dist/bigSlide.min.js"></script>
+    <!--wizard JQuery-->
+    <script src="~/node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+    <!--Select2 JQuery-->
+    <script src="~/node_modules/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/js/jQuery.Select2/select2.js"></script>
+    <script src="~/js/jQuery.Select2/i18n/fa.js"></script>
+    <script src="~/js/Select2_Config.js"></script>
+    <!--Custom JQuery-->
+    <script src="~/js/functions.js"></script>
+    <script src="~/js/custom/form-wizard.js"></script>
 
-        <input asp-for="NationalCode" class="form-control" value="" />
+    <script src="~/js/customer.js"></script>
+}
 
-        <br />
-        <label>روز</label>
-        <select asp-for="Day" class="form-control">
-            <option value="01">01</option>
-        </select>
-        <br />
-        <label>ماه</label>>
-        <select asp-for="Month" class="form-control">
-            <option value="1">فروردین</option>
-        </select>
+@*@model Panel.ViewModels.Account.HoghoghiViewModel
+    @{
+        ViewData["Title"] = "Step1";
+        Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    }
 
-        <br />
-        <label>سال</label>
-        <select asp-for="Year" class="form-control">
-            <option value="1398">1398</option>
-        </select>
-        <br />
-        <label>جنسیت</label>
-        <select asp-for="Gender" class="form-control" name="Gender">
-            <option value="1">مرد</option>
-            <option value="2">زن</option>
-        </select>
-        <br />
-        <br />
-        <br />
+        <form method="post" enctype="multipart/form-data">
 
+            <label>نام</label>
+            <input asp-for="FirstName" class="form-control" value="" />
+            <br />
+            <label>نام خانوادگی</label>
+            <input asp-for="LastName" class="form-control" name="LastName" value="" />
+            <br />
+            <label>ایمیل</label>
+            <input asp-for="Email" class="form-control" value="" type="email" />
 
-        <label>نام شرکت</label>
+            <br />
+            <label>رمزعبور</label>
+            <input asp-for="Password" class="form-control" value="" type="password" />
 
-        <input class="form-control" name="FirstName" value="" />
-        <br />
-        <label>نوع شرکت</label>
-        <input hidden name="infoes[0].TypeCodeId" value="7" />
-        <select class="form-control" name="infoes[0].Value">
-            <option value="سهامی عام">سهامی عام</option>
-        </select>
-        <br />
-        <label>شماره ثبت</label>
-        <input hidden name="infoes[1].TypeCodeId" value="3" />
-        <input class="form-control" name="infoes[1].Value" value="" />
+            <br />
+            <label>تکرار رمز عبور</label>
+            <input asp-for="ConfirmPassword" class="form-control" value="" type="password" />
 
-        <br />
-        <label>شناسه ملی</label>
-        <input hidden name="infoes[2].TypeCodeId" value="9" />
-        <input class="form-control" name="infoes[2].Value" value="" />
+            <h4>اطلاعات شخصی</h4>
+            <br />
+            <label>کد ملی</label>
 
+            <input asp-for="NationalCode" class="form-control" value="" />
 
-        <br />
-        <label>کد اقتصادی</label>
-        <input hidden name="infoes[3].TypeCodeId" value="10" />
-        <input class="form-control" name="infoes[3].Value" value="" />
-
-
-
-
-
-        <div>
-            <select name="Addresses[0].StateName">
-                <option value="تهران">
-                    تهران
-                </option>
+            <br />
+            <label>روز</label>
+            <select asp-for="Day" class="form-control">
+                <option value="01">01</option>
             </select>
-            <select name="Addresses[0].CityName">
-                <option value="تهران">
-                    تهران
-                </option>
+            <br />
+            <label>ماه</label>>
+            <select asp-for="Month" class="form-control">
+                <option value="1">فروردین</option>
             </select>
-            <label>آدرس</label>
-            <input name="Addresses[0].Address" />
+
+            <br />
+            <label>سال</label>
+            <select asp-for="Year" class="form-control">
+                <option value="1398">1398</option>
+            </select>
+            <br />
+            <label>جنسیت</label>
+            <select asp-for="Gender" class="form-control" name="Gender">
+                <option value="1">مرد</option>
+                <option value="2">زن</option>
+            </select>
+            <br />
+            <br />
+            <br />
+
+
+            <label>نام شرکت</label>
+
+            <input class="form-control" name="FirstName" value="" />
+            <br />
+            <label>نوع شرکت</label>
+            <input hidden name="infoes[0].TypeCodeId" value="7" />
+            <select class="form-control" name="infoes[0].Value">
+                <option value="سهامی عام">سهامی عام</option>
+            </select>
+            <br />
+            <label>شماره ثبت</label>
+            <input hidden name="infoes[1].TypeCodeId" value="3" />
+            <input class="form-control" name="infoes[1].Value" value="" />
+
+            <br />
+            <label>شناسه ملی</label>
+            <input hidden name="infoes[2].TypeCodeId" value="9" />
+            <input class="form-control" name="infoes[2].Value" value="" />
+
+
+            <br />
+            <label>کد اقتصادی</label>
+            <input hidden name="infoes[3].TypeCodeId" value="10" />
+            <input class="form-control" name="infoes[3].Value" value="" />
+
+
+
+
 
             <div>
-                <input name="Addresses[0].phones[0].PhoneValue" />
+                <select name="Addresses[0].StateName">
+                    <option value="تهران">
+                        تهران
+                    </option>
+                </select>
+                <select name="Addresses[0].CityName">
+                    <option value="تهران">
+                        تهران
+                    </option>
+                </select>
+                <label>آدرس</label>
+                <input name="Addresses[0].Address" />
+
+                <div>
+                    <input name="Addresses[0].phones[0].PhoneValue" />
+                </div>
+
             </div>
+            <button class="btn btn-success" type="submit">ورود</button>
+        </form>
+    <script>
+        $(document).ready(function () {
+            $("input[name=mobile]").val(GetParameterValues("mobile"));
 
-        </div>
-        <button class="btn btn-success" type="submit">ورود</button>
-    </form>
-<script>
-    $(document).ready(function () {
-        $("input[name=mobile]").val(GetParameterValues("mobile"));
+        });
+        function OnSuccess(response) {
+        }
+        function OnBefore() {
 
-    });
-    function OnSuccess(response) {
-    }
-    function OnBefore() {
-
-    }
-</script>
+        }
+    </script>*@
 

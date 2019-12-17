@@ -1,4 +1,4 @@
-﻿var BaseUrl = "http://localhost:41341";
+﻿var BaseUrl = "http://api.befoys.com";
 $(document).ready(function () {
 
     $("button[befoys-ajax=true][type=submit]").click(function (e) {

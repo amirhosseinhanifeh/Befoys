@@ -1,7 +1,7 @@
 ﻿@model Panel.ViewModels.Account.HaghighiViewModel
 
 @{
-    ViewData["Title"] = "ثبت نام";
+    ViewData["Title"] = "Result";
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
@@ -379,7 +379,7 @@
     <div class="gx-main-container">
         <!-- Main Header -->
         <header class="main-header">
-            <div class="gx-toolbar justify-content-center">
+            <div class="gx-toolbar">
                 <div class="sidebar-mobile-menu d-block d-lg-none">
                     <a class="gx-menu-icon menu-toggle" href="#menu">
                         <span class="menu-icon"></span>
@@ -397,281 +397,26 @@
             <!--gx-wrapper-->
             <div class="gx-wrapper">
                 <div class="page-heading d-sm-flex justify-content-sm-between align-items-sm-center">
-                    <h2 class="title mb-3 mb-sm-0">ثبت نام تامین کنندگان حقیقی</h2>
+                    <h2 class="title mb-3 mb-sm-0">ثبت نام تامین کنندگان حقوقی</h2>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="gx-card">
-                            <div class="gx-card-body">
-                                <div id="rootwizard-2">
-                                    <div class="wizard-navbar">
-                                        <ul>
-                                            <li class="active"><a class="active show" href="#tab2-1" data-toggle="tab"><span class="wz-number">1</span> <span class="wz-label">اطلاعات کاربری</span></a></li>
-                                            <li><a href="#tab2-2" data-toggle="tab"><span class="wz-number">2</span> <span class="wz-label">اطلاعات شرکت</span></a></li>
-                                            <li><a href="#tab2-3" data-toggle="tab"><span class="wz-number">3</span> <span class="wz-label">آپلود مدارک</span></a></li>
-                                            <li><a href="#tab2-4" data-toggle="tab"><span class="wz-number">4</span> <span class="wz-label">قرارداد</span></a></li>
-                                        </ul>
+                            <div class="row">
+                                <img class="mx-auto" style="width: 60vw;" src="~/images/contract.png" alt="قرارداد" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 mb-2">
+                                    <a href="javascript:void(0)" class="gx-btn btn-success gx-btn-shadow d-block">دانلود قرارداد</a>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input required" id="businessLicenseScan" name="businessLicenseScan">
+                                        <label class="custom-file-label" for="businessLicenseScan">قرارداد خود را آپلود کنید</label>
                                     </div>
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="tab2-1">
-                                            <form id="step1" class="form-wizard validate-form-wizard validate">
-                                                <h3>اطلاعات کاربری</h3>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="FirstName" class="control-label">نام</label>
-                                                            <input type="text" class="form-control required" name="FirstName" id="FirstName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="LastName" class="control-label">نام خانوادگی</label>
-                                                            <input type="text" class="form-control required" name="LastName" id="LastName">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="Email" class="control-label">ایمیل</label>
-                                                            <input type="text" class="form-control required email" name="Email" id="Email">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="Password" class="control-label">رمز عبور</label>
-                                                            <input type="password" class="form-control required" name="Password" id="Password">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <h3>اطلاعات شخصی</h3>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="NationalCode" class="control-label">کد ملی</label>
-                                                            <input type="text" class="form-control required" name="NationalCode" id="NationalCode">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="Gender" class="control-label">جنسیت</label>
-                                                            <select class="form-control select2 required" name="Gender" id="Gender">
-                                                                <option value="1">مرد</option>
-                                                                <option value="2">زن</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="row" style="margin: 0;">
-                                                            <label for="Birthday" class="control-label">تاریخ تولد</label>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <select class="form-control select2 required" name="Day" id="Day">
-                                                                        @for (int i = 1; i <= 31; i++)
-                                                                        {
-                                                                            <option value="@i">@i</option>
-                                                                        }
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <select class="form-control select2 required" name="Month" id="Month">
-                                                                        <option value="1">فروردین</option>
-                                                                        <option value="2">اردیبهشت</option>
-                                                                        <option value="3">خرداد</option>
-                                                                        <option value="4">تیر</option>
-                                                                        <option value="5">مرداد</option>
-                                                                        <option value="6">شهریور</option>
-                                                                        <option value="7">مهر</option>
-                                                                        <option value="8">آبان</option>
-                                                                        <option value="9">آذر</option>
-                                                                        <option value="10">دی</option>
-                                                                        <option value="11">بهمن</option>
-                                                                        <option value="12">اسفند</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <select class="form-control select2 required" name="Year" id="Year">
-                                                                        @for (int i = 1300; i <= 1400; i++)
-                                                                        {
-                                                                            <option value="@i">@i</option>
-                                                                        }
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <h3>اطلاعات تماس</h3>
-                                                <div class="address" id="address1">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="state0" class="control-label">استان</label>
-                                                                        <select class="form-control select2 required" name="Addresses[0].StateName" id="state0">
-                                                                            <option value="Tehran">تهران</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="city0" class="control-label">شهر</label>
-                                                                        <select class="form-control select2 required" name="Addresses[0].CityName" id="city0">
-                                                                            <option value="Tehran">تهران</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="address0" class="control-label">آدرس</label>
-                                                                    <textarea id="address0" name="Addresses[0].Address" class="form-control required" rows="3"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="telephone0_0" class="control-label">تلفن ثابت</label>
-                                                                <div class="row">
-                                                                    <div class="col-md-12 d-flex telephone">
-                                                                        <input type="text" class="form-control required" name="Addresses[0].phones[0].PhoneValue" id="telephone0_0">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="add d-flex mt-3" id="addTelephone">
-                                                                    <a href="javascript:void(0)"><i class="zmdi zmdi-plus zmdi-hc-fw"></i>&nbsp;افزودن تلفن ثابت</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="add d-flex mt-4" id="addAddress">
-                                                    <a href="javascript:void(0)"><i class="zmdi zmdi-plus zmdi-hc-fw"></i>&nbsp;افزودن آدرس</a>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="tab-pane" id="tab2-2">
-                                            <form id="step2" class="form-wizard validate-form-wizard validate">
-                                                <h3>اطلاعات شرکت</h3>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="CommercialName" class="control-label">نام تجاری</label>
-                                                            <input type="hidden" value="31" name="infoes[4].TypeCodeId">
-                                                            <input type="text" class="form-control required" name="infoes[4].Value" id="CommercialName">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <h3>اطلاعات مالی</h3>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="IRCode" class="control-label">شماره شبا</label>
-                                                            <input type="hidden" value="12" name="infoes[0].TypeCodeId">
-                                                            <input type="text" class="form-control required" name="infoes[0].Value" id="IRCode">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="AccountNumber" class="control-label">شماره حساب</label>
-                                                            <input type="hidden" value="13" name="infoes[1].TypeCodeId">
-                                                            <input type="text" class="form-control required" name="infoes[1].Value" id="AccountNumber">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="AccountOwner" class="control-label">نام دارنده حساب</label>
-                                                            <input type="hidden" value="33" name="infoes[2].TypeCodeId">
-                                                            <input type="text" class="form-control required" name="infoes[2].Value" id="AccountOwner">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <br>
-                                                        <div class="form-group text-row-between">
-                                                            <div class="custom-control custom-checkbox ml-2">
-                                                                <input type="hidden" value="14" name="infoes[3].TypeCodeId">
-                                                                <input type="checkbox" name="infoes[3].Value" id="ValueAddedCertificate">
-                                                                <label class="custom-control-label" for="ValueAddedCertificate">گواهی ارزش افزوده</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="tab-pane" id="tab2-3">
-                                            <form id="step3" class="form-wizard validate-form-wizard validate">
-                                                <div class="form-group row">
-                                                    <label class="col-md-6 control-label">اسکن از صفحه اول شناسنامه خود را آپلود کنید</label>
-                                                    <div class="col-md-6">
-                                                        <div class="custom-file">
-                                                            <label class="custom-file-label" for="BirthCertificateScan">آپلود فایل</label>
-                                                            <input type="file" class="custom-file-input required" id="BirthCertificateScan" name="BirthCertificateScan">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-md-6 control-label">اسکن کارت ملی خود را آپلود کنید</label>
-                                                    <div class="col-md-6">
-                                                        <div class="custom-file">
-                                                            <label class="custom-file-label" for="IdentityNumberScan">آپلود فایل</label>
-                                                            <input type="file" class="custom-file-input required" id="IdentityNumberScan" name="IdentityNumberScan">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-md-6 control-label">اسکن جواز کسب خود را آپلود کنید</label>
-                                                    <div class="col-md-6">
-                                                        <div class="custom-file">
-                                                            <label class="custom-file-label" for="BusinessLicenseScan">آپلود فایل</label>
-                                                            <input type="file" class="custom-file-input required" id="BusinessLicenseScan" name="BusinessLicenseScan">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="tab-pane" id="tab2-4">
-                                            <form id="step4" class="form-wizard validate-form-wizard validate">
-                                                <div class="form-group row">
-                                                    <label class="col-md-4 control-label">دسته بندی خود را انتخاب کنید</label>
-                                                    <div class="col-md-4">
-                                                        <select class="select2-multiple form-control required" name="select1[]" id="select1" multiple="multiple" data-placeholder="انتخاب کنید">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <select class="select2-multiple form-control required" name="select2[]" id="select2" multiple="multiple" data-placeholder="انتخاب کنید">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <ul class="pager wizard">
-                                            <li class="next"><a href="javascript:void(0)">بعدی<i class="icon-right-open"></i></a> </li>
-                                            <li class="previous"><a href="javascript:void(0)"><i class="icon-left-open"></i>برگشت</a></li>
-                                        </ul>
-                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <a href="javascript:void(0)" class="gx-btn btn-success gx-btn-shadow d-block">درخواست بررسی</a>
                                 </div>
                             </div>
                         </div>
@@ -707,8 +452,25 @@
     <script src="~/js/functions.js"></script>
     <script src="~/js/custom/form-wizard.js"></script>
 
-    <script src="~/js/supplier.js"></script>
+    <script src="~/js/add-first-step-elements.js"></script>
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @*<form method="post" enctype="multipart/form-data">
 

@@ -26,8 +26,8 @@ namespace Panel.Controllers
             string Token = Get("token");
             model.StepNumber = 1;
             string json = JsonConvert.SerializeObject(model);
-            var result = DownloadData<dynamic>.DownloadValue("https://localhost:44317/api/Step/UpdateInformation", "POST", json, Token);
-            return View();
+            var result = DownloadData<dynamic>.DownloadValue("http://api.befoys.com/api/Step/UpdateInformation", "POST", json, Token);
+            return Json(result.value.Value);
         }
 
         public IActionResult Result()
@@ -47,25 +47,20 @@ namespace Panel.Controllers
         }
 
         [HttpPost]
-        public IActionResult Step2(StepValuesViewModel[] infoes)
+        public IActionResult Step2(HaghighiViewModel model)
         {
             string Token = Get("token");
-            //model.StepNumber = 1;
-            string json = JsonConvert.SerializeObject(infoes);
-            var result = DownloadData<dynamic>.DownloadValue("https://localhost:44317/api/Step/UpdateInformation", "POST", json, Token);
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Step3([FromForm]IFormCollection files)
-        {
-            return View();
+            model.StepNumber = 2;
+            model.infoes[3].Value = model.infoes[3].Value == "on" ? "1" : "0";
+            string json = JsonConvert.SerializeObject(model);
+            var result = DownloadData<dynamic>.DownloadValue("http://api.befoys.com/api/Step/UpdateInformation", "POST", json, Token);
+            return Json(result.value.Value);
         }
 
         [HttpPost]
         public IActionResult Step4(string[] select1, string[] select2)
         {
-            return View();
+            return Json(true);
         }
     }
 }
