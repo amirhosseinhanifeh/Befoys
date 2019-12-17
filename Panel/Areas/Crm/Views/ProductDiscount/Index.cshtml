@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProductOrganizationDiscount>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PodId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PodGuid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PodFromCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PodToCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PodPercentValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PodPoid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PodPreparationTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PodId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PodGuid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PodFromCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PodToCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PodPercentValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PodPoid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PodPreparationTime)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id=item.PodId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

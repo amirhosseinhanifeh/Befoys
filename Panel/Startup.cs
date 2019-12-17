@@ -30,7 +30,7 @@ namespace Panel
             var connection = "Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;";
             services.AddDbContext<ServiceContext>(options => options.UseSqlServer(connection).UseLazyLoadingProxies());
         }
-
+       
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -59,7 +59,6 @@ namespace Panel
                 endpoints.MapAreaControllerRoute(
      name: "areas", "areas",
      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
             });
         }
     }

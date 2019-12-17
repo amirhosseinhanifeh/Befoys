@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PodFromCount" class="control-label"></label>
-                <input asp-for="PodFromCount" class="form-control" />
+                <input asp-for="PodFromCount" class="form-control" value="@(ViewBag.PodToCount)" />
                 <span asp-validation-for="PodFromCount" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -27,11 +27,6 @@
                 <label asp-for="PodPercentValue" class="control-label"></label>
                 <input asp-for="PodPercentValue" class="form-control" />
                 <span asp-validation-for="PodPercentValue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PodPoid" class="control-label"></label>
-                <input asp-for="PodPoid" class="form-control" />
-                <span asp-validation-for="PodPoid" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PodPreparationTime" class="control-label"></label>

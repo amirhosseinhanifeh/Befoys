@@ -72,7 +72,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PoGuaranteeId)
                 </td>
-                <td><a asp-action="Index" asp-controller="ProductQuantity" asp-route-id="@item.PoProductId">تنوع کالا</a></td>
+                <td><a asp-action="Index" asp-controller="ProductQuantity" asp-route-id="@item.PoId" asp-route-ProductId="@item.PoProductId">تنوع کالا</a></td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |

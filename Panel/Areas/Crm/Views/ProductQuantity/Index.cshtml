@@ -12,7 +12,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create" asp-route-id="@ViewBag.ID" >Create New</a>
+    <a asp-action="Create" asp-route-id="@ViewBag.ID" asp-route-ProductId="@ViewBag.ProductId" >Create New</a>
 </p>
 
 <form method="post" action="@Url.Action("UpdateQuantity",new {id=ViewBag.ID })">

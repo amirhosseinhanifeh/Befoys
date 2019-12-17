@@ -22,23 +22,23 @@ namespace Panel.Areas.Crm.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int? id=null)
+        public IActionResult Index(int? id=null,int? ProductId=null)
         {
             if (id == null)
             {
                 return Redirect("~/");
             }
-            ViewBag.ID = id;
+            ViewBag.ProductID = ProductId;
 
-            return View(_context.TblProductOrganizationQuantity.Where(x => x.PoqPo.PoProductId == id && x.PoqPo.PoOrganizationId==2).ToList());
+            return View(_context.TblProductOrganizationQuantity.Where(x => x.PoqPoid==id).ToList());
         }
-        public IActionResult Create(int? id)
+        public IActionResult Create(int? id,int? ProductId)
         {
             if (id == null)
             {
                 return Redirect("~/");
             }
-            ViewBag.Colors = _context.TblProductColors.Where(x => x.PcProductId == id).Select(y => new SelectListItem { Value = y.PcColorsId.ToString(), Text = y.PcColors.ColorsName }).ToList();
+            ViewBag.Colors = _context.TblProductColors.Where(x => x.PcProductId == ProductId).Select(y => new SelectListItem { Value = y.PcColorsId.ToString(), Text = y.PcColors.ColorsName }).ToList();
             ViewBag.Provinces = _context.TblProvince.Select(y => new SelectListItem { Value = y.ProvinceId.ToString(), Text = y.ProvinceDisplay }).ToList();
             return View();
         }
@@ -46,9 +46,9 @@ namespace Panel.Areas.Crm.Controllers
         public IActionResult Create(int? id, TblProductOrganizationQuantity model)
         {
 
-            if (!_context.TblProductOrganizationQuantity.Where(x => x.PoqColorId == model.PoqColorId && x.PoqProvinceId == model.PoqProvinceId && x.PoqPo.PoProductId == id && x.PoqPo.PoOrganizationId==2).Any())
+            if (!_context.TblProductOrganizationQuantity.Where(x => x.PoqColorId == model.PoqColorId && x.PoqProvinceId == model.PoqProvinceId && x.PoqPoid==id).Any())
             {
-                model.PoqPoid = _context.TblProductOrganization.FirstOrDefault(x => x.PoProductId == id && x.PoOrganizationId == 2).PoId;
+                model.PoqPoid =id.GetValueOrDefault();
                 _context.TblProductOrganizationQuantity.Add(model);
                 _context.SaveChanges();
             }

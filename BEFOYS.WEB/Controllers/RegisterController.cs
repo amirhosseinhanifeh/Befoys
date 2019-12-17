@@ -88,7 +88,7 @@ namespace BEFOYS.WEB.Controllers
 
                 try
                 {
-                    //await SmsPortal.SendSmsAsync(reciver: Mobile.Mobile, message: Code);
+                    await SmsPortal.SendSmsAsync(reciver: Mobile.Mobile, message: Code);
                 }
                 catch (Exception e)
                 {
