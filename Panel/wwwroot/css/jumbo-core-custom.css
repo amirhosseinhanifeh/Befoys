@@ -1,5 +1,5 @@
 :root {
-    --befoys-primary: #1961AC;
+    --befoys-primary: #1961ac;
 }
 
 body {
@@ -288,6 +288,12 @@ ul.nav-menu li.menu>a:before {
 
 .custom-control-label:before {
     display: none;
+}
+
+.wizard-navbar > ul li a.active span.wz-number,
+.wizard-navbar > ul li a.active:before,
+.wizard-navbar > ul li a.active:after {
+    background-color: #f47932;
 }
 
 @media only screen and (max-width: 992px) {

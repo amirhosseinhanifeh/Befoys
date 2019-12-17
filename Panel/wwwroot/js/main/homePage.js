@@ -101,6 +101,31 @@ function startTimer() {
 }
 
 // timer
+//axios.post('http://api.befoys.com/api/register/verify', {
+//    mobile: $('#phoneinput').val(),
+//    code: $('#phoneCodeSendInputBox').val()
+//}).then(req => {
+//if (getCookie("token") === null) {
+//        $('#sendCodeTimer').css({ display: 'none' })
+//        handleRemoveTimer = true
+
+//        $('#phoneCodeSendinputInvalid').fadeOut()
+//        $('#phoneCodeSendInput').css({
+//            display: 'none'
+//        })
+//        $('.home-modal-sencode-buttons').css({
+//            display: 'none'
+//        })
+//        $('.registerItemsBox').css({
+//            display: 'flex',
+//            flexDirection: 'column',
+//            alignItems: 'center'
+//        })
+//    } else {
+//        $('#phoneCodeSendinputInvalid').fadeIn()
+//        $('#phoneCodeSendinputInvalid').text('کد ۶ رقمی را وراد کنید')
+//    }
+//})
 
 
 function phoneloginBegin() {
@@ -110,31 +135,35 @@ function phoneloginBegin() {
     numValue = $('#phoneinput').val()
     if ($('#phoneinput').val().length === 11 && digits.test($('#phoneinput').val())) {
 
-        $('#phoneFormInvalid').fadeOut()
+        axios.post('http://api.befoys.com/api/register/registeration', {
+            mobile: numValue
+        }).then(res => {
+            $('#phoneFormInvalid').fadeOut()
 
-        $('#phoneCodeSendInput').css({
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start'
-        })
+            $('#phoneCodeSendInput').css({
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start'
+            })
 
-        $('#phoneForm').css({
-            display: 'none'
-        })
-        $('.home-modal-buttons').css({
-            display: 'none'
-        })
-        $('.home-modal-sencode-buttons').css({
+            $('#phoneForm').css({
+                display: 'none'
+            })
+            $('.home-modal-buttons').css({
+                display: 'none'
+            })
+            $('.home-modal-sencode-buttons').css({
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center'
             })
             // ***
-        $('#sendCodeTimer').css({ display: 'block' })
-        handleBack = false
-        handleRemoveTimer = false
-        startTimer()
+            $('#sendCodeTimer').css({ display: 'block' })
+            handleBack = false
+            handleRemoveTimer = false
+            startTimer()
             // ***
+        }).catch(err => console.log(err))
 
     } else if ($('#phoneinput').val().length > 11 || $('#phoneinput').val().length < 11 &&
         $('#phoneinput').val().length > 0) {
@@ -222,27 +251,54 @@ function sendCodeCancele() {
 function sendCodeHandler() {
     let phoneNumber = $('#phoneinput').val()
     let sendedCode = $('#phoneCodeSendInputBox').val()
-    if (sendedCode.length === 6) {
+    //if (sendedCode.length === 6) {
+    //    $('#sendCodeTimer').css({ display: 'none' })
+    //    handleRemoveTimer = true
 
-        $('#sendCodeTimer').css({ display: 'none' })
-        handleRemoveTimer = true
+    //    $('#phoneCodeSendinputInvalid').fadeOut()
+    //    $('#phoneCodeSendInput').css({
+    //        display: 'none'
+    //    })
+    //    $('.home-modal-sencode-buttons').css({
+    //        display: 'none'
+    //    })
+    //    $('.registerItemsBox').css({
+    //        display: 'flex',
+    //        flexDirection: 'column',
+    //        alignItems: 'center'
+    //    })
+    //} else {
+    //    $('#phoneCodeSendinputInvalid').fadeIn()
+    //    $('#phoneCodeSendinputInvalid').text('کد ۶ رقمی را وراد کنید')
+    //}
+    axios.post('http://api.befoys.com/api/register/verify', {
+        mobile: $('#phoneinput').val(),
+        code: $('#phoneCodeSendInputBox').val()
+    }).then(req => {
+        console.log(req);
+        if (req.data.token !== null) {
+            document.cookie = "token=" + req.data.token;
+            $('#sendCodeTimer').css({ display: 'none' })
+            handleRemoveTimer = true
 
-        $('#phoneCodeSendinputInvalid').fadeOut()
-        $('#phoneCodeSendInput').css({
-            display: 'none'
-        })
-        $('.home-modal-sencode-buttons').css({
-            display: 'none'
-        })
-        $('.registerItemsBox').css({
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-        })
-    } else {
-        $('#phoneCodeSendinputInvalid').fadeIn()
-        $('#phoneCodeSendinputInvalid').text('کد ۶ رقمی را وراد کنید')
-    }
+            $('#phoneCodeSendinputInvalid').fadeOut()
+            $('#phoneCodeSendInput').css({
+                display: 'none'
+            })
+            $('.home-modal-sencode-buttons').css({
+                display: 'none'
+            })
+            $('.registerItemsBox').css({
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+            })
+        } else {
+            $('#phoneCodeSendinputInvalid').fadeIn()
+            $('#phoneCodeSendinputInvalid').text('کد ۶ رقمی را وراد کنید')
+        }
+        console.log(req.data.token)
+    })
 }
 
 function employeRegister() {

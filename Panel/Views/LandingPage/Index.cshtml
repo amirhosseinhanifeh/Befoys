@@ -8,25 +8,27 @@
 
     <!-- Bootstrap stylesheet -->
     <link href="~/css/jumbo-bootstrap.css" rel="stylesheet">
+    <!-- Jumbo-core stylesheet -->
+    <link href="~/css/jumbo-core.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./fonts/fontawesome-free-5.11.2-web/css/all.min.css">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="~/fonts/fontawesome-free-5.11.2-web/css/all.min.css">
+    <link rel="stylesheet" href="~/css/index.css">
 
 }
 
-<img src='./images/logo.png' class="befoys-logo-white" />
+<img src='~/images/logo.png' class="befoys-logo-white" />
 <div class="home-min-size-logo-keeper">
-    <img src='./images/logo-black.png' class="befoys-logo-black" />
+    <img src='~/images/logo-black.png' class="befoys-logo-black" />
 </div>
 <div class="home-background"></div>
 <div class="container">
     <div class="home-layout">
         <div class="home-content">
             <div class="home-picture">
-                <img src='./images/laptop.png' alt="laptopLogo" class="home-laptop-logo" />
+                <img src='~/images/laptop.png' alt="laptopLogo" class="home-laptop-logo" />
             </div>
             <div class="descs">
-                <img src='./images/Logo-Blue.png' class="home-befoys-logo-blue" />
+                <img src='~/images/Logo-Blue.png' class="home-befoys-logo-blue" />
                 <div class="home-desc-min-size">
                     <h1 class="">مرکز تامین کنندگان بیفویز</h1>
                     <h2>اولین سامانه تخصصی تامین کالا و خدمات واحد های اقامتی و پذیزایی</h2>
@@ -54,9 +56,9 @@
     <div class="modal-dialog home-modal">
         <div class="home-modal-content modal-content">
             <div class="home-form-logo-box befoys-primary-bg">
-                <img src="./images/logo.png" class="home-form-logo-image" />
+                <img src="~/images/logo.png" class="home-form-logo-image" />
             </div>
-            <form befoys-url="/api/Register/Registeration" befoys-ajax="true" befoys-method="POST" befoys-onsuccess="OnSuccess" befoys-onbefore="OnBefore" class="home-modal-form">
+            <div class="home-modal-form">
                 <div class="home-modal-form-box">
                     <div class="home-modal-form-keeper">
                         <div class="form-group home-modal-form-input" id="phoneForm">
@@ -97,9 +99,9 @@
                             <h2 class="d-block befoys-dark-text text-center mt-2 mb-5">
                                 به بیفویز خوش آمدید
                             </h2>
-                            <button class="btn befoys-primary-bg" id="hagigiButton" type="button">ثبتنام تامین کنندگان حقیقی</button>
-                            <button class="btn befoys-primary-bg" id="hogogiButton" type="button">ثبتنام تامین کنندگان حقوقی</button>
-                            <button class="btn befoys-primary-bg" id="employeButton" type="button" onclick="employeRegister()">ثبتنام کارمند</button>
+                            <a href="@Url.Action("Step1", "Haghighi")" class="btn befoys-primary-bg" id="hagigiButton" type="button">ثبت نام تامین کنندگان حقیقی</a>
+                            <a href="@Url.Action("Step1", "Hoghoghi")" class="btn befoys-primary-bg" id="hogogiButton" type="button">ثبت نام تامین کنندگان حقوقی</a>
+                            <button class="btn befoys-primary-bg" id="employeButton" type="button" onclick="employeRegister()">ثبت نام کارمند</button>
                         </div>
 
                         <div class="employeFirstStepBox">
@@ -195,7 +197,7 @@
 
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -207,7 +209,8 @@
     <!--Bootstrap JQuery-->
     <script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="./fonts/fontawesome-free-5.11.2-web/js/all.min.js"></script>
-    <script src="./js/main/homePage.js"></script>
+    <script src="~/fonts/fontawesome-free-5.11.2-web/js/all.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/js/main/homePage.js"></script>
 
 }
