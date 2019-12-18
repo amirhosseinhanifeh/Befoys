@@ -1,5 +1,5 @@
 :root {
-    --befoys-primary: #1961AC;
+    --befoys-primary: #1961ac;
 }
 
 body {
@@ -178,9 +178,9 @@ ul.nav-menu li.menu>a:before {
     margin-bottom: 50px;
 }
 
-#rootwizard-2 .wizard-navbar > ul li a span.wz-number {
+/*#rootwizard-2 .wizard-navbar > ul li a span.wz-number {
     margin-top: -78px;
-}
+}*/
 
 #rootwizard-2 .tab-pane h3 {
     font-size: 22px;
@@ -288,6 +288,12 @@ ul.nav-menu li.menu>a:before {
 
 .custom-control-label:before {
     display: none;
+}
+
+.wizard-navbar > ul li a.active span.wz-number,
+.wizard-navbar > ul li a.active:before,
+.wizard-navbar > ul li a.active:after {
+    background-color: #f47932;
 }
 
 @media only screen and (max-width: 992px) {
