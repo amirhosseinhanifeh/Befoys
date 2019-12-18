@@ -1,8 +1,216 @@
-﻿
+﻿@using BEFOYS.DataLayer.Enums
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Master.cshtml";
+    ViewData["Title"] = "صفحه اصلی";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+@section Styles {
 
+    <!-- Bootstrap stylesheet -->
+    <link href="~/css/jumbo-bootstrap.css" rel="stylesheet">
+    <!-- Jumbo-core stylesheet -->
+    <link href="~/css/jumbo-core.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/fonts/fontawesome-free-5.11.2-web/css/all.min.css">
+    <link rel="stylesheet" href="~/css/index.css">
+
+}
+
+<img src='~/images/logo.png' class="befoys-logo-white" />
+<div class="home-min-size-logo-keeper">
+    <img src='~/images/logo-black.png' class="befoys-logo-black" />
+</div>
+<div class="home-background"></div>
+<div class="container">
+    <div class="home-layout">
+        <div class="home-content">
+            <div class="home-picture">
+                <img src='~/images/laptop.png' alt="laptopLogo" class="home-laptop-logo" />
+            </div>
+            <div class="descs">
+                <img src='~/images/Logo-Blue.png' class="home-befoys-logo-blue" />
+                <div class="home-desc-min-size">
+                    <h1 class="">مرکز تامین کنندگان بیفویز</h1>
+                    <h2>اولین سامانه تخصصی تامین کالا و خدمات واحد های اقامتی و پذیزایی</h2>
+                    <div class="home-buttons">
+                        <button class="btn befoys-primary-bg home-button-top" href="#">رفتن به فروشگاه</button>
+                        <button type="button" class="btn befoys-primary-bg home-button-buttom" data-toggle="modal" data-target="#homelogin">
+                            ورود / ثبت نام
+                        </button>
+
+                        <div class="home-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="homelogin" tabindex="-1" role="dialog" aria-labelledby="homeloginLabel" aria-hidden="true">
+    <div class="modal-dialog home-modal">
+        <div class="home-modal-content modal-content">
+            <div class="home-form-logo-box befoys-primary-bg">
+                <img src="~/images/logo.png" class="home-form-logo-image" />
+            </div>
+            <div class="home-modal-form">
+                <div class="home-modal-form-box">
+                    <div class="home-modal-form-keeper">
+                        <div class="form-group home-modal-form-input" id="phoneForm">
+                            <label class="form-label">تلفن همراه</label>
+                            <input class="form-control text-center" name="mobile" type="text" placeholder="09XXXXXXXXX" id="phoneinput" />
+                            <span id="phoneFormInvalid" class="text-danger text-right"></span>
+                        </div>
+                        <div class="form-group home-modal-form-email" id="emailForm">
+                            <label class="form-label">ایمیل</label>
+                            <input class="form-control text-center" name="email" type="email" placeholder="XXXXX@gmail.com" id="emailInput" />
+                            <span id="emailInputInvalid" class="text-danger text-right"></span>
+                            <label class="form-label">رمز عبور</label>
+                            <input class="form-control text-center" name="password" type="password" placeholder="" id="passwordInput" />
+                            <span id="passwordInputInvalid" class="text-danger text-right"></span>
+                        </div>
+                        <div class="form-group home-modal-form-email" id="phoneCodeSendInput">
+                            <label class="form-label">کد ارسالی را وارد </label>
+                            <input class="form-control text-center" name="phoneCodeSendInput" type="text" id="phoneCodeSendInputBox" placeholder="" />
+                            <span id="phoneCodeSendinputInvalid" class="text-danger"></span>
+                        </div>
+                        <div class="home-modal-buttons">
+                            <button class="btn befoys-primary-bg btn-block home-form-login-btn mr-0 home-modal-btn1" id="loginPhone" onclick="phoneloginBegin()" type="button">ورود</button>
+                            <button class="btn befoys-primary-bg btn-block home-form-login-btn mr-0 home-modal-btn1" id="loginEmail" onclick="emailloginBegin()" type="button">ورود</button>
+
+                            <button class="btn befoys-primary-bg btn-block home-form-loginemail-btn home-modal-btn2 mr-0" id="emailloginBtn" type="button" onclick="modalEmailLogin()">ورود با ایمیل</button>
+                            <button class="btn befoys-primary-bg btn-block home-form-loginemail-btn home-modal-btn2 mr-0" id="phoneloginBtn" onclick="modalPhponeLogin()" type="button">ورود با شماره</button>
+                        </div>
+
+                        <div class="home-modal-sencode-buttons">
+                            <div class="d-flex flex-row-reverse justify-content-around home-modal-sencode-btns-flex">
+                                <button class="btn befoys-primary-bg" type="button" id="sendCodeHandlerBtn" onclick="sendCodeHandler()">ادامه</button>
+                                <button class="btn befoys-orange-bg" type="button" id="sendCodeCanceleBtn" onclick="sendCodeCancele()">تغییر شماره</button>
+                            </div>
+                            <span id="sendCodeTimer" class="text-danger"></span>
+                        </div>
+
+                        <div class="registerItemsBox">
+                            <h2 class="d-block befoys-dark-text text-center mt-2 mb-5">
+                                به بیفویز خوش آمدید
+                            </h2>
+                            <a href="@Url.Action("SetType", "Home",new { type=Enum_UserType.Supplier_Real})" class="btn befoys-primary-bg" id="hagigiButton" type="button">ثبت نام تامین کنندگان حقیقی</a>
+                            <a href="@Url.Action("SetType", "Home",new { type=Enum_UserType.Supplier_Legal})" class="btn befoys-primary-bg" id="hogogiButton" type="button">ثبت نام تامین کنندگان حقوقی</a>
+                            <button class="btn befoys-primary-bg" id="employeButton" type="button" onclick="employeRegister()">ثبت نام کارمند</button>
+                        </div>
+
+                        <div class="employeFirstStepBox">
+                            <h3 class="d-block befoys-dark-text text-center mt-2 mb-3">
+                                کد معرفی که از سازمان دریافت کرده اید را وارد کنید
+                            </h3>
+                            <div id="employeFirstStepInputBox">
+                                <label class="form-label" id="employeCodeLabel">کد معرفی</label>
+                                <input class="form-control text-center w-100 mb-0" name="employeCode" type="text" placeholder="" id="employeCodeinput" />
+                                <span id="employeCodeInvalid" class="text-danger text-right"></span>
+                            </div>
+                            <div class="employeFirstStepButtons">
+                                <button class="btn befoys-orange-bg" type="button" id="employeCanceleButton" onclick="employeRegisterCancele()">بازگشت</button>
+                                <button class="btn befoys-primary-bg" type="button" id="employeBeginButton" onclick="employeRegisterBegin()">ادامه</button>
+                            </div>
+                        </div>
+
+                        <div class="employeSecondStepInputBox">
+                            <h3 class="d-block befoys-dark-text text-center mt-2 mb-3">
+                                لطفا مشخصات خود را به دقت وارد نمایید
+                            </h3>
+                            <!-- <form class="form-group" action="https://google.com"> -->
+                            <div class="employeNameDivision mb-2">
+                                <label class="form-label befoys-dark-text mar-b-plus" id="employeNameLabel">نام</label>
+                                <input class="form-control text-right w-100" name="employeName" type="text" placeholder="" id="employeNameInput" />
+                                <span id="employeNameInputInvalid" class="text-danger text-right"></span>
+                            </div>
+                            <div class="employeLastnameDivision mb-2">
+                                <label class="form-label befoys-dark-text mar-b-plus" id="employeLastnameLabel">نام خانوادگی</label>
+                                <input class="form-control text-right w-100" name="employeLastname" type="text" placeholder="" id="employeLastnameInput" />
+                                <span id="employeLastnameInputInvalid" class="text-danger text-right"></span>
+                            </div>
+                            <div class="employeBirthdayDivision mb-2">
+                                <p class="text-right befoys-dark-text mar-b-zero mar-r-10">
+                                    تاریخ تولد
+                                </p>
+
+                                <div class="employeBirthdaySelects">
+                                    <select class="form-control" name="day" id="daySelect">
+                                    </select>
+
+                                    <select class="form-control" name="month" id="monthSelect">
+                                        <option value="فروردین">فروردین</option>
+                                        <option value="اردیبهشت">اردیبهشت</option>
+                                        <option value="خرداد">خرداد</option>
+                                        <option value="مهر">مهر</option>
+                                        <option value="تیر">تیر</option>
+                                        <option value="مرداد">مرداد</option>
+                                        <option value="شهریور">شهریور</option>
+                                        <option value="مهر">مهر</option>
+                                        <option value="آبان">آبان</option>
+                                        <option value="دی">دی</option>
+                                        <option value="بهمن">بهمن</option>
+                                        <option value="اسفند">اسفند</option>
+                                    </select>
+
+                                    <select class="form-control" name="year" id="yearSelect">
+                                    </select>
+                                </div>
+
+                                <span id="employeBirthdayInputInvalid" class="text-danger text-right"></span>
+                            </div>
+
+                            <div class="employeGenderDivision mb-2">
+                                <p class="text-right befoys-dark-text mar-r-10 mar-b-plus">جنسیت</p>
+                                <div class="d-flex justify-content-center w100">
+                                    <select class="form-control" name="gender" id="genderSelect">
+                                        <option value="آقا">آقا</option>
+                                        <option value="خانم">خانم</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="employeEmailDivision mb-2">
+                                <label class="form-label befoys-dark-text mar-b-plus" id="employeEmailLabel">ایمیل</label>
+                                <input class="form-control text-left w-100" name="employeEmail" type="text" placeholder="" id="employeEmailInput" />
+                                <span id="employeEmailInputInvalid" class="text-danger text-right"></span>
+                            </div>
+
+                            <div class="employePasswordDivision mb-2">
+                                <label class="form-label befoys-dark-text mar-b-plus" id="employePasswordLabel">رمز عبور</label>
+                                <input class="form-control text-left w-100" name="employePassword" type="text" placeholder="" id="employePasswordInput" />
+                                <span id="employePasswordInputInvalid" class="text-danger text-right"></span>
+                            </div>
+
+                            <div class="employeFinalButtons">
+                                <button type="button" class="btn befoys-primary-bg pr-5 pl-5 mt-3" name="submitEmploye" value="ثبت" onclick="employeRegisterFinal()" id="employeRegisterFinalId">ثبت</button>
+                                <button type="button" class="btn befoys-orange-bg pr-5 pl-5 mt-3" name="submitEmployeCancele" value="انصراف" onclick="employeRegisterFinalCancele()" id="employeRegisterFinalCanceleId">انصراف</button>
+                            </div>
+
+                            <!-- </form> -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <!--Load JQuery-->
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <!--Bootstrap JQuery-->
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/fonts/fontawesome-free-5.11.2-web/js/all.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/js/main/homePage.js"></script>
+
+}

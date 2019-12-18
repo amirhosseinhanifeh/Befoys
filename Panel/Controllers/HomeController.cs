@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using BEFOYS.DataLayer.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Panel.Classes;
+using Panel.DownloadData;
 using Panel.Models;
 
 namespace Panel.Controllers
@@ -22,13 +26,27 @@ namespace Panel.Controllers
         {
             return View();
         }
-
-
-        public IActionResult LandingPage()
+        public IActionResult SetType(Enum_UserType type)
         {
+            string Token = Get("token");
+            string json = JsonConvert.SerializeObject(new {type=type });
+            var result = DownloadData<dynamic>.DownloadValue($"{ServerUrl.ServerAddress}/api/Step/SetOrganizationType?type={type}", "POST", json, Token);
+            switch(type)
+            {
+                case Enum_UserType.Supplier_Real:
+                    return RedirectToAction("Step1", "Haghighi");
+                    break;
+                case Enum_UserType.Supplier_Legal:
+                    return RedirectToAction("Step1", "Hoghoghi");
+                    break;
+                    
+            }
             return View();
         }
-
+        public string Get(string key)
+        {
+            return Request.Cookies[key];
+        }
         public IActionResult Privacy()
         {
             return View();

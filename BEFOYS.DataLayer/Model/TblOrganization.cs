@@ -11,11 +11,13 @@ namespace BEFOYS.DataLayer.Model
         public TblOrganization()
         {
             InverseOrganizationMotherOrganization = new HashSet<TblOrganization>();
+            TblAddress = new HashSet<TblAddress>();
             TblEmployee = new HashSet<TblEmployee>();
             TblMessage = new HashSet<TblMessage>();
             TblOrganizationBrand = new HashSet<TblOrganizationBrand>();
             TblOrganizationDocument = new HashSet<TblOrganizationDocument>();
             TblOrganizationInformation = new HashSet<TblOrganizationInformation>();
+            TblOrganizationProductCategory = new HashSet<TblOrganizationProductCategory>();
             TblOrganizationRole = new HashSet<TblOrganizationRole>();
             TblOrganizationTransport = new HashSet<TblOrganizationTransport>();
             TblPanelTypeControl = new HashSet<TblPanelTypeControl>();
@@ -58,13 +60,14 @@ namespace BEFOYS.DataLayer.Model
         [InverseProperty(nameof(TblOrganization.InverseOrganizationMotherOrganization))]
         public virtual TblOrganization OrganizationMotherOrganization { get; set; }
         [ForeignKey(nameof(OrganizationNameInformationId))]
-        [InverseProperty("TblOrganization")]
         public virtual TblOrganizationInformation OrganizationNameInformation { get; set; }
         [ForeignKey(nameof(OrganizationOtid))]
         [InverseProperty(nameof(TblOrganizationType.TblOrganization))]
         public virtual TblOrganizationType OrganizationOt { get; set; }
         [InverseProperty(nameof(TblOrganization.OrganizationMotherOrganization))]
         public virtual ICollection<TblOrganization> InverseOrganizationMotherOrganization { get; set; }
+        [InverseProperty("AddressOrganization")]
+        public virtual ICollection<TblAddress> TblAddress { get; set; }
         [InverseProperty("EmployeeOrganization")]
         public virtual ICollection<TblEmployee> TblEmployee { get; set; }
         [InverseProperty("MessageReceiverOrganization")]
@@ -75,6 +78,8 @@ namespace BEFOYS.DataLayer.Model
         public virtual ICollection<TblOrganizationDocument> TblOrganizationDocument { get; set; }
         [InverseProperty("OiOrganization")]
         public virtual ICollection<TblOrganizationInformation> TblOrganizationInformation { get; set; }
+        [InverseProperty("OpcOrganization")]
+        public virtual ICollection<TblOrganizationProductCategory> TblOrganizationProductCategory { get; set; }
         [InverseProperty("OrOrganization")]
         public virtual ICollection<TblOrganizationRole> TblOrganizationRole { get; set; }
         [InverseProperty("OtOrganization")]

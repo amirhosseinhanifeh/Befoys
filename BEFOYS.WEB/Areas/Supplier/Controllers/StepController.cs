@@ -145,7 +145,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                                 OiOrganizationId = employe.EmployeeOrganizationId,
                                 OiText = item.Value,
                                 OiTypeCodeId = item.TypeCodeId,
-                                
+
                             };
                             _context.TblOrganizationInformation.Add(tblOrganizationInformation);
 
@@ -157,37 +157,41 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                     }
                 }
 
+
+                if (model.Addresses != null)
+                {
+                    List<TblAddress> list = new List<TblAddress>();
+                    foreach (var item in model.Addresses)
+                    {
+                        string iguid = item.CityName;
+                        var city = _context.TblCity.FirstOrDefault(x => x.CityName == iguid);
+                        TblAddress address = new TblAddress
+                        {
+                            AddressOrganizationId = employe.EmployeeOrganizationId,
+                            AddressText = item.Address,
+                            AddressIsSetGps = false,
+                            AddressCityId = city.CityId,
+                            AddressTypeCodeId = 1,
+                        };
+                        foreach (var item2 in item.phones)
+                        {
+                            address.TblPhone = new List<TblPhone>
+                            {
+                                new TblPhone
+                                {
+                                    PhoneNumber = item2.PhoneValue,
+                                    PhoneAreaCodeId=5,
+                                    PhoneTypeCodeId=1,
+
+                                }
+                            };
+                        }
+                        list.Add(address);
+                    }
+                    _context.TblAddress.AddRange(list);
+
+                }
                 await _context.SaveChangesAsync();
-
-
-
-                //if (model.Addresses != null)
-                //{
-                //    List<Tbl_Address> list = new List<Tbl_Address>();
-                //    foreach (var item in model.Addresses)
-                //    {
-                //        Guid iguid = item.CityID.ToGuid();
-                //        var city = _context.Tbl_City.FirstOrDefault(x => x.City_GUID == iguid);
-                //        Tbl_Address address = new Tbl_Address
-                //        {
-                //            Address_LoginID = userId,
-                //            Address_Text = item.Address,
-                //            Address_CityID = city.City_ID,
-                //        };
-                //        foreach (var item2 in item.Phones)
-                //        {
-                //            address.Phones = new List<Tbl_Phone>
-                //            {
-                //                new Tbl_Phone
-                //                {
-                //                    Phone_Number = item2.Phone,
-
-                //                }
-                //            };
-                //        }
-                //        list.Add(address);
-                //    }
-                //}
                 return new BaseViewModel<bool> { Value = true, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
 
             }
@@ -196,32 +200,28 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 return new BaseViewModel<bool>
                 {
                     Value = false,
-                    Message =e.Message,
+                    Message = e.Message,
                     NotificationType = DataLayer.Enums.Enum_NotificationType.error
                 };
             }
         }
         #endregion
         [HttpPost]
-        public ActionResult<BaseViewModel<bool>> CreateAddress()
+        public async Task<ActionResult<BaseViewModel<bool>>> SetOrganizationCategory([FromBody]int[] Cats)
         {
-            try
-            {
-                return new BaseViewModel<bool>
-                {
-                    Message = "آدرس ذخیر شد",
-                    NotificationType = Enum_NotificationType.success,
-                    Value = true
-                };
-            }
-            catch (Exception e)
-            {
+            var userId = User.Identity.UserID();
+            var employe = _context.TblEmployee.FirstOrDefault(x => x.EmployeeLoginId == userId);
+            List<TblOrganizationProductCategory> list = new List<TblOrganizationProductCategory>();
 
-                throw;
+            foreach (var item in Cats)
+            {
+                list.Add(new TblOrganizationProductCategory { OpcOrganizationId = employe.EmployeeOrganizationId, OpcIsAccept = false, OpcPcid = item });
             }
+            _context.TblOrganizationProductCategory.AddRange(list);
+            await _context.SaveChangesAsync();
+            return new BaseViewModel<bool> { Value = true, Message = ViewMessage.SuccessFull, NotificationType = DataLayer.Enums.Enum_NotificationType.success };
+
         }
-
-
         #region Step3 POST & GET
 
         [HttpPost, DisableRequestSizeLimit]
@@ -240,7 +240,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                         OdDocumentId = doc,
                         OdIsAccept = null,
                         OdOrganizationId = organization.EmployeeOrganizationId,
-                        
+
                     };
                     _context.TblOrganizationDocument.Add(data);
                     await _context.SaveChangesAsync();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Panel.Classes;
 using Panel.DownloadData;
 using Panel.ViewModels.Account;
 
@@ -28,7 +29,7 @@ namespace Panel.Controllers
             string Token = Get("token");
             model.StepNumber = 1;
             string json = JsonConvert.SerializeObject(model);
-            var result = DownloadData<dynamic>.DownloadValue("http://api.befoys.com/api/Step/UpdateInformation", "POST", json, Token);
+            var result = DownloadData<dynamic>.DownloadValue($"{ServerUrl.ServerAddress}/api/Step/UpdateInformation", "POST", json, Token);
             return Json(result.value.Value);
         }
 
@@ -39,7 +40,7 @@ namespace Panel.Controllers
             string Token = Get("token");
             model.StepNumber = 2;
             string json = JsonConvert.SerializeObject(model);
-            var result = DownloadData<dynamic>.DownloadValue("http://api.befoys.com/api/Step/UpdateInformation", "POST", json, Token);
+            var result = DownloadData<dynamic>.DownloadValue($"{ServerUrl.ServerAddress}/api/Step/UpdateInformation", "POST", json, Token);
             return Json(result.value.Value);
         }
 

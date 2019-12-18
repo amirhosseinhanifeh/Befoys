@@ -24,7 +24,8 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public UpdateInformation[] infoes { get; set; }
-        
+        public AddressValue[] Addresses{ get; set; }
+
     }
     public class AddressValue
     {

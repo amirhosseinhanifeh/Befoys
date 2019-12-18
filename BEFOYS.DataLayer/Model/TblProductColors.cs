@@ -18,7 +18,7 @@ namespace BEFOYS.DataLayer.Model
         [Column("PC_ProductID")]
         public int PcProductId { get; set; }
         [Column("PC_PDID")]
-        public int PcPdid { get; set; }
+        public int? PcPdid { get; set; }
 
         [ForeignKey(nameof(PcColorsId))]
         [InverseProperty(nameof(TblColors.TblProductColors))]

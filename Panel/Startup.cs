@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BEFOYS.DataLayer.ServiceContext;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +31,7 @@ namespace Panel
             services.AddRazorPages();
             var connection = "Server=89.42.208.109;Database=Befoys_Organization;user id=sa;password=A@rd123456;";
             services.AddDbContext<ServiceContext>(options => options.UseSqlServer(connection).UseLazyLoadingProxies());
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
         }
        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

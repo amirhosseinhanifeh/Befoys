@@ -39,6 +39,9 @@ namespace BEFOYS.DataLayer.Model
         [ForeignKey(nameof(AddressCityId))]
         [InverseProperty(nameof(TblCity.TblAddress))]
         public virtual TblCity AddressCity { get; set; }
+        [ForeignKey(nameof(AddressOrganizationId))]
+        [InverseProperty(nameof(TblOrganization.TblAddress))]
+        public virtual TblOrganization AddressOrganization { get; set; }
         [ForeignKey(nameof(AddressTypeCodeId))]
         [InverseProperty(nameof(TblCode.TblAddress))]
         public virtual TblCode AddressTypeCode { get; set; }

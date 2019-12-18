@@ -37,6 +37,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         public virtual DbSet<TblOrganizationInformation> TblOrganizationInformation { get; set; }
         public virtual DbSet<TblOrganizationNavigator> TblOrganizationNavigator { get; set; }
         public virtual DbSet<TblOrganizationPanelType> TblOrganizationPanelType { get; set; }
+        public virtual DbSet<TblOrganizationProductCategory> TblOrganizationProductCategory { get; set; }
         public virtual DbSet<TblOrganizationRole> TblOrganizationRole { get; set; }
         public virtual DbSet<TblOrganizationRolePermission> TblOrganizationRolePermission { get; set; }
         public virtual DbSet<TblOrganizationTransport> TblOrganizationTransport { get; set; }
@@ -105,6 +106,12 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.AddressCityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_Address_Tbl_City");
+
+                entity.HasOne(d => d.AddressOrganization)
+                    .WithMany(p => p.TblAddress)
+                    .HasForeignKey(d => d.AddressOrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_Address_Tbl_Organization");
 
                 entity.HasOne(d => d.AddressTypeCode)
                     .WithMany(p => p.TblAddress)
@@ -472,6 +479,23 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasConstraintName("FK_Tbl_OrganizationPanelType_Tbl_PanelTypePermission");
             });
 
+            modelBuilder.Entity<TblOrganizationProductCategory>(entity =>
+            {
+                entity.Property(e => e.OpcGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.OpcOrganization)
+                    .WithMany(p => p.TblOrganizationProductCategory)
+                    .HasForeignKey(d => d.OpcOrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationProductCategory_Tbl_Organization");
+
+                entity.HasOne(d => d.OpcPc)
+                    .WithMany(p => p.TblOrganizationProductCategory)
+                    .HasForeignKey(d => d.OpcPcid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_OrganizationProductCategory_Tbl_ProductCategory");
+            });
+
             modelBuilder.Entity<TblOrganizationRole>(entity =>
             {
                 entity.Property(e => e.OrGuid).HasDefaultValueSql("(newid())");
@@ -726,7 +750,7 @@ namespace BEFOYS.DataLayer.ServiceContext
 
             modelBuilder.Entity<TblProductColors>(entity =>
             {
-                entity.Property(e => e.PcId).ValueGeneratedNever();
+                entity.Property(e => e.PcGuid).HasDefaultValueSql("(newid())");
 
                 entity.HasOne(d => d.PcColors)
                     .WithMany(p => p.TblProductColors)
@@ -737,7 +761,6 @@ namespace BEFOYS.DataLayer.ServiceContext
                 entity.HasOne(d => d.PcPd)
                     .WithMany(p => p.TblProductColors)
                     .HasForeignKey(d => d.PcPdid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_ProductColors_Tbl_ProductDocument");
 
                 entity.HasOne(d => d.PcProduct)
