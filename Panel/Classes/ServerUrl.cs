@@ -7,7 +7,7 @@ namespace Panel.Classes
 {
     public class ServerUrl
     {
-        //public static string ServerAddress = "http://api.befoys.com";
-        public static string ServerAddress = "https://localhost:44317";
+        public static string ServerAddress = "http://api.befoys.com";
+        //public static string ServerAddress = "https://localhost:44317";
     }
 }

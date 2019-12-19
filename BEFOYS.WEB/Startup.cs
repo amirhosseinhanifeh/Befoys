@@ -64,6 +64,7 @@ namespace BEFOYS.WEB
                     .WithOrigins("http://localhost:3000/")
                     .WithOrigins("https://localhost:44363/")
                     .WithOrigins("http://localhost:1462/")
+                    .WithOrigins("http://demo.befoys.com/")
                     .AllowAnyMethod()
                     .AllowAnyOrigin()
                     .AllowAnyHeader();
