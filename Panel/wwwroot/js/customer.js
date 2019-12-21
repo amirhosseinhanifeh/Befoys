@@ -289,7 +289,11 @@
     }
 
     $('#step3 input[type=file]').change(function () {
-        if ($(this)[0].files.length > 0) {
+        if (this.files.length > 0) {
+            if (this.files[0].size > 5000000) {
+                alert("حجم فایل آپلود شده بیشتر از حد مجاز می باشد.");
+                return;
+            }
             $(this).prev().text($(this)[0].files[0].name);
         } else {
             $(this).prev().text("آپلود فایل");

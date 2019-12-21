@@ -406,13 +406,18 @@
                                 <img class="mx-auto" style="width: 60vw;" src="~/images/contract.png" alt="قرارداد" />
                             </div>
                             <div class="row">
+                                <div class="col-md-12">
+                                    <p class="alert-info mb-4" style="padding: 7.5px 10px 7.5px 0;">حداکثر حجم فایل ارسالی 5 مگابایت است.</p>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-3 mb-2">
                                     <a href="javascript:void(0)" class="gx-btn btn-success gx-btn-shadow d-block">دانلود قرارداد</a>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input required" id="businessLicenseScan" name="businessLicenseScan">
                                         <label class="custom-file-label" for="businessLicenseScan">قرارداد خود را آپلود کنید</label>
+                                        <input type="file" class="custom-file-input required" id="businessLicenseScan" name="businessLicenseScan">
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-2">
@@ -452,7 +457,19 @@
     <script src="~/js/functions.js"></script>
     <script src="~/js/custom/form-wizard.js"></script>
 
-    <script src="~/js/add-first-step-elements.js"></script>
+    <script>
+        $('input[type=file]').change(function () {
+        if (this.files.length > 0) {
+            if (this.files[0].size > 5000000) {
+                alert("حجم فایل آپلود شده بیشتر از حد مجاز می باشد.");
+                return;
+            }
+            $(this).prev().text(this.files[0].name);
+        } else {
+            $(this).prev().text("قرارداد خود را آپلود کنید");
+        }
+    });
+    </script>
 }
 
 

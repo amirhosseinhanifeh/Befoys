@@ -247,17 +247,17 @@
 
         }
 
-        //if (form == "#step1" || form == "#step2" || form == "#step3") {
-        //    $(".wizard-navbar ul li:nth-child(" + num + ")").removeClass("active");
-        //    $(".wizard-navbar ul li:nth-child(" + num + ") a").removeClass("active show");
-        //    $(".wizard-navbar ul li:nth-child(" + (num + 1) + ")").addClass("active");
-        //    $(".wizard-navbar ul li:nth-child(" + (num + 1) + ") a").addClass("active show");
+        if (form == "#step1" || form == "#step2") {
+            $(".wizard-navbar ul li:nth-child(" + num + ")").removeClass("active");
+            $(".wizard-navbar ul li:nth-child(" + num + ") a").removeClass("active show");
+            $(".wizard-navbar ul li:nth-child(" + (num + 1) + ")").addClass("active");
+            $(".wizard-navbar ul li:nth-child(" + (num + 1) + ") a").addClass("active show");
 
-        //    $(".tab-pane.active").removeClass("active");
-        //    $("#tab2-" + (num + 1)).addClass("active");
+            $(".tab-pane.active").removeClass("active");
+            $("#tab2-" + (num + 1)).addClass("active");
 
-        //    $(".gx-main-content").scrollTop(0);
-        //}
+            $(".gx-main-content").scrollTop(0);
+        }
 
     });
 
@@ -286,7 +286,11 @@
     }
 
     $('#step3 input[type=file]').change(function () {
-        if ($(this)[0].files.length > 0) {
+        if (this.files.length > 0) {
+            if (this.files[0].size > 5000000) {
+                alert("حجم فایل آپلود شده بیشتر از حد مجاز می باشد.");
+                return;
+            }
             $(this).prev().text($(this)[0].files[0].name);
         } else {
             $(this).prev().text("آپلود فایل");
