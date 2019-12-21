@@ -134,10 +134,13 @@ function phoneloginBegin() {
 
     numValue = $('#phoneinput').val()
     if ($('#phoneinput').val().length === 11 && digits.test($('#phoneinput').val())) {
-
+        $("#loginPhone").text("لطفا صبر کنید");
+        $("#loginPhone").prop("disabled", true);
         axios.post('http://api.befoys.com/api/register/registeration', {
             mobile: numValue
         }).then(res => {
+            $("#loginPhone").text("ورود");
+            $("#loginPhone").prop("disabled", false);
             $('#phoneFormInvalid').fadeOut()
 
             $('#phoneCodeSendInput').css({
@@ -159,9 +162,9 @@ function phoneloginBegin() {
             })
             // ***
             $('#sendCodeTimer').css({ display: 'block' })
-            handleBack = false
-            handleRemoveTimer = false
-            startTimer()
+            handleBack = false;
+            handleRemoveTimer = false;
+            startTimer();
             // ***
         }).catch(err => console.log(err))
 

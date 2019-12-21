@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BEFOYS.Common.AppUser;
 using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.ADMIN.Areas.Crm.Controllers
 {
-    [Area("Setting")]
-    [Route("Setting/[controller]/[action]/{id?}")]
+    [Area("Crm")]
+    [Route("Crm/[controller]/[action]/{id?}")]
     public class ProductController : Controller
     {
         private readonly ServiceContext _context;
@@ -31,6 +33,8 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
         }
         public IActionResult Create()
         {
+            ViewBag.Brands = _context.TblBrands
+                .Select(x=>new SelectListItem {Value=x.BrandsId.ToString(),Text=x.BrandsName }).ToList();
             return View();
         }
         [HttpPost]

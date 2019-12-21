@@ -67,9 +67,10 @@ namespace BEFOYS.WEB.Controllers
                 TblLogin login = new TblLogin();
                 if (Result == null)
                 {
-
+                    login.LoginCreateDate = DateTime.Now;
                     login.LoginMobile = Mobile.Mobile;
-                    _context.TblLogin.AddAsync(login).GetAwaiter();
+                    _context.TblLogin.Add(login);
+                   await _context.SaveChangesAsync();
                 }
                 else
                 {

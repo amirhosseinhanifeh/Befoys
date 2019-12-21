@@ -24,6 +24,17 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
         {
             return View(await _context.TblProductCategory.ToListAsync());
         }
+        [HttpGet]
+        public async Task<IActionResult> GetCategory(int? id)
+        {
+            var Result = _context.TblProductCategory.AsQueryable();
+            if (id != null)
+            {
+                return Json(new {IsSubCategory=true, Options = await Result.Where(x => x.PcPcdid == id).Select(x => new { x.PcId, x.PcName }).ToArrayAsync() });
+
+            }
+            return Json(new { IsSubCategory = false,Options = await Result.Where(x => x.PcPcdid == null).Select(x => new { x.PcId, x.PcName }).ToArrayAsync() });
+        }
         public IActionResult Create(int? id)
         {
             ViewBag.ID = id;
