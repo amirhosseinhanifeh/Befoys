@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BEFOYS.ADMIN.Areas.Crm.Controllers
 {
     [Area("Crm")]
-    [Route("Crm/[controller]/[action]")]
+    [Route("Crm/[controller]/[action]/{id?}")]
     public class ProductCategoryController : Controller
     {
         private readonly ServiceContext _context;
@@ -20,9 +20,15 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            return View(await _context.TblProductCategory.ToListAsync());
+            if (id != null)
+            {
+                ViewBag.Category = _context.TblProductCategory.Find(id);
+                return View( await _context.TblProductCategory.Include(x=>x.InversePcPcd).Where(x => x.PcPcdid == id).ToListAsync());
+
+            }
+            return View(await _context.TblProductCategory.Include(x => x.InversePcPcd).Where(x=>x.PcPcdid==null).ToListAsync());
         }
         [HttpGet]
         public async Task<IActionResult> GetCategory(int? id)
