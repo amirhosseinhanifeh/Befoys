@@ -85,18 +85,20 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         #region Step1 POST & GET
 
 
-        [HttpGet]
-        public async Task<ActionResult<BaseViewModel<List<ViewOrganizationInformation>>>> GetInformation()
+        [HttpPost]
+        public async Task<ActionResult<BaseViewModel<object>>> GetInformation()
         {
+            _context.ChangeTracker.LazyLoadingEnabled = false;
             var user = User.Identity.UserID();
-
+            var data = _context.TblLogin.Find(user);
+            
             var info = await _context.TblOrganizationInformation
                 .Include(x => x.OiTypeCode)
                 .Where(x => x.OiOrganization.TblEmployee.Any(y => y.EmployeeLoginId == user))
                 .Select(x => new ViewOrganizationInformation(x)).ToListAsync();
+            
 
-
-            return new BaseViewModel<List<ViewOrganizationInformation>> { Message = "موفقیت آمیز", NotificationType = Enum_NotificationType.success, Value = info };
+            return new BaseViewModel<object> { Message = "موفقیت آمیز", NotificationType = Enum_NotificationType.success, Value = new {infoes=info,Data=data } };
 
         }
 

@@ -28,6 +28,8 @@ namespace Panel.Controllers
 
         public IActionResult Step1()
         {
+            string Token = Get("token");
+            var result = DownloadData<HaghighiViewModel>.DownloadValue($"{ServerUrl.ServerAddress}/api/Step/GetInformation", "POST", "", Token);
             return View();
         }
 

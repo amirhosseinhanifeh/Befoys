@@ -22,7 +22,7 @@ namespace BEFOYS.DataLayer.Model
         [StringLength(50)]
         public string PfgName { get; set; }
         [Column("PFG_IsActive")]
-        public bool? PfgIsActive { get; set; }
+        public bool PfgIsActive { get; set; }
         [Column("PFG_Guid")]
         public Guid PfgGuid { get; set; }
 
