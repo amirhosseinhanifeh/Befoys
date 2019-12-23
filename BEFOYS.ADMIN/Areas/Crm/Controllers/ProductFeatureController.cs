@@ -40,5 +40,10 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> GetFields(int? CategoryID) =>
+            
+            Json("");
+        
     }
 }

@@ -29,7 +29,10 @@
             <div id="category" class="form-group">
 
             </div>
+            
+           <div id="customfields">
 
+           </div>
             <div class="form-group">
                 برچسب ها
                 <input name="tags" class="form-control" />
@@ -48,7 +51,8 @@
     <script>
         $(document).ready(function () {
 
-        loadcategories();
+            loadcategories();
+            loadcustomfields();
     });
     function loadcategories(id,elem) {
 
@@ -88,6 +92,20 @@
         });
         
         $("#category").append(category);
+        }
+        function loadcustomfields(item) {
+                $.ajax({
+            url: "@Url.Content("~/Crm/ProductFeatureGroup/GetGroupFields")",
+            data: {
+                CategoryId: 4
+            },
+            method: "GET"
+
+                }).done(function (Result) {
+                    $("#customfields").html(Result);
+                });
+
     }
+       
     </script>
 }

@@ -11,6 +11,7 @@ namespace BEFOYS.DataLayer.Model
         public TblProductFeatures()
         {
             TblProductDetails = new HashSet<TblProductDetails>();
+            TblProductFeatureItems = new HashSet<TblProductFeatureItems>();
         }
 
         [Key]
@@ -31,9 +32,6 @@ namespace BEFOYS.DataLayer.Model
         [Column("PF_TypeCodeID")]
         public int PfTypeCodeId { get; set; }
 
-        [ForeignKey(nameof(PfId))]
-        [InverseProperty(nameof(TblProductFeatureItems.TblProductFeatures))]
-        public virtual TblProductFeatureItems Pf { get; set; }
         [ForeignKey(nameof(PfPfgid))]
         [InverseProperty(nameof(TblProductFeatureGroup.TblProductFeatures))]
         public virtual TblProductFeatureGroup PfPfg { get; set; }
@@ -42,5 +40,7 @@ namespace BEFOYS.DataLayer.Model
         public virtual TblCode PfTypeCode { get; set; }
         [InverseProperty("PdPf")]
         public virtual ICollection<TblProductDetails> TblProductDetails { get; set; }
+        [InverseProperty("PfiPf")]
+        public virtual ICollection<TblProductFeatureItems> TblProductFeatureItems { get; set; }
     }
 }

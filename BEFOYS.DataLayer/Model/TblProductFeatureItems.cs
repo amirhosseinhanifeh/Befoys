@@ -24,8 +24,9 @@ namespace BEFOYS.DataLayer.Model
         [Column("PFI_PFID")]
         public int PfiPfid { get; set; }
 
-        [InverseProperty("Pf")]
-        public virtual TblProductFeatures TblProductFeatures { get; set; }
+        [ForeignKey(nameof(PfiPfid))]
+        [InverseProperty(nameof(TblProductFeatures.TblProductFeatureItems))]
+        public virtual TblProductFeatures PfiPf { get; set; }
         [InverseProperty("PdPfi")]
         public virtual ICollection<TblProductDetails> TblProductDetails { get; set; }
     }
