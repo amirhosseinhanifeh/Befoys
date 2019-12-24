@@ -6,15 +6,10 @@
         headers: { "Authorization": "Bearer " + getCookie("token") }
 
     }).done(function (response) {
-        $.each(response.value.infoes, function (index, value) {
-            console.log(value.typeCodeId);
-            //$("input[name=" + value.typeCodeId + "]").val(value.value);
-            $(`input[name=${value.typeCodeId}]`).val(value.value);
-            $("input[name=FirstName]").val(value.value);
+        console.log(response.value.infoes);
+        $.each(response.value.infoes, function (index, obj) {
+            $(`input[name='${obj.typeCodeId}']`).val(obj.value);
         });
-        
-        //var obj = $.parseJSON(response);
-        //console.log(obj);
     });
 
     $("#addTelephone").click(function () {
