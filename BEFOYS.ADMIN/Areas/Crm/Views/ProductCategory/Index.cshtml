@@ -24,8 +24,21 @@
 
 <div class="main-section-header">
     <div class="main-section-header-descs">
-        <h5 class="main-section-header-title">رنگ ها</h5>
-        <p class="main-section-header-subtitle"><br /></p>
+        <h5 class="main-section-header-title">دسته بندی</h5>
+
+        @if (Category != null)
+        {
+            <p class="main-section-header-subtitle">
+                زیر دسته برای @Category.PcName
+            </p>
+        }
+        else
+        {
+            <p class="main-section-header-subtitle">
+                <br />
+            </p>
+
+        }
     </div>
     <div class="main-section-header-icons">
         <a href="javascript:void(0)" onclick="Create()" data-toggle='tooltip' data-placement='auto' title='افزودن برند'>
@@ -51,16 +64,6 @@
         </div>
     </div>*@
 
-@if (Category != null)
-{
-    <div class="row">
-        <div class="col-12">
-            <header>
-                زیر دسته برای @Category.PcName
-            </header>
-        </div>
-    </div>
-}
 
 
 <div class="main-section-body">
@@ -71,79 +74,67 @@
 
 
 
-            <table id="DateTable" dir="rtl" class="table table-striped " style="width:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PcId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PcGuid)
-                        </th>
-                        <th>
+        <table id="DateTable" dir="rtl" class="table table-striped " style="width:100%">
+            <thead>
+                <tr>
+                    @*<th>
                             @Html.DisplayNameFor(model => model.PcPcdid)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PcDisplay)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PcName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PcCommission)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PcContractClause)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PcIsBase)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PcIsActive)
-                        </th>
-                        <th scope="col" data-orderable="false">کنترل</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PcName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PcCommission)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PcContractClause)
-                                joon
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PcIsActive)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                            </td>
-                            <td>
-                                @if (item.InversePcPcd.Any())
-                                {
-                                    <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
-                                }
-                                @if (!item.InversePcPcd.Any())
-                                {
-                                    <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
-                                    <a asp-action="Create" asp-controller="ProductCategoryFeature" asp-area="Crm" asp-route-id="@item.PcId">افزودن گروه فیلد</a><span>|</span>
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.PcName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PcCommission)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PcContractClause)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PcIsActive)
+                    </th>
+                    <th scope="col" data-orderable="false">کنترل</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PcName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PcCommission)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PcContractClause)
+                            
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PcIsActive)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
 
-                                }
-                                <a asp-action="Create" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">افزودن زیر دسته</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        
+
+                            @if (item.InversePcPcd.Any())
+                            {
+                                <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
+                            }
+                            @if (!item.InversePcPcd.Any())
+                            {
+                                <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
+                                <a asp-action="Create" asp-controller="ProductCategoryFeature" asp-area="Crm" asp-route-id="@item.PcId">افزودن گروه فیلد</a><span>|</span>
+
+                            }
+                            <a asp-action="Create" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">افزودن زیر دسته</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
     </div>
 </div>
 
@@ -193,12 +184,12 @@
 
         function Create() {
             $.ajax({
-                url: "@Url.Content("~/Crm/Color/Create")",
+                url: "@Url.Content("~/Crm/ProductCategory/Create")",
                 type: "Get",
                 data: {}
             }).done(function (result) {
                 $('#myModal').modal('show');
-                $('#myModalLabel').html('افزودن رنگ');
+                $('#myModalLabel').html('افزودن دسته بندی');
                 $('#myModalBody').html(result);
             });
         }

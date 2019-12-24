@@ -44,7 +44,7 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
         public IActionResult Create(int? id)
         {
             ViewBag.ID = id;
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public async Task<IActionResult> Create(TblProductCategory model)

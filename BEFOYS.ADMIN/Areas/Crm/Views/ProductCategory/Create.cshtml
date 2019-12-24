@@ -1,61 +1,48 @@
 ﻿@model BEFOYS.DataLayer.Model.TblProductCategory
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h1>Create</h1>
 
-<h4>TblProductCategory</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PcPcdid" class="control-label"></label>
-                <input asp-for="PcPcdid" class="form-control" value="@ViewBag.ID" />
-                <span asp-validation-for="PcPcdid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PcDisplay" class="control-label"></label>
-                <input asp-for="PcDisplay" class="form-control" />
-                <span asp-validation-for="PcDisplay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PcName" class="control-label"></label>
-                <input asp-for="PcName" class="form-control" />
-                <span asp-validation-for="PcName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PcCommission" class="control-label"></label>
-                <input asp-for="PcCommission" class="form-control" />
-                <span asp-validation-for="PcCommission" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PcContractClause" class="control-label"></label>
-                <input asp-for="PcContractClause" class="form-control" />
-                <span asp-validation-for="PcContractClause" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="PcIsBase" /> @Html.DisplayNameFor(model => model.PcIsBase)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="PcIsActive" /> @Html.DisplayNameFor(model => model.PcIsActive)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<div class="modal-main">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="PcPcdid" class="control-label"></label>
+            <input asp-for="PcPcdid" class="form-control" value="@ViewBag.ID" />
+            <span asp-validation-for="PcPcdid" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PcDisplay" class="control-label"></label>
+            <input asp-for="PcDisplay" class="form-control" />
+            <span asp-validation-for="PcDisplay" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PcName" class="control-label"></label>
+            <input asp-for="PcName" class="form-control" />
+            <span asp-validation-for="PcName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PcCommission" class="control-label"></label>
+            <input asp-for="PcCommission" class="form-control" />
+            <span asp-validation-for="PcCommission" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PcContractClause" class="control-label"></label>
+            <input asp-for="PcContractClause" class="form-control" />
+            <span asp-validation-for="PcContractClause" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="PcIsBase" /> @Html.DisplayNameFor(model => model.PcIsBase)
+            </label>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="PcIsActive" /> @Html.DisplayNameFor(model => model.PcIsActive)
+            </label>
+        </div>
+
+        <input type="submit" value="Create" class="btn btn-block btn-primary" />
+
+    </form>
+
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
