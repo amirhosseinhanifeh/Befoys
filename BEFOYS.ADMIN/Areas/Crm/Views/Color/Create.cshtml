@@ -1,56 +1,34 @@
 ﻿@model BEFOYS.DataLayer.Model.TblColors
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h1>Create</h1>
 
-<h4>TblColors</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ColorsId" class="control-label"></label>
-                <input asp-for="ColorsId" class="form-control" />
-                <span asp-validation-for="ColorsId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ColorsGuid" class="control-label"></label>
-                <input asp-for="ColorsGuid" class="form-control" />
-                <span asp-validation-for="ColorsGuid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ColorsCgid" class="control-label"></label>
-                <input asp-for="ColorsCgid" class="form-control" />
-                <span asp-validation-for="ColorsCgid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ColorsTypeCodeId" class="control-label"></label>
-                <input asp-for="ColorsTypeCodeId" class="form-control" />
-                <span asp-validation-for="ColorsTypeCodeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ColorsName" class="control-label"></label>
-                <input asp-for="ColorsName" class="form-control" />
-                <span asp-validation-for="ColorsName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ColorsValue" class="control-label"></label>
-                <input asp-for="ColorsValue" class="form-control" />
-                <span asp-validation-for="ColorsValue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<div class="modal-main">
+
+    <form asp-action="Create">
+        <div class="form-group">
+            <label class="control-label">گروه</label>
+            <input asp-for="ColorsCgid" class="form-control text-center" />
+            <span asp-validation-for="ColorsCgid" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">نوع</label>
+            <input asp-for="ColorsTypeCodeId" class="form-control text-center" />
+            <span asp-validation-for="ColorsTypeCodeId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">نام</label>
+            <input asp-for="ColorsName" class="form-control text-center" />
+            <span asp-validation-for="ColorsName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">مقدار</label>
+            <input asp-for="ColorsValue" class="form-control text-center" />
+            <span asp-validation-for="ColorsValue" class="text-danger"></span>
+        </div>
+        <input type="submit" value="افزودن" class="btn btn-block btn-primary" />
+    </form>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

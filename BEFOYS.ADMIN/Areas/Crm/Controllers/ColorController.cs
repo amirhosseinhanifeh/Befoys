@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.ADMIN.Areas.Crm.Controllers
 {
+    [Area("Crm")]
+    [Route("Crm/[controller]/[action]/{id?}")]
     public class ColorController : Controller
     {
         private readonly ServiceContext _context;
@@ -24,7 +26,7 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
         }
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public async Task<IActionResult> Create(TblColors model)
