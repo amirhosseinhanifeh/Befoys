@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.ADMIN.Areas.Crm.Controllers
 {
+    [Area("Crm")]
+    [Route("Crm/[controller]/[action]/{id?}")]
     public class ProductFeatureController : Controller
     {
         private readonly ServiceContext _context;

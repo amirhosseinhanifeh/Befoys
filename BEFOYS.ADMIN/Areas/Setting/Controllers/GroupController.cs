@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BEFOYS.ADMIN.Areas.Setting.Controllers
 {
     [Area("Setting")]
-    [Route("Setting/[controller]/[action]")]
+    [Route("Setting/[controller]/[action]/{id?}")]
     public class GroupController : Controller
     {
         private readonly ServiceContext _context;

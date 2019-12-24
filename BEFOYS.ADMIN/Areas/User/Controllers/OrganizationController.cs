@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BEFOYS.ADMIN.Areas.User.Controllers
 {
     [Area("User")]
-    [Route("User/[controller]/[action]")]
+    [Route("User/[controller]/[action]/{id?}")]
     public class OrganizationController : Controller
     {
         private readonly ServiceContext _context;
