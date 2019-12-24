@@ -8,7 +8,6 @@
 }
 
 body {
-    direction: rtl;
     font-family: Yekan !important;
 }
 
@@ -102,11 +101,6 @@ ul.nav-menu li i {
     z-index: 1;
     background-color: hsla(0,0%,100%,.06);
     border-radius: 50% 0 0 50%;
-}
-
-.page-heading,
-.gx-card {
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }
 
 .page-heading .title {
@@ -251,11 +245,15 @@ ul.nav-menu li.menu>a:before {
     color: darkred;
 }
 
+.remove-address a i {
+    margin-left: 4px;
+}
+
 .add a i,
 .remove-address a i {
+    font-size: 20px;
     vertical-align: middle;
     margin-top: -2px;
-    margin-left: 5px;
 }
 
 .telephone a i {
@@ -263,6 +261,7 @@ ul.nav-menu li.menu>a:before {
     color: darkred;
     padding-top: 17px;
     padding-right: 10px;
+    font-size: 20px;
 }
 
 .pager .next > a,

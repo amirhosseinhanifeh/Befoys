@@ -121,7 +121,7 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                     foreach (var item in Address)
                     {
                         int phone_index = 0;
-                        address.Add(new AddressValue { index = item.AddressId, Address = item.AddressText, AddressIndex = $"Addresses[{address_index}].Address", StateIndex = $"Addresses[{address_index}].StateName",CityName=item.AddressCity.CityName, StateName= item.AddressCity.CityProvince.ProvinceName, CityIndex = $"Addresses[{address_index}].CityName" });
+                        address.Add(new AddressValue { index = item.AddressId, Address = item.AddressText, AddressIndex = $"Addresses[{address_index}].Address", StateIndex = $"Addresses[{address_index}].StateName",CityName=item.AddressCity.CityDisplay, StateName= item.AddressCity.CityProvince.ProvinceDisplay, CityIndex = $"Addresses[{address_index}].CityName" });
                         List<Phone> phones = new List<Phone>();
                         foreach (var item2 in item.TblPhone)
                         {
@@ -175,6 +175,16 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 }
                 if (model.infoes != null)
                 {
+                    if (model.type == Enum_UserType.Supplier_Legal)
+                    {
+                        var orgname = model.infoes.FirstOrDefault(x => x.TypeCodeId == (int)Enum_Code.Organization_Name);
+                        if (orgname != null)
+                        {
+                            var organization = await _context.TblOrganization.FirstOrDefaultAsync(x => x.OrganizationId == employe.EmployeeOrganizationId);
+                            organization.OrganizationNameInformationId = (int)Enum_Code.Organization_Name;
+
+                        }
+                    }
                     foreach (var item in model.infoes)
                     {
                         var info = await _context.TblOrganizationInformation.FirstOrDefaultAsync(x => x.OiTypeCodeId == item.TypeCodeId && x.OiOrganizationId == employe.EmployeeOrganizationId);
@@ -198,12 +208,13 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                         }
                     }
                 }
-                var Data = _context.TblAddress.Where(x => x.AddressOrganizationId == employe.EmployeeOrganizationId).ToList();
-                _context.TblAddress.RemoveRange(Data);
-                await _context.SaveChangesAsync();
+
 
                 if (model.Addresses != null)
                 {
+                    var Data = _context.TblAddress.Where(x => x.AddressOrganizationId == employe.EmployeeOrganizationId).ToList();
+                    _context.TblAddress.RemoveRange(Data);
+                    await _context.SaveChangesAsync();
                     List<TblAddress> list = new List<TblAddress>();
                     foreach (var item in model.Addresses)
                     {

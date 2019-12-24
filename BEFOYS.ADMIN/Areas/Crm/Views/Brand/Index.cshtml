@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblBrands>
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -69,9 +69,9 @@
                         <th scope="col">
                             مرجع برند
                         </th>
-                        <th scope="col">
+                        @*<th scope="col">
                             لوگو
-                        </th>
+                        </th>*@
                         <th scope="col" data-orderable="false">کنترل</th>
                     </tr>
                 </thead>
@@ -86,11 +86,12 @@
                                 @Html.DisplayFor(modelItem => item.BrandsIsVerify)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.BrandsCountryReference)
+                                @Html.DisplayFor(modelItem => item.BrandsCountryReference.CountryName)
                             </td>
-                            <td>
+                            @*<td>
+                               
                                 @Html.DisplayFor(modelItem => item.BrandsLogoDocumentId)
-                            </td>
+                            </td>*@
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
