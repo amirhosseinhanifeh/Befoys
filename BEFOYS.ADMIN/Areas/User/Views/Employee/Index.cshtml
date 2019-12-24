@@ -6,80 +6,183 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create" asp-route-id="@ViewBag.ID">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeLogin.LoginFirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeTypeCodeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeOrganizationId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeWalletSize)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeIsAgent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeOrid)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginFirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginLastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginMobile)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeTypeCode.CodeDisplay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeWalletSize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeIsAgent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeOr.OrDisplay)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                <a asp-action="Delete" asp-route-id="@item.EmployeeId">حذف</a>
-                @if (!item.TblEmployeeRegistrationCode.Any())
+@section Styles{
+    <link href="~/lib/jquery-datatables/datatables.css" rel="stylesheet" />
+    <link href="~/lib/jquery-datatables/DataTables-1.10.20/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/lib/jquery-datatables/Responsive-2.2.3/css/responsive.bootstrap4.css" rel="stylesheet" />
+    <link href="~/css/Modal.css" rel="stylesheet" />
+}
+
+<div class="main-section-loader">
+</div>
+<img src="~/images/Logo-Blue.png" alt="logo" class="main-section-blue-logo-spinner" />
+<div class="main-section-spinner-backdrop"></div>
+
+<div class="main-section-header">
+    <div class="main-section-header-descs">
+        <h5 class="main-section-header-title">کارمند ها</h5>
+
+        <p class="main-section-header-subtitle">
+            <br />
+        </p>
+
+    </div>
+    <div class="main-section-header-icons">
+        <a href="javascript:void(0)" onclick="Create()" data-toggle='tooltip' data-placement='auto' title='افزودن برند'>
+            <i class="fas fa-plus main-section-header-icon"></i>
+        </a>
+
+        @*<i class="fas fa-ellipsis-v main-section-header-icon" onclick="showHeaderDropdown()"></i>*@
+    </div>
+</div>
+
+@*<div class="main-section-header-dropdown">
+        <div class="main-section-header-dropdown1">
+            <i class="fas fa-cloud-download-alt main-section-header-dropdown1-icon"></i>
+            <a href="" class="main-section-header-dropdown1-text">تمام کارمندان</a>
+        </div>
+        <div class="main-section-header-dropdown1">
+            <i class="fas fa-cloud-download-alt main-section-header-dropdown1-icon"></i>
+            <a href="" class="main-section-header-dropdown1-text">تمام مدیران</a>
+        </div>
+        <div class="main-section-header-dropdown1">
+            <i class="fas fa-cloud-download-alt main-section-header-dropdown1-icon"></i>
+            <a href="" class="main-section-header-dropdown1-text">تمام مدیران</a>
+        </div>
+    </div>*@
+
+
+
+<div class="main-section-body">
+
+
+    <div class="" style="width:100%;height:auto">
+
+        <table id="DateTable" dir="rtl" class="table table-striped " style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        نام
+                    </th>
+                    <th>
+                        نام خانوادگی
+                    </th>
+                    <th>
+                        موبایل
+                    </th>
+                    <th>
+                        ایمیل
+                    </th>
+                    <th>
+                        کد معرفی
+                    </th>
+                    <th>
+                        کیف پول
+                    </th>
+                    <th>
+                        نماینده
+                    </th>
+                    <th scope="col" data-orderable="false">کنترل</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    <a asp-action="RegisterationCode" asp-route-id="@item.EmployeeId">تعریف کد</a>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginFirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginLastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginMobile)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeTypeCode.CodeDisplay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeWalletSize)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeIsAgent)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            <a asp-action="Delete" asp-route-id="@item.EmployeeId">حذف</a>
+                            @if (!item.TblEmployeeRegistrationCode.Any())
+                            {
+                                <a asp-action="RegisterationCode" asp-route-id="@item.EmployeeId">تعریف کد</a>
+                            }
+                        </td>
+                    </tr>
                 }
-            </td>
-        </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+@Html.Partial("_Modal")
+
+@section Scripts{
+
+    <script src="~/lib/jquery-datatables/datatables.js"></script>
+    <script src="~/lib/jquery-datatables/DataTables-1.10.20/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#DateTable').DataTable({
+                language: {
+
+                    "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
+                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                    "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                    "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "_MENU_",
+                    "sLoadingRecords": "در حال بارگزاری...",
+                    "sProcessing": "در حال پردازش...",
+                    "sSearch": "",
+                    "sSearchPlaceholder": "جستجو",
+                    "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                    "oPaginate": {
+                        "sFirst": "ابتدا",
+                        "sLast": "انتها",
+                        "sNext": "بعدی",
+                        "sPrevious": "قبلی"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
+                        "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+                    }
+                },
+
+                scrollX: true,
+                scrollCollapse: true,
+            });
+        });
+    </script>
+
+    <script>
+
+        function Create() {
+            $.ajax({
+                url: "@Url.Content("~/Crm/ProductCategory/Create")",
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $('#myModal').modal('show');
+                $('#myModalLabel').html('افزودن دسته بندی');
+                $('#myModalBody').html(result);
+            });
         }
-    </tbody>
-</table>
+    </script>
+
+}
