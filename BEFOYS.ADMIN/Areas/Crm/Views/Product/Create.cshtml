@@ -84,7 +84,10 @@
         var categoryIndex = $("select[name=ProductPcid]").last().index();
         
         var category = $("<select></select>").attr({ "name": "ProductPcid", "index": (categoryIndex), "isMain": (categoryIndex == -1 ? true : false),"onchange": "loadcategories(this.value,this)"  }).addClass("form-control").append($("<option></option>").text("لطفا انتخاب نمایید").val(0));
-        
+
+        if($(elem).index()==)
+
+
         $.each(ss.options, function (key, value) {
         
             category.append($("<option></option>").val(value.pcId).text(value.pcName));
@@ -97,7 +100,7 @@
                 $.ajax({
             url: "@Url.Content("~/Crm/ProductFeatureGroup/GetGroupFields")",
             data: {
-                CategoryId: 4
+                CategoryId: item
             },
             method: "GET"
 

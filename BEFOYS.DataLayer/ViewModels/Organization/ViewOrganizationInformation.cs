@@ -2,25 +2,34 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace BEFOYS.DataLayer.ViewModels.Organization
 {
     public class ViewOrganizationInformation
     {
+        public bool isFeature { get; set; }
+        [JsonIgnore]
         public string FieldName { get; set; }
-        public string FieldDisplay { get; set; }
-        public int? TypeCodeId { get; set; }
-        public string Value { get; set; }
-        public int? OrganizationId { get; set; }
-        public bool? IsAccept { get; set; }
-        public ViewOrganizationInformation(TblOrganizationInformation model)
+        public string TypeCodeId
         {
-            FieldName = model.OiTypeCode.CodeName;
-            FieldDisplay = model.OiTypeCode.CodeDisplay;
-            TypeCodeId = model.OiTypeCodeId;
-            Value = model.OiText;
-            OrganizationId = model.OiOrganizationId;
-            IsAccept = model.OiIsAccept;
+            get
+            {
+                if (isFeature)
+                {
+                    return $"infoes[{FieldName}].TypeCodeId";
+                }
+                else
+                {
+                   return FieldName;
+
+                }
+            }
+            set
+            {
+            }
         }
+        public string Value { get; set; }
+        public bool? IsAccept { get; set; }
     }
 }

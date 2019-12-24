@@ -88,17 +88,28 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
         [HttpPost]
         public async Task<ActionResult<BaseViewModel<object>>> GetInformation()
         {
-            _context.ChangeTracker.LazyLoadingEnabled = false;
             var user = User.Identity.UserID();
             var data = _context.TblLogin.Find(user);
-            
+
             var info = await _context.TblOrganizationInformation
                 .Include(x => x.OiTypeCode)
+                .Include(x => x.OiOrganization)
+                .Include(x => x.OiOrganization.TblEmployee)
                 .Where(x => x.OiOrganization.TblEmployee.Any(y => y.EmployeeLoginId == user))
-                .Select(x => new ViewOrganizationInformation(x)).ToListAsync();
-            
+                .Select(x => new ViewOrganizationInformation { IsAccept = x.OiIsAccept, FieldName = x.OiTypeCodeId.ToString(), Value = x.OiText, isFeature = true }).ToListAsync();
+            if (data != null)
+            {
 
-            return new BaseViewModel<object> { Message = "موفقیت آمیز", NotificationType = Enum_NotificationType.success, Value = new {infoes=info,Data=data } };
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "FirstName", Value = data.LoginFirstName, isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "LastName", Value = data.LoginLastName, isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Email", Value = data.LoginEmail, isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "NationalCode", Value = data.LoginNationalCode, isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Gender", Value = data.LoginGenderCodeId.ToString(), isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Year", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[0], isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Month", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[1], isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Day", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[2], isFeature = false });
+            }
+            return new BaseViewModel<object> { Message = "موفقیت آمیز", NotificationType = Enum_NotificationType.success, Value = new { infoes = info } };
 
         }
 
