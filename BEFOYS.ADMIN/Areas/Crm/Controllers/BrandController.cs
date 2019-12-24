@@ -25,7 +25,7 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
         }
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public async Task<IActionResult> Create(TblBrands model)

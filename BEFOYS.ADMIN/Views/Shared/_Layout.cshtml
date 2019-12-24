@@ -1,48 +1,574 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BEFOYS.ADMIN</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title | BeFoys</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/fonts/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="~/lib/Jquery-perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />
+
+    @RenderSection("Styles", false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BEFOYS.ADMIN</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="layout-backdrop"></div>
+    <header class="layout-header">
+        <div class="layout-header-notificatins-box">
+            <i class="far fa-comment-dots layout-header-message-icon" onclick="showMessageBox()"></i>
+            <i class="fas fa-bell layout-header-bell-icon" onclick="showBellBox()"></i>
+        </div>
+        <img src="~/images/logo.svg" alt="befoys" class="layout-header-befoys" />
+        <h4 class="layout-header-title">داشبورد</h4>
+        <i class="fas fa-bars layout-header-hamburger-icon" onclick="showHamburgerMenu()"></i>
+    </header>
+
+    <div class="message-box">
+        <div class="message-box-header">
+            <a href="" class="message-box-header-seen">مشاهده همه</a>
+            <h5 class="message-box-header-title">پیام ها</h5>
+        </div>
+        <div class="message-box-line"></div>
+        <div class="message-box-empty">
+            <!-- for empty message box -->
+            <!-- <p class="message-box-empty-text">پیامی موجود نیست</p> -->
+            <!-- for empty message box -->
+        </div>
+        <div class="message-box-body">
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
+                </div>
+            </div>
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
+                </div>
+            </div>
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
+                </div>
+            </div>
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
+                </div>
+            </div>
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
+                </div>
+            </div>
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
+                </div>
+            </div>
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
+                </div>
+            </div>
+            <div class="message-box-body-container">
+                <div class="message-box-messages">
+                    <div class="message-box-messages-desc">
+                        <div class="message-box-messages-top">
+                            <div class="message-box-messages-top-date">1396/5/15</div>
+                            <div class="message-box-messages-top-title">محمد میرزایی</div>
+                        </div>
+                        <div class="message-box-messages-middle">
+                            <p class="message-box-messages-middle-text">
+                                خوداوکیلی صد تومن میدم شهلا
+                            </p>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="" class="message-box-messages-image" />
+                </div>
+                <div class="message-box-messages-bottom">
+                    <div class="message-box-messages-bottom-reply">
+                        <i class="fas fa-reply message-box-messages-bottom-reply-icon"></i>
+                        <p class="message-box-messages-bottom-reply-text">پاسخ</p>
+                    </div>
+                    <div class="message-box-messages-bottom-read">
+                        <i class="fab fa-readme message-box-messages-bottom-read-icon"></i>
+                        <p class="message-box-messages-bottom-read-text">خوانده شده</p>
+                    </div>
+                </div>
+                <div class="message-box-message-underline-box">
+                    <div class="message-box-message-underline"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- **** -->
+    <div class="bell-box">
+        <div class="bell-box-header">
+            <a href="" class="bell-box-header-seen">مشاهده همه</a>
+            <h5 class="bell-box-header-title">اعلانات</h5>
+        </div>
+        <div class="bell-box-line"></div>
+        <div class="bell-box-body">
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+            <div class="bell-box-body-container">
+                <div class="bell-box-body-notification">
+                    <div class="bell-box-body-notification-desc">
+                        <p class="bell-box-body-notification-desc-title">
+                            تو بهترینی روزبه شمخانی
+                        </p>
+                        <div class="bell-box-body-notification-desc-date">
+                            <p class="bell-box-body-notification-desc-date-text">pm 12:05</p>
+                            <i class="fas fa-thumbs-up bell-box-body-notification-desc-date-icon"></i>
+                        </div>
+                    </div>
+                    <img src="~/images/profile.jpg" alt="profile" class="bell-box-body-notification-image" />
+                </div>
+                <div class="bell-box-notification-underline-box">
+                    <div class="bell-box-notification-underline"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 1398 - BEFOYS.ADMIN - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <aside class="layout-sidebar">
+        <div class="layout-sidebar-top">
+            <i class="fas fa-caret-down layout-sidebar-top-dropdown-icon" onclick="showSettingModal()"></i>
+            <div class="layout-sidebar-top-desc">
+                <p class="layout-sidebar-top-text" onclick="showSettingModal()">روزبه شامخی</p>
+                <span class="layout-sidebar-top-subtext">مدیر پروژه</span>
+            </div>
+            <img src="~/images/profile.jpg" alt="" class="layout-sidebar-top-profile" />
+            <div class="layout-sidebar-top-modal">
+                <div class="layout-sidebar-top-modal-part">
+                    <a href="#" class="layout-sidebar-top-modal-link">پروفایل</a>
+                    <i class="fas fa-user layout-sidebar-top-modal-icon"></i>
+                </div>
+                <div class="layout-sidebar-top-modal-part2">
+                    <a href="#" class="layout-sidebar-top-modal-link">تنظیمات</a>
+                    <i class="fas fa-cog layout-sidebar-top-modal-icon"></i>
+                </div>
+                <div class="layout-sidebar-top-modal-part">
+                    <a href="#" class="layout-sidebar-top-modal-link">خروج</a>
+                    <i class="fas fa-sign-out-alt layout-sidebar-top-modal-icon"></i>
+                </div>
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+        <div class="layout-sidebar-main">
+            <i class="fas fa-baby layout-sidebar-main-text"></i>
+            <i class="fas fa-brain layout-sidebar-main-text"></i>
+            <i class="fas fa-kiss-wink-heart layout-sidebar-main-text"></i>
+            <i class="fas fa-award layout-sidebar-main-text"></i>
+        </div>
+        <div class="layout-sidebar-body">
+            <div class="layout-sidebar-body-top1-box toggle-back">
+                <div class="layout-sidebar-body-top1" onclick="showDashboardDropdown()">
+                    <i class="fas fa-angle-left layout-sidebar-body-top1-left-icon"></i>
+                    <div class="layout-sidebar-body-top1-subdiv">
+                        <i class="fas fa-tachometer-alt layout-sidebar-body-top1-subdiv-icon"></i>
+                        <p class="layout-sidebar-body-top1-subdiv-text">داشبورد</p>
+                        <div class="dashboard-orange-line"></div>
+                    </div>
+                </div>
+                <div class="layout-sidebar-body-top1-drop">
+                    <a href="#" class="layout-sidebar-body-top1-drop-link active-link">لیست</a>
+                    <a href="#" class="layout-sidebar-body-top1-drop-link">تغییر رمز</a>
+                    <a href="#" class="layout-sidebar-body-top1-drop-link">تازه ها</a>
+                    <a href="#" class="layout-sidebar-body-top1-drop-link">متفرقه</a>
+                </div>
+            </div>
+            <div class="layout-sidebar-body-top2 toggle-back">
+                <div class="layout-sidebar-body-top2-desc">
+                    <i class="fas fa-folder layout-sidebar-body-top2-desc-icon"></i>
+                    <a href="#" class="layout-sidebar-body-top2-desc-text">قرارداد ها</a>
+                    <div class="contract-orange-line"></div>
+                </div>
+            </div>
+            <div class="layout-sidebar-body-top3 toggle-back">
+                <div class="layout-sidebar-body-top3-desc">
+                    <i class="fas fa-comments layout-sidebar-body-top3-desc-icon"></i>
+                    <a href="#" class="layout-sidebar-body-top3-desc-text">چت ها</a>
+                    <div class="chat-orange-line"></div>
+                </div>
+            </div>
+
+            <!-- <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <p>Lorem ipsum dolor sit amet consectetur.</p> -->
+        </div>
+    </aside>
+
+    <main class="main-section">
+        @RenderBody()
+    </main>
+
+    <div class="loader">
+    </div>
+
+    <img src="~/images/logo.svg" alt="logo" class="blue-logo-spinner" />
+    <div class="spinner-backdrop"></div>
+
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/fonts/fontawesome/js/all.js"></script>
+    <script src="~/js/befoys-ajax.js"></script>
+    <script src="~/lib/Jquery-perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/js/Panel.js"></script>
+
+    @RenderSection("Scripts", false)
 </body>
 </html>
