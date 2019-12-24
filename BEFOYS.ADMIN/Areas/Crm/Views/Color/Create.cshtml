@@ -1,18 +1,26 @@
 ﻿@model BEFOYS.DataLayer.Model.TblColors
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@{ 
+        var groups = ViewBag.ColorGroup as List<SelectListItem>;
+}
 
 <div class="modal-main">
 
     <form asp-action="Create">
         <div class="form-group">
             <label class="control-label">گروه</label>
-            <input asp-for="ColorsCgid" class="form-control text-center" />
+            <select asp-for="ColorsCgid" class="form-control text-center"  asp-items="groups">
+
+            </select>
             <span asp-validation-for="ColorsCgid" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="control-label">نوع</label>
-            <input asp-for="ColorsTypeCodeId" class="form-control text-center" />
+            <select asp-for="ColorsTypeCodeId" class="form-control text-center">
+                <option value="43">HEX</option>
+                <option value="44">RGB</option>
+                <option value="45">RGBa</option>
+            </select>
             <span asp-validation-for="ColorsTypeCodeId" class="text-danger"></span>
         </div>
         <div class="form-group">

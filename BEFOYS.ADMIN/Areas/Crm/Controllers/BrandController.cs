@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BEFOYS.ADMIN.Areas.Crm.Controllers
@@ -25,6 +26,7 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
         }
         public IActionResult Create()
         {
+            ViewBag.Country = _context.TblCountry.Select(x => new SelectListItem { Value = x.CountryId.ToString(), Text = x.CountryName }).ToList();
             return PartialView();
         }
         [HttpPost]

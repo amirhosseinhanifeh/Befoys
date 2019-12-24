@@ -1,0 +1,42 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{ 
+
+}
+
+<div class="layout-sidebar-body-top1-box toggle-back">
+    <div class="layout-sidebar-body-top1" onclick="showDashboardDropdown()">
+        <i class="fas fa-angle-left layout-sidebar-body-top1-left-icon"></i>
+        <div class="layout-sidebar-body-top1-subdiv">
+            <i class="fas fa-tachometer-alt layout-sidebar-body-top1-subdiv-icon"></i>
+            <p class="layout-sidebar-body-top1-subdiv-text">داشبورد</p>
+            <div class="dashboard-orange-line"></div>
+        </div>
+    </div>
+    <div class="layout-sidebar-body-top1-drop">
+        <a asp-action="Index" asp-controller="Brand" asp-area="Crm" class="layout-sidebar-body-top1-drop-link active-link">برند</a>
+        <a asp-action="Index" asp-controller="Color" asp-area="Crm" class="layout-sidebar-body-top1-drop-link">رنگ</a>
+        <a asp-action="Index" asp-controller="ColorGroup" asp-area="Crm" class="layout-sidebar-body-top1-drop-link">گروه رنگ</a>
+        <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" class="layout-sidebar-body-top1-drop-link">دسته بندی</a>
+        <a asp-action="Index" asp-controller="Ticket" asp-area="Crm" class="layout-sidebar-body-top1-drop-link">تیکت</a>
+        <a asp-action="Index" asp-controller="Product" asp-area="Crm" class="layout-sidebar-body-top1-drop-link">محصول</a>
+        <a asp-action="Index" asp-controller="Organization" asp-area="User" class="layout-sidebar-body-top1-drop-link">سازمان ها</a>
+        <a asp-action="Index" asp-controller="Group" asp-area="Setting" class="layout-sidebar-body-top1-drop-link">گروه ها</a>
+        <a asp-action="Index" asp-controller="Permission" asp-area="Setting" class="layout-sidebar-body-top1-drop-link">دسترسی ها</a>
+        <a asp-action="Index" asp-controller="Panel" asp-area="Setting" class="layout-sidebar-body-top1-drop-link">پنل ها</a>
+    </div>
+</div>
+<div class="layout-sidebar-body-top2 toggle-back">
+    <div class="layout-sidebar-body-top2-desc">
+        <i class="fas fa-folder layout-sidebar-body-top2-desc-icon"></i>
+        <a href="#" class="layout-sidebar-body-top2-desc-text">قرارداد ها</a>
+        <div class="contract-orange-line"></div>
+    </div>
+</div>
+<div class="layout-sidebar-body-top3 toggle-back">
+    <div class="layout-sidebar-body-top3-desc">
+        <i class="fas fa-comments layout-sidebar-body-top3-desc-icon"></i>
+        <a href="#" class="layout-sidebar-body-top3-desc-text">چت ها</a>
+        <div class="chat-orange-line"></div>
+    </div>
+</div>
+

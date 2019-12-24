@@ -1,6 +1,8 @@
 ﻿@model BEFOYS.DataLayer.Model.TblBrands
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@{ 
+    var countries = ViewBag.Country as List<SelectListItem>;
+}
 
 <div class="modal-main">
 
@@ -18,7 +20,7 @@
         </div>
         <div class="form-group">
             <label class="control-label">مرجع برند</label>
-            <input asp-for="BrandsCountryReference" class="form-control  text-center" />
+            <select asp-for="BrandsCountryReferenceId" class="form-control  text-center" asp-items="countries" ></select>
             <span asp-validation-for="BrandsCountryReference" class="text-danger"></span>
         </div>
 
