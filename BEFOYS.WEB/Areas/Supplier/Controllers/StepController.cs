@@ -96,7 +96,9 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 .Include(x => x.OiOrganization)
                 .Include(x => x.OiOrganization.TblEmployee)
                 .Where(x => x.OiOrganization.TblEmployee.Any(y => y.EmployeeLoginId == user))
-                .Select(x => new ViewOrganizationInformation { IsAccept = x.OiIsAccept, FieldName = x.OiTypeCodeId.ToString(), Value = x.OiText, isFeature = true }).ToListAsync();
+                .Select(x => new ViewOrganizationInformation { IsAccept = x.OiIsAccept, FieldName = x.OiTypeCodeId.ToString(), Value = x.OiText, isFeature = true, Reason = x.OiRejectDetails }).ToListAsync();
+            List<AddressValue> address = new List<AddressValue>();
+
             if (data != null)
             {
 
@@ -105,11 +107,38 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                 info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Email", Value = data.LoginEmail, isFeature = false });
                 info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "NationalCode", Value = data.LoginNationalCode, isFeature = false });
                 info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Gender", Value = data.LoginGenderCodeId.ToString(), isFeature = false });
-                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Year", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[0], isFeature = false });
-                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Month", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[1], isFeature = false });
-                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Day", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[2], isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Year", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[0].PersianToEnglish(), isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Month", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[1].PersianToEnglish(), isFeature = false });
+                info.Add(new ViewOrganizationInformation { IsAccept = true, FieldName = "Day", Value = data.LoginBirthday.GetValueOrDefault().ToPersianDate().Split('/')[2].PersianToEnglish(), isFeature = false });
+
+
+                var Address = data.TblEmployee?.FirstOrDefault()?.EmployeeOrganization?.TblAddress;
+                if (Address != null)
+                {
+                    int address_index = 0;
+
+
+                    foreach (var item in Address)
+                    {
+                        int phone_index = 0;
+                        address.Add(new AddressValue { index = item.AddressId, Address = item.AddressText, AddressIndex = $"Addresses[{address_index}].Address", StateIndex = $"Addresses[{address_index}].StateName",CityName=item.AddressCity.CityName, StateName= item.AddressCity.CityProvince.ProvinceName, CityIndex = $"Addresses[{address_index}].CityName" });
+                        List<Phone> phones = new List<Phone>();
+                        foreach (var item2 in item.TblPhone)
+                        {
+
+                            phones.Add(new Phone { PhoneIndex = $"Addresses[{address_index}].phones[{phone_index}].PhoneValue", PhoneValue = item2.PhoneNumber });
+                            phone_index = phone_index + 1;
+                            AddressValue newaddress = address.FirstOrDefault(x => x.index == item.AddressId);
+                            newaddress.phones = phones.ToArray();
+                        }
+
+                        address_index = address_index + 1;
+
+                    }
+                }
             }
-            return new BaseViewModel<object> { Message = "موفقیت آمیز", NotificationType = Enum_NotificationType.success, Value = new { infoes = info } };
+
+            return new BaseViewModel<object> { Message = "موفقیت آمیز", NotificationType = Enum_NotificationType.success, Value = new { infoes = info, Address = address } };
 
         }
 
@@ -169,7 +198,9 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                         }
                     }
                 }
-
+                var Data = _context.TblAddress.Where(x => x.AddressOrganizationId == employe.EmployeeOrganizationId).ToList();
+                _context.TblAddress.RemoveRange(Data);
+                await _context.SaveChangesAsync();
 
                 if (model.Addresses != null)
                 {
@@ -188,16 +219,13 @@ namespace BEFOYS.WEB.Areas.Supplier.Controllers
                         };
                         foreach (var item2 in item.phones)
                         {
-                            address.TblPhone = new List<TblPhone>
-                            {
-                                new TblPhone
-                                {
-                                    PhoneNumber = item2.PhoneValue,
-                                    PhoneAreaCodeId=5,
-                                    PhoneTypeCodeId=1,
+                            address.TblPhone.Add(new TblPhone {
+                                PhoneNumber = item2.PhoneValue,
+                                PhoneAreaCodeId = 5,
+                                PhoneTypeCodeId = 1,
 
-                                }
-                            };
+                            
+                            });
                         }
                         list.Add(address);
                     }

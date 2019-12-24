@@ -31,5 +31,6 @@ namespace BEFOYS.DataLayer.ViewModels.Organization
         }
         public string Value { get; set; }
         public bool? IsAccept { get; set; }
+        public string Reason { get; set; }
     }
 }
