@@ -26,6 +26,12 @@ namespace Panel.Controllers
         {
             return View();
         }
+
+        public IActionResult Index2()
+        {
+            return View();
+        }
+
         public IActionResult SetType(Enum_UserType type)
         {
             string Token = Get("token");

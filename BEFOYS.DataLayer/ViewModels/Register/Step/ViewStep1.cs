@@ -29,13 +29,18 @@ namespace BEFOYS.DataLayer.ViewModels.Register.Step
     }
     public class AddressValue
     {
+        public int index { get; set; }
+        public string AddressIndex { get; set; }
+        public string StateIndex { get; set; }
         public string StateName { get; set; }
+        public string CityIndex{ get; set; }
         public string CityName { get; set; }
         public string Address { get; set; }
         public Phone[] phones { get; set; }
     }
     public class Phone
     {
+        public string PhoneIndex { get; set; }
         public string PhoneValue { get; set; }
     }
 
