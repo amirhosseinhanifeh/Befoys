@@ -473,7 +473,7 @@
                                                                     <select class="form-control select2" name="Day" id="Day">
                                                                         @for (int i = 1; i <= 31; i++)
                                                                         {
-                                                                            <option value="@i">@i</option>
+                                                                            <option value="@(i < 10 ? "0"+ i.ToString() : i.ToString())">@i</option>
                                                                         }
                                                                     </select>
                                                                 </div>
@@ -481,15 +481,15 @@
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <select class="form-control select2" name="Month" id="Month">
-                                                                        <option value="1">فروردین</option>
-                                                                        <option value="2">اردیبهشت</option>
-                                                                        <option value="3">خرداد</option>
-                                                                        <option value="4">تیر</option>
-                                                                        <option value="5">مرداد</option>
-                                                                        <option value="6">شهریور</option>
-                                                                        <option value="7">مهر</option>
-                                                                        <option value="8">آبان</option>
-                                                                        <option value="9">آذر</option>
+                                                                        <option value="01">فروردین</option>
+                                                                        <option value="02">اردیبهشت</option>
+                                                                        <option value="03">خرداد</option>
+                                                                        <option value="04">تیر</option>
+                                                                        <option value="05">مرداد</option>
+                                                                        <option value="06">شهریور</option>
+                                                                        <option value="07">مهر</option>
+                                                                        <option value="08">آبان</option>
+                                                                        <option value="09">آذر</option>
                                                                         <option value="10">دی</option>
                                                                         <option value="11">بهمن</option>
                                                                         <option value="12">اسفند</option>
@@ -567,7 +567,7 @@
                                                         <div class="form-group">
                                                             <label for="OrganizationName" class="control-label">نام تجاری</label>
                                                             <input type="hidden" value="31" name="infoes[4].TypeCodeId">
-                                                            <input type="text" class="form-control" name="infoes[4].Value" id="OrganizationName">
+                                                            <input type="text" class="form-control" typeCodeId="infoes[31].TypeCodeId" name="infoes[4].Value" id="OrganizationName">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -578,14 +578,14 @@
                                                         <div class="form-group">
                                                             <label for="IRCode" class="control-label">شماره شبا</label>
                                                             <input type="hidden" value="12" name="infoes[0].TypeCodeId">
-                                                            <input type="text" class="form-control" name="infoes[0].Value" id="IRCode">
+                                                            <input type="text" class="form-control" typeCodeId="infoes[12].TypeCodeId" name="infoes[0].Value" id="IRCode">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="AccountNumber" class="control-label">شماره حساب</label>
                                                             <input type="hidden" value="13" name="infoes[1].TypeCodeId">
-                                                            <input type="text" class="form-control" name="infoes[1].Value" id="AccountNumber">
+                                                            <input type="text" class="form-control" typeCodeId="infoes[13].TypeCodeId" name="infoes[1].Value" id="AccountNumber">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -594,7 +594,7 @@
                                                         <div class="form-group">
                                                             <label for="AccountOwner" class="control-label">نام دارنده حساب</label>
                                                             <input type="hidden" value="33" name="infoes[2].TypeCodeId">
-                                                            <input type="text" class="form-control" name="infoes[2].Value" id="AccountOwner">
+                                                            <input type="text" class="form-control" typeCodeId="infoes[33].TypeCodeId" name="infoes[2].Value" id="AccountOwner">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -602,7 +602,7 @@
                                                         <div class="form-group text-row-between">
                                                             <div class="custom-control custom-checkbox ml-2">
                                                                 <input type="hidden" value="14" name="infoes[3].TypeCodeId">
-                                                                <input type="checkbox" name="infoes[3].Value" id="ValueAddedCertificate">
+                                                                <input type="checkbox" name="infoes[3].Value" typeCodeId="infoes[14].TypeCodeId" id="ValueAddedCertificate">
                                                                 <label class="custom-control-label" for="ValueAddedCertificate">گواهی ارزش افزوده</label>
                                                             </div>
                                                         </div>
