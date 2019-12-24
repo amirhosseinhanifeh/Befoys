@@ -43,9 +43,10 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public IActionResult GetGroupFields(int? CategoryId=null)
+        public IActionResult GetGroupFields(int? CategoryId = null)
         {
-            return PartialView(_context.TblProductFeatureGroup.Include(x=>x.TblProductFeatures).Where(x=>x.TblProductCategoryFeature.Any(y=>y.PcfPcid==CategoryId)).ToList());
+            return PartialView(_context.TblProductFeatureGroup.Include(x => x.TblProductFeatures).Where(x => x.TblProductCategoryFeature.Any(y => y.PcfPcid == CategoryId)).ToList());
+
         }
     }
 }
