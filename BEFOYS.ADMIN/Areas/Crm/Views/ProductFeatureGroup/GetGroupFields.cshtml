@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProductFeatureGroup>
+@using BEFOYS.DataLayer.Enums
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <header>
+            @item.PfgName
+        </header>
+        <div class="form-group">
+            @foreach (var item2 in item.TblProductFeatures)
+            {
+                <div class="row">
+                    @if (item2.PfTypeCodeId == (int)Enum_Code.FIELD_TYPE_INPUT)
+                    {
+                        <label>@item2.PfName</label>
+                        <input class="form-control" type="text" custom-id="@item2.PfId" />
+                    }
+                    else if (item2.PfTypeCodeId == (int)Enum_Code.FIELD_TYPE_CHECKBOX)
+                    {
+                        <label>@item2.PfName</label>
+                        <input type="checkbox" custom-id="@item2.PfId" />
+                    }
+                    else if (item2.PfTypeCodeId == (int)Enum_Code.FIELD_TYPE_ITEMS)
+                    {
+                        <label>@item2.PfName</label>
+                        <select custom-id="@item2.PfId">
+                            @foreach (var item3 in item2.TblProductFeatureItems)
+                            {
+                                <option value="@item3.PfiId">@item3.PfiValue</option>
+                            }
+
+                        </select>
+                    }
+                </div>
+            }
+        </div>
+    }
+}

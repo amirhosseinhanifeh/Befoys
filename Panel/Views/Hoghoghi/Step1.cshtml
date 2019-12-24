@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "ثبت نام";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Styles {
@@ -27,7 +27,6 @@
 
     <link rel="stylesheet" href="~/css/jumbo-core-custom.css">
     <link rel="stylesheet" href="~/css/perfect-scrollbar-custom.css">
-    <link rel="stylesheet" href="~/css/font.css">
 }
 
 <!-- Page container -->
@@ -386,7 +385,7 @@
                     </a>
                 </div>
                 <a class="site-logo" href="index.html">
-                    <img src="~/images/logo.png" alt="Befoys" title="Befoys">
+                    <img src="~/images/Suppliers Logo white.png" alt="Befoys" title="Befoys">
                 </a>
                 <div class="ellipse-shape"></div>
             </div>
@@ -420,13 +419,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="FirstName" class="control-label">نام</label>
-                                                            <input type="text" class="form-control required" name="FirstName" id="FirstName">
+                                                            <input type="text" class="form-control" name="FirstName" id="FirstName">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="LastName" class="control-label">نام خانوادگی</label>
-                                                            <input type="text" class="form-control required" name="LastName" id="LastName">
+                                                            <input type="text" class="form-control" name="LastName" id="LastName">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -434,13 +433,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="Email" class="control-label">ایمیل</label>
-                                                            <input type="text" class="form-control required email" name="Email" id="Email">
+                                                            <input type="text" class="form-control" name="Email" id="Email">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="Password" class="control-label">رمز عبور</label>
-                                                            <input type="password" class="form-control required" name="Password" id="Password">
+                                                            <input type="password" class="form-control" name="Password" id="Password">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -448,13 +447,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="NationalCode" class="control-label">کد ملی</label>
-                                                            <input type="text" class="form-control required" name="NationalCode" id="NationalCode">
+                                                            <input type="text" class="form-control" name="NationalCode" id="NationalCode">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="Gender" class="control-label">جنسیت</label>
-                                                            <select class="form-control select2 required" name="Gender" id="Gender">
+                                                            <select class="form-control select2" name="Gender" id="Gender">
                                                                 <option value="1">مرد</option>
                                                                 <option value="2">زن</option>
                                                             </select>
@@ -469,7 +468,7 @@
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <select class="form-control select2 required" name="Day" id="Day">
+                                                                    <select class="form-control select2" name="Day" id="Day">
                                                                         @for (int i = 1; i <= 31; i++)
                                                                         {
                                                                             <option value="@i">@i</option>
@@ -479,7 +478,7 @@
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <select class="form-control select2 required" name="Month" id="Month">
+                                                                    <select class="form-control select2" name="Month" id="Month">
                                                                         <option value="1">فروردین</option>
                                                                         <option value="2">اردیبهشت</option>
                                                                         <option value="3">خرداد</option>
@@ -497,7 +496,7 @@
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <select class="form-control select2 required" name="Year" id="Year">
+                                                                    <select class="form-control select2" name="Year" id="Year">
                                                                         @for (int i = 1300; i <= 1400; i++)
                                                                         {
                                                                             <option value="@i">@i</option>
@@ -511,7 +510,7 @@
                                                         <div class="form-group">
                                                             <label for="Position" class="control-label">سمت</label>
                                                             <input type="hidden" value="39" name="Infoes[0].TypeCodeId">
-                                                            <select class="form-control select2 required" name="Infoes[0].Value" id="Position">
+                                                            <select class="form-control select2" name="Infoes[0].Value" id="Position">
                                                                 <option value="کارمند">کارمند</option>
                                                                 <option value="مدیر عامل">مدیر عامل</option>
                                                                 <option value="رییس هیئت مدیره">رییس هیئت مدیره</option>
@@ -523,14 +522,14 @@
                                                 </div>
                                                 <hr>
                                                 <h3>اطلاعات تماس</h3>
-                                                <div class="address" id="address1">
+                                                <div class="address-info" id="address-info1">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="state0" class="control-label">استان</label>
-                                                                        <select class="form-control select2 required" name="Addresses[0].StateName" id="state0">
+                                                                        <select class="form-control select2" name="Addresses[0].StateName" id="state0">
                                                                             <option value="Tehran">تهران</option>
                                                                         </select>
                                                                     </div>
@@ -538,7 +537,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="city0" class="control-label">شهر</label>
-                                                                        <select class="form-control select2 required" name="Addresses[0].CityName" id="city0">
+                                                                        <select class="form-control select2" name="Addresses[0].CityName" id="city0">
                                                                             <option value="Tehran">تهران</option>
                                                                         </select>
                                                                     </div>
@@ -547,7 +546,7 @@
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="address0" class="control-label">آدرس</label>
-                                                                    <textarea id="address0" name="Addresses[0].Address" class="form-control required" rows="3"></textarea>
+                                                                    <textarea id="address0" name="Addresses[0].Address" class="form-control address" rows="3"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -556,7 +555,7 @@
                                                                 <label for="telephone0_0" class="control-label">تلفن ثابت</label>
                                                                 <div class="row">
                                                                     <div class="col-md-12 d-flex telephone">
-                                                                        <input type="text" class="form-control required" name="Addresses[0].phones[0].PhoneValue" id="telephone0_0">
+                                                                        <input type="text" class="form-control" name="Addresses[0].phones[0].PhoneValue" id="telephone0_0">
                                                                     </div>
                                                                 </div>
                                                                 <div class="add d-flex mt-3" id="addTelephone">
@@ -578,14 +577,15 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="OrganizationName" class="control-label">نام تجاری</label>
-                                                            <input type="text" class="form-control required" name="OrganizationName" id="OrganizationName">
+                                                            <input type="hidden" value="31" name="infoes[4].TypeCodeId">
+                                                            <input type="text" class="form-control" name="OrganizationName" id="OrganizationName">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="OrganizationType" class="control-label">نوع شرکت</label>
                                                             <input type="hidden" value="7" name="Infoes[0].TypeCodeId">
-                                                            <select class="form-control select2 required" name="Infoes[0].Value" id="OrganizationType">
+                                                            <select class="form-control select2" name="Infoes[0].Value" id="OrganizationType">
                                                                 <option value="سهامی عام">سهامی عام</option>
                                                                 <option value="سهامی خاص">سهامی خاص</option>
                                                             </select>
@@ -596,13 +596,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="RegistrationNumber" class="control-label">شماره ثبت</label>
-                                                            <input type="text" class="form-control required" name="Infoes[1].Value" id="RegistrationNumber">
+                                                            <input type="text" class="form-control" name="Infoes[1].Value" id="RegistrationNumber">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="NationalID" class="control-label">شناسه ملی</label>
-                                                            <input type="text" class="form-control required" name="Infoes[2].Value" id="NationalID">
+                                                            <input type="text" class="form-control" name="Infoes[2].Value" id="NationalID">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -610,7 +610,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="EconomicCode" class="control-label">کد اقتصادی</label>
-                                                            <input type="text" class="form-control required" name="Infoes[3].Value" id="EconomicCode">
+                                                            <input type="text" class="form-control" name="Infoes[3].Value" id="EconomicCode">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -621,14 +621,14 @@
                                                         <div class="form-group">
                                                             <label for="IRCode" class="control-label">شماره شبا</label>
                                                             <input type="hidden" value="12" name="infoes[0].TypeCodeId">
-                                                            <input type="text" class="form-control required" name="infoes[0].Value" id="IRCode">
+                                                            <input type="text" class="form-control" name="infoes[0].Value" id="IRCode">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="AccountNumber" class="control-label">شماره حساب</label>
                                                             <input type="hidden" value="13" name="infoes[1].TypeCodeId">
-                                                            <input type="text" class="form-control required" name="infoes[1].Value" id="AccountNumber">
+                                                            <input type="text" class="form-control" name="infoes[1].Value" id="AccountNumber">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -637,7 +637,7 @@
                                                         <div class="form-group">
                                                             <label for="AccountOwner" class="control-label">نام دارنده حساب</label>
                                                             <input type="hidden" value="33" name="infoes[2].TypeCodeId">
-                                                            <input type="text" class="form-control required" name="infoes[2].Value" id="AccountOwner">
+                                                            <input type="text" class="form-control" name="infoes[2].Value" id="AccountOwner">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -661,38 +661,38 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-md-6 control-label">اسکن روزنامه رسمی خود را آپلود کنید</label>
+                                                    <label class="col-md-6 control-label">اسکن روزنامه رسمی</label>
                                                     <div class="col-md-6">
                                                         <div class="custom-file">
                                                             <label class="custom-file-label" for="NewspaperScan">آپلود فایل</label>
-                                                            <input type="file" class="custom-file-input required" id="NewspaperScan" name="NewspaperScan">
+                                                            <input type="file" class="custom-file-input" id="NewspaperScan" name="NewspaperScan">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-md-6 control-label">اسکن اساسنامه خود را آپلود کنید</label>
+                                                    <label class="col-md-6 control-label">اسکن اساسنامه</label>
                                                     <div class="col-md-6">
                                                         <div class="custom-file">
                                                             <label class="custom-file-label" for="StatuteScan">آپلود فایل</label>
-                                                            <input type="file" class="custom-file-input required" id="StatuteScan" name="StatuteScan">
+                                                            <input type="file" class="custom-file-input" id="StatuteScan" name="StatuteScan">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-md-6 control-label">اسکن گواهی آخرین تغییرات خود را آپلود کنید</label>
+                                                    <label class="col-md-6 control-label">اسکن گواهی آخرین تغییرات</label>
                                                     <div class="col-md-6">
                                                         <div class="custom-file">
                                                             <label class="custom-file-label" for="LatestEditScan">آپلود فایل</label>
-                                                            <input type="file" class="custom-file-input required" id="LatestEditScan" name="LatestEditScan">
+                                                            <input type="file" class="custom-file-input" id="LatestEditScan" name="LatestEditScan">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-md-6 control-label">اسکن جواز کسب خود را آپلود کنید</label>
+                                                    <label class="col-md-6 control-label">اسکن جواز کسب</label>
                                                     <div class="col-md-6">
                                                         <div class="custom-file">
                                                             <label class="custom-file-label" for="BusinessLicenseScan">آپلود فایل</label>
-                                                            <input type="file" class="custom-file-input required" id="BusinessLicenseScan" name="BusinessLicenseScan">
+                                                            <input type="file" class="custom-file-input" id="BusinessLicenseScan" name="BusinessLicenseScan">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -701,23 +701,33 @@
                                         <div class="tab-pane" id="tab2-4">
                                             <form id="step4" class="form-wizard validate-form-wizard validate">
                                                 <div class="form-group row">
-                                                    <label class="col-md-4 control-label">دسته بندی خود را انتخاب کنید</label>
+                                                    <label class="col-md-4 control-label">دسته بندی</label>
                                                     <div class="col-md-4">
-                                                        <select class="select2-multiple form-control required" name="select1[]" id="select1" multiple="multiple" data-placeholder="انتخاب کنید">
+                                                        <select class="select2-multiple form-control" name="select1[]" id="select1" multiple="multiple" data-placeholder="انتخاب کنید">
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
                                                             <option value="4">4</option>
                                                             <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <select class="select2-multiple form-control required" name="select2[]" id="select2" multiple="multiple" data-placeholder="انتخاب کنید">
+                                                        <select class="select2-multiple form-control" name="select2[]" id="select2" multiple="multiple" data-placeholder="انتخاب کنید">
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
                                                             <option value="4">4</option>
                                                             <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -761,7 +771,7 @@
     <script src="~/js/Select2_Config.js"></script>
     <!--Custom JQuery-->
     <script src="~/js/functions.js"></script>
-    <script src="~/js/custom/form-wizard.js"></script>
+    <script src="~/js/form-wizard.js"></script>
 
     <script src="~/js/customer.js"></script>
 }

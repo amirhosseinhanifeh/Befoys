@@ -1,0 +1,33 @@
+﻿@model BEFOYS.DataLayer.Model.TblProductCategoryFeature
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using BEFOYS.DataLayer.Model
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var FeatureGroup = ViewBag.FeatureGroup as List<TblProductFeatureGroup>;
+}
+
+<h1>Create</h1>
+
+<h4>TblProductCategoryFeature</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @foreach (var item in FeatureGroup)
+            {
+                <label>@item.PfgName</label>
+                <input type="checkbox" name="ids" value="@item.PfgId" />
+            }
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

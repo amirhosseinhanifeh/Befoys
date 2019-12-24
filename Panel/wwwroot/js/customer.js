@@ -2,14 +2,32 @@
 
     $("#addTelephone").click(function () {
 
-        var addressNum = parseInt($(this).parent().parent().parent().parent().attr("id").replace("address", "")) - 1;
+        var addressNum = parseInt($(this).parent().parent().parent().parent().attr("id").replace("address-info", "")) - 1;
         var telephoneNum = parseInt($(this).prev().find("input").attr("id").replace("telephone" + addressNum + "_", "")) + 1;
 
         var input = $("<input/>").addClass("form-control mt-2 required").attr({
             type: "text",
             id: "telephone" + addressNum + "_" + telephoneNum,
             name: "Addresses[" + addressNum + "].phones[" + telephoneNum + "].PhoneValue"
-        });
+        }).on('input', function () {
+            $(this).parent().next().remove();
+            var digitsPattern = /^\d+$/;
+            if ($(this).val() == '') {
+                var span = $("<span></span>").addClass("d-block text-danger").text("لطفا مقداری را وارد کنید");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
+            else if (!digitsPattern.test($(this).val())) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("شماره تلفن نامعتبر است");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
+            else if ($(this).val().length > 11 || $(this).val().length < 11) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("طول شماره تلفن صحیح نمی باشد");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
+        });;
 
         var a = $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeTelephone").click(function () {
             $(this).parent().parent().remove();
@@ -25,7 +43,7 @@
 
     $("#addAddress").click(function () {
 
-        var addressNum = parseInt($(this).prev().attr("id").replace("address", ""));
+        var addressNum = parseInt($(this).prev().attr("id").replace("address-info", ""));
 
         var heading = $("<div></div>").addClass("row").append(
             $("<div></div>").addClass("col-md-12 remove-address").append(
@@ -58,10 +76,16 @@
         var firstRow = $("<div></div>").addClass("row").append(state).append(city);
 
         var lblAddress = $("<label></label>").addClass("control-label").attr("for", "address" + addressNum).text("آدرس");
-        var txtAddress = $("<textarea></textarea>").addClass("form-control required").attr({
+        var txtAddress = $("<textarea></textarea>").addClass("form-control required address").attr({
             id: "address" + addressNum,
             name: "Addresses[" + addressNum + "].Address",
             rows: "3"
+        }).on('input', function () {
+            $(this).next().remove();
+            if ($(this).val() == '') {
+                var span = $("<span></span>").addClass("d-block text-danger").text("لطفا آدرس خود را وارد کنید");
+                $(this).parent().append(span);
+            }
         });
 
         var secondRow = $("<div></div>").addClass("row").append(
@@ -76,6 +100,24 @@
             type: "text",
             id: "telephone" + addressNum + "_0",
             name: "Addresses[" + addressNum + "].phones[0].PhoneValue"
+        }).on('input', function () {
+            $(this).parent().next().remove();
+            var digitsPattern = /^\d+$/;
+            if ($(this).val() == '') {
+                var span = $("<span></span>").addClass("d-block text-danger").text("لطفا مقداری را وارد کنید");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
+            else if (!digitsPattern.test($(this).val())) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("شماره تلفن نامعتبر است");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
+            else if ($(this).val().length > 11 || $(this).val().length < 11) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("طول شماره تلفن صحیح نمی باشد");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
         });
         var telephone = $("<div></div>").addClass("row").append(
             $("<div></div>").addClass("col-md-12 d-flex telephone").append(inputTelephone)
@@ -92,6 +134,24 @@
                 type: "text",
                 id: "telephone" + addressNum + "_" + telephoneNum,
                 name: "Addresses[" + addressNum + "].phones[" + telephoneNum + "].PhoneValue"
+            }).on('input', function () {
+                $(this).parent().next().remove();
+                var digitsPattern = /^\d+$/;
+                if ($(this).val() == '') {
+                    var span = $("<span></span>").addClass("d-block text-danger").text("لطفا مقداری را وارد کنید");
+                    var div = $("<div></div>").addClass("col-md-12").append(span);
+                    $(this).parent().parent().append(div);
+                }
+                else if (!digitsPattern.test($(this).val())) {
+                    var span = $("<span></span>").addClass("d-block text-danger").text("شماره تلفن نامعتبر است");
+                    var div = $("<div></div>").addClass("col-md-12").append(span);
+                    $(this).parent().parent().append(div);
+                }
+                else if ($(this).val().length > 11 || $(this).val().length < 11) {
+                    var span = $("<span></span>").addClass("d-block text-danger").text("طول شماره تلفن صحیح نمی باشد");
+                    var div = $("<div></div>").addClass("col-md-12").append(span);
+                    $(this).parent().parent().append(div);
+                }
             });
 
             var a = $("<a></a>").attr("href", "javascript:void(0)").attr("id", "removeTelephone").click(function () {
@@ -110,12 +170,11 @@
             $("<div></div>").addClass("form-group").append(lblTelephone).append(telephone).append(addTelephone)
         )
 
-        var address = $("<div></div>").addClass("address").attr("id", "address" + (addressNum + 1)).append(heading).append(
+        var address = $("<div></div>").addClass("address-info").attr("id", "address-info" + (addressNum + 1)).append(heading).append(
             $("<div></div>").addClass("row").append(rightPart).append(leftPart)
         );
 
         address.insertBefore("#addAddress");
-
 
         $(".select2").select2({
             theme: "bootstrap",
@@ -135,7 +194,7 @@
 
     });
 
-    $("#ValueAddedCertificate").change(function (e) {
+    $("#ValueAddedCertificate").change(function () {
         if ($(this).is(":checked")) {
 
             var lbl2 = $("<label></label>").addClass("custom-file-label").attr("for", "ValueAddedScan").text("آپلود فایل");
@@ -147,10 +206,10 @@
                 }
             });
 
-            var lbl = $("<label></label>").addClass("col-md-6 control-label").text("گواهی ارزش افزوده خود را آپلود کنید");
+            var lbl = $("<label></label>").addClass("col-md-6 control-label").text("گواهی ارزش افزوده");
             var div = $("<div></div>").addClass("col-md-6").append(
                 $("<div></div>").addClass("custom-file").append(lbl2, input)
-            )
+            );
 
             var div2 = $("<div></div>").addClass("form-group row").attr("id", "ValueAdded").append(lbl, div);
 
@@ -161,23 +220,21 @@
         }
     });
 
-    $(".previous").click(function (e) {
+    $(".previous").click(function () {
         var num = parseInt($(".tab-pane.active").attr("id").replace("tab2-", ""));
         if (num > 1) {
             jumpToPreviousStep(num);
         }
     });
 
-    $(".next").click(function (e) {
+    $(".next").click(function () {
 
         var num = parseInt($(".tab-pane.active").attr("id").replace("tab2-", ""));
         var form = "#step" + num;
 
-        if ($(form).valid()) {
-
-            e.preventDefault();
-
+        if (Validate() == 0) {
             switch (form) {
+
                 case "#step1":
                 case "#step2":
                 case "#step4":
@@ -208,21 +265,10 @@
                 case "#step3":
                     var $formData = new FormData();
 
-                    if ($('#NewspaperScan').length != 0) {
-                        $formData.append('files', $('#NewspaperScan')[0].files[0]);
-                    }
-
-                    if ($('#StatuteScan').length != 0) {
-                        $formData.append('files', $('#StatuteScan')[0].files[0]);
-                    }
-
-                    if ($('#LatestEditScan').length != 0) {
-                        $formData.append('files', $('#LatestEditScan')[0].files[0]);
-                    }
-
-                    if ($('#BusinessLicenseScan').length != 0) {
-                        $formData.append('files', $('#BusinessLicenseScan')[0].files[0]);
-                    }
+                    $formData.append('files', $('#NewspaperScan')[0].files[0]);
+                    $formData.append('files', $('#StatuteScan')[0].files[0]);
+                    $formData.append('files', $('#LatestEditScan')[0].files[0]);
+                    $formData.append('files', $('#BusinessLicenseScan')[0].files[0]);
 
                     if ($('#ValueAddedScan').length != 0) {
                         $formData.append('files', $('#ValueAddedScan')[0].files[0]);
@@ -246,23 +292,326 @@
 
                 default:
                     break;
+
             }
+        }
+
+        if (form == "#step1" || form == "#step2" || form == "#step3") {
+            $(".wizard-navbar ul li:nth-child(" + num + ")").removeClass("active");
+            $(".wizard-navbar ul li:nth-child(" + num + ") a").removeClass("active show");
+            $(".wizard-navbar ul li:nth-child(" + (num + 1) + ")").addClass("active");
+            $(".wizard-navbar ul li:nth-child(" + (num + 1) + ") a").addClass("active show");
+
+            $(".tab-pane.active").removeClass("active");
+            $("#tab2-" + (num + 1)).addClass("active");
+
+            $(".gx-main-content").scrollTop(0);
+        }
+
+    });
+
+    $('#FirstName').on('input', function () {
+        $(this).next().remove();
+        var persianPattern = /^[\u0600-\u06FF\s]+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا نام خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!persianPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا فارسی تایپ کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#LastName').on('input', function () {
+        $(this).next().remove();
+        var persianPattern = /^[\u0600-\u06FF\s]+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا نام خانوادگی خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!persianPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا فارسی تایپ کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#Email').on('input', function () {
+        $(this).next().remove();
+        var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا ایمیل خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!emailPattern.test(String($(this).val()).toLowerCase())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("ایمیل نامعتبر است");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#Password').on('input', function () {
+        $(this).next().remove();
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا رمز عبور خود را وارد کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#NationalCode').on('input', function () {
+        $(this).next().remove();
+        var digitsPattern = /^\d+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا کد ملی خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!digitsPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("کد ملی نامعتبر است");
+            $(this).parent().append(span);
+        } else if ($(this).val().length > 10 || $(this).val().length < 10) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("طول کد ملی صحیح نمی باشد");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('.telephone input').each(function () {
+        $(this).on('input', function () {
+            $(this).parent().next().remove();
+            var digitsPattern = /^\d+$/;
+            if ($(this).val() == '') {
+                var span = $("<span></span>").addClass("d-block text-danger").text("لطفا مقداری را وارد کنید");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
+            else if (!digitsPattern.test($(this).val())) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("شماره تلفن نامعتبر است");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
+            else if ($(this).val().length > 11 || $(this).val().length < 11) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("طول شماره تلفن صحیح نمی باشد");
+                var div = $("<div></div>").addClass("col-md-12").append(span);
+                $(this).parent().parent().append(div);
+            }
+        });
+    });
+
+    $('.address').each(function () {
+        $(this).on('input', function () {
+            $(this).next().remove();
+            var persianPattern = /^[\u0600-\u06FF\s]+$/;
+            if ($(this).val() == '') {
+                var span = $("<span></span>").addClass("d-block text-danger").text("لطفا آدرس خود را وارد کنید");
+                $(this).parent().append(span);
+            } else if (!persianPattern.test($(this).val())) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("لطفا فارسی تایپ کنید");
+                $(this).parent().append(span);
+            }
+        });
+    });
+
+    $('#OrganizationName').on('input', function () {
+        $(this).next().remove();
+        var persianPattern = /^[\u0600-\u06FF\s]+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا نام تجاری خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!persianPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا فارسی تایپ کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#RegistrationNumber').on('input', function () {
+        $(this).next().remove();
+        var digitsPattern = /^\d+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا شماره ثبت خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!digitsPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("شماره ثبت نامعتبر است");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#NationalID').on('input', function () {
+        $(this).next().remove();
+        var digitsPattern = /^\d+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا شناسه ملی خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!digitsPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("شناسه ملی نامعتبر است");
+            $(this).parent().append(span);
+        } else if ($(this).val().length > 11 || $(this).val().length < 11) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("طول شناسه ملی صحیح نمی باشد");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#EconomicCode').on('input', function () {
+        $(this).next().remove();
+        var digitsPattern = /^\d+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا کد اقتصادی خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!digitsPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("کد اقتصادی نامعتبر است");
+            $(this).parent().append(span);
+        } else if ($(this).val().length > 12 || $(this).val().length < 12) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("طول کد اقتصادی صحیح نمی باشد");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#IRCode').on('input', function () {
+        $(this).next().remove();
+        var digitsPattern = /^\d+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا شماره شبا خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!$(this).val().startsWith("IR") && !$(this).val().startsWith("ir") || !digitsPattern.test($(this).val().substring(2, $(this).val().length))) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("شماره شبا نامعتبر است");
+            $(this).parent().append(span);
+        } else if ($(this).val().length < 26 || $(this).val().length > 26) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("طول شماره شبا صحیح نمی باشد");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#AccountNumber').on('input', function () {
+        $(this).next().remove();
+        var digitsPattern = /^\d+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا شماره حساب خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!digitsPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("شماره حساب نامعتبر است");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#AccountOwner').on('input', function () {
+        $(this).next().remove();
+        var persianPattern = /^[\u0600-\u06FF\s]+$/;
+        if ($(this).val() == '') {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا نام دارنده حساب خود را وارد کنید");
+            $(this).parent().append(span);
+        } else if (!persianPattern.test($(this).val())) {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا فارسی تایپ کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#NewspaperScan').on('input', function () {
+        $(this).next().remove();
+        if ($(this).val() == "") {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا اسکن روزنامه رسمی خود را آپلود کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#StatuteScan').on('input', function () {
+        $(this).next().remove();
+        if ($(this).val() == "") {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا اسکن اساسنامه خود را آپلود کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#LatestEditScan').on('input', function () {
+        $(this).next().remove();
+        if ($(this).val() == "") {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا اسکن گواهی آخرین تغییرات خود را آپلود کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#BusinessLicenseScan').on('input', function () {
+        $(this).next().remove();
+        if ($(this).val() == "") {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا اسکن جواز کسب خود را آپلود کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#ValueAddedScan').on('input', function () {
+        $(this).next().remove();
+        if ($('#ValueAddedCertificate').is(":checked") && $(this).val() == "") {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا گواهی ارزش افزوده خود را آپلود کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#select1').on('input', function () {
+        $(this).next().next().remove();
+        if ($(this).val() == "") {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا دسته بندی خود را انتخاب کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    $('#select2').on('input', function () {
+        $(this).next().next().remove();
+        if ($(this).val() == "") {
+            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا دسته بندی خود را انتخاب کنید");
+            $(this).parent().append(span);
+        }
+    });
+
+    function Validate() {
+
+        $('span.d-block.text-danger').remove();
+
+        var num = parseInt($(".tab-pane.active").attr("id").replace("tab2-", ""));
+        var form = "#step" + num;
+
+        switch (form) {
+
+            case "#step1":
+
+                $('#FirstName').trigger("input");
+                $('#LastName').trigger("input");
+                $('#Email').trigger("input");
+                $('#Password').trigger("input");
+                $('#NationalCode').trigger("input");
+                $('.telephone input').each(function () { $(this).trigger("input"); });
+                $('.address').each(function () { $(this).trigger("input"); });
+
+                break;
+
+            case "#step2":
+
+                $('#OrganizationName').trigger("input");
+                $('#RegistrationNumber').trigger("input");
+                $('#NationalID').trigger("input");
+                $('#EconomicCode').trigger("input");
+                $('#IRCode').trigger("input");
+                $('#AccountNumber').trigger("input");
+                $('#AccountOwner').trigger("input");
+
+                break;
+
+            case "#step3":
+
+                $('#NewspaperScan').trigger("input");
+                $('#StatuteScan').trigger("input");
+                $('#LatestEditScan').trigger("input");
+                $('#BusinessLicenseScan').trigger("input");
+                $('#ValueAddedScan').trigger("input");
+
+                break;
+
+            case "#step4":
+
+                $('#select1').trigger("input");
+                $('#select2').trigger("input");
+
+                break;
+
+            default:
+                break;
 
         }
 
-        //if (form == "#step1" || form == "#step2" || form == "#step3") {
-        //    $(".wizard-navbar ul li:nth-child(" + num + ")").removeClass("active");
-        //    $(".wizard-navbar ul li:nth-child(" + num + ") a").removeClass("active show");
-        //    $(".wizard-navbar ul li:nth-child(" + (num + 1) + ")").addClass("active");
-        //    $(".wizard-navbar ul li:nth-child(" + (num + 1) + ") a").addClass("active show");
+        return $('span.d-block.text-danger').length;
 
-        //    $(".tab-pane.active").removeClass("active");
-        //    $("#tab2-" + (num + 1)).addClass("active");
-
-        //    $(".gx-main-content").scrollTop(0);
-        //}
-
-    });
+    }
 
     function jumpToNextStep(num) {
         $(".wizard-navbar ul li:nth-child(" + num + ")").removeClass("active");
@@ -291,7 +640,10 @@
     $('#step3 input[type=file]').change(function () {
         if (this.files.length > 0) {
             if (this.files[0].size > 5000000) {
+                reset_form_element($(this));
+                $(this).prev().text("آپلود فایل");
                 alert("حجم فایل آپلود شده بیشتر از حد مجاز می باشد.");
+                $(this).trigger("input");
                 return;
             }
             $(this).prev().text($(this)[0].files[0].name);
@@ -299,5 +651,10 @@
             $(this).prev().text("آپلود فایل");
         }
     });
+
+    function reset_form_element(e) {
+        e.wrap('<form>').parent('form').trigger('reset');
+        e.unwrap();
+    }
 
 });

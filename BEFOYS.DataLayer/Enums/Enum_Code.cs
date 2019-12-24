@@ -22,6 +22,9 @@
         Shenase_Meli=9,
         Organization_Name=31,
         CEO =24,
+        FIELD_TYPE_INPUT=40,
+        FIELD_TYPE_CHECKBOX=41,
+        FIELD_TYPE_ITEMS=42
 
     }
 }

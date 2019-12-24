@@ -923,19 +923,17 @@ namespace BEFOYS.DataLayer.ServiceContext
             modelBuilder.Entity<TblProductFeatureItems>(entity =>
             {
                 entity.Property(e => e.PfiGuid).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.PfiPf)
+                    .WithMany(p => p.TblProductFeatureItems)
+                    .HasForeignKey(d => d.PfiPfid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tbl_ProductFeatureItems_Tbl_ProductFeatures");
             });
 
             modelBuilder.Entity<TblProductFeatures>(entity =>
             {
-                entity.Property(e => e.PfId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.PfGuid).HasDefaultValueSql("(newid())");
-
-                entity.HasOne(d => d.Pf)
-                    .WithOne(p => p.TblProductFeatures)
-                    .HasForeignKey<TblProductFeatures>(d => d.PfId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Tbl_ProductFeatures_Tbl_ProductFeatureItems");
 
                 entity.HasOne(d => d.PfPfg)
                     .WithMany(p => p.TblProductFeatures)

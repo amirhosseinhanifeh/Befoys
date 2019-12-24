@@ -1,7 +1,6 @@
-@import './font.css';
 @font-face {
     font-family: Yekan;
-    src: url('../fonts/yekan/Yekan.woff')
+    src: url("../fonts/iran-yekan/iranyekan.woff") format("woff");
 }
 
 :root {
@@ -11,7 +10,7 @@
 }
 
 body {
-    font-family: Yekan;
+    font-family: Yekan !important;
     margin: 0;
     padding: 0;
     direction: rtl;
@@ -149,13 +148,13 @@ body {
 .home-content h1 {
     margin: 25px 0 0 0;
     color: var(--text-color) !important;
-    font-size: 40px;
+    font-size: 37px;
     width: 115%;
 }
 
 .home-content h2 {
     max-width: 375px;
-    font-size: 28px;
+    font-size: 24px;
     margin: 73px 0px 0 0;
     color: var(--text-color) !important;
 }
@@ -524,7 +523,7 @@ body {
         text-align: center;
     }
     .home-content h2 {
-        font-size: 28px;
+        font-size: 24px;
         margin: 100px -80px 0 0;
     }
     .home-content .home-buttons {
@@ -561,7 +560,7 @@ body {
         margin: 0 -80px 0 0;
     }
     .home-content h2 {
-        font-size: 26px;
+        font-size: 22px;
         margin: 80px -80px 0 0;
     }
     .home-content .home-buttons {
@@ -619,8 +618,8 @@ body {
     }
     .home-content h2 {
         max-width: 375px;
-        font-size: 28px;
-        margin: 100px 0 0 0;
+        font-size: 22px;
+        margin: 80px 0 0 0;
     }
     .home-content .home-social {
         margin-top: 25px;
@@ -710,198 +709,258 @@ body {
         top: 180px;
     }
 }
-
-@media screen and (max-width: 700px) {
-    .home-desc-min-size {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-content: space-around;
-        align-items: center;
-        margin-right: 30%;
-        top: 180px;
+@media screen and (max-width: 760px) {
+    .home-content h1 {
+        font-size: 32px;
+    }
+    .home-content h2 {
+        font-size: 22px;
     }
 }
 
-@media screen and (max-width: 620px) {
-    .home-desc-min-size {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-content: space-around;
-        align-items: center;
-        margin-right: 37%;
-        top: 180px;
-    }
-}
 
-@media screen and (max-width: 575px) {
-    html {
-        overflow: hidden;
-        width: 98%;
-        height: 100%;
+    @media screen and (max-width: 700px) {
+        .home-desc-min-size {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-content: space-around;
+            align-items: center;
+            margin-right: 30%;
+            top: 180px;
+        }
+
+     
     }
-    .home-background {
-        width: 102vw;
-        height: 102vh;
+
+    @media screen and (max-width: 620px) {
+        .home-desc-min-size {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-content: space-around;
+            align-items: center;
+            margin-right: 37%;
+            top: 180px;
+        }
     }
-    .home-modal {
-        width: 85% !important;
+
+    @media screen and (max-width: 575px) {
+        html {
+            overflow: hidden;
+            width: 98%;
+            height: 100%;
+        }
+
+        .home-background {
+            width: 102vw;
+            height: 102vh;
+        }
+
+        .home-modal {
+            width: 85% !important;
+        }
+
+        .home-modal-sencode-btns-flex {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        #sendCodeHandlerBtn {
+            margin-right: 0 !important;
+        }
+
+        .employeFirstStepButtons {
+            flex-direction: column-reverse;
+        }
+
+        #employeCanceleButton {
+            padding: 7px 75px !important;
+        }
+
+        #employeBeginButton {
+            padding: 7px 82px !important;
+        }
+
+        .employeBirthdaySelects {
+            flex-direction: column-reverse;
+        }
+
+        .employeFinalButtons {
+            display: flex;
+            flex-direction: column
+        }
+
+        #employeRegisterFinalId {
+            padding: 7px 120px !important;
+        }
+
+        #employeRegisterFinalCanceleId {
+            padding: 7px 112px !important;
+        }
+
+        .home-content h1 {
+            font-size: 29px;
+        }
     }
-    .home-modal-sencode-btns-flex {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
+
+    @media screen and (max-width: 550px) {
+        .home-desc-min-size {
+            width: 68%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-content: space-around;
+            align-items: center;
+            margin-right: 37%;
+            top: 200px;
+        }
+
+        .home-content h2 {
+            font-size: 21px;
+            margin-top: 55px !important;
+            width: 88% !important;
+        }
+
+        .home-button-buttom {
+            padding: 12px 77px !important;
+        }
+
+        .home-button-top {
+            padding: 13px 70px !important;
+        }
     }
-    #sendCodeHandlerBtn {
-        margin-right: 0 !important;
-    }
-    .employeFirstStepButtons {
-        flex-direction: column-reverse;
-    }
-    #employeCanceleButton {
-        padding: 7px 75px !important;
-    }
-    #employeBeginButton {
-        padding: 7px 82px !important;
-    }
-    .employeBirthdaySelects {
-        flex-direction: column-reverse;
-    }
-    .employeFinalButtons {
-        display: flex;
-        flex-direction: column
-    }
-    #employeRegisterFinalId {
-        padding: 7px 120px !important;
-    }
-    #employeRegisterFinalCanceleId {
-        padding: 7px 112px !important;
-    }
-}
 
 @media screen and (max-width: 550px) {
-    .home-desc-min-size {
-        width: 68%;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-content: space-around;
-        align-items: center;
-        margin-right: 37%;
-        top: 200px;
+    .home-content h1 {
+        font-size: 28px;
     }
     .home-content h2 {
-        font-size: 24px;
-        margin-top: 55px !important;
-        width: 88% !important;
-    }
-    .home-button-buttom {
-        padding: 12px 77px !important;
-    }
-    .home-button-top {
-        padding: 13px 70px !important;
+        font-size: 19px;
     }
 }
 
-@media screen and (max-width: 485px) {
-    .home-desc-min-size {
-        margin-right: 45%;
-        top: 180px;
-    }
-    #hagigiButton,
-    #hogogiButton {
-        padding: 9px 70px !important;
-    }
-    #employeButton {
-        padding: 9px 110px !important;
-    }
-}
+    @media screen and (max-width: 485px) {
+        .home-desc-min-size {
+            margin-right: 45%;
+            top: 180px;
+        }
 
-@media screen and (max-width: 440px) {
-    .home-desc-min-size {
-        width: 64%;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-content: space-around;
-        align-items: center;
-        margin-right: 49%;
-        top: 200px;
-    }
-}
+        #hagigiButton,
+        #hogogiButton {
+            padding: 9px 70px !important;
+        }
 
-@media screen and (max-width: 415px) {
-    #hagigiButton,
-    #hogogiButton {
-        padding: 9px 50px !important;
+        #employeButton {
+            padding: 9px 110px !important;
+        }
     }
-    #employeButton {
-        padding: 9px 90px !important;
-    }
-}
 
-@media screen and (max-width: 370px) {
-    .home-desc-min-size {
-        margin-right: 59% !important;
+    @media screen and (max-width: 440px) {
+        .home-desc-min-size {
+            width: 64%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-content: space-around;
+            align-items: center;
+            margin-right: 49%;
+            top: 200px;
+        }
     }
-}
 
-@media screen and (max-width: 350px) {
-    .home-desc-min-size {
-        margin-right: 62% !important;
-    }
-    #hagigiButton,
-    #hogogiButton {
-        padding: 9px 32px !important;
-    }
-    #employeButton {
-        padding: 9px 72px !important;
-    }
-}
+    @media screen and (max-width: 415px) {
+        #hagigiButton,
+        #hogogiButton {
+            padding: 9px 50px !important;
+        }
 
-@media screen and (max-width: 320px) {
-    .home-desc-min-size {
-        margin-right: 68% !important;
-    }
-}
+        #employeButton {
+            padding: 9px 90px !important;
+        }
+        .home-content h1 {
+            font-size: 24px;
+        }
 
-@media screen and (min-width: 992px) {
-    .home-desc-min-size {
-        position: absolute;
-        top: 0;
-        right: -150px;
-        width: 62%;
-        margin-right: 65px;
+        .home-content h2 {
+            font-size: 18px;
+        }
     }
-    .home-content h2 {
-        width: 120% !important;
-    }
-    .home-modal {
-        width: 600px !important;
-    }
-}
 
-@media screen and (min-width: 1700px) {
-    .home-desc-min-size {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 60%;
-    }
-    .home-content h2 {
-        margin: 70px 0 0 0;
-    }
-}
+    @media screen and (max-width: 370px) {
+        .home-desc-min-size {
+            margin-right: 59% !important;
+        }
+        .home-content h1 {
+            font-size: 21px;
+        }
 
-@media screen and (min-width: 1900px) {
-    .home-laptop-logo {
-        left: 70px;
+        .home-content h2 {
+            font-size: 17px;
+        }
     }
-}
 
-@media screen and (min-width: 2100px) {
-    .home-laptop-logo {
-        left: 110px;
+    @media screen and (max-width: 350px) {
+        .home-desc-min-size {
+            margin-right: 62% !important;
+        }
+
+        #hagigiButton,
+        #hogogiButton {
+            padding: 9px 32px !important;
+        }
+
+        #employeButton {
+            padding: 9px 72px !important;
+        }
     }
-}
+
+    @media screen and (max-width: 320px) {
+        .home-desc-min-size {
+            margin-right: 68% !important;
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .home-desc-min-size {
+            position: absolute;
+            top: 0;
+            right: -150px;
+            width: 62%;
+            margin-right: 65px;
+        }
+
+        .home-content h2 {
+            width: 120% !important;
+        }
+
+        .home-modal {
+            width: 600px !important;
+        }
+    }
+
+    @media screen and (min-width: 1700px) {
+        .home-desc-min-size {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60%;
+        }
+
+        .home-content h2 {
+            margin: 70px 0 0 0;
+        }
+    }
+
+    @media screen and (min-width: 1900px) {
+        .home-laptop-logo {
+            left: 70px;
+        }
+    }
+
+    @media screen and (min-width: 2100px) {
+        .home-laptop-logo {
+            left: 110px;
+        }
+    }

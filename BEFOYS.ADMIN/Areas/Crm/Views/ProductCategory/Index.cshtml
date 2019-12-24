@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<BEFOYS.DataLayer.Model.TblProductCategory>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using BEFOYS.DataLayer.Model
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var Category = ViewBag.Category as TblProductCategory;
 }
 
 <h1>Index</h1>
@@ -11,6 +13,16 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+@if (Category != null)
+{
+<div class="row">
+    <div class="col-12">
+        <header>
+            زیر دسته برای @Category.PcName
+        </header>
+    </div>
+</div>
+}
 <table class="table">
     <thead>
         <tr>
@@ -49,18 +61,6 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PcId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PcGuid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PcPcdid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PcDisplay)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.PcName)
                 </td>
                 <td>
@@ -68,9 +68,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PcContractClause)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PcIsBase)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PcIsActive)
@@ -81,8 +78,16 @@
                     @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>
                 <td>
-                    @*<a asp-action="Create" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">افزودن زیر دسته</a>*@
-                    @*@Html.ActionLink("افزودن زیر دسته", "Create", "ProductCategory", new { id = item.PcId, area = "Crm" }, null)*@
+                    @if (item.InversePcPcd.Any())
+                    {
+                        <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
+                    }
+                    @if (!item.InversePcPcd.Any())
+                    {
+                        <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
+                        <a asp-action="Create" asp-controller="ProductCategoryFeature" asp-area="Crm" asp-route-id="@item.PcId">افزودن گروه فیلد</a><span>|</span>
+                        
+                    }
                     <a asp-action="Create" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">افزودن زیر دسته</a>
                 </td>
             </tr>
