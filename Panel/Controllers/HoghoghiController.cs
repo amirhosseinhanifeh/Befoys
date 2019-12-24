@@ -39,6 +39,7 @@ namespace Panel.Controllers
             model.type = BEFOYS.DataLayer.Enums.Enum_UserType.Supplier_Legal;
             string Token = Get("token");
             model.StepNumber = 2;
+            model.infoes[8].Value = model.infoes[8].Value == "on" ? "1" : "0";
             string json = JsonConvert.SerializeObject(model);
             var result = DownloadData<dynamic>.DownloadValue($"{ServerUrl.ServerAddress}/api/Step/UpdateInformation", "POST", json, Token);
             return Json(result.value.Value);

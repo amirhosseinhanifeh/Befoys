@@ -1,5 +1,38 @@
 ﻿$(document).ready(function myfunction() {
 
+    $.ajax({
+        url: "http://api.befoys.com/api/Step/GetInformation",
+        method: "POST",
+        headers: { "Authorization": "Bearer " + getCookie("token") }
+
+    }).done(function (response) {
+        if (response.value.address != null) {
+            for (var i = 0; i < response.value.address.length; i++) {
+                $(`input[name='${response.value.address[i].stateIndex}']`).val(response.value.address[i].stateName);
+                $(`input[name='${response.value.address[i].cityIndex}']`).val(response.value.address[i].cityName);
+                if (i > 0) {
+                    $("#addAddress").click();
+                }
+                $(`textarea[name='${response.value.address[i].addressIndex}']`).val(response.value.address[i].address);
+                if (response.value.address[i].phones != null) {
+                    for (var j = 0; j < response.value.address[i].phones.length; j++) {
+                        if (j > 0) {
+                            $(`#address-info${i + 1} #addTelephone`).click();
+                        }
+                        $(`input[name='${response.value.address[i].phones[j].phoneIndex}']`).val(response.value.address[i].phones[j].phoneValue);
+                    }
+                }
+            }
+        }
+        $.each(response.value.infoes, function (index, obj) {
+            var input = $(`input[typeCodeId='${obj.typeCodeId}'], input[name='${obj.typeCodeId}']`).not("[type=hidden]").val(obj.value);
+            $(`select[name='${obj.typeCodeId}'], select[typeCodeId='${obj.typeCodeId}']`).val(obj.value).trigger('change');
+            if (obj.IsAccept != null) {
+                input.prop("readonly", true);
+            }
+        });
+    });
+
     $("#addTelephone").click(function () {
 
         var addressNum = parseInt($(this).parent().parent().parent().parent().attr("id").replace("address-info", "")) - 1;
@@ -296,17 +329,17 @@
             }
         }
 
-        if (form == "#step1" || form == "#step2" || form == "#step3") {
-            $(".wizard-navbar ul li:nth-child(" + num + ")").removeClass("active");
-            $(".wizard-navbar ul li:nth-child(" + num + ") a").removeClass("active show");
-            $(".wizard-navbar ul li:nth-child(" + (num + 1) + ")").addClass("active");
-            $(".wizard-navbar ul li:nth-child(" + (num + 1) + ") a").addClass("active show");
+        //if (form == "#step1" || form == "#step2" || form == "#step3") {
+        //    $(".wizard-navbar ul li:nth-child(" + num + ")").removeClass("active");
+        //    $(".wizard-navbar ul li:nth-child(" + num + ") a").removeClass("active show");
+        //    $(".wizard-navbar ul li:nth-child(" + (num + 1) + ")").addClass("active");
+        //    $(".wizard-navbar ul li:nth-child(" + (num + 1) + ") a").addClass("active show");
 
-            $(".tab-pane.active").removeClass("active");
-            $("#tab2-" + (num + 1)).addClass("active");
+        //    $(".tab-pane.active").removeClass("active");
+        //    $("#tab2-" + (num + 1)).addClass("active");
 
-            $(".gx-main-content").scrollTop(0);
-        }
+        //    $(".gx-main-content").scrollTop(0);
+        //}
 
     });
 
@@ -398,9 +431,6 @@
             if ($(this).val() == '') {
                 var span = $("<span></span>").addClass("d-block text-danger").text("لطفا آدرس خود را وارد کنید");
                 $(this).parent().append(span);
-            } else if (!persianPattern.test($(this).val())) {
-                var span = $("<span></span>").addClass("d-block text-danger").text("لطفا فارسی تایپ کنید");
-                $(this).parent().append(span);
             }
         });
     });
@@ -462,15 +492,25 @@
     $('#IRCode').on('input', function () {
         $(this).next().remove();
         var digitsPattern = /^\d+$/;
-        if ($(this).val() == '') {
-            var span = $("<span></span>").addClass("d-block text-danger").text("لطفا شماره شبا خود را وارد کنید");
-            $(this).parent().append(span);
-        } else if (!$(this).val().startsWith("IR") && !$(this).val().startsWith("ir") || !digitsPattern.test($(this).val().substring(2, $(this).val().length))) {
-            var span = $("<span></span>").addClass("d-block text-danger").text("شماره شبا نامعتبر است");
-            $(this).parent().append(span);
-        } else if ($(this).val().length < 26 || $(this).val().length > 26) {
-            var span = $("<span></span>").addClass("d-block text-danger").text("طول شماره شبا صحیح نمی باشد");
-            $(this).parent().append(span);
+        if ($(this).val().length <= 2) {
+            if ($(this).val() == '') {
+                var span = $("<span></span>").addClass("d-block text-danger").text("لطفا شماره شبا خود را وارد کنید");
+                $(this).parent().append(span);
+            } else if (!$(this).val().startsWith("IR") && !$(this).val().startsWith("ir")) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("شماره شبا نامعتبر است");
+                $(this).parent().append(span);
+            } else if ($(this).val().length < 26 || $(this).val().length > 26) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("طول شماره شبا صحیح نمی باشد");
+                $(this).parent().append(span);
+            }
+        } else {
+            if (!$(this).val().startsWith("IR") && !$(this).val().startsWith("ir") || !digitsPattern.test($(this).val().substring(2, $(this).val().length))) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("شماره شبا نامعتبر است");
+                $(this).parent().append(span);
+            } else if ($(this).val().length < 26 || $(this).val().length > 26) {
+                var span = $("<span></span>").addClass("d-block text-danger").text("طول شماره شبا صحیح نمی باشد");
+                $(this).parent().append(span);
+            }
         }
     });
 
