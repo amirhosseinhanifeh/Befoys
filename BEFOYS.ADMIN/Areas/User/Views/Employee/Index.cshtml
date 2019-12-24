@@ -18,10 +18,7 @@
                 @Html.DisplayNameFor(model => model.EmployeeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeGuid)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeLoginId)
+                @Html.DisplayNameFor(model => model.EmployeeLogin.LoginFirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EmployeeTypeCodeId)
@@ -44,42 +41,45 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeGuid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLoginId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeTypeCodeId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeOrganizationId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeWalletSize)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeIsAgent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeOrid)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    <a asp-action="Delete" asp-route-id="@item.EmployeeId">حذف</a>
-                    @if (!item.TblEmployeeRegistrationCode.Any())
-                    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginMobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeLogin.LoginEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeTypeCode.CodeDisplay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeWalletSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeIsAgent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeOr.OrDisplay)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="Delete" asp-route-id="@item.EmployeeId">حذف</a>
+                @if (!item.TblEmployeeRegistrationCode.Any())
+                {
                     <a asp-action="RegisterationCode" asp-route-id="@item.EmployeeId">تعریف کد</a>
-                    }
-                </td>
-            </tr>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

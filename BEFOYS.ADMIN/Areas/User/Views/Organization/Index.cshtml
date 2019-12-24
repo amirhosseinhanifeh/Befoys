@@ -15,9 +15,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OrganizationOtid)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.OrganizationNameInformationId)
             </th>
             <th>
@@ -53,10 +50,11 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.OrganizationNameInformation.OiText)
+                    @Html.DisplayFor(modelItem => item.OrganizationOtid)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.OrganizationOtid)
+                    @Html.DisplayFor(modelItem => item.OrganizationNameInformation.OiText)
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OrganizationIsBan)
