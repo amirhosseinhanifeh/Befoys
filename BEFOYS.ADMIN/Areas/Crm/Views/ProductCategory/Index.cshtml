@@ -29,7 +29,7 @@
         @if (Category != null)
         {
             <p class="main-section-header-subtitle">
-                زیر دسته برای @Category.PcName
+                زیر دسته برای <a href="@Url.Action("Index",new {id=Category.PcPcdid })">@Category.PcName </a>
             </p>
         }
         else
@@ -44,26 +44,8 @@
         <a href="javascript:void(0)" onclick="Create()" data-toggle='tooltip' data-placement='auto' title='افزودن برند'>
             <i class="fas fa-plus main-section-header-icon"></i>
         </a>
-
-        @*<i class="fas fa-ellipsis-v main-section-header-icon" onclick="showHeaderDropdown()"></i>*@
     </div>
 </div>
-
-@*<div class="main-section-header-dropdown">
-        <div class="main-section-header-dropdown1">
-            <i class="fas fa-cloud-download-alt main-section-header-dropdown1-icon"></i>
-            <a href="" class="main-section-header-dropdown1-text">تمام کارمندان</a>
-        </div>
-        <div class="main-section-header-dropdown1">
-            <i class="fas fa-cloud-download-alt main-section-header-dropdown1-icon"></i>
-            <a href="" class="main-section-header-dropdown1-text">تمام مدیران</a>
-        </div>
-        <div class="main-section-header-dropdown1">
-            <i class="fas fa-cloud-download-alt main-section-header-dropdown1-icon"></i>
-            <a href="" class="main-section-header-dropdown1-text">تمام مدیران</a>
-        </div>
-    </div>*@
-
 
 
 <div class="main-section-body">
@@ -107,7 +89,7 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PcContractClause)
-                            
+
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PcIsActive)
@@ -122,12 +104,7 @@
                             {
                                 <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
                             }
-                            @if (!item.InversePcPcd.Any())
-                            {
-                                <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
-                                <a asp-action="Create" asp-controller="ProductCategoryFeature" asp-area="Crm" asp-route-id="@item.PcId">افزودن گروه فیلد</a><span>|</span>
-
-                            }
+                            <a asp-action="Create" asp-controller="ProductCategoryFeature" asp-area="Crm" asp-route-id="@item.PcId">افزودن گروه فیلد</a><span>|</span>
                             <a asp-action="Create" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">افزودن زیر دسته</a>
                         </td>
                     </tr>

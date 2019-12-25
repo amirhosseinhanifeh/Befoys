@@ -7,5 +7,6 @@ namespace BEFOYS.DataLayer.ViewModels.Product
     public class ViewProduct
     {
         public string Product_Name { get; set; }
+        
     }
 }

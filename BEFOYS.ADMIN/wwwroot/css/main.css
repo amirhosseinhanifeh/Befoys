@@ -11,10 +11,13 @@
         margin: 0 auto;
         font-family: Yekan;
     }
-    
-    a {
-        text-decoration: none !important;
-    }
+#DateTable_filter{
+    text-align: left !important;
+}
+
+a {
+    text-decoration: none !important;
+}
     
     a:hover {
         text-decoration: none !important;
@@ -1379,7 +1382,106 @@
             overflow: hidden;
         }
     }
-    
+
+select {
+    /*width: 400px;*/
+    text-align-last: center !important;
+}select option {
+    /*width: 400px;*/
+    text-align-last: center !important;
+}
+
+#BrandsCountryReferenceId option {
+    text-align: center !important;
+}
+
+.toggle {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-switch {
+    display: inline-block;
+    background: #ccc;
+    border-radius: 16px;
+    width: 50px;
+    height: 20px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+}
+
+    .toggle-switch:before, .toggle-switch:after {
+        content: "";
+    }
+
+    .toggle-switch:before {
+        display: block;
+        background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        right: -2px;
+        transition: left 0.25s;
+    }
+
+.toggle:hover .toggle-switch:before {
+    background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.toggle-checkbox:checked + .toggle-switch {
+    background: #1968ac;
+}
+
+    .toggle-checkbox:checked + .toggle-switch:before {
+        right: 32px;
+    }
+
+.toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.toggle-label {
+    margin-left: 8px;
+    position: relative;
+    top: 2px;
+}
+
+
+
+@media screen and ( max-width: 767px) {
+    #DateTable_filter {
+        text-align: center !important;
+    }
+        #DateTable_filter label {
+            width: 100% !important;
+        }
+    #DateTable_filter input {
+        width: 100% !important;
+    }
+
+    #DateTable_length label {
+        width: 100% !important;
+    }
+    #DateTable_length select {
+        width: 100% !important;
+    }
+
+    .pagination {
+        justify-content: center !important;
+        padding-right: 0 !important;
+    }
+}
+
     @media screen and ( max-width: 500px) {
         .message-box,
         .message-box-toggle,
@@ -1388,17 +1490,20 @@
             width: 240px;
         }
     }
-    
+
     @media screen and ( min-width: 992px) {
         .layout-header-hamburger-icon {
             display: none
         }
+
         .layout-header-title {
             display: block;
         }
+
         .layout-sidebar {
             right: 0;
         }
+
         .layout-header::before {
             width: 887px;
         }
@@ -1407,6 +1512,19 @@
             right: 0 !important;
         }
     }
+
+@media screen and ( min-width: 767px) {
+    #DateTable_paginate{
+        margin-top: 10px !important;
+    }
+    #DateTable_length label {
+        width: 165px !important;
+    }
+
+    #DateTable_length select {
+        width: 165px !important;
+    }
+}
     /* media  */
 
 

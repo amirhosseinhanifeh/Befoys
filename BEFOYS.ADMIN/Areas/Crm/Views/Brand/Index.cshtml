@@ -92,10 +92,44 @@
                                
                                 @Html.DisplayFor(modelItem => item.BrandsLogoDocumentId)
                             </td>*@
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.BrandsId })
+                            <td class="d-flex flex-row justify-content-start align-items-center">
+                                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.BrandsId })*@
+
+                                <button class="btn btn-danger btn-sm text-white layout-td-btn ml-1">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                                <button class="btn btn-warning btn-sm text-white layout-td-btn ml-1">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm text-white layout-td-btn ml-1">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+
+                                <div class="dropdown show d-flex flex-column align-items-center">
+                                    @*<a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+                                    <a class="btn btn-sm btn-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-stream"></i>
+                                    </a>
+                                    @*</a>*@
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item text-right" href="#">
+                                            <i class="fas fa-teeth"></i>
+                                            <span class="text-secondary">سلام</span>
+                                        </a>
+                                        <a class="dropdown-item text-right" href="#">
+                                            <i class="fas fa-teeth"></i>
+                                            <span class="text-secondary">سلام</span>
+                                        </a>
+                                        <a class="dropdown-item text-right" href="#">
+                                            <i class="fas fa-teeth"></i>
+                                            <span class="text-secondary">سلام</span>
+                                        </a>
+                                    </div>
+                                </div>
+
                             </td>
                         </tr>
                     }

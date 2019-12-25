@@ -31,6 +31,23 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
             }
             return View(await _context.TblProduct.ToListAsync());
         }
+        public async Task<IActionResult> Category()
+        {
+
+            return View(await _context.TblProductCategory.Include(x => x.InversePcPcd).Where(x => x.PcPcdid == null).Select(x => new SelectListItem
+            {
+                Value = x.PcId.ToString(),
+                Text = x.PcName
+            }).ToListAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetSubCategory(int? CategoryID)
+        {
+            return Json(await _context.TblProductCategory.Include(x => x.InversePcPcd).Where(x => x.PcPcdid == CategoryID).Select(x=>new SelectListItem { 
+            Value=x.PcId.ToString(),
+            Text=x.PcName
+            }).ToListAsync());
+        }
         public IActionResult Create()
         {
             ViewBag.Brands = _context.TblBrands

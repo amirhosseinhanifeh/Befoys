@@ -29,10 +29,10 @@
             <div id="category" class="form-group">
 
             </div>
-            
-           <div id="customfields">
 
-           </div>
+            <div id="customfields">
+
+            </div>
             <div class="form-group">
                 برچسب ها
                 <input name="tags" class="form-control" />
@@ -49,66 +49,84 @@
 </div>
 @section Scripts{
     <script>
+        var cats = [];
         $(document).ready(function () {
 
             loadcategories();
             loadcustomfields();
-    });
-    function loadcategories(id,elem) {
 
+        });
+
+        function loadcategories(id, elem) {
+            cats = [];
+            $("select[name=ProductPcid]").each(function () {
+                if ($(this).val() != 0) {
+                    cats.push($(this).val());
+                }
+            });
     $.ajax({
             url: "@Url.Content("~/Crm/ProductCategory/GetCategory")",
             data: {
                 id: id
             },
             method: "GET"
-
-            }).done(function (Result) {
+    }).done(function (Result) {
+        if (Result != null) {
                     console.log(Result);
-                    if (Result.options.length != 0) {
-                        CreateCategories(Result,elem);
-                    }
-                });
+            if (Result.options.length != 0) {
+                CreateCategories(Result, elem);
+            }
+                }
+                loadcustomfields(cats);
+            });
+
 
     }
 
+        var index = 2;
+        function CreateCategories(ss, elem) {
 
-    function CreateCategories(ss,elem) {
+            if ($(elem).find(":selected").text() === 'لطفا انتخاب نمایید') {
+                alert('sdf')
+                $( `input:select[value='${index++}']` )
+            }
 
-        for (var i = ($(elem).index()); i <= $("select[name=ProductPcid]").last().index(); i++) {
-        
-            $("select[name=ProductPcid][index=" + i + "]").remove();
-        
-        }
-        
+        $(elem).find("option:selected").click(function () {
+
+        });
         var categoryIndex = $("select[name=ProductPcid]").last().index();
         
-        var category = $("<select></select>").attr({ "name": "ProductPcid", "index": (categoryIndex), "isMain": (categoryIndex == -1 ? true : false),"onchange": "loadcategories(this.value,this)"  }).addClass("form-control").append($("<option></option>").text("لطفا انتخاب نمایید").val(0));
-
-        if($(elem).index()==)
-
+        //index++
+        var category = $("<select></select>").attr({
+            "name": index++,
+            "index": (categoryIndex),
+            "isMain": (categoryIndex == -1 ? true : false),
+            "onchange": "loadcategories(this.value,this)"
+        }).addClass("form-control").append($("<option></option>").text("لطفا انتخاب نمایید").val(0));
+        index ++
 
         $.each(ss.options, function (key, value) {
-        
+
             category.append($("<option></option>").val(value.pcId).text(value.pcName));
-        
+
         });
-        
+
         $("#category").append(category);
         }
         function loadcustomfields(item) {
+            $("#customfields").html("");
                 $.ajax({
             url: "@Url.Content("~/Crm/ProductFeatureGroup/GetGroupFields")",
             data: {
-                CategoryId: item
+                cats: item
             },
-            method: "GET"
+            method: "POST"
 
                 }).done(function (Result) {
                     $("#customfields").html(Result);
                 });
 
     }
-       
+
     </script>
 }

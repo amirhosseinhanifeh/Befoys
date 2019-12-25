@@ -1,6 +1,6 @@
 ﻿@model BEFOYS.DataLayer.Model.TblBrands
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{ 
+@{
     var countries = ViewBag.Country as List<SelectListItem>;
 }
 
@@ -13,14 +13,15 @@
             <input asp-for="BrandsName" class="form-control text-center" />
             <span asp-validation-for="BrandsName" class="text-danger"></span>
         </div>
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="BrandsIsVerify" /> تایید شده
+            <label class="toggle">
+                <input class="toggle-checkbox" id="blabla" type="checkbox">
+                <div class="toggle-switch"></div>
+                <span class="toggle-label">تایید شده</span>
             </label>
-        </div>
+        @*</div>*@
         <div class="form-group">
             <label class="control-label">مرجع برند</label>
-            <select asp-for="BrandsCountryReferenceId" class="form-control  text-center" asp-items="countries" ></select>
+            <select asp-for="BrandsCountryReferenceId" class="form-control text-center" asp-items="countries"></select>
             <span asp-validation-for="BrandsCountryReference" class="text-danger"></span>
         </div>
 
