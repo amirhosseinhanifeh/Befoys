@@ -1395,6 +1395,11 @@ select {
     text-align: center !important;
 }
 
+/*.close:hover {
+    opacity: 1 !important;
+    color: #1961ac !important;
+}*/
+
 .toggle {
     cursor: pointer;
     width: 100%;
