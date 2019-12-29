@@ -53,7 +53,7 @@ namespace BEFOYS.WEB.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TblProductCategory>>> Get()
         {
-            return await _context.TblProductCategory.Include(x=>x.InversePcPcd).Where(x=>x.PcPcdid==null).ToListAsync();
+            return await _context.TblProductCategory.Include(x=>x.InversePcPc).Where(x=>x.PcPcid==null).ToListAsync();
         }
         public void Dispose()
         {

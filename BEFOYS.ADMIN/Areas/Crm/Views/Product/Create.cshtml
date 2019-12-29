@@ -1,132 +1,48 @@
-﻿@model BEFOYS.DataLayer.Model.TblProduct
-@using BEFOYS.DataLayer.Model
+﻿@*@model BEFOYS.DataLayer.Model.TblProductCategory*@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var Brands = ViewBag.Brands as List<SelectListItem>;
-}
 
-<h1>Create</h1>
 
-<h4>TblProduct</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="modal-main">
+    @*<form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="PcPcid" class="control-label"></label>
+            <input asp-for="PcPcid" class="form-control" value="@ViewBag.ID" />
+            <span asp-validation-for="PcPcid" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PcDisplay" class="control-label"></label>
+            <input asp-for="PcDisplay" class="form-control" />
+            <span asp-validation-for="PcDisplay" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PcName" class="control-label"></label>
+            <input asp-for="PcName" class="form-control" />
+            <span asp-validation-for="PcName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PcCommission" class="control-label"></label>
+            <input asp-for="PcCommission" class="form-control" />
+            <span asp-validation-for="PcCommission" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PcContractClause" class="control-label"></label>
+            <input asp-for="PcContractClause" class="form-control" />
+            <span asp-validation-for="PcContractClause" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="PcIsBase" /> @Html.DisplayNameFor(model => model.PcIsBase)
+            </label>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="PcIsActive" /> @Html.DisplayNameFor(model => model.PcIsActive)
+            </label>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="ProductBrandsId" class="control-label"></label>
-                <select asp-for="ProductBrandsId" class="form-control" asp-items="Brands"></select>
-                <span asp-validation-for="ProductBrandsId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div id="category" class="form-group">
+        <input type="submit" value="Create" class="btn btn-block btn-primary" />
 
-            </div>
-
-            <div id="customfields">
-
-            </div>
-            <div class="form-group">
-                برچسب ها
-                <input name="tags" class="form-control" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+    </form>*@
+    Hello!
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-@section Scripts{
-    <script>
-        var cats = [];
-        $(document).ready(function () {
-
-            loadcategories();
-            loadcustomfields();
-
-        });
-
-        function loadcategories(id, elem) {
-            cats = [];
-            $("select[name=ProductPcid]").each(function () {
-                if ($(this).val() != 0) {
-                    cats.push($(this).val());
-                }
-            });
-    $.ajax({
-            url: "@Url.Content("~/Crm/ProductCategory/GetCategory")",
-            data: {
-                id: id
-            },
-            method: "GET"
-    }).done(function (Result) {
-        if (Result != null) {
-                    console.log(Result);
-            if (Result.options.length != 0) {
-                CreateCategories(Result, elem);
-            }
-                }
-                loadcustomfields(cats);
-            });
-
-
-    }
-
-        var index = 2;
-        function CreateCategories(ss, elem) {
-
-            if ($(elem).find(":selected").text() === 'لطفا انتخاب نمایید') {
-                alert('sdf')
-                $( `input:select[value='${index++}']` )
-            }
-
-        $(elem).find("option:selected").click(function () {
-
-        });
-        var categoryIndex = $("select[name=ProductPcid]").last().index();
-        
-        //index++
-        var category = $("<select></select>").attr({
-            "name": index++,
-            "index": (categoryIndex),
-            "isMain": (categoryIndex == -1 ? true : false),
-            "onchange": "loadcategories(this.value,this)"
-        }).addClass("form-control").append($("<option></option>").text("لطفا انتخاب نمایید").val(0));
-        index ++
-
-        $.each(ss.options, function (key, value) {
-
-            category.append($("<option></option>").val(value.pcId).text(value.pcName));
-
-        });
-
-        $("#category").append(category);
-        }
-        function loadcustomfields(item) {
-            $("#customfields").html("");
-                $.ajax({
-            url: "@Url.Content("~/Crm/ProductFeatureGroup/GetGroupFields")",
-            data: {
-                cats: item
-            },
-            method: "POST"
-
-                }).done(function (Result) {
-                    $("#customfields").html(Result);
-                });
-
-    }
-
-    </script>
-}

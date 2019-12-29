@@ -13,6 +13,7 @@ namespace BEFOYS.DataLayer.ServiceContext
         {
            
         }
+
         public virtual DbSet<TblAddress> TblAddress { get; set; }
         public virtual DbSet<TblAreaCode> TblAreaCode { get; set; }
         public virtual DbSet<TblBrands> TblBrands { get; set; }
@@ -620,7 +621,6 @@ namespace BEFOYS.DataLayer.ServiceContext
                 entity.HasOne(d => d.PhoneAddress)
                     .WithMany(p => p.TblPhone)
                     .HasForeignKey(d => d.PhoneAddressId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_Phone_Tbl_Address");
 
                 entity.HasOne(d => d.PhoneAreaCode)
@@ -667,9 +667,9 @@ namespace BEFOYS.DataLayer.ServiceContext
             {
                 entity.Property(e => e.PcGuid).HasDefaultValueSql("(newid())");
 
-                entity.HasOne(d => d.PcPcd)
-                    .WithMany(p => p.InversePcPcd)
-                    .HasForeignKey(d => d.PcPcdid)
+                entity.HasOne(d => d.PcPc)
+                    .WithMany(p => p.InversePcPc)
+                    .HasForeignKey(d => d.PcPcid)
                     .HasConstraintName("FK_Tbl_ProductCategory_Tbl_ProductCategory");
             });
 
@@ -740,6 +740,11 @@ namespace BEFOYS.DataLayer.ServiceContext
                     .HasForeignKey(d => d.PcOrganizationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Tbl_ProductCode_Tbl_Organization");
+
+                entity.HasOne(d => d.PcPcolors)
+                    .WithMany(p => p.TblProductCode)
+                    .HasForeignKey(d => d.PcPcolorsId)
+                    .HasConstraintName("FK_Tbl_ProductCode_Tbl_Colors");
 
                 entity.HasOne(d => d.PcProduct)
                     .WithMany(p => p.TblProductCode)

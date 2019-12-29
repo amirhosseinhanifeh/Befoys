@@ -10,7 +10,7 @@ namespace BEFOYS.DataLayer.Model
     {
         public TblProductCategory()
         {
-            InversePcPcd = new HashSet<TblProductCategory>();
+            InversePcPc = new HashSet<TblProductCategory>();
             TblOrganizationProductCategory = new HashSet<TblOrganizationProductCategory>();
             TblProduct = new HashSet<TblProduct>();
             TblProductCategoryDocument = new HashSet<TblProductCategoryDocument>();
@@ -23,8 +23,8 @@ namespace BEFOYS.DataLayer.Model
         public int PcId { get; set; }
         [Column("PC_Guid")]
         public Guid PcGuid { get; set; }
-        [Column("PC_PCDID")]
-        public int? PcPcdid { get; set; }
+        [Column("PC_PCID")]
+        public int? PcPcid { get; set; }
         [Required]
         [Column("PC_Display")]
         [StringLength(50)]
@@ -42,11 +42,11 @@ namespace BEFOYS.DataLayer.Model
         [Column("PC_IsActive")]
         public bool PcIsActive { get; set; }
 
-        [ForeignKey(nameof(PcPcdid))]
-        [InverseProperty(nameof(TblProductCategory.InversePcPcd))]
-        public virtual TblProductCategory PcPcd { get; set; }
-        [InverseProperty(nameof(TblProductCategory.PcPcd))]
-        public virtual ICollection<TblProductCategory> InversePcPcd { get; set; }
+        [ForeignKey(nameof(PcPcid))]
+        [InverseProperty(nameof(TblProductCategory.InversePcPc))]
+        public virtual TblProductCategory PcPc { get; set; }
+        [InverseProperty(nameof(TblProductCategory.PcPc))]
+        public virtual ICollection<TblProductCategory> InversePcPc { get; set; }
         [InverseProperty("OpcPc")]
         public virtual ICollection<TblOrganizationProductCategory> TblOrganizationProductCategory { get; set; }
         [InverseProperty("ProductPc")]

@@ -10,6 +10,7 @@ namespace BEFOYS.DataLayer.Model
     {
         public TblColors()
         {
+            TblProductCode = new HashSet<TblProductCode>();
             TblProductColors = new HashSet<TblProductColors>();
             TblProductOrganizationQuantity = new HashSet<TblProductOrganizationQuantity>();
         }
@@ -38,6 +39,8 @@ namespace BEFOYS.DataLayer.Model
         [ForeignKey(nameof(ColorsTypeCodeId))]
         [InverseProperty(nameof(TblCode.TblColors))]
         public virtual TblCode ColorsTypeCode { get; set; }
+        [InverseProperty("PcPcolors")]
+        public virtual ICollection<TblProductCode> TblProductCode { get; set; }
         [InverseProperty("PcColors")]
         public virtual ICollection<TblProductColors> TblProductColors { get; set; }
         [InverseProperty("PoqColor")]
