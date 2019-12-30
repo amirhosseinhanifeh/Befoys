@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Styles{
+    <style>
+        nav-tabs .nav-link {
+            border-radius:0px !important;
+        }
+    </style>
+
+}
+
+
+
+<div class="main-section-header">
+    <div class="main-section-header-descs">
+        <h5 class="main-section-header-title">برند ها</h5>
+        <p class="main-section-header-subtitle"><br /></p>
+    </div>
+    <div class="main-section-header-icons">
+
+    </div>
+</div>
+
+
+
+<div class="main-section-body" style="padding:0px;">
+    <div class="" style="width:100%; height:auto; ">
+        <ul class="nav nav-tabs nav-justified" style="padding-right:0px">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">Menu 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane container active" id="home">..1.</div>
+            <div class="tab-pane container fade" id="menu1">...</div>
+            <div class="tab-pane container fade" id="menu2">...</div>
+        </div>
+
+    </div>
+</div>
