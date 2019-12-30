@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BEFOYS.ADMIN.Models;
 using BEFOYS.Common.AppUser;
 using BEFOYS.DataLayer.Model;
 using BEFOYS.DataLayer.ServiceContext;
@@ -57,18 +58,25 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
             return PartialView();
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int[] id)
         {
-            ViewBag.Brands = _context.TblBrands
-                .Select(x => new SelectListItem { Value = x.BrandsId.ToString(), Text = x.BrandsName }).ToList();
-            return View();
+            string token = Request.Cookies["token"];
+
+            ViewBag.Brands = _context.TblBrands.Select(x => new SelectListItem { Value = x.BrandsId.ToString(), Text = x.BrandsName }).ToList();
+
+            Model_ProductCreate model = new Model_ProductCreate
+            {
+                CategoryId = id.Last()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TblProduct model)
+        public async Task<IActionResult> Create(Model_ProductCreate model)
         {
-            _context.TblProduct.Add(model);
-            await _context.SaveChangesAsync();
+            //_context.TblProduct.Add(model);
+            //await _context.SaveChangesAsync();
 
             return View();
         }

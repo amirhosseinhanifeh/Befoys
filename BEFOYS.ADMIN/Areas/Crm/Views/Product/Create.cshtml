@@ -1,48 +1,77 @@
-﻿@*@model BEFOYS.DataLayer.Model.TblProductCategory*@
+﻿@model BEFOYS.ADMIN.Models.Model_ProductCreate
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@{
+    ViewData["Title"] = "افزودن محصول";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Brands = ViewBag.Brands as List<SelectListItem>;
+}
 
 <div class="modal-main">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="CategoryId" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="BrandId" class="control-label"></label>
+                    <select asp-for="BrandId" class="form-control" asp-items="Brands"></select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div id="customfields"></div>
+                <div class="form-group">
+                    برچسب ها
+                    <input name="tags" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
     @*<form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="PcPcid" class="control-label"></label>
-            <input asp-for="PcPcid" class="form-control" value="@ViewBag.ID" />
-            <span asp-validation-for="PcPcid" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PcDisplay" class="control-label"></label>
-            <input asp-for="PcDisplay" class="form-control" />
-            <span asp-validation-for="PcDisplay" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PcName" class="control-label"></label>
-            <input asp-for="PcName" class="form-control" />
-            <span asp-validation-for="PcName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PcCommission" class="control-label"></label>
-            <input asp-for="PcCommission" class="form-control" />
-            <span asp-validation-for="PcCommission" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PcContractClause" class="control-label"></label>
-            <input asp-for="PcContractClause" class="form-control" />
-            <span asp-validation-for="PcContractClause" class="text-danger"></span>
-        </div>
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="PcIsBase" /> @Html.DisplayNameFor(model => model.PcIsBase)
-            </label>
-        </div>
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="PcIsActive" /> @Html.DisplayNameFor(model => model.PcIsActive)
-            </label>
-        </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PcPcid" class="control-label"></label>
+                <input asp-for="PcPcid" class="form-control" value="@ViewBag.ID" />
+                <span asp-validation-for="PcPcid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PcDisplay" class="control-label"></label>
+                <input asp-for="PcDisplay" class="form-control" />
+                <span asp-validation-for="PcDisplay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PcName" class="control-label"></label>
+                <input asp-for="PcName" class="form-control" />
+                <span asp-validation-for="PcName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PcCommission" class="control-label"></label>
+                <input asp-for="PcCommission" class="form-control" />
+                <span asp-validation-for="PcCommission" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PcContractClause" class="control-label"></label>
+                <input asp-for="PcContractClause" class="form-control" />
+                <span asp-validation-for="PcContractClause" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PcIsBase" /> @Html.DisplayNameFor(model => model.PcIsBase)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PcIsActive" /> @Html.DisplayNameFor(model => model.PcIsActive)
+                </label>
+            </div>
 
-        <input type="submit" value="Create" class="btn btn-block btn-primary" />
+            <input type="submit" value="Create" class="btn btn-block btn-primary" />
 
-    </form>*@
-    Hello!
+        </form>*@
 </div>
