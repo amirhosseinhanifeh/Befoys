@@ -28,6 +28,9 @@ namespace BEFOYS.DataLayer.Model
         [ForeignKey(nameof(PcOrganizationId))]
         [InverseProperty(nameof(TblOrganization.TblProductCode))]
         public virtual TblOrganization PcOrganization { get; set; }
+        [ForeignKey(nameof(PcPcolorsId))]
+        [InverseProperty(nameof(TblColors.TblProductCode))]
+        public virtual TblColors PcPcolors { get; set; }
         [ForeignKey(nameof(PcProductId))]
         [InverseProperty(nameof(TblProduct.TblProductCode))]
         public virtual TblProduct PcProduct { get; set; }

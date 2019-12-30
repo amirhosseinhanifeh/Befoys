@@ -160,15 +160,16 @@
 
         function Create() {
             $.ajax({
-                url: "@Url.Content("~/Crm/ProductCategory/Create")",
+                url: "@Url.Content("~/Crm/Product/SelectCategory")",
                 type: "Get",
                 data: {}
             }).done(function (result) {
                 $('#myModal').modal('show');
-                $('#myModalLabel').html('افزودن دسته بندی');
+                $('#myModalLabel').html('افزودن محصول');
                 $('#myModalBody').html(result);
             });
         }
+
     </script>
 
 }

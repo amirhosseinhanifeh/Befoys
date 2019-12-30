@@ -29,7 +29,7 @@
         @if (Category != null)
         {
             <p class="main-section-header-subtitle">
-                زیر دسته برای <a href="@Url.Action("Index",new {id=Category.PcPcdid })">@Category.PcName </a>
+                زیر دسته برای <a href="@Url.Action("Index",new {id=Category.PcPcid })">@Category.PcName </a>
             </p>
         }
         else
@@ -100,7 +100,7 @@
                             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
 
 
-                            @if (item.InversePcPcd.Any())
+                            @if (item.InversePcPc.Any())
                             {
                                 <a asp-action="Index" asp-controller="ProductCategory" asp-area="Crm" asp-route-id="@item.PcId">زیر دسته ها</a><span>|</span>
                             }

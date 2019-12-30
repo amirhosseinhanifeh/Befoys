@@ -22,47 +22,57 @@ namespace BEFOYS.ADMIN.Areas.Crm.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? PCID=null)
+        public async Task<IActionResult> Index(int? PCID = null)
         {
-            if(PCID.HasValue)
+            if (PCID.HasValue)
             {
-                return View(await _context.TblProduct.Where(x=>x.ProductPcid== PCID).ToListAsync());
+                return View(await _context.TblProduct.Where(x => x.ProductPcid == PCID).ToListAsync());
 
             }
             return View(await _context.TblProduct.ToListAsync());
         }
+
         public async Task<IActionResult> Category()
         {
 
-            return View(await _context.TblProductCategory.Include(x => x.InversePcPcd).Where(x => x.PcPcdid == null).Select(x => new SelectListItem
+            return View(await _context.TblProductCategory.Include(x => x.InversePcPc).Where(x => x.PcPcid == null).Select(x => new SelectListItem
             {
                 Value = x.PcId.ToString(),
                 Text = x.PcName
             }).ToListAsync());
         }
+
         [HttpPost]
         public async Task<IActionResult> GetSubCategory(int? CategoryID)
         {
-            return Json(await _context.TblProductCategory.Include(x => x.InversePcPcd).Where(x => x.PcPcdid == CategoryID).Select(x=>new SelectListItem { 
-            Value=x.PcId.ToString(),
-            Text=x.PcName
+            return Json(await _context.TblProductCategory.Include(x => x.InversePcPc).Where(x => x.PcPcid == CategoryID).Select(x => new SelectListItem
+            {
+                Value = x.PcId.ToString(),
+                Text = x.PcName
             }).ToListAsync());
         }
+
+        public IActionResult SelectCategory()
+        {
+            return PartialView();
+        }
+
         public IActionResult Create()
         {
             ViewBag.Brands = _context.TblBrands
-                .Select(x=>new SelectListItem {Value=x.BrandsId.ToString(),Text=x.BrandsName }).ToList();
+                .Select(x => new SelectListItem { Value = x.BrandsId.ToString(), Text = x.BrandsName }).ToList();
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(TblProduct model)
         {
-            
             _context.TblProduct.Add(model);
             await _context.SaveChangesAsync();
 
             return View();
         }
+
         public async Task<IActionResult> Delete(int? id)
         {
             var data = _context.TblProduct.Find(id);
