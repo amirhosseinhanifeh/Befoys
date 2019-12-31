@@ -19,22 +19,24 @@ namespace BEFOYS.ADMIN.Controllers
         {
             _context = context;
         }
+
         public IActionResult Auth(string token)
         {
-            if(token==null)
+            if (token == null)
             {
                 return BadRequest();
             }
             return RedirectToAction("");
         }
+
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(TblLogin model)
         {
-            
             //var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             //identity.AddClaim(new Claim(ClaimTypes.Name, user.Ssn));
             //identity.AddClaim(new Claim(ClaimTypes.GivenName, user.FirstName));
@@ -47,6 +49,7 @@ namespace BEFOYS.ADMIN.Controllers
 
             //var principal = new ClaimsPrincipal(identity);
             //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
             return View();
         }
     }

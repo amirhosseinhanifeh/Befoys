@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BEFOYS.ADMIN.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using BEFOYS.Common.AppUser;
 
 namespace BEFOYS.ADMIN.Controllers
 {
@@ -18,8 +21,19 @@ namespace BEFOYS.ADMIN.Controllers
             _logger = logger;
         }
 
+        //[Authorize]
         public IActionResult Index()
         {
+            //var test = User.Identity.UserID();
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            //if (identity != null)
+            //{
+            //    IEnumerable<Claim> claims = identity.Claims;
+            //    // or
+            //    //string test = identity.FindFirst("ClaimName").Value;
+
+            //}
+
             return View();
         }
 
