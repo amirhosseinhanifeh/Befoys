@@ -43,10 +43,34 @@
         </ul>
 
         <!-- Tab panes -->
-        <div class="tab-content">
-            <div class="tab-pane container active" id="home">..1.</div>
-            <div class="tab-pane container fade" id="menu1">...</div>
-            <div class="tab-pane container fade" id="menu2">...</div>
+        <div class="tab-content" style="padding:15px">
+            <div class="tab-pane active" id="home" style="padding-bottom:10px">
+                <div class="card card-body" style="border-radius:0px;border:none">
+                    <div class="float-left setting-col-titel">
+                         <i class="fas fa-edit"></i>
+                        محل کتابخانه
+                    </div>
+
+                    <div class="float-right">
+                        <a href="@Url.Action("","",  new { })" class="btn btn-primary btn-sm text-white layout-td-btn ml-1">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="@Url.Action("","",  new { })" class="btn btn-primary btn-sm text-white layout-td-btn ml-1">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane active" id="home" style="padding-bottom:10px">
+                <div class="card card-body" style="border-radius:0px">
+
+                </div>
+            </div>
+            <div class="tab-pane active" id="home" style="padding-bottom:10px">
+                <div class="card card-body" style="border-radius:0px">
+
+                </div>
+            </div>
         </div>
 
     </div>
