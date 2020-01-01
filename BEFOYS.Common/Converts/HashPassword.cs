@@ -5,23 +5,23 @@ using System.Text;
 
 namespace BEFOYS.Common.Converts
 {
-   public class HashPassword
+   public class Password
     {
-        public static string HushPassword(string password)
+        public static void CreateHash(string password, out string hash, out string salt)
         {
-            var Salt = Guid.NewGuid().ToString("N");
-
-            var SaltPassword =password + Salt;
-            var SaltPasswordBytes = Encoding.UTF8.GetBytes(SaltPassword);
-            var SaltPasswordHush = Convert.ToBase64String(SHA512.Create().ComputeHash(SaltPasswordBytes));
-            return SaltPasswordHush;
+            salt = Guid.NewGuid().ToString("N");
+            var saltPassword = password + salt;
+            var saltPasswordBytes = Encoding.UTF8.GetBytes(saltPassword);
+            hash = Convert.ToBase64String(SHA512.Create().ComputeHash(saltPasswordBytes));
         }
-        public static string SaltPassword(string password)
-        {
-            var Salt = Guid.NewGuid().ToString("N");
 
-            var SaltPassword = password + Salt;
-            return SaltPassword;
+        public static bool CompareHash(string password, string salt, string hash)
+        {
+            var saltPassword = password + salt;
+            var saltPasswordBytes = Encoding.UTF8.GetBytes(saltPassword);
+            var saltPasswordHash = Convert.ToBase64String(SHA512.Create().ComputeHash(saltPasswordBytes));
+
+            return saltPasswordHash == hash ? true : false;
         }
     }
 }

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>admin login</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/adminLogin.css" />
+</head>
+
+<body>
+    <div class="admin-login-toaster">
+    </div>
+    <div class="admin-login">
+        <div class="admin-login-right">
+            <h4 class="admin-login-right-title">وارد شوید</h4>
+            <form name="adminLoginForm" class="form-group admin-login-right-form">
+                <div class="admin-login-right-email-box">
+                    <input name="UserName" type="email" placeholder="ایمیل" class="form-control admin-login-right-email" />
+                    <span class="admin-login-right-email-invalid text-danger"></span>
+                </div>
+                <div class="admin-login-right-password-box">
+                    <input name="Password" type="password" placeholder="رمز عبور" class="form-control admin-login-right-password" />
+                    <span class="admin-login-right-password-invalid text-danger"></span>
+                </div>
+                <div class="admin-login-right-submit-box">
+                    <button type="button" class="btn btn-primary admin-login-right-button" onclick="sendData()">ورود</button>
+                    <div class="spinner-block">
+                        <div class="spinner spinner-1"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="admin-login-left">
+            <img src="~/images/logo.svg" alt="befoys" class="admin-login-left-image" />
+        </div>
+    </div>
+
+    <script src="~/js/axios.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/adminLogin.js"></script>
+</body>
+
+</html>
