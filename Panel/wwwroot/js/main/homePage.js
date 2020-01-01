@@ -166,7 +166,25 @@ function phoneloginBegin() {
             handleRemoveTimer = false;
             startTimer();
             // ***
-        }).catch(err => console.log(err))
+        })
+            .catch(err => {
+
+                $('.landing-toaster-top').text('خطایی رخ داده')
+                $('.landing-toaster-top').css({
+                    backgroundColor: '#f44336'
+                })
+                $('.landing-toaster-top').animate({
+                    top: '0'
+                }, 400)
+                setTimeout(() => {
+                    $("#loginPhone").text("ورود");
+                    $("#loginPhone").prop("disabled", false);
+
+                    $('.landing-toaster-top').animate({
+                        top: '-150%'
+                    })
+                }, 3000)
+            })
 
     } else if ($('#phoneinput').val().length > 11 || $('#phoneinput').val().length < 11 &&
         $('#phoneinput').val().length > 0) {
@@ -255,6 +273,11 @@ function sendCodeHandler() {
     let phoneNumber = $('#phoneinput').val()
     let sendedCode = $('#phoneCodeSendInputBox').val()
 
+    let spinner = '<i class="fa fa-spinner fa-spin"></i>'
+    $('#sendCodeHandlerBtn').text('لطفا صبر کنید')
+    //$('#sendCodeHandlerBtn').html(spinner)
+    $('#sendCodeHandlerBtn').attr('disabled', true)
+
     if ($('#phoneCodeSendInputBox').val().length === 6) {
         axios.post('http://api.befoys.com/api/register/verify', {
             mobile: $('#phoneinput').val(),
@@ -262,6 +285,8 @@ function sendCodeHandler() {
         }).then(req => {
             if (req.data.token !== null) {
 
+                $('#sendCodeHandlerBtn').text('ورود')
+                $('#sendCodeHandlerBtn').attr('disabled', false)
                 //if ($('#phoneCodeSendInputBox').val().length === 6) {
                     document.cookie = "token=" + req.data.token;
                     $('#sendCodeTimer').css({ display: 'none' })
@@ -279,15 +304,68 @@ function sendCodeHandler() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center'
+                    });
+
+                $('.landing-toaster-top').text('خوش آمدید')
+                $('.landing-toaster-top').css({
+                    backgroundColor: '#1961ac'
+                })
+                $('.landing-toaster-top').animate({
+                    top: '0'
+                },400)
+                setTimeout(() => {
+                    $('.landing-toaster-top').animate({
+                        top: '-150%'
                     })
+                },3000)
                 //} 
             } else {
+
+                $('#sendCodeHandlerBtn').text('ورود')
+                $('#sendCodeHandlerBtn').attr('disabled', false)
+
                 $('#phoneCodeSendinputInvalid').fadeIn()
                 $('#phoneCodeSendinputInvalid').text('کد نامعتبر است')
+
+
+                $('.landing-toaster-top').text('کد نامعتبر است')
+                $('.landing-toaster-top').css({
+                    backgroundColor: 'f36f32'
+                })
+                $('.landing-toaster-top').animate({
+                    top: '0'
+                },400)
+                setTimeout(() => {
+                    $('.landing-toaster-top').animate({
+                        top: '-150%'
+                    })
+                }, 3000)
             }
             console.log(req.data.token)
         })
+            .catch(err => {
+
+                 $('.landing-toaster-top').text('خطایی رخ داده')
+                $('.landing-toaster-top').css({
+                    backgroundColor: '#f44336'
+                })
+                $('.landing-toaster-top').animate({
+                    top: '0'
+                }, 400)
+                setTimeout(() => {
+                    $('#sendCodeHandlerBtn').text('ورود')
+                    $('#sendCodeHandlerBtn').attr('disabled', false)
+
+                    $('.landing-toaster-top').animate({
+                        top: '-150%'
+                    })
+                }, 3000)
+            })
     } else {
+
+        $('#sendCodeHandlerBtn').text('ورود')
+        $('#sendCodeHandlerBtn').attr('disabled', false)
+
         $('#phoneCodeSendinputInvalid').fadeIn()
         $('#phoneCodeSendinputInvalid').text('کد ۶ رقمی را وراد کنید')
     }
